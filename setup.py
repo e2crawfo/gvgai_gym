@@ -43,4 +43,4 @@ setup(name='gym_gvgai',
 
 #Make sure a git pull doesn't result in weird error where java isn't rebuilt
 #so the compiled code doesnt match the source code.
-# Solution: Git hook -> post-merge -> delete build directory
+#Solution: Git hook -> post-merge -> delete build directory
