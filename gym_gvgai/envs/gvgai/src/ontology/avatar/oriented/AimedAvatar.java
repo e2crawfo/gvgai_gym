@@ -86,18 +86,18 @@ public class AimedAvatar extends ShootAvatar
 
     private void aim()
     {
-    	double angle = 0.0;
-    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
-    	{
-    		angle = -angle_diff;
-    	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN)
-    	{
-    		angle = angle_diff;
-    	}
-    	double new_x_angle = this.orientation.x()*Math.cos(angle)-this.orientation.y()*Math.sin(angle);
-    	double new_y_angle = this.orientation.x()*Math.sin(angle)+this.orientation.y()*Math.cos(angle);
-    	this.orientation = new Direction(new_x_angle,new_y_angle);
+        double angle = 0.0;
+        if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
+        {
+            angle = -angle_diff;
+        }
+        else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN)
+        {
+            angle = angle_diff;
+        }
+        double new_x_angle = this.orientation.x()*Math.cos(angle)-this.orientation.y()*Math.sin(angle);
+        double new_y_angle = this.orientation.x()*Math.sin(angle)+this.orientation.y()*Math.cos(angle);
+        this.orientation = new Direction(new_x_angle,new_y_angle);
 
         this._updateRotation(Math.atan2(this.orientation.y(),this.orientation.x()));
     }

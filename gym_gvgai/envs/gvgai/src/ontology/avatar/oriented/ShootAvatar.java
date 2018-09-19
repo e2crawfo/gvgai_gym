@@ -168,10 +168,10 @@ public class ShootAvatar extends OrientedAvatar
 
     @Override
     public ArrayList<String> getDependentSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<String>();
         if(ammo != null) result.addAll(Arrays.asList(ammos));
-    	if(stype != null) result.addAll(Arrays.asList(stypes));
-    	
-    	return result;
+        if(stype != null) result.addAll(Arrays.asList(stypes));
+        
+        return result;
     }
 }

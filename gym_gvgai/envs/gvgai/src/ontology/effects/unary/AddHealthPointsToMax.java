@@ -28,11 +28,11 @@ public class AddHealthPointsToMax extends Effect
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game)
     {
-	if(sprite1 == null){
-	    Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with AddHealthPointsToMax interaction."));
-	    return;
-	}
-	
+    if(sprite1 == null){
+        Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with AddHealthPointsToMax interaction."));
+        return;
+    }
+    
         applyScore = true;
         if(sprite1.healthPoints + value < sprite1.limitHealthPoints) {
             sprite1.healthPoints += value;

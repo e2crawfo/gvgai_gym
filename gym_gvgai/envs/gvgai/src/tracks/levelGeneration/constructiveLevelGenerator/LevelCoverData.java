@@ -6,24 +6,24 @@ package tracks.levelGeneration.constructiveLevelGenerator;
  * @author AhmedKhalifa
  */
 public class LevelCoverData {
-	/**
-	 * the percentage of the covered level
-	 */
-	public double levelPercentage;
-	/**
-	 * the percentage of solid objects
-	 */
-	public double solidPercentage;
-	/**
-	 * the percentage of harmful objects
-	 */
-	public double harmfulPercentage;
-	/**
-	 * the percentage of collectable objects
-	 */
-	public double collectablePercentage;
-	/**
-	 * the percentage of other objects
-	 */
-	public double otherPercentage;
+    /**
+     * the percentage of the covered level
+     */
+    public double levelPercentage;
+    /**
+     * the percentage of solid objects
+     */
+    public double solidPercentage;
+    /**
+     * the percentage of harmful objects
+     */
+    public double harmfulPercentage;
+    /**
+     * the percentage of collectable objects
+     */
+    public double collectablePercentage;
+    /**
+     * the percentage of other objects
+     */
+    public double otherPercentage;
 }

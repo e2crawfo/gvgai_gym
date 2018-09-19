@@ -90,9 +90,9 @@ public class Spreader extends Flicker
 
     @Override
     public ArrayList<String> getDependentSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
-    	if(stype != null) result.add(stype);
-    	
-    	return result;
+        ArrayList<String> result = new ArrayList<String>();
+        if(stype != null) result.add(stype);
+        
+        return result;
     }
 }

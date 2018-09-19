@@ -295,18 +295,18 @@ public class VGDLFactory
         }catch (NoSuchMethodException e)
         {
             String message = "Error creating effect " + content.function + " between "
-            		+ content.object1 + " and ";
+                    + content.object1 + " and ";
             for(String obj : content.object2) {
-            	message += obj + " ";
+                message += obj + " ";
             }
             message += "\n** Line: " + content.lineNumber + " ** " + content.line;
             throw new Exception(message);
         }catch (Exception e)
         {
             String message = "Error creating effect " + content.function + " between "
-            		+ content.object1 + " and ";
+                    + content.object1 + " and ";
             for(String obj : content.object2) {
-            	message += obj + " ";
+                message += obj + " ";
             }
             message += "\n** Line: " + content.lineNumber + " ** " + content.line;
             throw new Exception(message);

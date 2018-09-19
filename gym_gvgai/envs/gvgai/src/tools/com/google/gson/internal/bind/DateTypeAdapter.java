@@ -69,7 +69,7 @@ public final class DateTypeAdapter extends TypeAdapter<Date> {
     } catch (ParseException ignored) {
     }
     try {
-    	return ISO8601Utils.parse(json, new ParsePosition(0));
+        return ISO8601Utils.parse(json, new ParsePosition(0));
     } catch (ParseException e) {
       throw new JsonSyntaxException(json, e);
     }

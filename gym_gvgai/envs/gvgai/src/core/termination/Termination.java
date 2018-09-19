@@ -85,6 +85,6 @@ public abstract class Termination {
      * @return all termination condition sprites
      */
     public ArrayList<String> getTerminationSprites(){
-    	return new ArrayList<String>();
+        return new ArrayList<String>();
     }
 }

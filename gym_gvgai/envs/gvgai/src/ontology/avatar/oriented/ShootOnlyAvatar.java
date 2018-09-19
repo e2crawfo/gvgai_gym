@@ -99,8 +99,8 @@ public class ShootOnlyAvatar extends ShootAvatar
 
     @Override
     public ArrayList<String> getDependentSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
-    	
-    	return result;
+        ArrayList<String> result = new ArrayList<String>();
+        
+        return result;
     }
 }

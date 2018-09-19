@@ -45,9 +45,9 @@ public class WalkerJumper extends Walker
 
     public void update(Game game)
     {
-    	super.updatePassive();
-    	
-    	if (on_ground && this.probability > Math.random())
+        super.updatePassive();
+        
+        if (on_ground && this.probability > Math.random())
         {
             Direction dd = new Direction(0,-this.jump_strength);
             this.orientation = new Direction (this.orientation.x(),0.0);

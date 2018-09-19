@@ -31,11 +31,11 @@ public class TransformToRandomChild extends TransformTo {
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game)
     {
-	if(sprite1 == null){
-	    Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with TransformToRandomChild interaction."));
-	    return;
-	}
-	
+    if(sprite1 == null){
+        Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with TransformToRandomChild interaction."));
+        return;
+    }
+    
         ArrayList<Integer> subtypes = game.getSubTypes(itype);
         if (subtypes.size() > 1) {
             int[] types = new int[subtypes.size()-1];
@@ -46,21 +46,21 @@ public class TransformToRandomChild extends TransformTo {
                 }
             }
             try{
-        	VGDLSprite newSprite = game.addSprite(Utils.choice(types, game.getRandomGenerator()), sprite1.getPosition());
-        	transformTo(newSprite, sprite1, sprite2, game);
+            VGDLSprite newSprite = game.addSprite(Utils.choice(types, game.getRandomGenerator()), sprite1.getPosition());
+            transformTo(newSprite, sprite1, sprite2, game);
             }
             catch(Exception e){
-        	Logger.getInstance().addMessage(new Message(Message.WARNING, "Can't construct a parent node to the child " + stype + " sprite in TransformToRandomChild interaction."));
-        	return;
+            Logger.getInstance().addMessage(new Message(Message.WARNING, "Can't construct a parent node to the child " + stype + " sprite in TransformToRandomChild interaction."));
+            return;
             }
         }
     }
 
     @Override
     public ArrayList<String> getEffectSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
-    	if(stype!=null) result.add(stype);
-    	
-    	return result;
+        ArrayList<String> result = new ArrayList<String>();
+        if(stype!=null) result.add(stype);
+        
+        return result;
     }
 }

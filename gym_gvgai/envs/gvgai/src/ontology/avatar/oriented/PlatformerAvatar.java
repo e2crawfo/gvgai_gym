@@ -20,9 +20,9 @@ import tools.Vector2d;
  */
 public class PlatformerAvatar extends MovingAvatar
 {
-	public double ground_speedup_factor;
+    public double ground_speedup_factor;
     public double air_slowdown_factor;
-	
+    
     public PlatformerAvatar(){}
 
     public PlatformerAvatar(Vector2d position, Dimension size, SpriteContent cnt)
@@ -71,8 +71,8 @@ public class PlatformerAvatar extends MovingAvatar
         //Managing jumps
         if(Utils.processUseKey(getKeyHandler().getMask(), getPlayerID()) && on_ground) {
             Direction action = new Direction (0,-jump_strength);
-        	this.orientation = new Direction (this.orientation.x(),0.0);
-        	this.physics.activeMovement(this, action, this.speed);
+            this.orientation = new Direction (this.orientation.x(),0.0);
+            this.physics.activeMovement(this, action, this.speed);
             Direction temp = new Direction (0,-1);
             lastmove = cooldown; //need this to force this movement.
             this._updatePos(temp, 5);
@@ -81,7 +81,7 @@ public class PlatformerAvatar extends MovingAvatar
 
         //This at the end, needed for check on ground status in the next cycle.
         on_ground = false;
-        	
+            
     }
 
     public void postProcess()
@@ -100,15 +100,15 @@ public class PlatformerAvatar extends MovingAvatar
     public void applyMovement(Game game, Direction action)
     {
         //this.physics.passiveMovement(this);
-    	if (physicstype != 0)
-    		super.updatePassive();
-    	if (action.x()!=0.0 || action.y()!=0.0){
-    		Direction new_action = new Direction(action.x()*ground_speedup_factor, action.y());
-    		if (!on_ground){
-    			new_action = new Direction(action.x()/air_slowdown_factor, action.y());
-    		}
-    		lastMovementType = this.physics.activeMovement(this, new_action, speed);
-    	}
+        if (physicstype != 0)
+            super.updatePassive();
+        if (action.x()!=0.0 || action.y()!=0.0){
+            Direction new_action = new Direction(action.x()*ground_speedup_factor, action.y());
+            if (!on_ground){
+                new_action = new Direction(action.x()/air_slowdown_factor, action.y());
+            }
+            lastMovementType = this.physics.activeMovement(this, new_action, speed);
+        }
     }
 
 
@@ -121,7 +121,7 @@ public class PlatformerAvatar extends MovingAvatar
 
     public void copyTo(VGDLSprite target)
     {
-    	PlatformerAvatar targetSprite = (PlatformerAvatar) target;
+        PlatformerAvatar targetSprite = (PlatformerAvatar) target;
         targetSprite.air_slowdown_factor = this.air_slowdown_factor;
         targetSprite.ground_speedup_factor = this.ground_speedup_factor;
         super.copyTo(targetSprite);

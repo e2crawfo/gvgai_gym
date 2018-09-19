@@ -163,8 +163,8 @@ public abstract class Effect{
                 Vector2d s1Center = new Vector2d(o1.lastrect.getCenterX(), o1.lastrect.getCenterY());
                 Vector2d s2Center = new Vector2d(o2.lastrect.getCenterX(), o2.lastrect.getCenterY());
 
-                if(spCompareCenter.dist(s1Center) < spCompareCenter.dist(s2Center))  		return -1;
-                else if(spCompareCenter.dist(s1Center) > spCompareCenter.dist(s2Center))	return 1;
+                if(spCompareCenter.dist(s1Center) < spCompareCenter.dist(s2Center))         return -1;
+                else if(spCompareCenter.dist(s1Center) > spCompareCenter.dist(s2Center))    return 1;
                 return 0;
             }
         });
@@ -250,19 +250,19 @@ public abstract class Effect{
         }
     }
 
-    public int getCounterElse(int idx) {		
-    	String[] scores = counterElse.split(",");
-    	try{
-    	    return idx < scores.length ? Integer.parseInt(scores[idx]) : Integer.parseInt(scores[0]);	
-    	}
-    	catch(Exception e){
+    public int getCounterElse(int idx) {        
+        String[] scores = counterElse.split(",");
+        try{
+            return idx < scores.length ? Integer.parseInt(scores[idx]) : Integer.parseInt(scores[0]);   
+        }
+        catch(Exception e){
             Logger.getInstance().addMessage(new Message(Message.WARNING, "counterElse must be an integer number not " + counterElse + "."));
             return 0;
         }
     }
 
     public ArrayList<String> getEffectSprites(){
-    	return new ArrayList<String>();
+        return new ArrayList<String>();
     }
 
 

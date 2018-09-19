@@ -61,11 +61,11 @@ public class UCBOptimization implements OptimizationObjective {
      *            the current ucb equation to optimize
      */
     public UCBOptimization(String[] gamePaths, String[] levelPaths, int repetition, int evaluation, UCBEquation ucb) {
-	this.gamePaths = gamePaths;
-	this.levelPaths = levelPaths;
-	this.repetition = repetition;
-	this.numberOfEvaluation = evaluation;
-	tracks.singlePlayer.tools.ucbOptimizerAgent.Agent.ucb = ucb;
+    this.gamePaths = gamePaths;
+    this.levelPaths = levelPaths;
+    this.repetition = repetition;
+    this.numberOfEvaluation = evaluation;
+    tracks.singlePlayer.tools.ucbOptimizerAgent.Agent.ucb = ucb;
     }
 
     /**
@@ -73,7 +73,7 @@ public class UCBOptimization implements OptimizationObjective {
      */
     @Override
     public int getNumberOfParameters() {
-	return tracks.singlePlayer.tools.ucbOptimizerAgent.Agent.ucb.lengthParameters();
+    return tracks.singlePlayer.tools.ucbOptimizerAgent.Agent.ucb.lengthParameters();
     }
 
     /**
@@ -83,11 +83,11 @@ public class UCBOptimization implements OptimizationObjective {
      */
     @Override
     public int getNumberOfObjectives() {
-	return this.gamePaths.length;
+    return this.gamePaths.length;
     }
 
     private double sigmoid(double score, double width, double shift) {
-	return 1 / (1 + Math.exp(-4 * (score / width - shift)));
+    return 1 / (1 + Math.exp(-4 * (score / width - shift)));
     }
 
     /**
@@ -100,32 +100,32 @@ public class UCBOptimization implements OptimizationObjective {
      */
     @Override
     public double[] evaluate(double[] parameters) {
-	if (this.numberOfEvaluation <= 0) {
-	    return null;
-	}
-	this.numberOfEvaluation -= 1;
+    if (this.numberOfEvaluation <= 0) {
+        return null;
+    }
+    this.numberOfEvaluation -= 1;
 
-	tracks.singlePlayer.tools.ucbOptimizerAgent.Agent.parameters = parameters;
+    tracks.singlePlayer.tools.ucbOptimizerAgent.Agent.parameters = parameters;
 
-	double[] results = new double[this.getNumberOfObjectives()];
-	for (int i = 0; i < this.gamePaths.length; i++) {
-	    double totalWins = 0;
-	    double totalScore = 0;
-	    for (int j = 0; j < this.repetition; j++) {
-		double[] gameResults = null;
-		do {
-		    gameResults = ArcadeMachine.runOneGame(this.gamePaths[i], this.levelPaths[i], false,
-			    "tracks.singlePlayer.tools.ucbOptimizerAgent.Agent", null, new Random().nextInt(), 0);
-		} while (gameResults[0] < -10);
+    double[] results = new double[this.getNumberOfObjectives()];
+    for (int i = 0; i < this.gamePaths.length; i++) {
+        double totalWins = 0;
+        double totalScore = 0;
+        for (int j = 0; j < this.repetition; j++) {
+        double[] gameResults = null;
+        do {
+            gameResults = ArcadeMachine.runOneGame(this.gamePaths[i], this.levelPaths[i], false,
+                "tracks.singlePlayer.tools.ucbOptimizerAgent.Agent", null, new Random().nextInt(), 0);
+        } while (gameResults[0] < -10);
 
-		totalWins += Math.max(gameResults[0], 0);
-		totalScore += gameResults[1];
-	    }
-	    results[i] = (1 - SCORE_WIN) * (totalWins / this.repetition)
-		    + SCORE_WIN * this.sigmoid(totalScore / this.repetition, SIGMOID_WIDTH, SIGMOID_SHIFT);
-	}
+        totalWins += Math.max(gameResults[0], 0);
+        totalScore += gameResults[1];
+        }
+        results[i] = (1 - SCORE_WIN) * (totalWins / this.repetition)
+            + SCORE_WIN * this.sigmoid(totalScore / this.repetition, SIGMOID_WIDTH, SIGMOID_SHIFT);
+    }
 
-	return results;
+    return results;
     }
 
 }

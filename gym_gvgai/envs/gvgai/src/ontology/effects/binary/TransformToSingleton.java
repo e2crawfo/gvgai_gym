@@ -56,11 +56,11 @@ public class TransformToSingleton extends Effect {
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game)
     {
-	if(sprite1 == null || sprite2 == null){
-	    Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither the 1st nor 2nd sprite can be EOS with TransformToSingleton interaction."));
-	    return;
-	}
-	
+    if(sprite1 == null || sprite2 == null){
+        Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither the 1st nor 2nd sprite can be EOS with TransformToSingleton interaction."));
+        return;
+    }
+    
         //First, transform all sprites in the game to the itype_other type.
         // (in theory, there should be only 1 or none).
         Iterator<VGDLSprite> itSprites = game.getSpriteGroup(itype);
@@ -139,10 +139,10 @@ public class TransformToSingleton extends Effect {
 
     @Override
     public ArrayList<String> getEffectSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
-    	if(stype!=null) result.add(stype);
-    	if(stype_other!=null) result.add(stype_other);
-    	
-    	return result;
+        ArrayList<String> result = new ArrayList<String>();
+        if(stype!=null) result.add(stype);
+        if(stype_other!=null) result.add(stype_other);
+        
+        return result;
     }
 }

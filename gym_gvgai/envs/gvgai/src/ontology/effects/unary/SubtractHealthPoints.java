@@ -38,7 +38,7 @@ public class SubtractHealthPoints extends Effect
         if (!Objects.equals(stype, "")){
             itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype);
             if(itype == -1){
-        	throw new Exception("Undefined sprite " + stype);
+            throw new Exception("Undefined sprite " + stype);
             }
         }
         defScoreChange = scoreChange;
@@ -64,8 +64,8 @@ public class SubtractHealthPoints extends Effect
         }
         else{
             if(sprite1 == null){
-        	Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with SubtractHealthPoints interaction."));
-        	return;
+            Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with SubtractHealthPoints interaction."));
+            return;
             }
         }
         s.healthPoints -= value;

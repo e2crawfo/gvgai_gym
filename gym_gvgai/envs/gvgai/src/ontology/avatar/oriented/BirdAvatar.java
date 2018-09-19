@@ -19,7 +19,7 @@ import tools.Vector2d;
  */
 public class BirdAvatar extends OrientedAvatar
 {
-	
+    
     public BirdAvatar(){}
 
     public BirdAvatar(Vector2d position, Dimension size, SpriteContent cnt)
@@ -54,12 +54,12 @@ public class BirdAvatar extends OrientedAvatar
         Direction action2 = new Direction (0.0,0.0);
 
         if (Math.abs(this.orientation.x()) < 0.5)
-    		action2 = new Direction (1.0,0.0);
+            action2 = new Direction (1.0,0.0);
 
         if(Utils.processUseKey(getKeyHandler().getMask(), getPlayerID())) {
-        	Direction action = new Direction (0,-jump_strength);
-        	this.orientation = new Direction (this.orientation.x(),0.0);
-        	this.physics.activeMovement(this, action, this.speed);
+            Direction action = new Direction (0,-jump_strength);
+            this.orientation = new Direction (this.orientation.x(),0.0);
+            this.physics.activeMovement(this, action, this.speed);
         }
 
         this.physics.activeMovement(this, action2, this.speed);
@@ -88,7 +88,7 @@ public class BirdAvatar extends OrientedAvatar
 
     public void copyTo(VGDLSprite target)
     {
-    	BirdAvatar targetSprite = (BirdAvatar) target;
+        BirdAvatar targetSprite = (BirdAvatar) target;
         super.copyTo(targetSprite);
     }
 

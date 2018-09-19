@@ -28,11 +28,11 @@ public class SpawnBehind extends Effect {
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game)
     {
-	if(sprite2 == null){
-	    Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with SpawnBehind interaction."));
-	    return;
-	}
-	
+    if(sprite2 == null){
+        Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with SpawnBehind interaction."));
+        return;
+    }
+    
         if(game.getRandomGenerator().nextDouble() >= prob) return;
         Vector2d lastPos = sprite2.getLastPosition();
         if (lastPos != null) {
@@ -42,9 +42,9 @@ public class SpawnBehind extends Effect {
 
     @Override
     public ArrayList<String> getEffectSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
-    	if(stype!=null) result.add(stype);
-    	
-    	return result;
+        ArrayList<String> result = new ArrayList<String>();
+        if(stype!=null) result.add(stype);
+        
+        return result;
     }
 }

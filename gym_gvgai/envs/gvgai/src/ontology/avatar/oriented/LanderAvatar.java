@@ -57,36 +57,36 @@ public class LanderAvatar extends OrientedAvatar
 
     public void applyMovement(Game game, Direction action)
     {
-    	//this.physics.passiveMovement(this);
-    	if (physicstype != 0)
-    		super.updatePassive();
+        //this.physics.passiveMovement(this);
+        if (physicstype != 0)
+            super.updatePassive();
     }
 
 
     public void aim()
     {
-    	double angle = this.rotation;
+        double angle = this.rotation;
 
-    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DLEFT)
-    	{
-    		angle -= angle_diff;
-    	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DRIGHT)
-    	{
-    		angle += angle_diff;
-    	}
-    	this._updateRotation(angle);
+        if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DLEFT)
+        {
+            angle -= angle_diff;
+        }
+        else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DRIGHT)
+        {
+            angle += angle_diff;
+        }
+        this._updateRotation(angle);
     }
 
     public void move()
     {
-    	Direction facing = new Direction(0,0);
+        Direction facing = new Direction(0,0);
 
-    	if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
-    	{
-    		facing = new Direction(Math.cos(this.rotation), Math.sin(this.rotation));
-    		this.physics.activeMovement(this, facing, speed);
-    	}
+        if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
+        {
+            facing = new Direction(Math.cos(this.rotation), Math.sin(this.rotation));
+            this.physics.activeMovement(this, facing, speed);
+        }
     }
 
     public VGDLSprite copy()

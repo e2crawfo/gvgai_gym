@@ -58,41 +58,41 @@ public class CarAvatar extends OrientedAvatar
 
     public void applyMovement(Game game, Direction action)
     {
-    	//this.physics.passiveMovement(this);
-    	if (physicstype != 0)
-    		super.updatePassive();
+        //this.physics.passiveMovement(this);
+        if (physicstype != 0)
+            super.updatePassive();
     }
 
 
     public void aim()
     {
-    	double angle = this.rotation;
+        double angle = this.rotation;
 
-    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DLEFT)
-    	{
-    		angle -= angle_diff;
-    	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DRIGHT)
-    	{
-    		angle += angle_diff;
-    	}
-    	this._updateRotation(angle);
+        if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DLEFT)
+        {
+            angle -= angle_diff;
+        }
+        else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DRIGHT)
+        {
+            angle += angle_diff;
+        }
+        this._updateRotation(angle);
     }
 
     public void move()
     {
-    	if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
-    	{
-    		//this.orientation = new Direction(0,0);
-    		facing = 0;
-    	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN)
-    	{
-    		//this.orientation = new Direction(0,0);
-    		facing = 1;
-    	}
-    	Direction direx =  new Direction(Math.cos(this.rotation+(facing*Math.toRadians(180))), Math.sin(this.rotation+(facing*Math.toRadians(180))));
-    	this.physics.activeMovement(this, direx, 5);
+        if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
+        {
+            //this.orientation = new Direction(0,0);
+            facing = 0;
+        }
+        else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN)
+        {
+            //this.orientation = new Direction(0,0);
+            facing = 1;
+        }
+        Direction direx =  new Direction(Math.cos(this.rotation+(facing*Math.toRadians(180))), Math.sin(this.rotation+(facing*Math.toRadians(180))));
+        this.physics.activeMovement(this, direx, 5);
     }
 
     public VGDLSprite copy()

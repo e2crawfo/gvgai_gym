@@ -29,8 +29,8 @@ public class MultiSpriteCounterSubTypes extends Termination
         if(stype1 != null){
             itype1 = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype1);
             if(itype1 == -1){
-        	String[] className = this.getClass().getName().split("\\.");
-        	throw new Exception("[" + className[className.length - 1] + "] Undefined sprite " + stype1);
+            String[] className = this.getClass().getName().split("\\.");
+            throw new Exception("[" + className[className.length - 1] + "] Undefined sprite " + stype1);
             }
         }
     }
@@ -77,9 +77,9 @@ public class MultiSpriteCounterSubTypes extends Termination
     }
 
     @Override
-	public ArrayList<String> getTerminationSprites() {
-		ArrayList<String> result = new ArrayList<String>();
-		if(stype1 != null) result.add(stype1);
-		return result;
-	}
+    public ArrayList<String> getTerminationSprites() {
+        ArrayList<String> result = new ArrayList<String>();
+        if(stype1 != null) result.add(stype1);
+        return result;
+    }
 }

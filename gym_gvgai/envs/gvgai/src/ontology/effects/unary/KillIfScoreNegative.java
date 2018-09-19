@@ -24,14 +24,14 @@ public class KillIfScoreNegative extends Effect {
 
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
-	if(sprite1 == null){
-	    Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with KillSprite interaction."));
-	    return;
-	}
+    if(sprite1 == null){
+        Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with KillSprite interaction."));
+        return;
+    }
 
         //boolean variable set to false to indicate the sprite was not transformed
-		if (game.getScore() < 0.0){
-			game.killSprite(sprite1, false);
-		}
+        if (game.getScore() < 0.0){
+            game.killSprite(sprite1, false);
+        }
     }
 }

@@ -554,8 +554,8 @@ public abstract class VGDLSprite {
         }
 
         if (cooldown <= lastmove && (Math.abs(orientation.x()) + Math.abs(orientation.y()) != 0)) {
-        	rect.translate((int) (orientation.x() * speed), (int) (orientation.y() * speed));
-        	updateBucket();
+            rect.translate((int) (orientation.x() * speed), (int) (orientation.y() * speed));
+            updateBucket();
             lastmove = 0;
             return true;
         }
@@ -710,33 +710,33 @@ public abstract class VGDLSprite {
 
             if (!is_avatar || !is_oriented)
             {
-	            if(image != null)
-	                _drawImage(gphx, game, r);
-	            else
-	                _draw(gphx, game, r);
-	
-	            if(resources.size() > 0)
-	            {
-	                _drawResources(gphx, game, r);
-	            }
-	
-	            if(healthPoints > 0)
-	            {
-	                _drawHealthBar(gphx, game, r);
-	            }
+                if(image != null)
+                    _drawImage(gphx, game, r);
+                else
+                    _draw(gphx, game, r);
+    
+                if(resources.size() > 0)
+                {
+                    _drawResources(gphx, game, r);
+                }
+    
+                if(healthPoints > 0)
+                {
+                    _drawHealthBar(gphx, game, r);
+                }
             }
 
             else{
                 _drawOriented(gphx, r);
-	            if(resources.size() > 0)
-	            {
-	                _drawResources(gphx, game, r);
-	            }
-	
-	            if(healthPoints > 0)
-	            {
-	                _drawHealthBar(gphx, game, r);
-	            }
+                if(resources.size() > 0)
+                {
+                    _drawResources(gphx, game, r);
+                }
+    
+                if(healthPoints > 0)
+                {
+                    _drawHealthBar(gphx, game, r);
+                }
             }
         }
     }
@@ -955,7 +955,7 @@ public abstract class VGDLSprite {
      */
     public void postProcess()
     {
-    	loadImage();
+        loadImage();
 
         if(!(this.orientation.equals(Types.DNONE)))
         {
@@ -1215,7 +1215,7 @@ public abstract class VGDLSprite {
         if(other.stationary != this.stationary) return false;
         if(other.mass != this.mass) return false;
         if(other.physicstype != this.physicstype) return false;
-        if(other.gravity != this.gravity) return false;		
+        if(other.gravity != this.gravity) return false;     
         if(other.friction != this.friction) return false;
         if(other.shrinkfactor != this.shrinkfactor) return false;
         if(other.is_oriented != this.is_oriented) return false;
@@ -1252,7 +1252,7 @@ public abstract class VGDLSprite {
      * @return a list of all dependent sprites
      */
     public ArrayList<String> getDependentSprites(){
-    	return new ArrayList<String>();
+        return new ArrayList<String>();
     }
 
 }

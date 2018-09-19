@@ -14,7 +14,7 @@ import ontology.effects.Effect;
  */
 public class KillIfNotUpright extends Effect
 {
-	
+    
     public KillIfNotUpright(InteractionContent cnt)
     {
         is_kill_effect = true;
@@ -24,9 +24,9 @@ public class KillIfNotUpright extends Effect
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game)
     {
-    	double current_rotation = ((sprite1.rotation+2*Math.PI)%(2*Math.PI));
-    	if (!(current_rotation < 5.0 && current_rotation > 4.4)){
-    		game.killSprite(sprite1, false);
-    	}
+        double current_rotation = ((sprite1.rotation+2*Math.PI)%(2*Math.PI));
+        if (!(current_rotation < 5.0 && current_rotation > 4.4)){
+            game.killSprite(sprite1, false);
+        }
     }
 }

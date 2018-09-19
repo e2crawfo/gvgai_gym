@@ -44,11 +44,11 @@ public class TransformIfCount extends TransformTo {
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game)
     {
-	if(sprite1 == null || sprite2 == null){
-	    Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither the 1st nor 2nd sprite can be EOS with TransformIfCount interaction."));
-	    return;
-	}
-	
+    if(sprite1 == null || sprite2 == null){
+        Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither the 1st nor 2nd sprite can be EOS with TransformIfCount interaction."));
+        return;
+    }
+    
         int numSpritesCheck = game.getNumSprites(itypeCount);
         this.applyScore = false;
         this.count = false;
@@ -68,11 +68,11 @@ public class TransformIfCount extends TransformTo {
 
     @Override
     public ArrayList<String> getEffectSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<String>();
         if(stype!=null) result.add(stype);
         if(stypeCount!=null) result.add(stypeCount);
         if(estype!=null) result.add(estype);
-    	
-    	return result;
+        
+        return result;
     }
 }

@@ -139,10 +139,10 @@ public class FlakAvatar extends HorizontalAvatar
 
     @Override
     public ArrayList<String> getDependentSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
-    	if(ammo != null) result.add(ammo);
-    	if(stype != null) result.add(stype);
-    	
-    	return result;
+        ArrayList<String> result = new ArrayList<String>();
+        if(ammo != null) result.add(ammo);
+        if(stype != null) result.add(stype);
+        
+        return result;
     }
 }

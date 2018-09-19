@@ -56,11 +56,11 @@ public class OrientedAvatar extends MovingAvatar
         //the orientation in the direction of the move.
         if(lastMovementType == Types.MOVEMENT.MOVE)
         {
-        	if (physicstype == 0){
-        		Vector2d dir = lastDirection();
-        		dir.normalise();
-        		orientation = new Direction(dir.x, dir.y);
-        	}
+            if (physicstype == 0){
+                Vector2d dir = lastDirection();
+                dir.normalise();
+                orientation = new Direction(dir.x, dir.y);
+            }
         }
         //Otherwise, orientation is already updated, no need to change anything.
     }

@@ -29,11 +29,11 @@ public class CollectResource extends Effect
 
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
-	if(sprite1 == null || sprite2 == null){
-	    Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither the 1st nor 2nd sprite can be EOS with CollectResource interaction."));
-	    return;
-	}
-	
+    if(sprite1 == null || sprite2 == null){
+        Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither the 1st nor 2nd sprite can be EOS with CollectResource interaction."));
+        return;
+    }
+    
         if(sprite1.is_resource)
         {
             Resource r = (Resource) sprite1;

@@ -38,11 +38,11 @@ public class SpawnIfHasLess extends Effect {
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game)
     {
-	if(sprite1 == null){
-	    Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with SpawnIfHasLess interaction."));
-	    return;
-	}
-	
+    if(sprite1 == null){
+        Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with SpawnIfHasLess interaction."));
+        return;
+    }
+    
         applyScore = false;
 
         if(game.getRandomGenerator().nextDouble() >= prob) return;
@@ -56,9 +56,9 @@ public class SpawnIfHasLess extends Effect {
 
     @Override
     public ArrayList<String> getEffectSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
-    	if(stype!=null) result.add(stype);
-    	
-    	return result;
+        ArrayList<String> result = new ArrayList<String>();
+        if(stype!=null) result.add(stype);
+        
+        return result;
     }
 }

@@ -49,9 +49,9 @@ public class UpdateSpawnType extends Effect {
 
     @Override
     public ArrayList<String> getEffectSprites(){
-    	ArrayList<String> result = new ArrayList<String>();
-    	if(stype!=null) result.add(stype);
-    	
-    	return result;
+        ArrayList<String> result = new ArrayList<String>();
+        if(stype!=null) result.add(stype);
+        
+        return result;
     }
 }

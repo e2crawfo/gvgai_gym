@@ -164,7 +164,7 @@ public class WizardAvatar extends MovingAvatar
 
     public void copyTo(VGDLSprite target)
     {
-    	WizardAvatar targetSprite = (WizardAvatar) target;
+        WizardAvatar targetSprite = (WizardAvatar) target;
         targetSprite.ground_speedup_factor = this.ground_speedup_factor;
         targetSprite.air_slowdown_factor = this.air_slowdown_factor;
         targetSprite.stype = this.stype;

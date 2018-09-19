@@ -166,7 +166,7 @@ public class StatSummary {
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         String s = (name == null) ? "" : name;
         s +=  " min = " + min() + "\n" +
                 " max = " + max() + "\n" +

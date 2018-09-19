@@ -33,7 +33,7 @@ public class JEasyFrame extends JFrame {
         this.setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         if(CompetitionParameters.closeAppOnClosingWindow){
-        	setDefaultCloseOperation(EXIT_ON_CLOSE);
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
         }
         repaint();
     }

@@ -47,26 +47,26 @@ public class Walker extends VGDLSprite
 
     public void update(Game game)
     {
-    	super.updatePassive();
+        super.updatePassive();
 
         double d;
-    	if (this.airsteering || this.lastDirection().x == 0){
-    		if (this.orientation.x() > 0){
-    			d = 1;
-    		}
-    		else if (this.orientation.x() < 0){
-    			d = -1;
-    		}
-    		else{
-    		    int[] choices = new int[]{-1,1};
-    			d = choices[game.getRandomGenerator().nextInt(choices.length)];
-    		}
-    		Direction dir = new Direction(d,0);
-    		this.orientation = dir.copy();
-    		this.physics.activeMovement(this, dir, this.max_speed);
-    	}
+        if (this.airsteering || this.lastDirection().x == 0){
+            if (this.orientation.x() > 0){
+                d = 1;
+            }
+            else if (this.orientation.x() < 0){
+                d = -1;
+            }
+            else{
+                int[] choices = new int[]{-1,1};
+                d = choices[game.getRandomGenerator().nextInt(choices.length)];
+            }
+            Direction dir = new Direction(d,0);
+            this.orientation = dir.copy();
+            this.physics.activeMovement(this, dir, this.max_speed);
+        }
 
-    	this.speed = max_speed;
+        this.speed = max_speed;
         on_ground = false;
     }
 

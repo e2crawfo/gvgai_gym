@@ -113,9 +113,9 @@ public class MovingAvatar extends VGDLSprite {
 
     public void applyMovement(Game game, Direction action)
     {
-    	//this.physics.passiveMovement(this);
+        //this.physics.passiveMovement(this);
         if (physicstype != Types.GRID)
-    		super.updatePassive();
+            super.updatePassive();
         lastMovementType = this.physics.activeMovement(this, action, speed);
     }
 
@@ -267,7 +267,7 @@ public class MovingAvatar extends VGDLSprite {
         targetSprite.setKeyHandler(this.getKeyHandler());
 
         // need to copy orientation here already because MovingAvatar.postProcess() requires the orientation
-        targetSprite.orientation = this.orientation.copy();	
+        targetSprite.orientation = this.orientation.copy(); 
 
         targetSprite.postProcess();
         super.copyTo(targetSprite);

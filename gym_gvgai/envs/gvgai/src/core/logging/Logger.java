@@ -44,13 +44,13 @@ public class Logger {
      * @return list of errors and warnings
      */
     public ArrayList<Message> getMessages(int type){
-	ArrayList<Message> result = new ArrayList<Message>();
-	for (int i=0; i<messages.size(); i++){
-	    if(messages.get(i).getType() == type){
-		result.add(messages.get(i));
-	    }
-	}
-	return result;
+    ArrayList<Message> result = new ArrayList<Message>();
+    for (int i=0; i<messages.size(); i++){
+        if(messages.get(i).getType() == type){
+        result.add(messages.get(i));
+        }
+    }
+    return result;
     }
 
     /**
@@ -67,7 +67,7 @@ public class Logger {
 
     /**
      * Get the number of error and warning messages combined
-     * @return 	number of error and warning messages
+     * @return  number of error and warning messages
      */
     public int getMessageCount() {
         return messages.size();
@@ -76,7 +76,7 @@ public class Logger {
     /**
      * Get either error or warning messages
      * @param type 0 warnings, 1 errors
-     * @return	number of errors or warnings
+     * @return  number of errors or warnings
      */
     public int getMessageCount(int type) {
         int result = 0;

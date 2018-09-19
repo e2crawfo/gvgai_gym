@@ -124,8 +124,8 @@ public class Types {
         }
 
         public static ACTIONS fromVector(Vector2d move) {
-        	// Probably better to use .equals() instead of == to test for equality,
-        	// but not necessary for the current call hierarchy of this method
+            // Probably better to use .equals() instead of == to test for equality,
+            // but not necessary for the current call hierarchy of this method
             if (move.equals(UP)) return ACTION_UP;
             else if (move.equals(DOWN)) return ACTION_DOWN;
             else if (move.equals(LEFT)) return ACTION_LEFT;
@@ -134,29 +134,29 @@ public class Types {
         }
 
         public static boolean isMoving(ACTIONS value){
-        	return value == ACTIONS.ACTION_UP || value == ACTIONS.ACTION_DOWN ||
-        			value == ACTIONS.ACTION_LEFT || value == ACTIONS.ACTION_RIGHT;
+            return value == ACTIONS.ACTION_UP || value == ACTIONS.ACTION_DOWN ||
+                    value == ACTIONS.ACTION_LEFT || value == ACTIONS.ACTION_RIGHT;
         }
 
         public static ACTIONS reverseACTION(ACTIONS value){
-        	if(value == ACTIONS.ACTION_DOWN){
-        		return ACTIONS.ACTION_UP;
-        	}
-        	if(value == ACTIONS.ACTION_UP){
-        		return ACTIONS.ACTION_DOWN;
-        	}
-        	if(value == ACTIONS.ACTION_RIGHT){
-        		return ACTIONS.ACTION_LEFT;
-        	}
-        	if(value == ACTIONS.ACTION_LEFT){
-        		return ACTIONS.ACTION_RIGHT;
-        	}
-        	return ACTIONS.ACTION_NIL;
+            if(value == ACTIONS.ACTION_DOWN){
+                return ACTIONS.ACTION_UP;
+            }
+            if(value == ACTIONS.ACTION_UP){
+                return ACTIONS.ACTION_DOWN;
+            }
+            if(value == ACTIONS.ACTION_RIGHT){
+                return ACTIONS.ACTION_LEFT;
+            }
+            if(value == ACTIONS.ACTION_LEFT){
+                return ACTIONS.ACTION_RIGHT;
+            }
+            return ACTIONS.ACTION_NIL;
         }
 
         public static ACTIONS fromVector(Direction move) {
-        	// Probably better to use .equals() instead of == to test for equality,
-        	// but not necessary for the current call hierarchy of this method
+            // Probably better to use .equals() instead of == to test for equality,
+            // but not necessary for the current call hierarchy of this method
             if (move.equals(DUP)) return ACTION_UP;
             else if (move.equals(DDOWN)) return ACTION_DOWN;
             else if (move.equals(DLEFT)) return ACTION_LEFT;
