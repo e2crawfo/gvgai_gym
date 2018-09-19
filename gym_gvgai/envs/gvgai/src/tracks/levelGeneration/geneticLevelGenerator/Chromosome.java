@@ -308,7 +308,7 @@ public class Chromosome implements Comparable<Chromosome>{
 		//get list of all the avatar positions in the level
 		ArrayList<SpritePointData> avatarPositions = getPositions(avatarNames);
 		
-		// if not avatar insert a new one 
+		// if not avatar insert a new one
 		if(avatarPositions.size() == 0){
 			ArrayList<SpritePointData> freePositions = getFreePositions(avatarNames);
 			
@@ -340,7 +340,7 @@ public class Chromosome implements Comparable<Chromosome>{
 
 	/**
 	 * get the current used level mapping to parse the level string
-	 * @return	Level mapping object that can help to construct the 
+	 * @return	Level mapping object that can help to construct the
 	 * 			level string and parse the level string
 	 */
 	public LevelMapping getLevelMapping(){
@@ -363,7 +363,7 @@ public class Chromosome implements Comparable<Chromosome>{
 	/**
 	 * get the current level string
 	 * @param levelMapping	level mapping object to help constructing the string
-	 * @return				string of letters defined in the level mapping 
+	 * @return				string of letters defined in the level mapping
 	 * 						that represent the level
 	 */
 	public String getLevelString(LevelMapping levelMapping){
@@ -452,7 +452,7 @@ public class Chromosome implements Comparable<Chromosome>{
 	
 
 	/**
-	 * Get fitness value for the current score difference between 
+	 * Get fitness value for the current score difference between
 	 * the best player and the naive player
 	 * @param scoreDiff	difference between the best player score and the naive player score
 	 * @param maxScore	maximum score required to approach it
@@ -575,7 +575,7 @@ public class Chromosome implements Comparable<Chromosome>{
 			}
 			double coverPercentage = getCoverPercentage();
 			
-			//calculate the maxScore need to be satisfied based on the difference 
+			//calculate the maxScore need to be satisfied based on the difference
 			//between the score of different collectible objects
 			double maxScore = 0;
 			if(SharedData.gameAnalyzer.getMinScoreUnit() > 0){
@@ -600,7 +600,7 @@ public class Chromosome implements Comparable<Chromosome>{
 			parameters.put("gameDescription", SharedData.gameDescription);
 			
 			CombinedConstraints constraint = new CombinedConstraints();
-			constraint.addConstraints(new String[]{"SolutionLengthConstraint", "DeathConstraint", 
+			constraint.addConstraints(new String[]{"SolutionLengthConstraint", "DeathConstraint",
 
 					"CoverPercentageConstraint", "SpriteNumberConstraint", "GoalConstraint", "AvatarNumberConstraint", "WinConstraint"});
 			constraint.setParameters(parameters);
@@ -683,7 +683,7 @@ public class Chromosome implements Comparable<Chromosome>{
 
 
 	/**
-	 * Compare two chromosome with each other based on their 
+	 * Compare two chromosome with each other based on their
 	 * constrained fitness and normal fitness
 	 */
 	@Override

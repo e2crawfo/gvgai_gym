@@ -14,9 +14,9 @@ public abstract class AbstractRuleGenerator {
      * @return		two arrays: 1- interaction rules 2- termination conditions
      */
     public abstract String[][] generateRules(SLDescription sl, ElapsedCpuTimer time);
-    
+
     /**
-     * Return a list of all supersets 
+     * Return a list of all supersets
      * @return
      */
     public HashMap<String, ArrayList<String>> getSpriteSetStructure(){

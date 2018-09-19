@@ -65,7 +65,7 @@ public class TransformIfCount extends TransformTo {
             this.countElse=true;
         }
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

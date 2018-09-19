@@ -136,7 +136,7 @@ public class TransformToSingleton extends Effect {
         //boolean variable set to true to indicate the sprite was transformed
         game.killSprite(oldSprite, transformed);
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

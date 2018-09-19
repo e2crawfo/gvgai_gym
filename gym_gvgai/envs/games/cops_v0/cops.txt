@@ -40,7 +40,7 @@ BasicGame square_size=40
 
         A > floor avatar
 
-        
+
     InteractionSet
 
         avatar  wall  > stepBack

@@ -44,7 +44,7 @@ public class Walker extends VGDLSprite
         return this.groundIntersects(sp);
     }
 
-    
+
     public void update(Game game)
     {
     	super.updatePassive();

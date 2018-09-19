@@ -53,7 +53,7 @@ public class SpawnIfHasLess extends Effect {
             applyScore = true;
         }
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

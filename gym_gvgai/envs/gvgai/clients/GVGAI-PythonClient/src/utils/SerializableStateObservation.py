@@ -15,7 +15,7 @@ class SerializableStateObservation:
     """
     def __init__(self):
         self.imageArray = bytearray([])
-        
+
         self.phase = Phase()
         self.isValidation = True
 

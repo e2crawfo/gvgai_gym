@@ -265,10 +265,10 @@ public class MovingAvatar extends VGDLSprite {
 
         //copy key handler
         targetSprite.setKeyHandler(this.getKeyHandler());
-        
+
         // need to copy orientation here already because MovingAvatar.postProcess() requires the orientation
         targetSprite.orientation = this.orientation.copy();	
-        
+
         targetSprite.postProcess();
         super.copyTo(targetSprite);
     }

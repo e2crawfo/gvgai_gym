@@ -29,25 +29,25 @@ BasicGame
         keym key wall gem boulder > transformTo stype=key
 
         avatar wall door > stepBack
-        
+
         boulder avatar > bounceForward
-        
+
         key avatar > transformTo stype=keym
         keym avatar > attractGaze
         avatar key keym > stepBack
-        
+
         door keym > killBoth scoreChange=4
 
         green avatar > killSprite scoreChange=1
         blue avatar > killSprite scoreChange=2
         red avatar > killSprite scoreChange=5
-        
+
         boulder wall key gem boulder > undoAll
-        
+
         key wall gem key > undoAll
 
         exit avatar > killSprite scoreChange=10
-        
+
     TerminationSet
         SpriteCounter stype=avatar limit=0 win=False
         SpriteCounter stype=exit limit=0 win=True

@@ -22,7 +22,7 @@ public class LevelMapping {
 	 */
 	private HashMap<String, Long> allSpriteCodes;
 	/**
-	 * current level mapping used 
+	 * current level mapping used
 	 */
 	private HashMap<Long, Character> charMapping;
 	/**

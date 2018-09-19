@@ -4,7 +4,7 @@ BasicGame key_handler=Pulse
         goal > Immovable img=oryx/dooropen1 portal=true
         avatar > ShootAvatar stype=boulder rotateInPlace=true img=oryx/archer1
         box    > Passive img=newset/block2
-        lasercannon > SpawnPoint 
+        lasercannon > SpawnPoint
             lcup > img=newset/lasercannon stype=lup
             lcdown > img=newset/lasercannon_2 stype=ldown
             lcright > img=newset/lasercannon_1 stype=lright

@@ -75,7 +75,7 @@ public class MultiSpriteCounterSubTypes extends Termination
 
         return false;
     }
-    
+
     @Override
 	public ArrayList<String> getTerminationSprites() {
 		ArrayList<String> result = new ArrayList<String>();

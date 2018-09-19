@@ -37,7 +37,7 @@ public class Spawn extends Effect {
         if(game.getRandomGenerator().nextDouble() >= prob) return;
         game.addSprite(itype, sprite1.getPosition());
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

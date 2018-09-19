@@ -83,15 +83,15 @@ public class AimedAvatar extends ShootAvatar
         move();
     }
 
-    
+
     private void aim()
     {
     	double angle = 0.0;
-    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP) 
+    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
     	{
     		angle = -angle_diff;
     	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN) 
+    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN)
     	{
     		angle = angle_diff;
     	}

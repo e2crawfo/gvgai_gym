@@ -51,7 +51,7 @@ public class Helper {
     	}
     	return result;
     }
-    
+
     public static double getMaxObservation(ArrayList<Observation>[] list, Vector2d reference){
     	if(list == null) return 0;
     	
@@ -68,7 +68,7 @@ public class Helper {
     	
     	return result;
     }
-    
+
     public static double getMinObservation(ArrayList<Observation>[] list, Vector2d reference){
     	if(list == null) return 0;
     	
@@ -104,7 +104,7 @@ public class Helper {
     	
     	return result;
     }
-    
+
     public static boolean isOpposite(Types.ACTIONS a1, Types.ACTIONS a2){
     	if(a1 == Types.ACTIONS.ACTION_LEFT && a2 == Types.ACTIONS.ACTION_RIGHT){
     		return true;
@@ -122,7 +122,7 @@ public class Helper {
     	
     	return false;
     }
-    
+
     public static int[][] updateTilesValue(int[][] tiles, int x, int y){
     	int[][] result = new int[tiles.length][tiles[0].length];
     	

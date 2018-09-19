@@ -169,13 +169,13 @@ public class SharedData {
 	public static String[] interactions = new String[]{
 			"killSprite", "killAll", "killIfHasMore", "killIfHasLess", "killIfFromAbove",
 			"killIfOtherHasMore", "transformToSingleton", "spawnBehind",
-			"spawnIfHasMore", "spawnIfHasLess", "cloneSprite", "transformTo", "transformIfCounts", 
-			"transformToRandomChild", "updateSpawnType", "removeScore", 
-			"addHealthPoints",  "addHealthPointsToMax", "subtractHealthPoints", "increaseSpeedToAll", 
-			"decreaseSpeedToAll", "setSpeedForAll", "stepBack",  "undoAll", "flipDirection",  
+			"spawnIfHasMore", "spawnIfHasLess", "cloneSprite", "transformTo", "transformIfCounts",
+			"transformToRandomChild", "updateSpawnType", "removeScore",
+			"addHealthPoints",  "addHealthPointsToMax", "subtractHealthPoints", "increaseSpeedToAll",
+			"decreaseSpeedToAll", "setSpeedForAll", "stepBack",  "undoAll", "flipDirection",
 			"reverseDirection", "attractGaze", "align", "turnAround", "wrapAround", "teleportToExit",
 			"pullWithIt", "bounceForward", "collectResource", "changeResource"};
-	/** 
+	/**
 	 * Array contains all terminations
 	 */
 	public static String[] terminations = new String[] {

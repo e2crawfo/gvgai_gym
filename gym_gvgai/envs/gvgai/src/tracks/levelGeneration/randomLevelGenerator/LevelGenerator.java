@@ -123,7 +123,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	
 
 	/**
-	 * Add random unique x and y value that is not found in the 
+	 * Add random unique x and y value that is not found in the
 	 * list of points associated with a certain character c
 	 * @param points	list of points to check uniqueness with
 	 * @param width		the maximum x value
@@ -233,7 +233,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 
 
 	/**
-	 * Helper class to store some data points with a 
+	 * Helper class to store some data points with a
 	 * character associated with it
 	 * @author AhmedKhalifa
 	 */

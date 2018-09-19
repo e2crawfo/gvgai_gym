@@ -166,7 +166,7 @@ public class LearningMachine {
 
         if(levelOutcome == Types.LEARNING_RESULT_DISQ)
             return;
-        
+
         System.out.println("[PHASE] End Training.");
         String vict = "", sc = "";
         for (int i = 0; i < toPlay.no_players; i++) {

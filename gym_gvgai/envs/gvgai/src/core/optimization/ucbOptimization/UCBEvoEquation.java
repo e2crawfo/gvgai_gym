@@ -37,11 +37,11 @@ public class UCBEvoEquation implements UCBEquation {
 			parameters = temp;
 		}
 		
-        double uctValue = 
-        		parameters[0] * (values[Helper.TREE_CHILD_VALUE] / (values[Helper.TREE_CHILD_VISITS] + this.epsilon)) + 
-        		parameters[1] * values[Helper.TREE_CHILD_MAX_VALUE] + 
+        double uctValue =
+        		parameters[0] * (values[Helper.TREE_CHILD_VALUE] / (values[Helper.TREE_CHILD_VISITS] + this.epsilon)) +
+        		parameters[1] * values[Helper.TREE_CHILD_MAX_VALUE] +
         		parameters[2] * Math.pow(Math.log(values[Helper.TREE_PARENT_VISITS])/values[Helper.TREE_CHILD_VISITS] + this.epsilon, parameters[3]) +
-        		parameters[4] * Math.pow(values[Helper.SPACE_EXPLORATION_VALUE] + this.epsilon, parameters[5]) + 
+        		parameters[4] * Math.pow(values[Helper.SPACE_EXPLORATION_VALUE] + this.epsilon, parameters[5]) +
         		parameters[6] * Math.pow(values[Helper.DISTANCE_MIN_NPC] + this.epsilon, parameters[7]) +
         		parameters[8] * Math.pow(values[Helper.DISTANCE_MIN_PORTAL] + this.epsilon, parameters[9]) +
         		parameters[10] * Math.pow(values[Helper.DISTANCE_MIN_MOVABLE] + this.epsilon, parameters[11]) +
@@ -71,10 +71,10 @@ public class UCBEvoEquation implements UCBEquation {
 		}
 		
 		String result = "UCB = " +
-				(term[0]?(temp[0] + " * average(X(j)) + "):"") + 
-				(term[1]?(temp[1] + " * max(X(j)) + "):"") + 
+				(term[0]?(temp[0] + " * average(X(j)) + "):"") +
+				(term[1]?(temp[1] + " * max(X(j)) + "):"") +
 				(term[2]?(temp[2] + " * (ln(n)/n(j))^" + temp[3] + " + "):"") +
-				(term[4]?(temp[4] + " * E(x,y)^" + temp[5] + " + "):"") + 
+				(term[4]?(temp[4] + " * E(x,y)^" + temp[5] + " + "):"") +
 				(term[6]?(temp[6] + " * min(D(npc))^" +  temp[7] + " + "):"") +
 				(term[8]?(temp[8] + " * min(D(portal))^" + temp[9] + " + "):"") +
 				(term[10]?(temp[10] + " * min(D(movable))^" + temp[11] + " + "):"") +

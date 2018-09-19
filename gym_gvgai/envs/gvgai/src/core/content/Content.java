@@ -17,7 +17,7 @@ public abstract class Content
      * Original line with the content, in VGDL format.
      */
     public String line;
-    
+
     /**
      * Original line number.
      */

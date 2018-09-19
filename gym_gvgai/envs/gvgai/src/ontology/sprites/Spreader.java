@@ -87,7 +87,7 @@ public class Spreader extends Flicker
         ((Spreader) target).itype = this.itype;
         super.copyTo(targetSprite);
     }
-    
+
     @Override
     public ArrayList<String> getDependentSprites(){
     	ArrayList<String> result = new ArrayList<String>();

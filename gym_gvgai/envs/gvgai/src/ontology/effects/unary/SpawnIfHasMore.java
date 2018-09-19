@@ -57,7 +57,7 @@ public class SpawnIfHasMore  extends Effect {
             sprite1.modifyResource(resourceId, -spend); //0 by default.
         }
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

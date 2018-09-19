@@ -110,7 +110,7 @@ public class LOSChaser extends Chaser
         targetSprite.actions = new ArrayList<Direction>();
         super.copyTo(targetSprite);
     }
-    
+
     @Override
     public ArrayList<String> getDependentSprites(){
     	ArrayList<String> result = new ArrayList<String>();

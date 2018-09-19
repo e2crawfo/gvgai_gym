@@ -165,7 +165,7 @@ public class ShootAvatar extends OrientedAvatar
 
         super.copyTo(targetSprite);
     }
-    
+
     @Override
     public ArrayList<String> getDependentSprites(){
     	ArrayList<String> result = new ArrayList<String>();

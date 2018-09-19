@@ -45,7 +45,7 @@ public class KillAll extends Effect {
             game.killSprite(s, false);
         }
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

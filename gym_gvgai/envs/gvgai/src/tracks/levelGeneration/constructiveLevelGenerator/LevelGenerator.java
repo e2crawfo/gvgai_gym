@@ -23,7 +23,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	 */
 	private GameAnalyzer gameAnalyzer;
 	/**
-	 * random object 
+	 * random object
 	 */
 	private Random random;
 	/**
@@ -39,7 +39,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	 */
 	private double maxCoverPercentage;
 	/**
-	 * tradeoff between intended percentage of objects and 
+	 * tradeoff between intended percentage of objects and
 	 * the generated one from the number of created objects
 	 */
 	private double coverTradeOffPercentage;
@@ -83,7 +83,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	}
 	
 	/**
-	 * Calculate the percentage covered from the level and 
+	 * Calculate the percentage covered from the level and
 	 * percentages of each data type
 	 * @param game	game description object provided by the system
 	 * @return		level cover data object contain all the calculated information
@@ -105,7 +105,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 		double otherValue = 0;
 		double totalValue = 0;
 		for(SpriteData sprite:game.getAllSpriteData()){
-			double value = gameAnalyzer.checkIfSpawned(sprite.name) * 
+			double value = gameAnalyzer.checkIfSpawned(sprite.name) *
 					(gameAnalyzer.getPriorityNumber(sprite.name) + 1);
 
 			//number of solid objects (priority value, if not spawned and 0 otherwise)
@@ -128,9 +128,9 @@ public class LevelGenerator extends AbstractLevelGenerator{
 			totalValue += value;
 		}
 		
-		//covered percentage is inversely proportional with number of spawned objects 
+		//covered percentage is inversely proportional with number of spawned objects
 		//and harmful objects but directly proportional with collectable objects
-		data.levelPercentage = (coverTradeOffPercentage + (1 - coverTradeOffPercentage) / (numberOfCreationalObjects + 1)) * 
+		data.levelPercentage = (coverTradeOffPercentage + (1 - coverTradeOffPercentage) / (numberOfCreationalObjects + 1)) *
 				((collectableValue + 1) / (harmfulValue + collectableValue + 1)) * maxCoverPercentage;
 		data.levelPercentage = Utils.noise(data.levelPercentage, randomnessPercentage, random.nextDouble());
 
@@ -198,7 +198,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 
 			//number of solid to insert in the level
 
-			double solidNumber = coverPercentage.levelPercentage * coverPercentage.solidPercentage * 
+			double solidNumber = coverPercentage.levelPercentage * coverPercentage.solidPercentage *
 					getArea(level);
 			
 			while(solidNumber > 0){
@@ -223,7 +223,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 					//check each direction and move using them
 					for(i=0; i<directions.size(); i++){
 						Point newPoint = new Point(randomPoint.x + directions.get(i).x, randomPoint.y + directions.get(i).y);
-						if(level.get(newPoint.x, newPoint.y) == null && 
+						if(level.get(newPoint.x, newPoint.y) == null &&
 								placeSolid(level, newPoint.x, newPoint.y, randomSolid)){
 							randomPoint.x = newPoint.x;
 							randomPoint.y = newPoint.y;
@@ -260,7 +260,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	}
 
 	/**
-	 * get all free positions that have the highest and lowest y value 
+	 * get all free positions that have the highest and lowest y value
 	 * @param freePositions	list of all free positions
 	 * @return				return list of all these points
 	 */
@@ -433,7 +433,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 		distProb.add(avatarPosition.getDistance(freePosition.get(0)));
 		totalValue += distProb.get(0);
 
-		//give each position a probability to be picked based on 
+		//give each position a probability to be picked based on
 		//how near or far it is from the avatar position
 		for(int i=1; i<freePosition.size(); i++){
 			double distance = avatarPosition.getDistance(freePosition.get(i));
@@ -461,7 +461,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	 * @param avatarPosition	the current avatar position
 	 */
 	private void addHarmfulObjects(GameDescription game, LevelData level, LevelCoverData coverPercentage, Point avatarPosition){
-		double numberOfHarmful = coverPercentage.levelPercentage * coverPercentage.harmfulPercentage * 
+		double numberOfHarmful = coverPercentage.levelPercentage * coverPercentage.harmfulPercentage *
 				getArea(generatedLevel);
 		
 		ArrayList<String> harmfulSprites = gameAnalyzer.getHarmfulSprites();
@@ -503,7 +503,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	 * @param coverPercentage	the current cover percentages
 	 */
 	private void addCollectableObjects(GameDescription game, LevelData level, LevelCoverData coverPercentage){
-		double numberOfOther = coverPercentage.levelPercentage * coverPercentage.collectablePercentage * 
+		double numberOfOther = coverPercentage.levelPercentage * coverPercentage.collectablePercentage *
 				getArea(level);
 		ArrayList<String> otherSprites = gameAnalyzer.getCollectableSprites();
 		ArrayList<Point> freePositions = level.getAllFreeSpots();
@@ -532,7 +532,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	 * @param coverPercentage	the cover percentages
 	 */
 	private void addOtherObjects(GameDescription game, LevelData level, LevelCoverData coverPercentage){
-		double numberOfOther = coverPercentage.levelPercentage * coverPercentage.otherPercentage * 
+		double numberOfOther = coverPercentage.levelPercentage * coverPercentage.otherPercentage *
 				getArea(level);
 		ArrayList<String> otherSprites = gameAnalyzer.getOtherSprites();
 		ArrayList<Point> freePositions = level.getAllFreeSpots();
@@ -592,9 +592,9 @@ public class LevelGenerator extends AbstractLevelGenerator{
 			size = 2;
 		}
 		
-		int width = (int)Math.max(minSize + size, game.getAllSpriteData().size() * ((levelSizeMaxPercentage - levelSizeRandomPercentage) + 
+		int width = (int)Math.max(minSize + size, game.getAllSpriteData().size() * ((levelSizeMaxPercentage - levelSizeRandomPercentage) +
 				levelSizeRandomPercentage * random.nextDouble()) + size);
-		int length = (int)Math.max(minSize + size, game.getAllSpriteData().size() * ((levelSizeMaxPercentage - levelSizeRandomPercentage) + 
+		int length = (int)Math.max(minSize + size, game.getAllSpriteData().size() * ((levelSizeMaxPercentage - levelSizeRandomPercentage) +
 				levelSizeRandomPercentage * random.nextDouble()) + size);
 		width = (int)Math.min(width, maxSize + size);
 		length = (int)Math.min(length, maxSize + size);

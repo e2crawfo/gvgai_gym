@@ -83,7 +83,7 @@ public class PlatformerAvatar extends MovingAvatar
         on_ground = false;
         	
     }
-    
+
     public void postProcess()
     {
         //Define actions here first.
@@ -96,7 +96,7 @@ public class PlatformerAvatar extends MovingAvatar
 
         super.postProcess();
     }
-    
+
     public void applyMovement(Game game, Direction action)
     {
         //this.physics.passiveMovement(this);

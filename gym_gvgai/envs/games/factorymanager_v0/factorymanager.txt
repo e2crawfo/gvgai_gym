@@ -42,7 +42,7 @@ BasicGame
         . > floor
 
     InteractionSet
-    
+
         avatar wall line > stepBack
         laser wall EOS > killSprite
 

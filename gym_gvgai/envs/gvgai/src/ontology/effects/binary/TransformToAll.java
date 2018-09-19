@@ -49,7 +49,7 @@ public class TransformToAll extends TransformTo {
             super.transformTo(newSprite, s, sprite2, game);
         }
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

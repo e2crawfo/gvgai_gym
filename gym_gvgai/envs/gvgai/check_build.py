@@ -34,7 +34,7 @@ def compare(hash1, hash2):
 
 #Saves hash list as csv at given path
 def saveChecksum(path, hash):
-    filename = os.path.join(path, 'checksum.csv') 
+    filename = os.path.join(path, 'checksum.csv')
     with open(filename, 'w') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
         wr.writerow(hash)
@@ -42,7 +42,7 @@ def saveChecksum(path, hash):
 #checks source code against build
 def isCorrectBuild(src_path, build_path):
     #Get build hash
-    build_files = os.path.join(build_path, 'checksum.csv') 
+    build_files = os.path.join(build_path, 'checksum.csv')
     with open(build_files) as csvfile:
          reader = csv.reader(csvfile)
          build_hash = list(reader)[0]

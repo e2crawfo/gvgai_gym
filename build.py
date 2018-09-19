@@ -4,7 +4,7 @@ import shutil
 import subprocess
 from argparse import ArgumentParser
 
-#Compile java code 
+#Compile java code
 
 dest = 'GVGAI_Build'
 
@@ -56,9 +56,9 @@ if __name__ == "__main__":
 	d_path = os.path.join(os.path.dirname(__file__), "gym_gvgai", "envs", "gvgai")
 
 	parser = ArgumentParser()
-	parser.add_argument("-p","--path", 
-		type=str, 
-		default=d_path, 
+	parser.add_argument("-p","--path",
+		type=str,
+		default=d_path,
         help="Path to where Java project exists")
 	args = parser.parse_args()
 

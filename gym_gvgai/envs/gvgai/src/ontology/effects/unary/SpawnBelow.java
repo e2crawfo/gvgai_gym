@@ -47,7 +47,7 @@ public class SpawnBelow extends Effect {
         }
 
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

@@ -16,11 +16,11 @@ BasicGame
         coin > Immovable img=newset/egg
 
         wall > Immovable solid=False color=DARKGRAY
-            
+
     TerminationSet
         SpriteCounter stype=goal  win=True
         SpriteCounter stype=avatar    win=False
-           
+
     InteractionSet
         evil avatar > killIfFromAbove scoreChange=1
         avatar evil > killIfAlive

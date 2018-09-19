@@ -2,7 +2,7 @@ BasicGame obs=wall
     SpriteSet
         ground > Immovable img=oryx/floor3 autotiling=True hidden=True
         ghostspawn > SpawnPoint stype=ghost img=newset/hole1 portal=True total=10
-        moving > 
+        moving >
             avatar > ShootAvatar orientation=LEFT stype=missile img=newset/humanShotgun
             ghost > PathChaser singleton=True stype=standing img=oryx/ghost1 cooldown=4
             civilian >

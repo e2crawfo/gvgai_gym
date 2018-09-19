@@ -18,7 +18,7 @@ if "%clientType%" == "java" (
 
     rem Run the JavaClient class
     java -cp %build_folder% utils.JavaClient -agentName %agent%  > logs/output_client_redirect.txt 2> logs/output_client_redirect_err.txt
-	) 
+	)
 
 if "%clientType%" == "python" (
     rem Run the PythonClient class

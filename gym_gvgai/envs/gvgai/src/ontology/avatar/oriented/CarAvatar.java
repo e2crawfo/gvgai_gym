@@ -55,7 +55,7 @@ public class CarAvatar extends OrientedAvatar
         aim();
         move();
     }
-    
+
     public void applyMovement(Game game, Direction action)
     {
     	//this.physics.passiveMovement(this);
@@ -63,30 +63,30 @@ public class CarAvatar extends OrientedAvatar
     		super.updatePassive();
     }
 
-    
+
     public void aim()
     {
     	double angle = this.rotation;
 
-    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DLEFT) 
+    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DLEFT)
     	{
     		angle -= angle_diff;
     	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DRIGHT) 
+    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DRIGHT)
     	{
     		angle += angle_diff;
     	}
     	this._updateRotation(angle);
     }
-    
+
     public void move()
     {
-    	if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP) 
+    	if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
     	{
     		//this.orientation = new Direction(0,0);
     		facing = 0;
     	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN) 
+    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN)
     	{
     		//this.orientation = new Direction(0,0);
     		facing = 1;

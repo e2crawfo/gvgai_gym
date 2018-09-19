@@ -47,7 +47,7 @@ public class Node
      * @param contentLine string with the node information
      * @param indent indent level of this node, to determine its place on the tree.
      * @param parent indicates the parent of the new node, if any.
-     * @throws Exception 
+     * @throws Exception
      */
     public Node(String contentLine, int indent, Node parent, int set) throws Exception
     {
@@ -76,7 +76,7 @@ public class Node
      * @param line line in VGDL format.
      * @param set indicates the set the line belongs to (see Types.java).
      * @return the line parsed in a content object.
-     * @throws Exception 
+     * @throws Exception
      */
     private Content createContent(String line, int set) throws Exception
     {

@@ -8,7 +8,7 @@ BasicGame
       avatar  > ShootAvatar   stype=sword frameRate=8
         nokey   > img=oryx/swordman1
         withkey > color=ORANGE img=oryx/swordmankey1
-      enemy >  
+      enemy >
         monsterQuick > RandomNPC cooldown=2 cons=6 img=oryx/bat1
         monsterNormal > RandomNPC cooldown=4 cons=8 img=oryx/spider2
         monsterSlow > RandomNPC cooldown=8 cons=12 img=oryx/scorpion1
@@ -17,14 +17,14 @@ BasicGame
 
   LevelMapping
     g > floor goal
-    + > floor key        
+    + > floor key
     A > floor nokey
     1 > floor monsterQuick
     2 > floor monsterNormal
     3 > floor monsterSlow
     w > wall
     . > floor
-    
+
 
   InteractionSet
     movable wall  > stepBack

@@ -1,7 +1,7 @@
 BasicGame
     SpriteSet
         goal > Immovable color=GREEN
-            othergoal > 
+            othergoal >
             mygoal    >
             iWin      > color=RED
             otherWins > color=RED
@@ -18,7 +18,7 @@ BasicGame
 
         SpriteCounter stype=othergoal limit=0 win=True
         SpriteCounter stype=mygoal limit=0 win=False
-           
+
     InteractionSet
         othergoal ball > transformToAll stype=othergoal stypeTo=iWin
         mygoal ball   > transformToAll stype=mygoal stypeTo=otherWins
@@ -26,7 +26,7 @@ BasicGame
         ball racket > bounceDirection
         ball wall   > wallBounce
         racket wall > stepBack
-        
+
     LevelMapping
         + > mygoal
         - > othergoal

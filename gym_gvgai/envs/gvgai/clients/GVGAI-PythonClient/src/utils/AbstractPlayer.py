@@ -24,7 +24,7 @@ class AbstractPlayer:
         * @param elapsedTimer Timer (40ms)
         * @return The action to be performed by the agent.
         """
-             
+
         pass
 
     def result(self, sso, timer):

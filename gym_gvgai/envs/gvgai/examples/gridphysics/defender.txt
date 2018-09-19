@@ -17,7 +17,7 @@ BasicGame key_handler=Pulse
         supply > Missile orientation=DOWN speed=0.25 img=oryx/goldsack
         bullet > Resource limit=20
         wall > Immovable img=oryx/wall1
-    
+
     LevelMapping
         0 > city floor
         1 > portalSlow floor
@@ -30,7 +30,7 @@ BasicGame key_handler=Pulse
         SpriteCounter      stype=avatar             limit=0 win=False
         SpriteCounter      stype=city               limit=0 win=False
         Timeout limit=1000 win=True
-        
+
     InteractionSet
         avatar  EOS city wall  > stepBack
 

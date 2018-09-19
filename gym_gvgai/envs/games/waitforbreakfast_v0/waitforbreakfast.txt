@@ -30,7 +30,7 @@ BasicGame
         satright > img=newset/man3_satright
 
     waiter >  Chaser stype=table speed=0.5 img=newset/waiter singleton=True frameRate=8
-      waiterwb > 
+      waiterwb >
       waiternb >
 
   LevelMapping
@@ -76,4 +76,3 @@ BasicGame
     MultiSpriteCounter stype1=leavingavatar limit=1 win=False
     SpriteCounter stype=exit limit=0 win=False
     Timeout limit=1500 win=False
-    

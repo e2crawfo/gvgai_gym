@@ -136,7 +136,7 @@ public class FlakAvatar extends HorizontalAvatar
         targetSprite.minAmmo= this.minAmmo;
         super.copyTo(targetSprite);
     }
-    
+
     @Override
     public ArrayList<String> getDependentSprites(){
     	ArrayList<String> result = new ArrayList<String>();

@@ -36,9 +36,9 @@ public enum LongSerializationPolicy {
       return new JsonPrimitive(value);
     }
   },
-  
+
   /**
-   * Serializes a long value as a quoted string.  For example, assume an object has a long field 
+   * Serializes a long value as a quoted string.  For example, assume an object has a long field
    * named "f" then the serialized output would be:
    * {@code {"f":"123"}}.
    */
@@ -47,7 +47,7 @@ public enum LongSerializationPolicy {
       return new JsonPrimitive(String.valueOf(value));
     }
   };
-  
+
   /**
    * Serialize this {@code value} using this serialization policy.
    *

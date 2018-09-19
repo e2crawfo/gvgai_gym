@@ -62,7 +62,7 @@ public class NullAvatar extends HorizontalAvatar
         NullAvatar targetSprite = (NullAvatar) target;
         super.copyTo(targetSprite);
     }
-    
+
     @Override
     public ArrayList<String> getDependentSprites(){
     	ArrayList<String> result = new ArrayList<String>();

@@ -119,7 +119,7 @@ public class WizardAvatar extends MovingAvatar
         on_ground = false;
 
     }
-    
+
     public void postProcess()
     {
         //Define actions here first.

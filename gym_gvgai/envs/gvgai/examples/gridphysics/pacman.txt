@@ -76,4 +76,4 @@ BasicGame square_size=20 obs=wall
         
     TerminationSet
         SpriteCounter stype=food   win=True     
-        SpriteCounter stype=pacman win=False   
+        SpriteCounter stype=pacman win=False

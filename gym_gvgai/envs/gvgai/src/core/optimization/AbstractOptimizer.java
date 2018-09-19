@@ -4,7 +4,7 @@ import tools.ElapsedCpuTimer;
 
 /**
  * Base class for optimization
- * participants have to extends this class and 
+ * participants have to extends this class and
  * provide a constructor and optimize function
  * @author AhmedKhalifa
  */

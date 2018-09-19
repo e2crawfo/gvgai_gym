@@ -46,7 +46,7 @@ public class SpawnLeft extends Effect {
             game.addSprite(itype, nextPos);
         }
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

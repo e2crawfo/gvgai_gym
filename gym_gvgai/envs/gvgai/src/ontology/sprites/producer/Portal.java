@@ -63,7 +63,7 @@ public class Portal extends SpriteProducer
         targetSprite.itype = this.itype;
         super.copyTo(targetSprite);
     }
-    
+
     @Override
     public ArrayList<String> getDependentSprites(){
     	ArrayList<String> result = new ArrayList<String>();

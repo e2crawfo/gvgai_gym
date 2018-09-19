@@ -13,7 +13,7 @@ BasicGame key_handler=Pulse  square_size=50
         	inWhite > img=newset/girl1
         	inGrey >
         wall > Immovable img=oryx/dirtwall autotiling=True
-    
+
     LevelMapping
         . > black
         + > white
@@ -27,7 +27,7 @@ BasicGame key_handler=Pulse  square_size=50
 
     TerminationSet
         SpriteCounter      stype=target               limit=0 win=True
-        
+
     InteractionSet
         avatar EOS > stepBack
         inBlack white > stepBack

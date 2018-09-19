@@ -54,7 +54,7 @@ public class ContinuousPhysics extends GridPhysics
     	
         if(speed == 0)
             speed = sprite.speed;
-        
+
         if(speed == -1)
             speed = sprite.speed;
     	

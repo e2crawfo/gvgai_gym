@@ -39,7 +39,7 @@ public abstract class Effect{
     //Count something
     public boolean count = true;
     public String counter = "0";
-    
+
     //Count something else
     public boolean countElse = true;
     public String counterElse = "0";
@@ -249,7 +249,7 @@ public abstract class Effect{
             return 0;
         }
     }
-    
+
     public int getCounterElse(int idx) {		
     	String[] scores = counterElse.split(",");
     	try{
@@ -260,7 +260,7 @@ public abstract class Effect{
             return 0;
         }
     }
-    
+
     public ArrayList<String> getEffectSprites(){
     	return new ArrayList<String>();
     }

@@ -50,9 +50,9 @@ public class BirdAvatar extends OrientedAvatar
     public void updateAvatar(Game game, boolean requestInput, boolean[] actionMask)
     {
         super.updateAvatar(game, requestInput, actionMask);
-        
+
         Direction action2 = new Direction (0.0,0.0);
-        
+
         if (Math.abs(this.orientation.x()) < 0.5)
     		action2 = new Direction (1.0,0.0);
 
@@ -61,12 +61,12 @@ public class BirdAvatar extends OrientedAvatar
         	this.orientation = new Direction (this.orientation.x(),0.0);
         	this.physics.activeMovement(this, action, this.speed);
         }
-        
+
         this.physics.activeMovement(this, action2, this.speed);
-        
+
         this._updateRotation(Math.atan2(this.orientation.y(),this.orientation.x()));
     }
-    
+
     public void postProcess()
     {
         //Define actions here first.

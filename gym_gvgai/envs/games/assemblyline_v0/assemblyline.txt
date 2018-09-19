@@ -65,7 +65,7 @@ BasicGame key_handler=Pulse
         9 > floor assembly3 lineright
 
     InteractionSet
-    
+
         avatar wall lasercannon > stepBack
 
         vortex avatar  > bounceForward

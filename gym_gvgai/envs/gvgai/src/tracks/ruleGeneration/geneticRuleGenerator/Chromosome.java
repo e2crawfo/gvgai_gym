@@ -133,11 +133,11 @@ public class Chromosome implements Comparable<Chromosome>{
 				String nInteraction = SharedData.interactions[SharedData.random.nextInt(SharedData.interactions.length)];
 				int i1 = SharedData.random.nextInt(SharedData.usefulSprites.size());
 			    int i2 = (i1 + 1 + SharedData.random.nextInt(SharedData.usefulSprites.size() - 1)) % SharedData.usefulSprites.size();
-			    
+			
 			    String newInteraction = SharedData.usefulSprites.get(i1) + " " + SharedData.usefulSprites.get(i2) + " > " + nInteraction;
 			    // roll to see if you insert a parameter into this interaction
 			    roll = SharedData.random.nextDouble();
-			    
+			
 			    if(roll < SharedData.INSERT_PARAM_PROB) {
 			    	String nParam = SharedData.interactionParams[SharedData.random.nextInt(SharedData.interactionParams.length)];
 					nParam += "=";
@@ -163,7 +163,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				ruleset[0] = new String[interactionSet.size()];
 				ruleset[0] = interactionSet.toArray(ruleset[0]);
 			}
-		} 
+		}
 		// we do a deletion
 		else if(mutationType < SharedData.DELETION_PROB + SharedData.INSERTION_PROB) {
 			// roll dice to see if we will delete a rule altogether or a parameter of an existing rule
@@ -184,7 +184,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				// if no params do nothing
 				if(params.size() == 0) {
 					
-				} 
+				}
 				// if one param, remove it
 				else if(params.size() == 1) {
 					String fixedRule = "";
@@ -229,7 +229,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				ruleset[0] = new String[interactionSet.size()];
 				ruleset[0] = interactionSet.toArray(ruleset[0]);
 			}
-		} 
+		}
 		// modify a rule from the interaction set by changing its parameters
 		else if (mutationType < SharedData.MODIFY_RULE_PROB + SharedData.DELETION_PROB + SharedData.INSERTION_PROB) {
 			// pick our modified rule
@@ -259,7 +259,7 @@ public class Chromosome implements Comparable<Chromosome>{
 					for(String part : splitModifyFromMe) {
 						if(!part.equals(ps.get(rule))) {
 							fixedRule += part + " ";
-						} 
+						}
 						// we are on the parameter we want to replace
 						else {
 							String nParam = SharedData.interactionParams[SharedData.random.nextInt(SharedData.interactionParams.length)];
@@ -286,7 +286,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				// redefine the interaction array with the interaction array list
 				ruleset[0] = new String[interactionSet.size()];
 				ruleset[0] = interactionSet.toArray(ruleset[0]);
-			} 
+			}
 			// modify a rule, but leave the parameters and sprites
 			else {
 				String newRule = SharedData.interactions[SharedData.random.nextInt(SharedData.interactions.length)];
@@ -301,7 +301,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				}
 				ruleset[0][point] = newRule;
 			}
-		} 
+		}
 		// we should never ever reach this point
 		else {
 			System.err.println("What?! How did we even get here!?");
@@ -311,7 +311,7 @@ public class Chromosome implements Comparable<Chromosome>{
 	 * performs a mutation on a random termination in the set
 	 * 4 types of mutation: insert a new rule, delete an old rule, change a rule, and change rule parameters (but keep the rule)
 	 * the termination ruleset will shift back and forth between an array and an arraylist depending on the circumstances
-	 * according to what is easiest to manipulate at the time. 
+	 * according to what is easiest to manipulate at the time.
 	 */
 	public void mutateTermination() {
 		ArrayList<String> terminationSet = new ArrayList<>( Arrays.asList(ruleset[1]));
@@ -354,7 +354,7 @@ public class Chromosome implements Comparable<Chromosome>{
 			}
 			// insert an entirely new rule, possibly with a parameter in it
 			else {
-				String nTermination = SharedData.terminations[SharedData.random.nextInt(SharedData.terminations.length)];    
+				String nTermination = SharedData.terminations[SharedData.random.nextInt(SharedData.terminations.length)];
 				
 				
 				// roll to see if we include a parameter from the termination parameter set
@@ -406,7 +406,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				
 				}
 			}
-		} 
+		}
 		// we do a deletion
 		else if(mutationType < SharedData.DELETION_PROB + SharedData.INSERTION_PROB) {
 			// roll dice to see if we will delete a rule altogether or a parameter of an existing rule
@@ -428,7 +428,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				// if no params do nothing
 				if(params.size() == 0) {
 					
-				} 
+				}
 				else {
 					// pick one of the rules and don't include it, but include the others
 					int rule = SharedData.random.nextInt(params.size());
@@ -479,7 +479,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				
 				}
 			}
-		} 
+		}
 		// modify a rule from the interaction set by changing its parameters
 		else if (mutationType < SharedData.MODIFY_RULE_PROB + SharedData.DELETION_PROB + SharedData.INSERTION_PROB) {
 			// pick our modified rule
@@ -510,10 +510,10 @@ public class Chromosome implements Comparable<Chromosome>{
 					for(String part : splitModifyFromMe) {
 						if(!part.equals(ps.get(rule))) {
 							fixedRule += part + " ";
-						} 
+						}
 						// we are on the parameter we want to modify
 						else {
-							String nParam = ""; 
+							String nParam = "";
 							if(part.contains("win")) {
 								nParam = "win=";
 								// roll dice to see if true or false
@@ -562,7 +562,7 @@ public class Chromosome implements Comparable<Chromosome>{
 					}
 				
 				}
-			} 
+			}
 			// modify a rule, but leave the parameters and sprites
 			else {
 				String newRule = SharedData.terminations[SharedData.random.nextInt(SharedData.terminations.length)];
@@ -585,7 +585,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				
 				}
 			}
-		} 
+		}
 		// we should never ever reach this point
 		else {
 			System.err.println("What?! Howd we even get here!?");
@@ -661,8 +661,8 @@ public class Chromosome implements Comparable<Chromosome>{
 		}
 	}
 	/**
-	 * first checks to see if there are no build errors, if there are, this is infeasible. 
-	 * Otherwise, it will check to see if a do nothing agent dies within the first 40 steps of playing. 
+	 * first checks to see if there are no build errors, if there are, this is infeasible.
+	 * Otherwise, it will check to see if a do nothing agent dies within the first 40 steps of playing.
 	 * if it does, this is infeasible.
 	 * @return
 	 */
@@ -747,10 +747,10 @@ public class Chromosome implements Comparable<Chromosome>{
 				}
 				score = -200;
 			}
-			 
+			
 			// Random Agent
 			score = -200;
-			 
+			
 			double randomScoreSum = 0.0;
 			double randomWinSum = 0.0;
 			StateObservation randomState = null;
@@ -857,7 +857,7 @@ public class Chromosome implements Comparable<Chromosome>{
 				constrainFitness = 1.0;
 				this.fitness.set(0, constrainFitness);
 				this.fitness.set(1, fitness);
-		} 
+		}
 	}
 	/**
 	 * Play the current level using the naive player
@@ -989,8 +989,8 @@ public class Chromosome implements Comparable<Chromosome>{
 
 	
 	private void cleanOpenloopAgents() {
-		((tracks.singlePlayer.advanced.olets.Agent)SharedData.automatedAgent).mctsPlayer = 
-			new tracks.singlePlayer.advanced.olets.SingleMCTSPlayer(new Random(), 
+		((tracks.singlePlayer.advanced.olets.Agent)SharedData.automatedAgent).mctsPlayer =
+			new tracks.singlePlayer.advanced.olets.SingleMCTSPlayer(new Random(),
 				(tracks.singlePlayer.advanced.olets.Agent) SharedData.automatedAgent);
 	}
 	

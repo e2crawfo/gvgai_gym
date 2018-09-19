@@ -7,7 +7,7 @@ BasicGame square_size=24
             cars >
                 carSlow  > Missile orientation=DOWN speed=0.25 img=newset/tank_blue
                 carFast  > Missile orientation=DOWN speed=0.5 img=newset/car_green
-            statics > 
+            statics >
                 fuel > Missile orientation=DOWN speed=1 img=newset/fuel
                 tree > Missile orientation=DOWN speed=1 img=newset/tree2
         end    > Immovable invisible=True hidden=True

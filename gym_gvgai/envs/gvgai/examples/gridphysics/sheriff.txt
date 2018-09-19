@@ -42,7 +42,7 @@ BasicGame
         SpriteCounter      stype=avatar             limit=0 win=False
         SpriteCounter      stype=bandit             limit=0 win=True
         Timeout limit=1000 win=True
-        
+
     InteractionSet
         avatar surround base wall > stepBack
 

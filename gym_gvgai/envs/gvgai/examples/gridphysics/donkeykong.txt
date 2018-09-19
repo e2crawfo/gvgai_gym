@@ -27,7 +27,7 @@ BasicGame square_size=20
         arrow > Missile img=newset/arrow speed=0.75 singleton=True
         donkey > RandomNPC speed=0.001 img=newset/monkey2 frameRate=6
         wall > Immovable color=BLACK img=oryx/wall1
-        
+
     InteractionSet
 
         avatar wall eos > stepBack
@@ -54,11 +54,11 @@ BasicGame square_size=20
         goal avatar  > killSprite scoreChange=1
 
 
-    
+
     TerminationSet
         SpriteCounter stype=goal   limit=0 win=True
         SpriteCounter stype=avatar limit=0 win=False
-    
+
     LevelMapping
         _ > back
         g > goal ground

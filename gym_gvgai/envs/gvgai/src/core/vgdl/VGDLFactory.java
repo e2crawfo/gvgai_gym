@@ -272,7 +272,7 @@ public class VGDLFactory
      * Creates a new effect, with parameters passed as InteractionContent.
      * @param content parameters for the effect, including its class.
      * @return the new effect, created and initialized, ready to be triggered!
-     * @throws Exception 
+     * @throws Exception
      */
     @SuppressWarnings("unchecked")
     public Effect createEffect(Game game, InteractionContent content) throws Exception
@@ -318,7 +318,7 @@ public class VGDLFactory
      * Creates a new termination, with parameters passed as TerminationContent.
      * @param content parameters for the termination condition, including its class.
      * @return the new termination, created and initialized, ready to be checked!
-     * @throws Exception 
+     * @throws Exception
      */
     @SuppressWarnings("unchecked")
     public Termination createTermination(Game game, TerminationContent content) throws Exception
@@ -345,7 +345,7 @@ public class VGDLFactory
      * Parses the parameters from content, assigns them to variables in obj.
      * @param content contains the parameters to read.
      * @param obj object with the variables to assign.
-     * @throws Exception 
+     * @throws Exception
      */
     public void parseParameters(Content content, Object obj)
     {
@@ -398,7 +398,7 @@ public class VGDLFactory
                     fieldMap.get(parameter).set(obj, objVal);
                 } catch (IllegalAccessException e) {
                     //TODO: Do it later
-                    
+
                 } catch (Exception e) {
                     //TODO: Do it later
                 }

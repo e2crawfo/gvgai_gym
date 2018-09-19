@@ -363,16 +363,16 @@ public class SLDescription {
 	}
     /**
      * get list of errors from the system
-     * 
+     *
      * @return a list of errors
      */
     public ArrayList<Message> getErrors() {
 	return Logger.getInstance().getMessages(Message.ERROR);
     }
-    
+
     /**
      * get list of warnings from the system
-     * 
+     *
      * @return a list of warning
      */
     public ArrayList<Message> getWarnings() {

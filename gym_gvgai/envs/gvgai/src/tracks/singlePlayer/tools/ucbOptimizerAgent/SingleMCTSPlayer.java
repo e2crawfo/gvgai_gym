@@ -42,7 +42,7 @@ public class SingleMCTSPlayer
     public void init(StateObservation a_gameState)
     {
         //Set the game observation to a newly root node.
-        m_root = new SingleTreeNode(m_rnd, 
+        m_root = new SingleTreeNode(m_rnd,
         		new int[a_gameState.getObservationGrid().length][a_gameState.getObservationGrid()[0].length]);
         m_root.state = a_gameState;
     }

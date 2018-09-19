@@ -74,7 +74,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 
 		
 		while(newPopulation.size() < SharedData.POPULATION_SIZE){
-			//choosing which population to work on with 50/50 probability 
+			//choosing which population to work on with 50/50 probability
 			//of selecting either any of them
 			ArrayList<Chromosome> population = fPopulation;
 			if(fPopulation.size() <= 0){
@@ -124,7 +124,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 		}
 		
 
-		//calculate fitness of the new population chromosomes 
+		//calculate fitness of the new population chromosomes
 		for(int i=0;i<newPopulation.size();i++){
 			newPopulation.get(i).calculateFitness(SharedData.EVALUATION_TIME);
 			if(newPopulation.get(i).getConstrainFitness() < 1){
@@ -223,7 +223,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
 	}
 	
 	/**
-	 * Generate a level using GA in a fixed amount of time and 
+	 * Generate a level using GA in a fixed amount of time and
 	 * return the level in form of a string
 	 * @param game			the current game description object
 	 * @param elapsedTimer	the amount of time allowed for generation

@@ -55,7 +55,7 @@ public class SpaceshipAvatar extends ShootAvatar
         aim();
         move();
     }
-    
+
     public void shoot(Game game, int idx)
     {
         Vector2d dir = this.orientation.getVector();
@@ -72,7 +72,7 @@ public class SpaceshipAvatar extends ShootAvatar
             newOne.setFromAvatar(true);
         }
     }
-    
+
     public void applyMovement(Game game, Direction action)
     {
     	//this.physics.passiveMovement(this);
@@ -80,32 +80,32 @@ public class SpaceshipAvatar extends ShootAvatar
     		super.updatePassive();
     }
 
-    
+
     private void aim()
     {
     	double angle = this.rotation;
 
-    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DLEFT) 
+    	if(Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DLEFT)
     	{
     		angle -= angle_diff;
     	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DRIGHT) 
+    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DRIGHT)
     	{
     		angle += angle_diff;
     	}
     	this._updateRotation(angle);
     }
-    
+
     public void move()
     {
     	Direction facing = new Direction(0,0);
 
-    	if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP) 
+    	if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DUP)
     	{
     		facing = new Direction(Math.cos(this.rotation), Math.sin(this.rotation));
     		this.physics.activeMovement(this, facing, speed);
     	}
-    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN) 
+    	else if (Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID()) == Types.DDOWN)
     	{
     		facing = new Direction(Math.cos(this.rotation+Math.toRadians(180)), Math.sin(this.rotation+Math.toRadians(180.0)));
     		this.physics.activeMovement(this, facing, speed);

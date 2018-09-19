@@ -84,7 +84,7 @@ public class SpawnIfCounterSubTypes extends Effect {
             game.addSprite(eitype, sprite1.getPosition());
         }
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

@@ -44,7 +44,7 @@ public class Individual implements Comparable{
                 a = gen.nextInt(b.actions.length);
 
                 int s;
-                s = gen.nextInt(n); 
+                s = gen.nextInt(n);
                 b.actions[a] = s;
 
                 count++;

@@ -12,8 +12,8 @@ BasicGame
             niceGuy > Chaser stype=city color=ORANGE speed=0.1 img=newset/niceGuy
     death   > Immovable hidden=True invisible=True
     portal  > SpawnPoint invisible=True hidden=True
-        enemySlowPortal > stype=enemy_slow   cooldown=100  total=2 
-        enemyFastPortal > stype=enemy_fast   cooldown=100  total=2 
+        enemySlowPortal > stype=enemy_slow   cooldown=100  total=2
+        enemyFastPortal > stype=enemy_fast   cooldown=100  total=2
         niceGuyPortal   > stype=niceGuy      cooldown=100  total=2
 
     wall > Immovable img=newset/block2

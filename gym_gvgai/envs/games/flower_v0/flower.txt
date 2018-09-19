@@ -20,16 +20,16 @@ BasicGame key_handler=Pulse square_size=40
         flower2 avatar > killSprite scoreChange=1
         flower3 avatar > killSprite scoreChange=3
         flower4 avatar > killSprite scoreChange=10
-        
+
         flower1 flower2 > killSprite
         flower2 flower3 > killSprite
         flower1 flower3 > killSprite
         flower1 flower4 > killSprite
         flower2 flower4 > killSprite
         flower3 flower4 > killSprite
-        
 
-        
+
+
     TerminationSet
         Timeout limit=1500 win=True
         SpriteCounter stype=avatar limit=0 win=False

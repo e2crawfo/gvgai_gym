@@ -35,7 +35,7 @@ public class SingleTreeNode
         this.m_rnd = rnd;
         this.visitedTiles = visSpace;
         if(state != null){
-	        this.visitedTiles = Helper.updateTilesValue(visSpace, (int)(state.getAvatarPosition().x / state.getBlockSize()), 
+	        this.visitedTiles = Helper.updateTilesValue(visSpace, (int)(state.getAvatarPosition().x / state.getBlockSize()),
 	        		(int)(state.getAvatarPosition().y / state.getBlockSize()));
         }
         children = new SingleTreeNode[Agent.NUM_ACTIONS];
@@ -104,7 +104,7 @@ public class SingleTreeNode
     	}
     	return -1;
     }
-    
+
     public int getNumberOfReverseActions(SingleTreeNode node){
     	int result = 0;
     	
@@ -121,7 +121,7 @@ public class SingleTreeNode
     	
     	return result;
     }
-    
+
     public int getNumberOfSameActions(SingleTreeNode node){
     	int result = 0;
     	
@@ -138,12 +138,12 @@ public class SingleTreeNode
     	
     	return result;
     }
-    
+
     public boolean isUselessMove(StateObservation oldState, StateObservation newState){
-    	return (oldState.getAvatarPosition().equals(newState.getAvatarPosition()) && 
+    	return (oldState.getAvatarPosition().equals(newState.getAvatarPosition()) &&
     			oldState.getAvatarOrientation().equals(newState.getAvatarOrientation()));
     }
-    
+
     public int getNumberOfUselessMoves(SingleTreeNode node){
     	int result = 0;
     	
@@ -159,7 +159,7 @@ public class SingleTreeNode
     	
     	return result;
     }
-    
+
     public int getMaxVisitedValue(){
     	int result = 0;
     	
@@ -224,18 +224,18 @@ public class SingleTreeNode
         	values[Helper.SPACE_EXPLORATION_MAX_VALUE] = getMaxVisitedValue();
         	
         	//VGDL related variables
-        	values[Helper.DISTANCE_MAX_IMMOVABLE] = 
+        	values[Helper.DISTANCE_MAX_IMMOVABLE] =
         			Helper.getMaxObservation(child.state.getImmovablePositions(), child.state.getAvatarPosition());
         	values[Helper.DISTANCE_MAX_MOVABLE] =
         			Helper.getMaxObservation(child.state.getMovablePositions(), child.state.getAvatarPosition());
         	values[Helper.DISTANCE_MAX_NPC] =
         			Helper.getMaxObservation(child.state.getNPCPositions(), child.state.getAvatarPosition());
-        	values[Helper.DISTANCE_MAX_PORTAL] = 
+        	values[Helper.DISTANCE_MAX_PORTAL] =
         			Helper.getMaxObservation(child.state.getPortalsPositions(), child.state.getAvatarPosition());
         	values[Helper.DISTANCE_MAX_RESOURCE] =
         			Helper.getMaxObservation(child.state.getResourcesPositions(), child.state.getAvatarPosition());
         	
-        	values[Helper.DISTANCE_MIN_IMMOVABLE] = 
+        	values[Helper.DISTANCE_MIN_IMMOVABLE] =
         			Helper.getMinObservation(child.state.getImmovablePositions(), child.state.getAvatarPosition());
         	values[Helper.DISTANCE_MIN_MOVABLE] =
         			Helper.getMinObservation(child.state.getMovablePositions(), child.state.getAvatarPosition());
@@ -252,12 +252,12 @@ public class SingleTreeNode
         			Helper.getTotObservation(child.state.getMovablePositions(), child.state.getAvatarPosition());
         	values[Helper.DISTANCE_TOT_NPC] =
         			Helper.getTotObservation(child.state.getNPCPositions(), child.state.getAvatarPosition());
-        	values[Helper.DISTANCE_TOT_PORTAL] = 
+        	values[Helper.DISTANCE_TOT_PORTAL] =
         			Helper.getTotObservation(child.state.getPortalsPositions(), child.state.getAvatarPosition());
         	values[Helper.DISTANCE_TOT_RESOURCE] =
         			Helper.getTotObservation(child.state.getResourcesPositions(), child.state.getAvatarPosition());
         	
-        	values[Helper.NUMBER_IMMOVABLE] = 
+        	values[Helper.NUMBER_IMMOVABLE] =
         			Helper.getObservationLength(child.state.getImmovablePositions());
         	values[Helper.NUMBER_MOVABLE] =
         			Helper.getObservationLength(child.state.getMovablePositions());

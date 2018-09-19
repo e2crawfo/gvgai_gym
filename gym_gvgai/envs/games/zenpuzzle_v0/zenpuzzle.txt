@@ -8,15 +8,15 @@ BasicGame key_handler=Pulse square_size=48
         ground > Immovable img=oryx/floorTileOrange
         walked > Immovable img=oryx/floorTileGreen
         rock > Immovable img=oryx/wall5
-    
+
     LevelMapping
         r > background rock
         g > background ground
         . > background
         A > background avatar
-        
+
     TerminationSet
-        SpriteCounter      stype=avatar               limit=0 win=False  
+        SpriteCounter      stype=avatar               limit=0 win=False
         MultiSpriteCounter   stype1=isincenter  stype2=ground   limit=0 win=True
 
     InteractionSet

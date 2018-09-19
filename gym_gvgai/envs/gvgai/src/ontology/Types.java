@@ -132,7 +132,7 @@ public class Types {
             else if (move.equals(RIGHT)) return ACTION_RIGHT;
             else return ACTION_NIL;
         }
-        
+
         public static boolean isMoving(ACTIONS value){
         	return value == ACTIONS.ACTION_UP || value == ACTIONS.ACTION_DOWN ||
         			value == ACTIONS.ACTION_LEFT || value == ACTIONS.ACTION_RIGHT;

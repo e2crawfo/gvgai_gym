@@ -83,6 +83,6 @@ public final class DateTypeAdapter extends TypeAdapter<Date> {
     String dateFormatAsString = enUsFormat.format(value);
     out.value(dateFormatAsString);
   }
-  
-  
+
+
 }

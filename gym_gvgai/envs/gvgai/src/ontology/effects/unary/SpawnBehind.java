@@ -39,7 +39,7 @@ public class SpawnBehind extends Effect {
             game.addSprite(itype, lastPos);
         }
     }
-    
+
     @Override
     public ArrayList<String> getEffectSprites(){
     	ArrayList<String> result = new ArrayList<String>();

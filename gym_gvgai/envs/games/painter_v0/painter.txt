@@ -2,7 +2,7 @@
 
 BasicGame key_handler=Pulse square_size=60
     SpriteSet
-        
+
         ground > Immovable color=GRAY img=oryx/backGrey
         paint > Immovable color=DARKBLUE img=newset/paint2
 
@@ -24,20 +24,19 @@ BasicGame key_handler=Pulse square_size=60
 
     InteractionSet
         avatar EOS > stepBack
-        
+
         prepaint avatar > killSprite
         ground avatar > spawn stype=prepaint
         prepaint ground > changeResource resource=prepainting value=1
         prepaint ground > spawnIfHasMore resource=prepainting limit=2 stype=paint
         ground prepaint > killIfOtherHasMore resource=prepainting limit=2  scoreChange=1
-        
+
         preground avatar > killSprite
         paint avatar > spawn stype=preground
         preground paint > changeResource resource=pregrounding value=1
         preground paint > spawnIfHasMore resource=pregrounding limit=2 stype=ground
-        paint preground > killIfOtherHasMore resource=pregrounding limit=2 
+        paint preground > killIfOtherHasMore resource=pregrounding limit=2
 
     TerminationSet
         SpriteCounter stype=ground limit=0 win=True
-        
-        
+

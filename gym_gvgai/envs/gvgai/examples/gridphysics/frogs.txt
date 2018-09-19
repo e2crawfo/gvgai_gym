@@ -10,7 +10,7 @@ BasicGame
             goal  > Door color=GREEN img=newset/exit2
         log    > Missile   orientation=LEFT  speed=0.1 color=BROWN img=newset/log
         truck  >
-            rightTruck  > Missile   orientation=RIGHT 
+            rightTruck  > Missile   orientation=RIGHT
                 fastRtruck  > speed=0.2  color=ORANGE img=newset/car3R
                 slowRtruck  > speed=0.1  color=RED img=newset/car4R
             leftTruck  > Missile   orientation=LEFT
@@ -19,7 +19,7 @@ BasicGame
 
         avatar > MovingAvatar img=newset/girl1
         wall > Immovable color=BLACK img=oryx/tree2
-        
+
     InteractionSet
         goal avatar  > killSprite scoreChange=1
         avatar log   > shieldFrom ftype=killSprite stype=water
@@ -28,11 +28,11 @@ BasicGame
         avatar truck water > killSprite
         log    EOS   > killSprite
         truck  EOS   > wrapAround
-    
+
     TerminationSet
         SpriteCounter stype=goal   limit=0 win=True
         SpriteCounter stype=avatar limit=0 win=False
-    
+
     LevelMapping
         g > grass goal
         0 > water grass

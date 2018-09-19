@@ -11,7 +11,7 @@ BasicGame key_handler=Pulse
            mleft > orientation=LEFT img=newset/mirror_l
            mswap >
 
-        lasercannon > SpawnPoint 
+        lasercannon > SpawnPoint
             lcup > img=newset/lasercannon stype=lup
             lcdown > img=newset/lasercannon_2 stype=ldown
             lcright > img=newset/lasercannon_1 stype=lright

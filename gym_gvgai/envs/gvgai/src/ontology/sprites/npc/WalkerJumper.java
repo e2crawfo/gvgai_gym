@@ -63,7 +63,7 @@ public class WalkerJumper extends Walker
 
         on_ground = false;
     }
-    
+
     protected void loadDefaults()
     {
         super.loadDefaults();

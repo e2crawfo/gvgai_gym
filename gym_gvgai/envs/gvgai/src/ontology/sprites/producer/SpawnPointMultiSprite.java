@@ -120,7 +120,7 @@ public class SpawnPointMultiSprite extends SpriteProducer
         targetSprite.counter = this.counter;
         targetSprite.spawnorientation = this.spawnorientation.copy();
         targetSprite.start = this.start;
-        
+
         super.copyTo(targetSprite);
     }
 }

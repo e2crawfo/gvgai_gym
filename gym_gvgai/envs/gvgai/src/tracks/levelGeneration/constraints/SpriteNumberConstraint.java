@@ -18,8 +18,8 @@ public class SpriteNumberConstraint extends AbstractConstraint{
 	public GameAnalyzer gameAnalyzer;
 	
 	/**
-	 * 
-	 * @return	1 if all objects appears at least once and 
+	 *
+	 * @return	1 if all objects appears at least once and
 	 * 			percentage of different objects in the level otherwise
 	 */
 	@Override

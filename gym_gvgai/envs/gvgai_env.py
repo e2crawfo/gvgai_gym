@@ -36,14 +36,14 @@ class GVGAI_Env(gym.Env):
         self.actions = self.GVGAI.actions()
         self.img = self.GVGAI.sso.image
         self.viewer = None
-       
+
         #Only allow gridphysics games for now
         #Get number of moves for a selected game
         self.action_space = spaces.Discrete(len(self.actions))
 
         # Observation is the remaining time
         self.observation_space = spaces.Box(low=0, high=255, shape=self.img.shape, dtype=np.uint8)
-        
+
     def step(self, action):
         """
         The agent takes a step in the environment.
@@ -64,7 +64,7 @@ class GVGAI_Env(gym.Env):
                 info["winner"] == PLAYER_LOSES, PLAYER_WINS, NO_WINNER
         """
         state, reward, isOver, info = self.GVGAI.step(action)
-        
+
         self.img = state
         return state, reward, isOver, info
 

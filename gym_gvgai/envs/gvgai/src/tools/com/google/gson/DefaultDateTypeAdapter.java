@@ -44,7 +44,7 @@ final class DefaultDateTypeAdapter extends TypeAdapter<Date> {
   private final Class<? extends Date> dateType;
   private final DateFormat enUsFormat;
   private final DateFormat localFormat;
-  
+
   DefaultDateTypeAdapter(Class<? extends Date> dateType) {
     this(dateType,
         DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.US),

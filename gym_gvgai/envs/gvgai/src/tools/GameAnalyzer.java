@@ -123,7 +123,7 @@ public class GameAnalyzer {
 				minRequiredNumber.put(sprite.name, 0);
 			}
 			else{
-				if(getAllInteractions(sprite.name, InteractionType.ALL, game).size() > 0 || 
+				if(getAllInteractions(sprite.name, InteractionType.ALL, game).size() > 0 ||
 						spawnerTypes.contains(sprite.type)){
 					if(sprite.isSingleton){
 						minRequiredNumber.put(sprite.name, 1);
@@ -264,7 +264,7 @@ public class GameAnalyzer {
 		for(SpriteData s:allSprites){
 			if(spawnerTypes.contains(s.type)){
 				for(String stype:s.sprites){
-					if(harmfulSprites.contains(stype) && 
+					if(harmfulSprites.contains(stype) &&
 							!harmfulSprites.contains(s.name)){
 						harmfulSprites.add(s.name);
 					}

@@ -30,11 +30,11 @@ import tools.com.google.gson.stream.MalformedJsonException;
 /**
  * A streaming parser that allows reading of multiple {@link JsonElement}s from the specified reader
  * asynchronously.
- * 
+ *
  * <p>This class is conditionally thread-safe (see Item 70, Effective Java second edition). To
  * properly use this class across multiple threads, you will need to add some external
  * synchronization.  For example:
- * 
+ *
  * <pre>
  * JsonStreamParser parser = new JsonStreamParser("['first'] {'second':10} 'third'");
  * JsonElement element;
@@ -58,9 +58,9 @@ public final class JsonStreamParser implements Iterator<JsonElement> {
    * @since 1.4
    */
   public JsonStreamParser(String json) {
-    this(new StringReader(json));      
+    this(new StringReader(json));
   }
-  
+
   /**
    * @param reader The data stream containing JSON elements concatenated to each other.
    * @since 1.4
@@ -70,10 +70,10 @@ public final class JsonStreamParser implements Iterator<JsonElement> {
     parser.setLenient(true);
     lock = new Object();
   }
-  
+
   /**
    * Returns the next available {@link JsonElement} on the reader. Null if none available.
-   * 
+   *
    * @return the next available {@link JsonElement} on the reader. Null if none available.
    * @throws JsonParseException if the incoming stream is malformed JSON.
    * @since 1.4
@@ -82,7 +82,7 @@ public final class JsonStreamParser implements Iterator<JsonElement> {
     if (!hasNext()) {
       throw new NoSuchElementException();
     }
-    
+
     try {
       return Streams.parse(parser);
     } catch (StackOverflowError e) {

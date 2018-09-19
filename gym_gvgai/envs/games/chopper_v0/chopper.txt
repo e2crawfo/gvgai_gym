@@ -24,7 +24,7 @@ BasicGame
 
         supply > Missile orientation=LEFT speed=0.25 img=oryx/goldsack shrinkfactor=0.5
         bullet > Resource limit=20
-    
+
     LevelMapping
         A > avatar stratosphere
         c > satellite thermosphere
@@ -42,7 +42,7 @@ BasicGame
         SpriteCounter      stype=avatar               limit=0 win=False
         SpriteCounter      stype=satellite               limit=0 win=False
         MultiSpriteCounter stype1=portalBase stype2=tank limit=0 win=True
-        
+
     InteractionSet
         avatar wall EOS > stepBack
         avatar sam > killSprite

@@ -96,7 +96,7 @@ public class ShootOnlyAvatar extends ShootAvatar
         ShootOnlyAvatar targetSprite = (ShootOnlyAvatar) target;
         super.copyTo(targetSprite);
     }
-    
+
     @Override
     public ArrayList<String> getDependentSprites(){
     	ArrayList<String> result = new ArrayList<String>();

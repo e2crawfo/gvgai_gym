@@ -219,5 +219,5 @@ public class AlternateChaser extends RandomNPC
     	
     	return result;
     }
-    
+
 }

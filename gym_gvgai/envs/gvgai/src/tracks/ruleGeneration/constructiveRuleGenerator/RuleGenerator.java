@@ -11,7 +11,7 @@ import tools.ElapsedCpuTimer;
 import tools.LevelAnalyzer;
 
 /**
- * This is a constructive rule generator it depends 
+ * This is a constructive rule generator it depends
  * @author AhmedKhalifa
  */
 public class RuleGenerator extends AbstractRuleGenerator{
@@ -503,7 +503,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
 		}
 	}
 
-    
+
     /**
      * get the generated interaction rules and termination rules
      * @param sl	SLDescription object contain information about the game
@@ -533,12 +533,12 @@ public class RuleGenerator extends AbstractRuleGenerator{
 	
 	return new String[][]{interactions.toArray(new String[interactions.size()]), terminations.toArray(new String[terminations.size()])};
     }
-    
+
     @Override
     public HashMap<String, ArrayList<String>> getSpriteSetStructure() {
         HashMap<String, ArrayList<String>> struct = new HashMap<String, ArrayList<String>>();
         HashMap<String, Boolean> testing = new HashMap<String, Boolean>();
-        
+
         if(fleeingNPCs.size() > 0){
             struct.put("fleeing", new ArrayList<String>());
         }
@@ -548,7 +548,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
         	struct.get("fleeing").add(this.fleeingNPCs.get(i));
             }
         }
-        
+
         if(harmfulObjects.size() > 0){
             struct.put("harmful", new ArrayList<String>());
         }
@@ -567,7 +567,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
         	struct.get("collectible").add(this.collectible.get(i));
             }
         }
-        
+
         return struct;
     }
 

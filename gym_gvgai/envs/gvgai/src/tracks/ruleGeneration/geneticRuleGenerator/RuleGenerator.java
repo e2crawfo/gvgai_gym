@@ -140,7 +140,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
 
 		
 		// CLEANSING PART
-		// cleanse the population 
+		// cleanse the population
 		for(Chromosome c : fPopulation) {
 			c.cleanseChromosome();
 		}
@@ -274,11 +274,11 @@ public class RuleGenerator extends AbstractRuleGenerator{
 		ArrayList<Chromosome> iChromosomes = new ArrayList<Chromosome>();
 		ArrayList<Chromosome> allChromosomes = new ArrayList<Chromosome>();
 		
-		allChromosomes.addAll(getFirstPopulation(sl, "tracks.ruleGeneration.constructiveRuleGenerator.RuleGenerator", 
+		allChromosomes.addAll(getFirstPopulation(sl, "tracks.ruleGeneration.constructiveRuleGenerator.RuleGenerator",
 			(int)(SharedData.POPULATION_SIZE * SharedData.INIT_CONSTRUCT_PERCENT), 0));
-		allChromosomes.addAll(getFirstPopulation(sl, "tracks.ruleGeneration.randomRuleGenerator.RuleGenerator", 
+		allChromosomes.addAll(getFirstPopulation(sl, "tracks.ruleGeneration.randomRuleGenerator.RuleGenerator",
 			(int)(SharedData.POPULATION_SIZE * SharedData.INIT_RANDOM_PERCENT), 0));
-		allChromosomes.addAll(getFirstPopulation(sl, "tracks.ruleGeneration.constructiveRuleGenerator.RuleGenerator", 
+		allChromosomes.addAll(getFirstPopulation(sl, "tracks.ruleGeneration.constructiveRuleGenerator.RuleGenerator",
 			(int)(SharedData.POPULATION_SIZE * SharedData.INIT_MUT_PERCENT), SharedData.INIT_MUTATION_AMOUNT));
 
 

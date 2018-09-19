@@ -8,7 +8,7 @@ BasicGame key_handler=Pulse
         box    > Passive img=newset/block1
         boulder  > Passive img=newset/block2
         boulderm > Missile img=newset/block3
-        lasercannon > SpawnPoint 
+        lasercannon > SpawnPoint
             lcup > img=newset/lasercannon stype=lup
             lcdown > img=newset/lasercannon_2 stype=ldown
             lcright > img=newset/lasercannon_1 stype=lright
@@ -43,7 +43,7 @@ BasicGame key_handler=Pulse
 
         box avatar  > bounceForward
         box wall box hole lasercannon   > undoAll
-        
+
         avatar wall > stepBack
         boulder avatar  > transformTo stype=boulderm
         boulderm avatar > attractGaze
@@ -56,7 +56,7 @@ BasicGame key_handler=Pulse
         avatar laser > killIfFrontal
         avatar laser > killIfNotFrontal
 
-        
+
         goal avatar > killSprite scoreChange=5
 
     TerminationSet

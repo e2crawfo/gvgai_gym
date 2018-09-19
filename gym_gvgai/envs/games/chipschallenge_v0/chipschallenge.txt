@@ -23,17 +23,17 @@ BasicGame square_size=45 key_handler=Pulse
         boots > Resource limit=1
             flippers > img=oryx/boots3
             fireboots > img=oryx/boots2
-        
+
         crate > Passive img=newset/block3
-        
+
         gate > Immovable img=oryx/doorclosed1
         exit > Immovable img=newset/exit2
         chip > Resource img=oryx/gold1 shrinkfactor=0.5 limit=11
         avatar > MovingAvatar img=oryx/rogue
 
         wall > Immovable img=oryx/wall3 autotiling=True
-            
-    
+
+
     LevelMapping
         A > avatar floor
         ~ > water floor
@@ -60,17 +60,17 @@ BasicGame square_size=45 key_handler=Pulse
 
 
     TerminationSet
-        SpriteCounter      stype=avatar               limit=0 win=False  
-        SpriteCounter      stype=exit               limit=0 win=True        
+        SpriteCounter      stype=avatar               limit=0 win=False
+        SpriteCounter      stype=exit               limit=0 win=True
     InteractionSet
 
         crate avatar > bounceForward
         crate crate wall door key chip gate mud fire boots > undoAll
 
         water crate > transformTo stype=mud scoreChange=1 killSecond=true
-        
+
         mud avatar > killSprite
-        
+
         gate avatar > killIfOtherHasMore resource=chip limit=11 scoreChange=4
         avatar gate > stepBack
 
@@ -89,7 +89,7 @@ BasicGame square_size=45 key_handler=Pulse
 
         yellowdoor avatar > killIfOtherHasMore resource=yellowkey limit=1  scoreChange=2
         avatar yellowdoor > changeResource resource=yellowkey value=-1
-        
+
         avatar wall door > undoAll
         avatar water > killIfHasLess resource=flippers limit=0
         avatar fire > killIfHasLess resource=fireboots limit=0

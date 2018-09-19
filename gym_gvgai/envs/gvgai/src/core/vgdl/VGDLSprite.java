@@ -77,7 +77,7 @@ public abstract class VGDLSprite {
      * Scalar speed of this sprite.
      */
     public double speed;
-    
+
     /**
      * identifies whether this sprite should move (if an Avatar)
      */
@@ -98,12 +98,12 @@ public abstract class VGDLSprite {
      * Reference to the physics object this sprite belongs to.
      */
     public Physics physics;
-    
+
     /**
      * The amount of gravity force that pushes down on the sprite
      */
     public double gravity;
-    
+
     /**
      * The amount of friction this sprite has when moving.
      */
@@ -174,27 +174,27 @@ public abstract class VGDLSprite {
      * If true, this sprite is never present in the observations passed to the controller.
      */
     public String hidden;
-    
+
     /**
      * Indicates if the tile support autotiling
      */
     public boolean autotiling;
-    
+
     /**
      * Indicates if the tile picking is random
      */
     public double randomtiling;
-    
+
     /**
      * max frameRate for animating sprites
      */
     public double frameRate;
-    
+
     /**
      * remaining frame speed
      */
     public double frameRemaining;
-    
+
     /**
      * the current frame to be drawn
      */
@@ -301,7 +301,7 @@ public abstract class VGDLSprite {
      * If ttl > -1, when it gets to 0, the sprite gets killed.
      */
     public int timeToLive = -1;
-    
+
     /**
      * The sprites rotation
      */
@@ -423,7 +423,7 @@ public abstract class VGDLSprite {
 
         VGDLFactory factory = VGDLFactory.GetInstance();
         factory.parseParameters(content,this);
-        
+
         determinePhysics(physicstype, size);
 
         //post-process. Some sprites may need to do something interesting (i.e. SpawnPoint) once their
@@ -561,9 +561,9 @@ public abstract class VGDLSprite {
         }
         return false;
     }
-    
+
     /**
-     * 
+     *
      * @param rot the rotation of the sprite
      * @return true if rotation could be changed
      */
@@ -1254,5 +1254,5 @@ public abstract class VGDLSprite {
     public ArrayList<String> getDependentSprites(){
     	return new ArrayList<String>();
     }
-    
+
 }

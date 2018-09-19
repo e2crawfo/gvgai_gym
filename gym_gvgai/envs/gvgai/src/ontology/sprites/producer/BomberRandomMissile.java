@@ -80,7 +80,7 @@ public class BomberRandomMissile extends SpawnPoint
         targetSprite.itypesMissile = new ArrayList<>();
         for(Integer it : this.itypesMissile)
             targetSprite.itypesMissile.add(it);
-        
+
         super.copyTo(targetSprite);
     }
 }
