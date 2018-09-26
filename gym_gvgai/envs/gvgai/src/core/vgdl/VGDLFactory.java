@@ -47,9 +47,9 @@ public class VGDLFactory
              "ErraticMissile", "Missile", "RandomMissile", "Walker", "WalkerJumper",
              "ResourcePack", "Chaser", "PathChaser", "Fleeing", "RandomInertial",
              "RandomNPC", "AlternateChaser", "RandomAltChaser","PathAltChaser", "RandomPathAltChaser",
-             "Bomber", "RandomBomber", "Portal", "SpawnPoint", "SpriteProducer", "Door",
+             "Bomber", "Portal", "SpawnPoint", "SpriteProducer", "Door",
              "FlakAvatar", "HorizontalAvatar", "VerticalAvatar", "MovingAvatar","MissileAvatar",
-             "OrientedAvatar","ShootAvatar", "OngoingAvatar", "OngoingTurningAvatar", "BomberRandomMissile",
+             "OrientedAvatar","ShootAvatar", "OngoingAvatar", "OngoingTurningAvatar",
              "OngoingShootAvatar", "NullAvatar", "AimedAvatar", "PlatformerAvatar", "BirdAvatar",
              "SpaceshipAvatar", "CarAvatar", "WizardAvatar", "LanderAvatar", "ShootOnlyAvatar", "SpawnPointMultiSprite",
                     "LOSChaser"};
@@ -63,9 +63,9 @@ public class VGDLFactory
              ErraticMissile.class, Missile.class, RandomMissile.class, Walker.class, WalkerJumper.class,
              ResourcePack.class, Chaser.class, PathChaser.class, Fleeing.class, RandomInertial.class,
              RandomNPC.class, AlternateChaser.class, RandomAltChaser.class, PathAltChaser.class, RandomPathAltChaser.class,
-             Bomber.class, RandomBomber.class, Portal.class, SpawnPoint.class, SpriteProducer.class, Door.class,
+             Bomber.class, Portal.class, SpawnPoint.class, SpriteProducer.class, Door.class,
              FlakAvatar.class, HorizontalAvatar.class, VerticalAvatar.class, MovingAvatar.class,MissileAvatar.class,
-             OrientedAvatar.class,ShootAvatar.class, OngoingAvatar.class, OngoingTurningAvatar.class, BomberRandomMissile.class,
+             OrientedAvatar.class,ShootAvatar.class, OngoingAvatar.class, OngoingTurningAvatar.class,
              OngoingShootAvatar.class, NullAvatar.class, AimedAvatar.class, PlatformerAvatar.class, BirdAvatar.class,
              SpaceshipAvatar.class, CarAvatar.class, WizardAvatar.class, LanderAvatar.class, ShootOnlyAvatar.class, SpawnPointMultiSprite.class,
                     LOSChaser.class};

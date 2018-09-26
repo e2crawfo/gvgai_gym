@@ -395,7 +395,6 @@ public abstract class VGDLSprite {
         setRect(r);
     }
 
-
     public void setRect(Rectangle rectangle)
     {
         rect = new Rectangle(rectangle);
@@ -424,7 +423,6 @@ public abstract class VGDLSprite {
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
     }
 
-
     /**
      * Parses parameters for the sprite, received as a SpriteContent object.
      * @param content
@@ -436,8 +434,8 @@ public abstract class VGDLSprite {
 
         determinePhysics(physicstype, size);
 
-        //post-process. Some sprites may need to do something interesting (i.e. SpawnPoint) once their
-        // parameters have been defined.
+        // post-process. Some sprites (e.g. SpawnPoint) may need to do something interesting 
+        // once their parameters have been defined.
         this.postProcess();
     }
 

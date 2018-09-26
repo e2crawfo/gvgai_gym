@@ -1,10 +1,15 @@
 package ontology.sprites.producer;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
+import core.vgdl.VGDLRegistry;
 import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
+import core.game.Game;
 import ontology.Types;
+import tools.Direction;
+import tools.Utils;
 import tools.Vector2d;
 
 /**
@@ -12,6 +17,10 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Bomber extends SpawnPoint {
+	public String stypeMissile;
+	private ArrayList<Integer> itypesMissile;
+	public boolean random_movement;
+	
 	public Bomber() {
 	}
 
@@ -19,6 +28,13 @@ public class Bomber extends SpawnPoint {
 		this.init(position, size);
 		loadDefaults();
 		this.parseParameters(cnt);
+
+		int notItypesArray[] = VGDLRegistry.GetInstance().explode(stypeMissile);
+		itypesMissile = new ArrayList<>();
+		for (Integer it : notItypesArray)
+			itypesMissile.add(it);
+		
+		is_stochastic = is_stochastic || random_movement || itypesMissile.size() > 1;
 	}
 
 	protected void loadDefaults() {
@@ -28,6 +44,33 @@ public class Bomber extends SpawnPoint {
 		is_oriented = true;
 		orientation = Types.DRIGHT.copy();
 		is_npc = true;
+		is_stochastic = true;
+		speed = 1.0;
+	}
+	
+	public void update(Game game) {
+		if (itypesMissile.size() > 1) {
+			int type = game.getRandomGenerator().nextInt(itypesMissile.size());
+			itype = itypesMissile.get(type);
+		}
+			
+		if (random_movement) {
+			Direction act = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
+			this.physics.activeMovement(this, act, this.speed);
+		}
+
+		super.update(game);
+	}
+	
+	/**
+	 * Updates missile itype with newitype
+	 * 
+	 * @param itype    - current type of missile
+	 * @param newitype - new type of missile to replace the first
+	 */
+	public void updateItype(int itype, int newitype) {
+		int idx = itypesMissile.indexOf(itype);
+		itypesMissile.set(idx, newitype);
 	}
 
 	public VGDLSprite copy() {
@@ -38,6 +81,11 @@ public class Bomber extends SpawnPoint {
 
 	public void copyTo(VGDLSprite target) {
 		Bomber targetSprite = (Bomber) target;
+		
+		targetSprite.itypesMissile = new ArrayList<>();
+		for (Integer it : this.itypesMissile)
+			targetSprite.itypesMissile.add(it);
+		
 		super.copyTo(targetSprite);
 	}
 }
