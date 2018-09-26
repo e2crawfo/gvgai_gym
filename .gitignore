@@ -1,6 +1,9 @@
 sources.txt
 *.pyc
 
+gym_gvgai/envs/games/rollout_dir/
+gym_gvgai/envs/gvgai/temp_dir/
+
 
 # The following taken from `https://raw.githubusercontent.com/github/gitignore/` under `CC0-1.0`
 

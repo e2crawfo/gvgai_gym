@@ -20,7 +20,6 @@ import ontology.effects.TimeEffect;
 import ontology.effects.binary.*;
 import ontology.effects.unary.*;
 import ontology.sprites.*;
-import ontology.sprites.missile.ErraticMissile;
 import ontology.sprites.missile.Missile;
 import ontology.sprites.missile.RandomMissile;
 import ontology.sprites.npc.Walker;
@@ -60,7 +59,7 @@ public class VGDLFactory
      */
     private Class[] spriteClasses = new Class[]
             {Conveyor.class, Flicker.class, Immovable.class, OrientedFlicker.class, Passive.class, Resource.class, Spreader.class,
-             ErraticMissile.class, Missile.class, RandomMissile.class, Walker.class, WalkerJumper.class,
+             Missile.class, RandomMissile.class, Walker.class, WalkerJumper.class,
              ResourcePack.class, Chaser.class, PathChaser.class, Fleeing.class, RandomInertial.class,
              RandomNPC.class, AlternateChaser.class, RandomAltChaser.class, PathAltChaser.class, RandomPathAltChaser.class,
              Bomber.class, Portal.class, SpawnPoint.class, SpriteProducer.class, Door.class,
