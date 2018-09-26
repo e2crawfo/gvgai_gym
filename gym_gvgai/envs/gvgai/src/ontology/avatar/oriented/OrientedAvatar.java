@@ -38,7 +38,6 @@ public class OrientedAvatar extends MovingAvatar
     {
         super.loadDefaults();
         orientation = Types.DRIGHT.copy();
-        draw_arrow = true;
         is_oriented = true;
         rotateInPlace = true;
     }

@@ -10,9 +10,9 @@ BasicGame square_size=25
 
     movable >
         avatar  > ShootAvatar stype=fluor img=newset/girl2 frameRate=8
-        food > Chaser speed=0.1
-            hotdog >  stype=fullMolarInf img=newset/hotdog
-            burger >  stype=fullMolarSup img=newset/burger
+        food > GoalDirected speed=0.1
+            hotdog >  chase=fullMolarInf img=newset/hotdog
+            burger >  chase=fullMolarSup img=newset/burger
 
     holes > SpawnPoint color=LIGHTGRAY portal=True
         hotdoghole  >  stype=hotdog  prob=0.15 cooldown=8 total=5 img=newset/fastfoodtrolley1

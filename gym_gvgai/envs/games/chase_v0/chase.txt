@@ -2,9 +2,9 @@ BasicGame
     SpriteSet
         floor > Immovable hidden=True img=oryx/grass autotiling=True
         carcass > Immovable color=BROWN img=oryx/worm2 shrinkfactor=0.6
-        goat > stype=avatar
-            angry  > Chaser  color=ORANGE img=oryx/bird3
-            scared > Fleeing color=BLUE img=oryx/bird1
+        goat >
+            angry  > GoalDirected chase=avatar color=ORANGE img=oryx/bird3
+            scared > GoalDirected flee=avatar color=BLUE img=oryx/bird1
         avatar > MovingAvatar img=oryx/princess1
         wall > Immovable img=oryx/tree2
 

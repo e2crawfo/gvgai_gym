@@ -15,7 +15,7 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class RandomMissile extends Missile {
-	// A missile that moves in a random direction.
+	// A missile that picks a random direction upon creation and moves in that direction.
 	
 	public RandomMissile() {
 	}

@@ -10,7 +10,7 @@ BasicGame square_size=40
             greentrans >
             yellowtrans >
 
-        thug > Fleeing stype=avatar speed=0.9
+        thug > GoalDirected flee=avatar speed=0.9
             redthug > img=newset/redthug frameRate=7
             greenthug > img=newset/greenthug frameRate=9
             yellowthug > img=newset/yellowthug frameRate=5

@@ -38,7 +38,6 @@ public class BirdAvatar extends OrientedAvatar
     protected void loadDefaults()
     {
         super.loadDefaults();
-        draw_arrow = true;
         jump_strength = 10;
     }
 

@@ -8,7 +8,7 @@ BasicGame square_size=30
             ally > 
                 littleSister > Resource limit=3 img=newset/girl3
             enemy >   
-                bigPop > Chaser stype=avatar cooldown=16 cons=12 img=oryx/scorpion1
+                bigPop > GoalDirected chase=avatar cooldown=16 cons=12 img=oryx/scorpion1
       
     LevelMapping
         w > wall

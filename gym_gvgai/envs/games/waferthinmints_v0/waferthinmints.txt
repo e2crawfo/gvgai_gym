@@ -5,7 +5,7 @@ BasicGame
         
         moving >
             avatar  > MovingAvatar color=BLACK img=newset/niceGuy
-            waiter  > RandomBomber  cooldown=4 color=WHITE img=newset/chef prob=0.2 stype=wfm
+            waiter  > Bomber  cooldown=4 color=WHITE img=newset/chef prob=0.2 stype=wfm random_movement=True
         wfm > Resource color=GREEN img=newset/butter limit=11
         
     InteractionSet

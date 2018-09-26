@@ -1,7 +1,7 @@
 BasicGame
    SpriteSet
       floor > Immovable img=newset/floor6 hidden=True
-      chef > Chaser img=newset/chef frameRate=8 color=ORANGE stype=avatar speed=0.1 maxDistance=200
+      chef > GoalDirected img=newset/chef frameRate=8 color=ORANGE chase=avatar speed=0.1 maxDistance=200
 
       table > Immovable img=newset/table1
       inc > Resource shrinkfactor=0.9

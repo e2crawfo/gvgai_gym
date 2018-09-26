@@ -37,21 +37,18 @@ import tools.Vector2d;
  */
 public class VGDLFactory
 {
-
     /**
      * Available sprites for VGDL.
      */
     private String[] spriteStrings = new String[]
             {"Conveyor", "Flicker", "Immovable", "OrientedFlicker", "Passive", "Resource", "Spreader",
-             "ErraticMissile", "Missile", "RandomMissile", "Walker", "WalkerJumper",
-             "ResourcePack", "Chaser", "PathChaser", "Fleeing", "RandomInertial",
-             "RandomNPC", "AlternateChaser", "RandomAltChaser","PathAltChaser", "RandomPathAltChaser",
-             "Bomber", "Portal", "SpawnPoint", "SpriteProducer", "Door",
+             "Missile", "RandomMissile", "Walker", "WalkerJumper", "RandomInertial",
+             "RandomNPC", "GoalDirected", "Bomber", "Portal", "SpawnPoint", "SpriteProducer", "Door",
              "FlakAvatar", "HorizontalAvatar", "VerticalAvatar", "MovingAvatar","MissileAvatar",
              "OrientedAvatar","ShootAvatar", "OngoingAvatar", "OngoingTurningAvatar",
              "OngoingShootAvatar", "NullAvatar", "AimedAvatar", "PlatformerAvatar", "BirdAvatar",
-             "SpaceshipAvatar", "CarAvatar", "WizardAvatar", "LanderAvatar", "ShootOnlyAvatar", "SpawnPointMultiSprite",
-                    "LOSChaser"};
+             "SpaceshipAvatar", "CarAvatar", "WizardAvatar", "LanderAvatar", "ShootOnlyAvatar",
+             "SpawnPointMultiSprite"};
 
 
     /**
@@ -60,14 +57,13 @@ public class VGDLFactory
     private Class[] spriteClasses = new Class[]
             {Conveyor.class, Flicker.class, Immovable.class, OrientedFlicker.class, Passive.class, Resource.class, Spreader.class,
              Missile.class, RandomMissile.class, Walker.class, WalkerJumper.class,
-             Chaser.class, PathChaser.class, Fleeing.class, RandomInertial.class,
-             RandomNPC.class, AlternateChaser.class, RandomAltChaser.class, PathAltChaser.class, RandomPathAltChaser.class,
+             RandomInertial.class, RandomNPC.class, GoalDirected.class,
              Bomber.class, Portal.class, SpawnPoint.class, SpriteProducer.class, Door.class,
              FlakAvatar.class, HorizontalAvatar.class, VerticalAvatar.class, MovingAvatar.class,MissileAvatar.class,
              OrientedAvatar.class,ShootAvatar.class, OngoingAvatar.class, OngoingTurningAvatar.class,
              OngoingShootAvatar.class, NullAvatar.class, AimedAvatar.class, PlatformerAvatar.class, BirdAvatar.class,
-             SpaceshipAvatar.class, CarAvatar.class, WizardAvatar.class, LanderAvatar.class, ShootOnlyAvatar.class, SpawnPointMultiSprite.class,
-                    LOSChaser.class};
+             SpaceshipAvatar.class, CarAvatar.class, WizardAvatar.class, LanderAvatar.class, ShootOnlyAvatar.class,
+             SpawnPointMultiSprite.class,};
 
     /**
      * Available effects for VGDL.

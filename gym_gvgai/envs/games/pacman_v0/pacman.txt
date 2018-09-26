@@ -11,22 +11,19 @@ BasicGame square_size=20 obs=wall
             bluespawn > stype=blueOk
             pinkspawn > stype=pinkOk
         moving >
-
-
             ghost >
                 red > singleton=True
-                    redOk > RandomPathAltChaser stype1=hungry stype2=powered cooldown=4 img=oryx/ghost3 cons=4
-                    redSc > Fleeing stype=pacman maxDistance=500 cooldown=2 img=oryx/ghost1
+                    redOk > GoalDirected epsilon=0.05 chase=hungry cooldown=4 img=oryx/ghost3 cons=4 path=True
+                    redSc > GoalDirected flee=pacman maxDistance=500 cooldown=2 img=oryx/ghost1
                 blue > singleton=True
-                    blueOk > RandomPathAltChaser stype1=hungry stype2=powered cooldown=4 img=oryx/ghost4 cons=4
-                    blueSc > Fleeing stype=pacman maxDistance=500 cooldown=2 img=oryx/ghost1
+                    blueOk > GoalDirected epsilon=0.05 chase=hungry flee=powered cooldown=4 img=oryx/ghost4 cons=4 path=True
+                    blueSc > GoalDirected flee=pacman maxDistance=500 cooldown=2 img=oryx/ghost1
                 pink > singleton=True
-                    pinkOk > RandomPathAltChaser stype1=hungry stype2=powered cooldown=4 img=oryx/ghost5 cons=4
-                    pinkSc > Fleeing stype=pacman maxDistance=500 cooldown=2 img=oryx/ghost1
+                    pinkOk > GoalDirected epsilon=0.05 chase=hungry flee=powered cooldown=4 img=oryx/ghost5 cons=4 path=True
+                    pinkSc > GoalDirected flee=pacman maxDistance=500 cooldown=2 img=oryx/ghost1
                 orange > singleton=True
-                    orangeOk > RandomPathAltChaser stype1=hungry stype2=powered cooldown=4 img=oryx/ghost6 cons=4
-                    orangeSc > Fleeing stype=pacman maxDistance=500 cooldown=2 img=oryx/ghost1
-
+                    orangeOk > GoalDirected epsilon=0.05 chase=hungry flee=powered cooldown=4 img=oryx/ghost6 cons=4 path=True
+                    orangeSc > GoalDirected flee=pacman maxDistance=500 cooldown=2 img=oryx/ghost1
 
             pacman > OrientedAvatar img=newset/pacman rotateInPlace=false speed=0.5
                 hungry  > color=YELLOW

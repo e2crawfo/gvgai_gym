@@ -10,7 +10,7 @@ BasicGame
             avatar  > ShootAvatar color=YELLOW  stype=torpedo img=newset/submarine
             torpedo > Missile color=YELLOW shrinkfactor=0.3 img=oryx/orb2
             fish >
-                shark  > Chaser speed=0.1 color=ORANGE img=newset/shark2 stype=avatar
+                shark  > GoalDirected speed=0.1 color=ORANGE img=newset/shark2 chase=avatar
                 whale  > Missile  orientation=RIGHT  speed=0.1 color=BROWN img=newset/whale
                 piranha > Missile orientation=LEFT speed=0.1 color=RED img=newset/piranha1
 

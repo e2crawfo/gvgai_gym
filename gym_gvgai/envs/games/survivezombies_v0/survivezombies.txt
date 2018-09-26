@@ -9,7 +9,7 @@ BasicGame
         moving >
             avatar > MovingAvatar healthPoints=1 limitHealthPoints=10 frameRate=8 img=oryx/swordman1
             bee    > RandomNPC speed=1   cooldown=3  color=YELLOW img=oryx/priest1
-            zombie > Chaser stype=avatar cooldown=6 speed=0.5 color=BROWN img=newset/zombie
+            zombie > GoalDirected chase=avatar cooldown=6 speed=0.5 color=BROWN img=newset/zombie
         wall > Immovable autotiling=true img=oryx/wall3
 
     InteractionSet

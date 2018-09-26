@@ -4,7 +4,7 @@ BasicGame square_size=25
         avatar > OngoingAvatar speed=0.5 img=oryx/spaceship1 healthPoints=15 limitHealthPoints=20
         nebula > Immovable img=oryx/explosion2
         blackhole > Passive portal=True img=newset/whirlpool3
-        turret > RandomBomber stype=bomb prob=0.4 cooldown=3 speed=0.001 rotateInPlace=True img=newset/satellite
+        turret > Bomber stype=bomb prob=0.4 cooldown=3 speed=0.001 rotateInPlace=True img=newset/satellite random_movement=True
         bomb > Missile color=RED speed=0.9 img=oryx/circleEffect1 shrinkfactor=0.7
         planet > Passive
             emptyPlanet > img=oryx/planet

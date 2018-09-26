@@ -8,8 +8,8 @@ BasicGame
         movable >
             demon  > Bomber stype=bolt   img=oryx/devil1 prob=0.15  cooldown=6 speed=0.4 frameRate=8
             angel  > Bomber stype=salvation   img=oryx/angel1 prob=0.05  cooldown=6 speed=0.45 frameRate=8
-            citizen > Chaser stype=output img=newset/man2 speed=0.4
-            blessed > Chaser stype=output img=newset/blessedman speed=0.4
+            citizen > GoalDirected chase=output img=newset/man2 speed=0.4
+            blessed > GoalDirected chase=output img=newset/blessedman speed=0.4
 
         avatar > MovingAvatar img=newset/girl4 frameRate=10
 

@@ -46,6 +46,7 @@ public class Bomber extends SpawnPoint {
 		is_npc = true;
 		is_stochastic = true;
 		speed = 1.0;
+		random_movement = false;
 	}
 	
 	public void update(Game game) {
@@ -85,6 +86,7 @@ public class Bomber extends SpawnPoint {
 		targetSprite.itypesMissile = new ArrayList<>();
 		for (Integer it : this.itypesMissile)
 			targetSprite.itypesMissile.add(it);
+		targetSprite.random_movement = this.random_movement;
 		
 		super.copyTo(targetSprite);
 	}

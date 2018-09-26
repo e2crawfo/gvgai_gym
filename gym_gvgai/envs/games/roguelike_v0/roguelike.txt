@@ -18,7 +18,7 @@ BasicGame square_size=25
         moving >
             avatar > ShootAvatar ammo=weapon stype=sword img=oryx/swordman1 frameRate=8 healthPoints=1 limitHealthPoints=10
             spider > RandomNPC speed=1 cooldown=4 img=oryx/spider2 cons=3
-            phantom > Chaser stype=avatar cooldown=6 speed=0.5 color=BROWN  img=oryx/ghost2
+            phantom > GoalDirected chase=avatar cooldown=6 speed=0.5 color=BROWN  img=oryx/ghost2
 
         wall > Immovable img=oryx/wall3 autotiling=True
 

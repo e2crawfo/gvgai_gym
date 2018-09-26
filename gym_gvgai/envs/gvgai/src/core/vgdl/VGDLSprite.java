@@ -71,7 +71,7 @@ public abstract class VGDLSprite {
     /**
      * Color of this sprite.
      */
-    public Color arrowColor;
+    public Color arrow_color;
 
     /**
      * States the pause ticks in-between two moves
@@ -123,11 +123,6 @@ public abstract class VGDLSprite {
      * Indicates if this sprite has an oriented behaviour.
      */
     public boolean is_oriented;
-
-    /**
-     * Tells if an arrow must be drawn to indicate the orientation of the sprite.
-     */
-    public boolean draw_arrow;
 
     /**
      * Orientation of the sprite.
@@ -355,7 +350,7 @@ public abstract class VGDLSprite {
         stationary = false;
         cooldown = 0;
         color = null;
-        arrowColor = null;
+        arrow_color = null;
         only_active = false;
         name = null;
         is_static = false;
@@ -370,7 +365,6 @@ public abstract class VGDLSprite {
         frameRemaining = 0;
         currentFrame = -1;
         is_oriented = false;
-        draw_arrow = false;
         orientation = Types.DNONE;
         lastmove = 0;
         invisible = "false";
@@ -418,7 +412,7 @@ public abstract class VGDLSprite {
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
         Random colorRnd2 = new Random();
-        this.arrowColor = new Color((Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
+        this.arrow_color = new Color((Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
     }
@@ -527,12 +521,10 @@ public abstract class VGDLSprite {
      * Updates this sprite applying the passive movement.
      */
     public void updatePassive() {
-
         if (!is_static && !only_active) {
             physics.passiveMovement(this);
         }
     }
-
 
     /**
      * Updates the orientation of the avatar to match the orientation parameter.
@@ -733,9 +725,9 @@ public abstract class VGDLSprite {
                 gphx.fillRect(r.x, r.y, r.width, r.height);
             }
 
-            if (draw_arrow) {
+            if (is_oriented) {
                 Polygon p = Utils.triPoints(r, orientation);
-                gphx.setColor(arrowColor);
+                gphx.setColor(arrow_color);
                 gphx.drawPolygon(p);
                 gphx.fillPolygon(p);
             }
@@ -1029,7 +1021,6 @@ public abstract class VGDLSprite {
      */
     public void copyTo(VGDLSprite toSprite)
     {
-        //this.color, this.draw_arrow don't need to be copied.
         toSprite.name = this.name;
         toSprite.is_static = this.is_static;
         toSprite.only_active = this.only_active;
@@ -1055,8 +1046,7 @@ public abstract class VGDLSprite {
         toSprite.is_resource = this.is_resource;
         toSprite.portal = this.portal;
         toSprite.color = this.color;
-        toSprite.draw_arrow = this.draw_arrow;
-        toSprite.arrowColor = this.arrowColor;
+        toSprite.arrow_color = this.arrow_color;
         toSprite.is_npc = this.is_npc;
         toSprite.image = this.image;
         toSprite.images = this.images;

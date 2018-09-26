@@ -24,7 +24,6 @@ public class OrientedFlicker extends Flicker {
 
 	protected void loadDefaults() {
 		super.loadDefaults();
-		draw_arrow = true;
 		speed = 0;
 		is_oriented = true;
 	}

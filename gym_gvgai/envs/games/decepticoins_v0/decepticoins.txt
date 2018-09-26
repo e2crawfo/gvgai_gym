@@ -8,7 +8,7 @@ BasicGame key_handler=Pulse square_size=40
         switch > Immovable img=newset/floor3
         moving >
             avatar > MovingAvatar img=oryx/knight1
-            piranha > Chaser stype=avatar cooldown=8 img=newset/piranha1
+            piranha > GoalDirected chase=avatar cooldown=8 img=newset/piranha1
     LevelMapping
         0 > floor hole
         1 > floor box

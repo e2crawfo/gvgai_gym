@@ -22,13 +22,8 @@ public class Flicker extends VGDLSprite {
 	}
 
 	public Flicker(Vector2d position, Dimension size, SpriteContent cnt) {
-		// Init the sprite
 		this.init(position, size);
-
-		// Specific class default parameter values.
 		loadDefaults();
-
-		// Parse the arguments.
 		this.parseParameters(cnt);
 	}
 

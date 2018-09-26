@@ -6,10 +6,10 @@ BasicGame
     movable >
         avatar > ShootAvatar stype=bullet img=newset/humanShotgun
         goalObjects >
-            enemy > Chaser stype=city
+            enemy > GoalDirected chase=city
                 enemy_slow  > color=ORANGE speed=0.1 img=newset/alienShotgun_0
                 enemy_fast  > color=YELLOW speed=0.3 img=newset/alienShotgun_1
-            niceGuy > Chaser stype=city color=ORANGE speed=0.1 img=newset/niceGuy
+            niceGuy > GoalDirected chase=city color=ORANGE speed=0.1 img=newset/niceGuy
     death   > Immovable hidden=True invisible=True
     portal  > SpawnPoint invisible=True hidden=True
         enemySlowPortal > stype=enemy_slow   cooldown=100  total=2

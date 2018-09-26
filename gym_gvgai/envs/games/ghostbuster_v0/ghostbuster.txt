@@ -4,10 +4,10 @@ BasicGame obs=wall
         ghostspawn > SpawnPoint stype=ghost img=newset/hole1 portal=True total=10
         moving >
             avatar > ShootAvatar orientation=LEFT stype=missile img=newset/humanShotgun
-            ghost > PathChaser singleton=True stype=standing img=oryx/ghost1 cooldown=4
+            ghost > GoalDirected path=True singleton=True chase=standing img=oryx/ghost1 cooldown=4
             civilian >
                 standing > RandomNPC speed=0.5 img=newset/man4
-                fleeing > PathChaser stype=escape img=newset/cursedman cooldown=2
+                fleeing > GoalDirected path=True chase=escape img=newset/cursedman cooldown=2
 
         missile > Missile img=oryx/orb1 shrinkfactor=0.4 timeToLive=15
         wall > Immovable img=oryx/wall3

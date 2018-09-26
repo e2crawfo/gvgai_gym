@@ -23,7 +23,7 @@ BasicGame square_size=30
             witExit > img=oryx/door2
 
         witness > img=newset/girl2
-            running > Chaser stype=exit cooldown=5 color=RED speed=0.4
+            running > GoalDirected chase=exit cooldown=5 color=RED speed=0.4
             staying > Immovable
 
         wall > Immovable img=oryx/dirtwall autotiling=True

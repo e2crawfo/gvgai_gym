@@ -8,7 +8,7 @@ BasicGame
         enemyW >
             enemy   >
                 randomEnemy > RandomNPC cooldown=5 img=oryx/freak1
-                chaseEnemy  > Chaser cooldown=5 stype=avatar img=oryx/freak2
+                chaseEnemy  > GoalDirected cooldown=5 chase=avatar img=oryx/freak2
                 dirEnemy   > Missile cooldown=5 img=oryx/freak3
 
             spawner >

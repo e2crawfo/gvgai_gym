@@ -14,9 +14,9 @@ BasicGame square_size=20 obs=wall,tunnel
                 doorOpened > Immovable img=oryx/dooropen1
 
             alien > singleton=True
-                pursuer > PathAltChaser stype1=standing stype2=crouching cooldown=2 img=oryx/ogre1
-                pursuertunnel > PathAltChaser stype1=standing stype2=crouching cooldown=2 img=oryx/ogre2 invisible=True hidden=True
-                wanderer > PathAltChaser stype1=tunnelend stype2=crouching cooldown=1 img=oryx/ogre2 randomTarget=True invisible=True hidden=True
+                pursuer > GoalDirected chase=standing flee=crouching cooldown=2 img=oryx/ogre1 path=True
+                pursuertunnel > GoalDirected chase=standing flee=crouching cooldown=2 img=oryx/ogre2 invisible=True hidden=True path=True
+                wanderer > GoalDirected chase=tunnelend flee=crouching cooldown=1 img=oryx/ogre2 randomTarget=True invisible=True hidden=True path=True
 
             human > OrientedAvatar rotateInPlace=false
                 standing  > img=oryx/rogue color=YELLOW  speed=0.5 frameRate=8

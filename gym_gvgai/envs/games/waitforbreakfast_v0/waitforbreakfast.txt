@@ -29,7 +29,7 @@ BasicGame
         satleft > img=newset/man3_satleft
         satright > img=newset/man3_satright
 
-    waiter >  Chaser stype=table speed=0.5 img=newset/waiter singleton=True frameRate=8
+    waiter >  GoalDirected chase=table speed=0.5 img=newset/waiter singleton=True frameRate=8
       waiterwb >
       waiternb >
 

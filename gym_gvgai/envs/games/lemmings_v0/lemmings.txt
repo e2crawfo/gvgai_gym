@@ -9,7 +9,7 @@ BasicGame
 
         moving >
             avatar  > ShootAvatar stype=shovel img=oryx/axeman1
-            lemming > Chaser stype=exit cooldown=5 color=RED img=oryx/spelunky frameRate=8 shrinkfactor=0.75
+            lemming > GoalDirected chase=exit cooldown=5 color=RED img=oryx/spelunky frameRate=8 shrinkfactor=0.75
 
         wall > Immovable img=oryx/dirtwall autotiling=True
     LevelMapping

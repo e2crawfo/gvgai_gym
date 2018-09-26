@@ -8,7 +8,7 @@ BasicGame
                 quiet > RandomNPC speed=0.25 img=newset/man2 cons=1
                 avatar > ShootAvatar stype=cigarette img=newset/girl1 rotateInPlace=False
 
-        george > Chaser stype=citizen speed=0.25 img=newset/man4 frameRate=8
+        george > GoalDirected chase=citizen speed=0.25 img=newset/man4 frameRate=8
         cigarette > Flicker limit=5 singleton=True img=newset/cigarette
         wall > Immovable img=oryx/wall6
 

@@ -41,7 +41,6 @@ public class PlatformerAvatar extends MovingAvatar
     protected void loadDefaults()
     {
         super.loadDefaults();
-        draw_arrow = false;
         jump_strength = 10;
         on_ground = false;
         ground_speedup_factor = 1.0;

@@ -3,14 +3,14 @@ BasicGame obs=wall,fence
         floor > Immovable hidden=True img=oryx/grass autotiling=True
         sheep >
             notamed >
-                scared > Fleeing speed=1.0 stype=avatar color=BLUE img=oryx/bird1
-                seeking > PathChaser speed=1.0 stype=entry img=oryx/bird1
+                scared > GoalDirected speed=1.0 flee=avatar color=BLUE img=oryx/bird1
+                seeking > GoalDirected speed=1.0 chase=entry img=oryx/bird1 path=True
             tamed > RandomNPC speed=0.1 cons=2 img=oryx/bird2
             aux > Immovable hidden=True invisible=True
         avatar > ShootAvatar stype=dogtreat ammo=treats img=oryx/princess1
         dog > img=oryx/wolf1
-            hungry > PathChaser stype=dogtreat
-            help > PathChaser stype=scared
+            hungry > GoalDirected chase=dogtreat path=True
+            help > GoalDirected chase=scared path=True
         dogtreat > Immovable img=oryx/belt2 shrinkfactor=0.5 singleton=True
         treats > Resource value=1 limit=1 img=oryx/belt2 color=BROWN
         entry > Immovable invisible=True hidden=True
