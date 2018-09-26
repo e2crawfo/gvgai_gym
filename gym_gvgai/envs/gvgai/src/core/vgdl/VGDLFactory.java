@@ -60,7 +60,7 @@ public class VGDLFactory
     private Class[] spriteClasses = new Class[]
             {Conveyor.class, Flicker.class, Immovable.class, OrientedFlicker.class, Passive.class, Resource.class, Spreader.class,
              Missile.class, RandomMissile.class, Walker.class, WalkerJumper.class,
-             ResourcePack.class, Chaser.class, PathChaser.class, Fleeing.class, RandomInertial.class,
+             Chaser.class, PathChaser.class, Fleeing.class, RandomInertial.class,
              RandomNPC.class, AlternateChaser.class, RandomAltChaser.class, PathAltChaser.class, RandomPathAltChaser.class,
              Bomber.class, Portal.class, SpawnPoint.class, SpriteProducer.class, Door.class,
              FlakAvatar.class, HorizontalAvatar.class, VerticalAvatar.class, MovingAvatar.class,MissileAvatar.class,
