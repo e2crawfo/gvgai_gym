@@ -494,7 +494,6 @@ public class VGDLParser {
                 }
 
             }
-
         }
     }
 

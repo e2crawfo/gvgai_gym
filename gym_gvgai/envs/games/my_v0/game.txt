@@ -1,0 +1,29 @@
+BasicGame
+    SpriteSet
+        floor > Immovable randomtiling=0.9 img=oryx/floor3 hidden=True
+        wall > Immovable autotiling=true img=oryx/wall3
+        avatar > ShootAvatar stype=sword color=BLUE frameRate=8 arrowColor=WHITE healthPoints=3 ammo=gold
+        sword > OrientedFlicker limit=3 singleton=True color=RED arrowColor=WHITE
+        chaser > RandomNPC color=GREEN healthPoints=2
+        gold > Resource limit=5 color=YELLOW singleton=True
+        spawner > SpawnPoint stype=gold prob=0.25 color=PURPLE hidden=True total=10
+
+    LevelMapping
+        . > floor
+        w > wall
+        A > floor avatar
+        a > floor chaser
+        g > floor gold
+        s > floor spawner
+
+    InteractionSet
+        chaser sword > subtractHealthPoints scoreChangeIfKilled=2
+        avatar chaser > subtractHealthPoints scoreChangeIfKilled=-2
+        avatar wall > stepBack
+        chaser wall > stepBack
+        gold avatar > collectResource
+        spawner EOS > spawn stype=gold prob=0.5
+
+    TerminationSet
+        SpriteCounter stype=avatar limit=0 win=False
+        SpriteCounter stype=chaser limit=0 win=True

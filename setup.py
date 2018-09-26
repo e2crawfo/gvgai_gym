@@ -3,6 +3,7 @@ import os
 import sys
 import setuptools
 import build as java
+import argparse
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install
@@ -31,15 +32,15 @@ class EggInfoWithJava(egg_info):
         egg_info.run(self)
 
 setup(name='gym_gvgai',
-	version='0.0.3',
-	packages= find_packages(),
-	install_requires=['gym>=0.10.5', 'numpy>=1.13.3'],
-	cmdclass = {
-		'install': InstallWithJava,
-		'develop': DevelopWithJava,
+    version='0.0.3',
+    packages= find_packages(),
+    install_requires=['gym>=0.10.5', 'numpy>=1.13.3'],
+    cmdclass = {
+        'install': InstallWithJava,
+        'develop': DevelopWithJava,
         'egg_info': EggInfoWithJava,
-		}
-	)
+        }
+    )
 
 #Make sure a git pull doesn't result in weird error where java isn't rebuilt
 #so the compiled code doesnt match the source code.

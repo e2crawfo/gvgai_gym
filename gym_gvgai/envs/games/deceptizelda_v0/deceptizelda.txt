@@ -15,7 +15,7 @@ BasicGame
         monsterNormal > RandomNPC cooldown=4 cons=8 img=oryx/spider2
         monsterSlow > RandomNPC cooldown=8 cons=12 img=oryx/scorpion1
       wall > Immovable autotiling=true img=oryx/wall3
-      	
+        
 
   LevelMapping
     g > floor smallgoal

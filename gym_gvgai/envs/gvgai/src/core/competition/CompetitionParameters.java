@@ -12,7 +12,7 @@ public class CompetitionParameters
     /**
      * Milliseconds allowed per controller action.
      */
-    public static final int ACTION_TIME = 400000;
+    public static int ACTION_TIME = 4000;
 
     /**
      * Milliseconds for controller disqualification, if it returns an action after this time.
@@ -101,13 +101,22 @@ public class CompetitionParameters
     /**
      * Path to sprite images.
      */
-    public static String IMG_PATH = "sprites/";
-
+    public static String IMG_PATH = "/media/data/Dropbox/projects/gvgai_gym/gym_gvgai/envs/gvgai/sprites/";
 
     /**
      * Path to the temporary game screenshot.
      */
     public static String SCREENSHOT_FILENAME = "gameStateByBytes.png";
+
+    /**
+     * Path to store rollouts.
+     */
+    public static String ROLLOUT_DIR = "";
+
+    /**
+     * Frequency with which to store rollouts.
+     */
+    public static int ROLLOUT_FREQ = 1;
 
     /**
      * Delay for human play.
@@ -118,7 +127,6 @@ public class CompetitionParameters
      * Longer delay for human play.
      */
     public static int LONG_DELAY = 25;
-
 
     /**
      * Max time a game can run

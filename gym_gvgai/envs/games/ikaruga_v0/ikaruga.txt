@@ -16,13 +16,13 @@ BasicGame square_size=24
             blackAlien > img=oryx/bird3
             whiteAlien > img=oryx/bird1
         portal  > SpawnPoint invisible=True hidden=True img=portal
-        	whitePortal1   > stype=whiteAlien   cooldown=28  total=10
-        	blackPortal1   > stype=blackAlien   cooldown=28  total=10
-        	whitePortal2   > stype=whiteAlien   cooldown=56  total=5
-        	blackPortal2   > stype=blackAlien   cooldown=56  total=5
+            whitePortal1   > stype=whiteAlien   cooldown=28  total=10
+            blackPortal1   > stype=blackAlien   cooldown=28  total=10
+            whitePortal2   > stype=whiteAlien   cooldown=56  total=5
+            blackPortal2   > stype=blackAlien   cooldown=56  total=5
         portal2 > SpawnPoint invisible=True hidden=True cooldown=100  total=40 img=portal
-        	wChangerPortal > stype=whiteChanger
-        	bChangerPortal > stype=blackChanger
+            wChangerPortal > stype=whiteChanger
+            bChangerPortal > stype=blackChanger
 
     LevelMapping
         o > wall background

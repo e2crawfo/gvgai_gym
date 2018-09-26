@@ -57,9 +57,18 @@ public class VGDLViewer extends JComponent
         if (player instanceof LearningPlayer) {
             LearningPlayer learningPlayer = (LearningPlayer) player;
             Types.LEARNING_SSO_TYPE ssoType = learningPlayer.getLearningSsoType();
+
             if (ssoType == Types.LEARNING_SSO_TYPE.IMAGE ||
                 ssoType == Types.LEARNING_SSO_TYPE.BOTH) {
+
                 saveImage(CompetitionParameters.SCREENSHOT_FILENAME);
+            }
+        }
+
+        if (CompetitionParameters.ROLLOUT_DIR != "") {
+            int tick = game.getGameTick();
+            if (tick % CompetitionParameters.ROLLOUT_FREQ == 0) {
+                saveImage(CompetitionParameters.ROLLOUT_DIR + String.format("/img%05d.png", tick));
             }
         }
     }
@@ -121,6 +130,13 @@ public class VGDLViewer extends JComponent
             if (ssoType == Types.LEARNING_SSO_TYPE.IMAGE ||
                 ssoType == Types.LEARNING_SSO_TYPE.BOTH) {
                 saveImage(CompetitionParameters.SCREENSHOT_FILENAME);
+            }
+        }
+
+        if (CompetitionParameters.ROLLOUT_DIR != "") {
+            int tick = game.getGameTick();
+            if (tick % CompetitionParameters.ROLLOUT_FREQ == 0) {
+                saveImage(CompetitionParameters.ROLLOUT_DIR + String.format("/img%05d.png", tick));
             }
         }
     }

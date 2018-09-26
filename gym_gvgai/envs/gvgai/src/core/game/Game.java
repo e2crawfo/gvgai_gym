@@ -857,10 +857,12 @@ public abstract class Game {
      */
     public double[] runGame(Player[] players, int randomSeed) {
         // Prepare some structures and references for this game.
+        System.out.println("preparing game");
         prepareGame(players, randomSeed, -1);
 
         // Play until the game is ended
         while (!isEnded) {
+            System.out.println("ticking game");
             this.gameCycle(); // Execute a game cycle.
         }
 
@@ -923,6 +925,17 @@ public abstract class Game {
 
             // Draw all sprites in the panel.
             view.paint(this.spriteGroups);
+
+            if (CompetitionParameters.ROLLOUT_DIR != "") {
+                int tick = this.getGameTick();
+                if (tick % CompetitionParameters.ROLLOUT_FREQ == 0) {
+                    StateObservation so = this.getObservation();
+                    so.currentGameState = Types.GAMESTATES.ACT_STATE;
+                    SerializableStateObservation sso = new SerializableStateObservation(so);
+                    String filename = CompetitionParameters.ROLLOUT_DIR + String.format("/obs%05d.json", tick);
+                    sso.serialize(filename);
+                }
+            }
 
             // Update the frame title to reflect current score and tick.
             this.setTitle(frame);
@@ -1086,7 +1099,6 @@ public abstract class Game {
         // Update our state observation (forward model) with the information of
         // the current game state.
         fwdModel.update(this);
-        // System.out.println(avatars[0].rect);
 
         // Execute a game cycle:
         this.tick(); // update for all entities.
@@ -1349,6 +1361,7 @@ public abstract class Game {
     protected void tick() {
         // Now, do all of the avatars.
         for (int i = 0; i < no_players; i++) {
+            System.out.println("avatar " + i);
             if (avatars[i] != null && !avatars[i].is_disabled()) {
                 avatars[i].preMovement();
                 avatars[i].updateAvatar(this, true, null);
@@ -1356,6 +1369,7 @@ public abstract class Game {
                 System.out.println(gameTick + ": Something went wrong, no avatar, ID = " + i);
             }
         }
+        System.out.println("done avatars");
         // random = new Random(this.gameTick * 100); //uncomment this for
         // testing a new rnd generator after avatar's move
 

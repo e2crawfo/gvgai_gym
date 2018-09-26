@@ -8,51 +8,39 @@ import core.game.Game;
 import tools.Vector2d;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Diego
- * Date: 21/10/13
- * Time: 16:24
- * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
+ * Created with IntelliJ IDEA. User: Diego Date: 21/10/13 Time: 16:24 This is a
+ * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
-public class OrientedFlicker extends Flicker{
+public class OrientedFlicker extends Flicker {
 
-    public OrientedFlicker(){}
+	public OrientedFlicker() {
+	}
 
-    public OrientedFlicker(Vector2d position, Dimension size, SpriteContent cnt)
-    {
-        //Init the sprite
-        this.init(position, size);
+	public OrientedFlicker(Vector2d position, Dimension size, SpriteContent cnt) {
+		this.init(position, size);
+		loadDefaults();
+		this.parseParameters(cnt);
+	}
 
-        //Specific class default parameter values.
-        loadDefaults();
+	protected void loadDefaults() {
+		super.loadDefaults();
+		draw_arrow = true;
+		speed = 0;
+		is_oriented = true;
+	}
 
-        //Parse the arguments.
-        this.parseParameters(cnt);
-    }
+	public void update(Game game) {
+		super.update(game);
+	}
 
-    protected void loadDefaults()
-    {
-        super.loadDefaults();
-        draw_arrow = true;
-        speed = 0;
-        is_oriented = true;
-    }
+	public VGDLSprite copy() {
+		OrientedFlicker newSprite = new OrientedFlicker();
+		this.copyTo(newSprite);
+		return newSprite;
+	}
 
-    public void update(Game game)
-    {
-        super.update(game);
-    }
-
-    public VGDLSprite copy()
-    {
-        OrientedFlicker newSprite = new OrientedFlicker();
-        this.copyTo(newSprite);
-        return newSprite;
-    }
-
-    public void copyTo(VGDLSprite target)
-    {
-        OrientedFlicker targetSprite = (OrientedFlicker) target;
-        super.copyTo(targetSprite);
-    }
+	public void copyTo(VGDLSprite target) {
+		OrientedFlicker targetSprite = (OrientedFlicker) target;
+		super.copyTo(targetSprite);
+	}
 }

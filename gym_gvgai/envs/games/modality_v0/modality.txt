@@ -9,9 +9,9 @@ BasicGame key_handler=Pulse  square_size=50
         winTarget > Immovable img=newset/hole1
         crate > Passive img=oryx/bush5 shrinkfactor=0.8
         avatar > MovingAvatar img=newset/girl3
-        	inBlack > img=newset/girl2
-        	inWhite > img=newset/girl1
-        	inGrey >
+            inBlack > img=newset/girl2
+            inWhite > img=newset/girl1
+            inGrey >
         wall > Immovable img=oryx/dirtwall autotiling=True
 
     LevelMapping

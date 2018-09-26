@@ -56,7 +56,7 @@ public class Agent extends AbstractPlayer {
      * @return An action for the current state
      */
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-
+        System.out.println("in ACT");
         ArrayList<Observation>[] npcPositions = stateObs.getNPCPositions();
         ArrayList<Observation>[] fixedPositions = stateObs.getImmovablePositions();
         ArrayList<Observation>[] movingPositions = stateObs.getMovablePositions();
@@ -79,9 +79,12 @@ public class Agent extends AbstractPlayer {
         long remaining = elapsedTimer.remainingTimeMillis();
         int numIters = 0;
 
+        System.out.println("before loop");
+
         int remainingLimit = 5;
         while(remaining > 2*avgTimeTaken && remaining > remainingLimit)
         {
+            System.out.println("doing loop");
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
             ArrayList<Types.ACTIONS> actions = stateObs.getAvailableActions();
             int index = randomGenerator.nextInt(actions.size());
@@ -95,10 +98,12 @@ public class Agent extends AbstractPlayer {
 
             numIters++;
             acumTimeTaken += (elapsedTimerIteration.elapsedMillis()) ;
-            //System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
+            System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
+            System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
             avgTimeTaken  = acumTimeTaken/numIters;
             remaining = elapsedTimer.remainingTimeMillis();
         }
+        System.out.println("done ACT");
 
         return action;
     }

@@ -11,54 +11,42 @@ import tools.Utils;
 import tools.Vector2d;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Diego
- * Date: 21/10/13
- * Time: 18:18
- * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
+ * Created with IntelliJ IDEA. User: Diego Date: 21/10/13 Time: 18:18 This is a
+ * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
-public class RandomMissile extends Missile
-{
-    public RandomMissile(){}
+public class RandomMissile extends Missile {
+	// A missile that moves in a random direction.
+	
+	public RandomMissile() {
+	}
 
-    public RandomMissile(Vector2d position, Dimension size, SpriteContent cnt)
-    {
-        //Init the sprite
-        this.init(position, size);
+	public RandomMissile(Vector2d position, Dimension size, SpriteContent cnt) {
+		this.init(position, size);
+		loadDefaults();
+		this.parseParameters(cnt);
+	}
 
-        //Specific class default parameter values.
-        loadDefaults();
+	protected void loadDefaults() {
+		super.loadDefaults();
+		orientation = Types.DNIL;
+	}
 
-        //Parse the arguments.
-        this.parseParameters(cnt);
-    }
+	public void update(Game game) {
+		if (orientation.equals(Types.DNIL)) {
+			orientation = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
+		}
 
-    protected void loadDefaults()
-    {
-        super.loadDefaults();
-        orientation = Types.DNIL;
-    }
+		this.updatePassive();
+	}
 
-    public void update(Game game)
-    {
-        if(orientation.equals(Types.DNIL))
-        {
-            orientation = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
-        }
+	public VGDLSprite copy() {
+		RandomMissile newSprite = new RandomMissile();
+		this.copyTo(newSprite);
+		return newSprite;
+	}
 
-        this.updatePassive();
-    }
-
-    public VGDLSprite copy()
-    {
-        RandomMissile newSprite = new RandomMissile();
-        this.copyTo(newSprite);
-        return newSprite;
-    }
-
-    public void copyTo(VGDLSprite target)
-    {
-        RandomMissile targetSprite = (RandomMissile) target;
-        super.copyTo(targetSprite);
-    }
+	public void copyTo(VGDLSprite target) {
+		RandomMissile targetSprite = (RandomMissile) target;
+		super.copyTo(targetSprite);
+	}
 }

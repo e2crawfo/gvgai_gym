@@ -68,7 +68,6 @@ BasicGame square_size=30
 
         bandit bullet > killBoth scoreChange=1
 
-
         avatar missile > subtractHealthPoints
 
         missile avatar > killSprite

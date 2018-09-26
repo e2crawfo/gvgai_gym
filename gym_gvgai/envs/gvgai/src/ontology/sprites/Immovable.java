@@ -8,52 +8,40 @@ import ontology.Types;
 import tools.Vector2d;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Diego
- * Date: 17/10/13
- * Time: 12:39
- * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
+ * Created with IntelliJ IDEA. User: Diego Date: 17/10/13 Time: 12:39 This is a
+ * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
-public class Immovable extends VGDLSprite
-{
-    public Immovable(){}
+public class Immovable extends VGDLSprite {
+	// A static object. In order to make something that objects can't move through,
+	// need to use the `step_back` effect.
+	
+	public Immovable() {
+	}
 
-    public Immovable(Vector2d position, Dimension size, SpriteContent cnt)
-    {
-        //Init the sprite
-        this.init(position, size);
+	public Immovable(Vector2d position, Dimension size, SpriteContent cnt) {
+		this.init(position, size);
+		loadDefaults();
+		this.parseParameters(cnt);
+	}
 
-        //Specific class default parameter values.
-        loadDefaults();
+	public void postProcess() {
+		super.postProcess();
+	}
 
-        //Parse the arguments.
-        this.parseParameters(cnt);
-    }
+	protected void loadDefaults() {
+		super.loadDefaults();
+		color = Types.GRAY;
+		is_static = true;
+	}
 
-    public void postProcess() {
-        super.postProcess();
-    }
+	public VGDLSprite copy() {
+		Immovable newSprite = new Immovable();
+		this.copyTo(newSprite);
+		return newSprite;
+	}
 
-
-
-    protected void loadDefaults()
-    {
-        super.loadDefaults();
-        color = Types.GRAY;
-        is_static = true;
-    }
-
-
-    public VGDLSprite copy()
-    {
-        Immovable newSprite = new Immovable();
-        this.copyTo(newSprite);
-        return newSprite;
-    }
-
-    public void copyTo(VGDLSprite target)
-    {
-        Immovable targetSprite = (Immovable) target;
-        super.copyTo(targetSprite);
-    }
+	public void copyTo(VGDLSprite target) {
+		Immovable targetSprite = (Immovable) target;
+		super.copyTo(targetSprite);
+	}
 }

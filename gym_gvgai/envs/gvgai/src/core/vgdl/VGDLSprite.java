@@ -67,6 +67,11 @@ public abstract class VGDLSprite {
      * Color of this sprite.
      */
     public Color color;
+    
+    /**
+     * Color of this sprite.
+     */
+    public Color arrowColor;
 
     /**
      * States the pause ticks in-between two moves
@@ -350,6 +355,7 @@ public abstract class VGDLSprite {
         stationary = false;
         cooldown = 0;
         color = null;
+        arrowColor = null;
         only_active = false;
         name = null;
         is_static = false;
@@ -410,6 +416,10 @@ public abstract class VGDLSprite {
     private void setRandomColor() {
         Random colorRnd = new Random();
         this.color = new Color((Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
+                (Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
+                (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
+        Random colorRnd2 = new Random();
+        this.arrowColor = new Color((Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
     }
@@ -685,7 +695,6 @@ public abstract class VGDLSprite {
         boolean invis0 = Boolean.parseBoolean(invis[0]);
 
         if (game.no_players == 2) {
-
             boolean invis1;
 
             if (invis.length > 1)
@@ -707,43 +716,44 @@ public abstract class VGDLSprite {
         if(show && !disabled)
         {
             Rectangle r = new Rectangle(rect);
-
-            if (!is_avatar || !is_oriented)
+            
+            if(shrinkfactor != 1)
             {
-                if(image != null)
-                    _drawImage(gphx, game, r);
-                else
-                    _draw(gphx, game, r);
-    
-                if(resources.size() > 0)
-                {
-                    _drawResources(gphx, game, r);
-                }
-    
-                if(healthPoints > 0)
-                {
-                    _drawHealthBar(gphx, game, r);
-                }
+                r.width *= shrinkfactor;
+                r.height *= shrinkfactor;
+                r.x += (rect.width-r.width)/2;
+                r.y += (rect.height-r.height)/2;
+            }
+            if(image != null) {
+            	int w = image.getWidth(null);
+            	int h = image.getHeight(null);
+            	float scaleX = (float)r.width/w;
+            	float scaleY = (float)r.height/h;
+            	gphx.drawImage(image, r.x, r.y, (int) (w*scaleX), (int) (h*scaleY), null);
+            }else {
+                gphx.setColor(color);
+                gphx.fillRect(r.x, r.y, r.width, r.height);
             }
 
-            else{
-                _drawOriented(gphx, r);
-                if(resources.size() > 0)
-                {
-                    _drawResources(gphx, game, r);
-                }
+            if (draw_arrow) {
+                Polygon p = Utils.triPoints(r, orientation);
+                gphx.setColor(arrowColor);
+                gphx.drawPolygon(p);
+                gphx.fillPolygon(p);
+            }
     
-                if(healthPoints > 0)
-                {
-                    _drawHealthBar(gphx, game, r);
-                }
+            if(resources.size() > 0){
+                _drawResources(gphx, game, r);
+            }
+    
+            if(healthPoints > 0){
+                _drawHealthBar(gphx, game, r);
             }
         }
     }
 
-
     /**
-     * Overwritting intersects to check if we are on ground.
+     * Overwriting intersects to check if we are on ground.
      * @return true if it directly intersects with sp (as in the normal case), but additionally checks for on_ground condition.
      */
     public boolean groundIntersects (VGDLSprite sp)
@@ -764,110 +774,6 @@ public abstract class VGDLSprite {
 
 
         return normalIntersect;
-    }
-
-    /**
-     * In case this sprite is oriented and has an arrow to draw, it draws it.
-     * @param g graphics device to draw in.
-     */
-    public void _drawOriented(Graphics2D g, Rectangle r)
-    {
-        Color arrowColor = new Color(color.getRed(), 255-color.getGreen(), color.getBlue());
-        Polygon p = Utils.triPoints(r, orientation);
-
-        // Rotation information
-
-        if(shrinkfactor != 1)
-        {
-            r.width *= shrinkfactor;
-            r.height *= shrinkfactor;
-            r.x += (rect.width-r.width)/2;
-            r.y += (rect.height-r.height)/2;
-        }
-
-        int w = image.getWidth(null);
-        int h = image.getHeight(null);
-        float scale = (float)r.width/w; //assume all sprites are quadratic.
-
-        AffineTransform trans = new AffineTransform();
-        trans.translate(r.x, r.y);
-        trans.scale(scale,scale);
-        trans.rotate(rotation,w/2.0,h/2.0);
-        // Uncomment this line to have only one sprite
-        //g.drawImage(image, trans, null);
-
-        /* Code added by Carlos*/
-        g.drawImage(image, trans, null);
-        /* End of code added by carlos*/
-
-        // We only draw the arrow if the directional sprites are null
-        if (draw_arrow) {
-            g.setColor(arrowColor);
-            g.drawPolygon(p);
-            g.fillPolygon(p);
-        }
-
-    }
-
-    /**
-     * Draws the not-oriented part of the sprite
-     * @param gphx graphics object to draw in.
-     * @param game reference to the game that is being played now.
-     */
-    public void _draw(Graphics2D gphx, Game game, Rectangle r)
-    {
-
-        if(shrinkfactor != 1)
-        {
-            r.width *= shrinkfactor;
-            r.height *= shrinkfactor;
-            r.x += (rect.width-r.width)/2;
-            r.y += (rect.height-r.height)/2;
-        }
-
-        gphx.setColor(color);
-
-        if(is_avatar)
-        {
-            gphx.fillOval((int) r.getX(), (int) r.getY(), r.width, r.height);
-        }else if(!is_static)
-        {
-            gphx.fillRect(r.x, r.y, r.width, r.height);
-        }else
-        {
-            gphx.fillRect(r.x, r.y, r.width, r.height);
-        }
-
-    }
-
-    /**
-     * Draws the not-oriented part of the sprite, as an image. this.image must be not null.
-     * @param gphx graphics object to draw in.
-     * @param game reference to the game that is being played now.
-     */
-    public void _drawImage(Graphics2D gphx, Game game, Rectangle r)
-    {
-        if(shrinkfactor != 1)
-        {
-            r.width *= shrinkfactor;
-            r.height *= shrinkfactor;
-            r.x += (rect.width-r.width)/2;
-            r.y += (rect.height-r.height)/2;
-        }
-
-        int w = image.getWidth(null);
-        int h = image.getHeight(null);
-        float scaleX = (float)r.width/w;
-        float scaleY = (float)r.height/h;
-
-        gphx.drawImage(image, r.x, r.y, (int) (w*scaleX), (int) (h*scaleY), null);
-
-        //uncomment this to see lots of numbers around
-        //gphx.setColor(Color.BLACK);
-        //if(bucketSharp)   gphx.drawString("["+bucket+"]",r.x, r.y);
-        //else              gphx.drawString("{"+bucket+"}",r.x, r.y);
-
-
     }
 
     /**
@@ -1152,6 +1058,7 @@ public abstract class VGDLSprite {
         toSprite.portal = this.portal;
         toSprite.color = this.color;
         toSprite.draw_arrow = this.draw_arrow;
+        toSprite.arrowColor = this.arrowColor;
         toSprite.is_npc = this.is_npc;
         toSprite.image = this.image;
         toSprite.images = this.images;
