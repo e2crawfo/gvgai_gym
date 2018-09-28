@@ -13,6 +13,8 @@ import ontology.effects.Effect;
  */
 public class ChangeResource extends Effect {
 	// Change the amount of a given resource held by a player by "value"
+	// Allows non-resource things to act like resources.
+	
 	public String resource;
 	public int resourceId;
 	public int value;

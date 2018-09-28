@@ -29,11 +29,12 @@ public class Bomber extends SpawnPoint {
 		loadDefaults();
 		this.parseParameters(cnt);
 
-		int notItypesArray[] = VGDLRegistry.GetInstance().explode(stypeMissile);
+		int itypesArray[] = VGDLRegistry.GetInstance().explode_better(stypeMissile);
 		itypesMissile = new ArrayList<>();
-		for (Integer it : notItypesArray)
+		for (Integer it : itypesArray) {
 			itypesMissile.add(it);
-		
+		}
+
 		is_stochastic = is_stochastic || random_movement || itypesMissile.size() > 1;
 	}
 
@@ -47,10 +48,11 @@ public class Bomber extends SpawnPoint {
 		is_stochastic = true;
 		speed = 1.0;
 		random_movement = false;
+		stypeMissile = null;
 	}
 	
 	public void update(Game game) {
-		if (itypesMissile.size() > 1) {
+		if (itypesMissile.size() > 0) {
 			int type = game.getRandomGenerator().nextInt(itypesMissile.size());
 			itype = itypesMissile.get(type);
 		}
@@ -84,8 +86,9 @@ public class Bomber extends SpawnPoint {
 		Bomber targetSprite = (Bomber) target;
 		
 		targetSprite.itypesMissile = new ArrayList<>();
-		for (Integer it : this.itypesMissile)
+		for (Integer it : this.itypesMissile) {
 			targetSprite.itypesMissile.add(it);
+		}
 		targetSprite.random_movement = this.random_movement;
 		
 		super.copyTo(targetSprite);

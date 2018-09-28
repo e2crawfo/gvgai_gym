@@ -32,7 +32,7 @@ public class AddTimer extends TimeEffect
         InteractionContent icDelegate = new InteractionContent(cnt.line);
         icDelegate.function = ftype;
 
-        //Create the new effect with the function specified in "ftype" (no paramterizations allowed yet).
+        //Create the new effect with the function specified in "ftype" (no parameterizations allowed yet).
         timerDelegate = VGDLFactory.GetInstance().createEffect(null, icDelegate);
     }
 

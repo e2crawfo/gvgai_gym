@@ -1361,7 +1361,6 @@ public abstract class Game {
     protected void tick() {
         // Now, do all of the avatars.
         for (int i = 0; i < no_players; i++) {
-            System.out.println("avatar " + i);
             if (avatars[i] != null && !avatars[i].is_disabled()) {
                 avatars[i].preMovement();
                 avatars[i].updateAvatar(this, true, null);
@@ -1369,7 +1368,6 @@ public abstract class Game {
                 System.out.println(gameTick + ": Something went wrong, no avatar, ID = " + i);
             }
         }
-        System.out.println("done avatars");
         // random = new Random(this.gameTick * 100); //uncomment this for
         // testing a new rnd generator after avatar's move
 

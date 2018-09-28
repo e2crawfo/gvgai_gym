@@ -17,6 +17,7 @@ public class SpriteCounter extends Termination
 {
     public String stype;
     public int itype;
+    public boolean lower_bound = true;
 
     public SpriteCounter(){}
 
@@ -37,10 +38,14 @@ public class SpriteCounter extends Termination
         boolean ended = super.isFinished(game);
         if(ended)
             return true;
-
-        if(itype != -1 && game.getNumSprites(itype) - game.getNumDisabledSprites(itype) <= limit && canEnd) {
-            countScore(game);
-            return true;
+        
+        if(itype != -1 && canEnd) {
+        	int n_sprites = game.getNumSprites(itype) - game.getNumDisabledSprites(itype);
+        	boolean end = (lower_bound && n_sprites <= limit) || (!lower_bound && n_sprites >= limit);
+        	if (end) {
+                countScore(game);
+                return true;
+        	}
         }
 
         return false;

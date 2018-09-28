@@ -104,7 +104,7 @@ public class VGDLFactory
      */
     private String[] terminationStrings = new String[]
             {
-                    "MultiSpriteCounter", "SpriteCounter", "SpriteCounterMore", "MultiSpriteCounterSubTypes", "Timeout", "StopCounter"
+                    "MultiSpriteCounter", "SpriteCounter", "MultiSpriteCounterSubTypes", "Timeout", "StopCounter"
             };
 
     /**
@@ -112,7 +112,7 @@ public class VGDLFactory
      */
     private Class[] terminationClasses = new Class[]
             {
-                    MultiSpriteCounter.class, SpriteCounter.class, SpriteCounterMore.class, MultiSpriteCounterSubTypes.class, Timeout.class, StopCounter.class
+                    MultiSpriteCounter.class, SpriteCounter.class, MultiSpriteCounterSubTypes.class, Timeout.class, StopCounter.class
             };
 
 

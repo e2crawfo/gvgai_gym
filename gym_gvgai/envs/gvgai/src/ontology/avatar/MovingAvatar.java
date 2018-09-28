@@ -124,8 +124,6 @@ public class MovingAvatar extends VGDLSprite {
      * @param game
      */
     protected void requestPlayerInput(Game game) {
-
-        System.out.println("requesting player input");
         ElapsedCpuTimer ect = new ElapsedCpuTimer();
         ect.setMaxTimeMillis(CompetitionParameters.ACTION_TIME);
 

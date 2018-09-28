@@ -98,6 +98,25 @@ public class VGDLRegistry
 
         return intKeys;
     }
+    
+    /**
+     * Similar to explode, but returns an empty array if given null.
+     * 
+     * @param keys list of keys, separated by commas.
+     * @return array with values in the map, -1 if it does not exist.
+     */
+    public int[] explode_better(String keys)
+    {
+        if(keys == null)
+            return new int[0];
+
+        String[] keysArray = keys.split(",");
+        int[] intKeys = new int[keysArray.length];
+        for(int i = 0; i < keysArray.length; ++i)
+            intKeys[i] = getRegisteredSpriteValue(keysArray[i]);
+
+        return intKeys;
+    }
 
     /**
      * Returns the String associated with the first (and in theory, unique) sprite value passed.

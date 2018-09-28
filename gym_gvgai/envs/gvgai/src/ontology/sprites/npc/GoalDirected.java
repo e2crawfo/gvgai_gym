@@ -22,7 +22,6 @@ import java.util.Iterator;
 public class GoalDirected extends RandomNPC {
 
 	// parameters
-	public boolean randomTarget;
 	public double epsilon;
 	public boolean path;
 	public boolean los;
@@ -48,7 +47,6 @@ public class GoalDirected extends RandomNPC {
 
 	protected void loadDefaults() {
 		super.loadDefaults();
-		randomTarget = false;
 		epsilon = 0.0;
 		path = false;
 		los = false;
@@ -62,25 +60,8 @@ public class GoalDirected extends RandomNPC {
 	public void postProcess() {
 		super.postProcess();
 		
-		if (chase == null) {
-			ichase = new int[0];
-		} else {
-			String[] _chase = chase.split(",");
-			ichase = new int[_chase.length];
-			for (int i = 0; i < ichase.length; i++) {
-				ichase[i] = VGDLRegistry.GetInstance().getRegisteredSpriteValue(_chase[i]);
-			}
-		}
-		
-		if (flee == null) {
-			iflee = new int[0];
-		} else {
-			String[] _flee = flee.split(",");
-			iflee = new int[_flee.length];
-			for (int i = 0; i < iflee.length; i++) {
-				iflee[i] = VGDLRegistry.GetInstance().getRegisteredSpriteValue(_flee[i]);
-			}
-		}
+		ichase = VGDLRegistry.GetInstance().explode_better(chase);
+		iflee = VGDLRegistry.GetInstance().explode_better(flee);
 		
 		all_itype = new int[ichase.length + iflee.length];
 		for (int i = 0; i < ichase.length; i++) {
@@ -89,10 +70,7 @@ public class GoalDirected extends RandomNPC {
 		for (int i = 0; i < iflee.length; i++) {
 			all_itype[i + ichase.length] = iflee[i];
 		}
-		
-		if (randomTarget || epsilon > 0.0) {
-			is_stochastic = true;
-		}
+		is_stochastic = true;
 	}
 	
 	public boolean can_see(VGDLSprite s) {
@@ -250,7 +228,6 @@ public class GoalDirected extends RandomNPC {
 		
 		targetSprite.chase = this.chase;
 		targetSprite.flee = this.flee;
-		targetSprite.randomTarget = this.randomTarget;
 		targetSprite.maxDistance = this.maxDistance;
 		targetSprite.epsilon = this.epsilon;
 		targetSprite.path = this.path;

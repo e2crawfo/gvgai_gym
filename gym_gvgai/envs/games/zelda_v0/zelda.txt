@@ -1,4 +1,4 @@
-BasicGame
+BasicGame square_size=10
   SpriteSet
     floor > Immovable randomtiling=0.9 img=oryx/floor3 hidden=True
     goal  > Door color=GREEN img=oryx/doorclosed1
@@ -12,7 +12,7 @@ BasicGame
         monsterQuick > RandomNPC cooldown=2 cons=6 img=oryx/bat1
         monsterNormal > RandomNPC cooldown=4 cons=8 img=oryx/spider2
         monsterSlow > RandomNPC cooldown=8 cons=12 img=oryx/scorpion1
-      wall > Immovable autotiling=true img=oryx/wall3
+      wall > Immovable autotiling=true img=oryx/wall3 color=BLACK
 
   LevelMapping
     g > floor goal

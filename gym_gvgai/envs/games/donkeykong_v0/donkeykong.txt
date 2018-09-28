@@ -6,8 +6,8 @@ BasicGame square_size=20
         ladder > Immovable img=newset/ladder2 orientation=DOWN hidden=True
         goal  > Door color=GREEN img=newset/exit2
 
-        rightBarrelSpawn > BomberRandomMissile stypeMissile=breakableBarrelR,toughBarrelR cooldown=50 invisible=True hidden=True
-        leftBarrelSpawn > BomberRandomMissile stypeMissile=breakableBarrelL,toughBarrelL cooldown=50 invisible=True hidden=True
+        rightBarrelSpawn > Bomber stypeMissile=breakableBarrelR,toughBarrelR cooldown=50 invisible=True hidden=True
+        leftBarrelSpawn > Bomber stypeMissile=breakableBarrelL,toughBarrelL cooldown=50 invisible=True hidden=True
 
         barrel  > Missile
             downBarrel  > orientation=DOWN speed=0.8

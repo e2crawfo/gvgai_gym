@@ -64,10 +64,8 @@ public class SpawnPoint extends SpriteProducer {
 			if (newSprite != null) {
 				counter++;
 
-				// We set the orientation given by default it this was passed.
 				if (!(spawnorientation.equals(Types.DNONE)))
 					newSprite.orientation = spawnorientation.copy();
-				// If no orientation given, we set the one from the spawner.
 				else if (newSprite.orientation.equals(Types.DNONE))
 					newSprite.orientation = this.orientation.copy();
 			}
