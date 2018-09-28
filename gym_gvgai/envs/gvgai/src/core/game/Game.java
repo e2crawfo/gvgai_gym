@@ -857,12 +857,10 @@ public abstract class Game {
      */
     public double[] runGame(Player[] players, int randomSeed) {
         // Prepare some structures and references for this game.
-        System.out.println("preparing game");
         prepareGame(players, randomSeed, -1);
 
         // Play until the game is ended
         while (!isEnded) {
-            System.out.println("ticking game");
             this.gameCycle(); // Execute a game cycle.
         }
 

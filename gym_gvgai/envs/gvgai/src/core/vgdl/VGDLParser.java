@@ -14,7 +14,6 @@ import ontology.effects.Effect;
 import ontology.effects.TimeEffect;
 import tools.IO;
 import tools.Pair;
-import core.logging.Logger;
 import core.logging.Message;
 
 /**
@@ -54,11 +53,6 @@ public class VGDLParser {
     private static boolean VERBOSE_PARSER = false;
 
     /**
-     * private Logger which logs warnings and errors
-     */
-    private Logger logger;
-
-    /**
      * Default constructor.
      */
     public VGDLParser() {
@@ -66,7 +60,6 @@ public class VGDLParser {
         spriteOrderTmp = new ArrayList<Integer>();
         singletonTmp = new ArrayList<Integer>();
         constructors = new HashMap<Integer, SpriteContent>();
-        logger = Logger.getInstance();
     }
 
     /**
@@ -92,7 +85,8 @@ public class VGDLParser {
             try {
                 parseNodes(rootNode);
             } catch (Exception e) {
-                logger.addMessage(new Message(Message.ERROR, "[PARSE ERROR] " + e.toString()));
+                System.out.println("[PARSE ERROR] " + e.toString());
+                System.exit(1);
             }
         }
 
@@ -120,7 +114,8 @@ public class VGDLParser {
             try {
                 parseNodes(rootNode);
             } catch (Exception e) {
-                logger.addMessage(new Message(Message.ERROR, "[PARSE ERROR] " + e.toString()));
+                System.out.println("[PARSE ERROR] " + e.toString());
+                System.exit(1);
             }
         }
 
@@ -142,29 +137,32 @@ public class VGDLParser {
                     try {
                         parseSpriteSet(n.children);
                     } catch (Exception e) {
-                        logger.addMessage(new Message(Message.ERROR, "Sprite Set Error: " + e.toString()));
+                        System.out.println("[SPRITE SET ERROR] " + e.toString());
+                        System.exit(1);
                     }
                 } else if (n.content.identifier.equals("InteractionSet")) {
                     try {
                         parseInteractionSet(n.children);
                     } catch (Exception e) {
-                        logger.addMessage(new Message(Message.ERROR, "Interaction Set Error: " + e.getMessage()));
+                        System.out.println("[INTERACTION SET ERROR] " + e.toString());
+                        System.exit(1);
                     }
                 } else if (n.content.identifier.equals("LevelMapping")) {
                     try {
                         parseLevelMapping(n.children);
                     } catch (Exception e) {
-                        logger.addMessage(new Message(Message.ERROR, "Level Mapping Error: " + e.toString()));
+                        System.out.println("[LEVEL MAPPING ERROR] " + e.toString());
+                        System.exit(1);
                     }
                 } else if (n.content.identifier.equals("TerminationSet")) {
                     try {
                         parseTerminationSet(n.children);
                     } catch (Exception e) {
-                        logger.addMessage(new Message(Message.ERROR, "Termination Set Error: " + e.toString()));
+                        System.out.println("[TERMINATION SET ERROR] " + e.toString());
+                        System.exit(1);
                     }
                 }
             }
-            // logger.printMessages();
         }
     }
 
@@ -209,7 +207,8 @@ public class VGDLParser {
                     sprites.remove(spriteStruct.get(key).get(i).trim());
                 }
                 else{
-                    Logger.getInstance().addMessage(new Message(Message.ERROR, "Undefined " + spriteStruct.get(key).get(i) + " in the provided sprite set."));
+                    System.out.println("Undefined " + spriteStruct.get(key).get(i) + " in the provided sprite set.");
+                    System.exit(1);
                 }
             }
         }
@@ -221,7 +220,8 @@ public class VGDLParser {
         try {
             parseSpriteSet(spriteNode.children);
         } catch (Exception e) {
-            logger.addMessage(new Message(1, "[PARSE ERROR]"));
+            System.out.println("[PARSE ERROR]" + e.toString());
+            System.exit(1);
         }
     }
 
@@ -256,7 +256,8 @@ public class VGDLParser {
             parseInteractionSet(rulesNode.children);
             parseTerminationSet(terNode.children);
         } catch (Exception e) {
-            logger.addMessage(new Message(1, "[PARSE ERROR]"));
+            System.out.println("[PARSE ERROR]" + e.toString());
+            System.exit(1);
         }
     }
 
@@ -296,7 +297,8 @@ public class VGDLParser {
                     last = new Node(content, indent, last, currentSet, lineNumber);
                 }
                 catch(Exception e){
-                    Logger.getInstance().addMessage(new Message(Message.ERROR, "[PARSE ERROR]" + e.getMessage() + " Line: " + lineNumber + ":" + line.trim()));
+                    System.out.println("[PARSE ERROR]" + e.getMessage() + " Line: " + lineNumber + ":" + line.trim());
+                    System.exit(1);
                 }
             }
             lineNumber++;

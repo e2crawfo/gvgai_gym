@@ -101,8 +101,7 @@ public class CompetitionParameters
     /**
      * Path to sprite images.
      */
-    // public static String IMG_PATH = "/media/data/Dropbox/projects/gvgai_gym/gym_gvgai/envs/gvgai/sprites/";
-    public static String IMG_PATH = "";
+    public static String IMG_PATH = "/media/data/Dropbox/projects/gvgai_gym/gym_gvgai/envs/gvgai/sprites/";
 
     /**
      * Path to the temporary game screenshot.

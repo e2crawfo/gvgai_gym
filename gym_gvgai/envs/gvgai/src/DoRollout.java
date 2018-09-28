@@ -63,5 +63,6 @@ public class DoRollout {
         }
         boolean visuals = true;
         ArcadeMachine.runOneGame(game_file, level_file, visuals, agent, action_file, seed, 0);
+        System.exit(0);
     }
 }
