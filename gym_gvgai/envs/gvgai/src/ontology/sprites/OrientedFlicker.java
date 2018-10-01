@@ -25,7 +25,6 @@ public class OrientedFlicker extends Flicker {
 	protected void loadDefaults() {
 		super.loadDefaults();
 		speed = 0;
-		is_oriented = true;
 	}
 
 	public void update(Game game) {

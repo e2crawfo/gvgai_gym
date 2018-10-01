@@ -27,7 +27,6 @@ public class OrientedAvatar extends MovingAvatar {
 	protected void loadDefaults() {
 		super.loadDefaults();
 		orientation = Types.DRIGHT.copy();
-		is_oriented = true;
 		rotateInPlace = true;
 	}
 

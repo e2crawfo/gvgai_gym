@@ -120,14 +120,19 @@ public abstract class VGDLSprite {
     public double shrinkfactor;
 
     /**
-     * Indicates if this sprite has an oriented behaviour.
-     */
-    public boolean is_oriented;
-
-    /**
      * Orientation of the sprite.
      */
     public Direction orientation;
+    
+    /**
+     * Whether or not to draw the orientation arrow.
+     */
+    public boolean draw_arrow;
+    
+    /**
+     * Shape of the sprite, either "circle" or "square".
+     */
+    public String shape;
 
     /**
      * Rectangle that this sprite occupies on the screen.
@@ -364,8 +369,9 @@ public abstract class VGDLSprite {
         frameRate = -1;
         frameRemaining = 0;
         currentFrame = -1;
-        is_oriented = false;
         orientation = Types.DNONE;
+        draw_arrow = true;
+        shape = "circle";
         lastmove = 0;
         invisible = "false";
         rotateInPlace = false;
@@ -381,6 +387,7 @@ public abstract class VGDLSprite {
         this.size = size;
         determinePhysics(physicstype, size);
         setRandomColor();
+        setRandomOrientation();
     }
 
     public void setRect(Vector2d position, Dimension size)
@@ -415,6 +422,11 @@ public abstract class VGDLSprite {
         this.arrow_color = new Color((Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
+    }
+
+    private void setRandomOrientation() {
+       Random rand = new Random();
+       this.orientation = (Direction) Utils.choice(Types.DBASEDIRS, rand);
     }
 
     /**
@@ -527,13 +539,11 @@ public abstract class VGDLSprite {
     /**
      * Updates the orientation of the avatar to match the orientation parameter.
      * @param orientation final orientation the avatar must have.
-     * @return true if orientation could be changed. This returns false in two circumstances:
-     * the avatar is not oriented (is_oriented == false) or the previous orientation is the
-     * same as the one received by parameter.
+     * @return true if orientation could be changed. Returns false if the previous oriented
+     * is the same as the one passed in.
      */
     public boolean _updateOrientation(Direction orientation)
     {
-        if(!this.is_oriented) return false;
         if(this.orientation.equals(orientation)) return false;
         this.orientation = orientation.copy();
         return true;
@@ -712,6 +722,7 @@ public abstract class VGDLSprite {
                 r.x += (rect.width-r.width)/2;
                 r.y += (rect.height-r.height)/2;
             }
+            
             if(image != null) {
             	int w = image.getWidth(null);
             	int h = image.getHeight(null);
@@ -720,20 +731,25 @@ public abstract class VGDLSprite {
             	gphx.drawImage(image, r.x, r.y, (int) (w*scaleX), (int) (h*scaleY), null);
             }else {
                 gphx.setColor(color);
-                gphx.fillRect(r.x, r.y, r.width, r.height);
+                
+                if(shape == "circle") {
+                	gphx.fillOval((int) r.getX(), (int) r.getY(), r.width, r.height);
+                }else {
+                	gphx.fillRect(r.x, r.y, r.width, r.height);
+                }
             }
 
-            if (is_oriented) {
-                Polygon p = Utils.triPoints(r, orientation);
-                gphx.setColor(arrow_color);
-                gphx.drawPolygon(p);
-                gphx.fillPolygon(p);
+            if(draw_arrow) {
+            	Polygon p = Utils.triPoints(r, orientation);
+            	gphx.setColor(arrow_color);
+            	gphx.drawPolygon(p);
+            	gphx.fillPolygon(p);
             }
-    
+
             if(resources.size() > 0){
                 _drawResources(gphx, game, r);
             }
-    
+
             if(healthPoints > 0){
                 _drawHealthBar(gphx, game, r);
             }
@@ -851,18 +867,11 @@ public abstract class VGDLSprite {
     {
         loadImage();
 
-        if(!(this.orientation.equals(Types.DNONE)))
-        {
-            //Any sprite that receives an orientation, is oriented.
-            this.is_oriented = true;
-        }
-
         if(maxHealthPoints == 0)
             maxHealthPoints = healthPoints;
 
         if(healthPoints > maxHealthPoints)
             healthPoints = maxHealthPoints;
-
 
         if(rect != null)
         {
@@ -1034,8 +1043,9 @@ public abstract class VGDLSprite {
         toSprite.physicstype = this.physicstype;
         toSprite.physics = this.physics; //Object reference, but should be ok.
         toSprite.shrinkfactor = this.shrinkfactor;
-        toSprite.is_oriented = this.is_oriented;
         toSprite.orientation = new Direction(orientation.x(), orientation.y());
+        toSprite.draw_arrow = this.draw_arrow;
+        toSprite.shape = this.shape;
         toSprite.rect = new Rectangle(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
         toSprite.lastrect =  new Rectangle(this.lastrect.x, this.lastrect.y, this.lastrect.width, this.lastrect.height);
         toSprite.lastmove = this.lastmove;
@@ -1111,8 +1121,9 @@ public abstract class VGDLSprite {
         if(other.gravity != this.gravity) return false;     
         if(other.friction != this.friction) return false;
         if(other.shrinkfactor != this.shrinkfactor) return false;
-        if(other.is_oriented != this.is_oriented) return false;
         if(!other.orientation.equals(this.orientation)) return false;
+        if(other.draw_arrow != this.draw_arrow) return false;
+        if(other.shape != this.shape) return false;
         if(!other.rect.equals(this.rect)) return false;
         if(other.lastmove != this.lastmove) return false;
         if(other.jump_strength != this.jump_strength) return false;

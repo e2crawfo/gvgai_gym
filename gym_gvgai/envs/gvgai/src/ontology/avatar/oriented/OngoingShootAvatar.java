@@ -37,7 +37,6 @@ public class OngoingShootAvatar extends ShootAvatar
     {
         super.loadDefaults();
         speed = 1;
-        is_oriented = true;
     }
 
     /**

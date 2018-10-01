@@ -42,7 +42,6 @@ public class Bomber extends SpawnPoint {
 		super.loadDefaults();
 		color = Types.ORANGE;
 		is_static = false;
-		is_oriented = true;
 		orientation = Types.DRIGHT.copy();
 		is_npc = true;
 		is_stochastic = true;

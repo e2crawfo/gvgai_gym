@@ -35,7 +35,6 @@ public class MissileAvatar extends OrientedAvatar
     {
         super.loadDefaults();
         speed = 1;
-        is_oriented = true;
     }
 
     /**

@@ -24,7 +24,6 @@ public class RandomInertial extends RandomNPC {
 	protected void loadDefaults() {
 		super.loadDefaults();
 		physicstype = Types.CONT;
-		is_oriented = true;
 	}
 
 	public VGDLSprite copy() {

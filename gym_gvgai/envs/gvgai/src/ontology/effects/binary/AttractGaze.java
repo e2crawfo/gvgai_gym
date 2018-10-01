@@ -32,24 +32,22 @@ public class AttractGaze extends Effect {
 			return;
 		}
 
-		if (sprite1.is_oriented && sprite2.is_oriented) {
-			if (game.getRandomGenerator().nextDouble() < prob) {
-				sprite1.orientation = sprite2.orientation.copy();
+          if (game.getRandomGenerator().nextDouble() < prob) {
+               sprite1.orientation = sprite2.orientation.copy();
 
-				if (align) {
-					if (sprite1.orientation.equals(Types.DLEFT) || sprite1.orientation.equals(Types.DRIGHT)) {
-						// Need to align on the Y coordinate.
-						sprite1.rect = new Rectangle(sprite1.rect.x, sprite2.rect.y, sprite1.rect.width,
-								sprite1.rect.height);
+               if (align) {
+                    if (sprite1.orientation.equals(Types.DLEFT) || sprite1.orientation.equals(Types.DRIGHT)) {
+                         // Need to align on the Y coordinate.
+                         sprite1.rect = new Rectangle(sprite1.rect.x, sprite2.rect.y, sprite1.rect.width,
+                                   sprite1.rect.height);
 
-					} else {
-						// Need to align on the X coordinate.
-						sprite1.rect = new Rectangle(sprite2.rect.x, sprite1.rect.y, sprite1.rect.width,
-								sprite1.rect.height);
-					}
-				}
+                    } else {
+                         // Need to align on the X coordinate.
+                         sprite1.rect = new Rectangle(sprite2.rect.x, sprite1.rect.y, sprite1.rect.width,
+                                   sprite1.rect.height);
+                    }
+               }
 
-			}
-		}
+          }
 	}
 }

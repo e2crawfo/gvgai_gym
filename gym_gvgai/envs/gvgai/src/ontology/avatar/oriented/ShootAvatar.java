@@ -80,8 +80,7 @@ public class ShootAvatar extends OrientedAvatar {
 				new Vector2d(this.rect.x + dir.x * this.lastrect.width, this.rect.y + dir.y * this.lastrect.height));
 
 		if (newOne != null) {
-			if (newOne.is_oriented)
-				newOne.orientation = new Direction(dir.x, dir.y);
+               newOne.orientation = new Direction(dir.x, dir.y);
 			reduceAmmo(idx);
 			newOne.setFromAvatar(true);
 		}

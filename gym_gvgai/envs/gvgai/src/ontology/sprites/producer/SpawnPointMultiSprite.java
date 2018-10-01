@@ -56,7 +56,6 @@ public class SpawnPointMultiSprite extends SpriteProducer
         cooldown = 1;
         is_static = true;
         spawnorientation = Types.DNONE;
-        is_oriented = true;
         orientation = Types.DRIGHT.copy();
         is_npc = true;
     }

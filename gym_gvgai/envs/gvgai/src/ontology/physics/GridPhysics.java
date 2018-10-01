@@ -53,8 +53,7 @@ public class GridPhysics implements Physics {
         else
             speed = sprite.speed;
 
-        if(speed != 0 && sprite.is_oriented)
-        {
+        if(speed != 0) {
             if(sprite._updatePos(sprite.orientation, (int)(speed * this.gridsize.width)))
                 return Types.MOVEMENT.MOVE;
         }

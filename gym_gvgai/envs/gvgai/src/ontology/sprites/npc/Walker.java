@@ -75,7 +75,6 @@ public class Walker extends VGDLSprite
         super.loadDefaults();
         speed = 5;
         max_speed = 5;
-        is_oriented = true;
         airsteering = false;
         is_stochastic = true;
         on_ground = false;

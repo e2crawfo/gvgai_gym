@@ -66,8 +66,7 @@ public class SpaceshipAvatar extends ShootAvatar
 
         if(newOne != null)
         {
-            if(newOne.is_oriented)
-                newOne.orientation = new Direction(Math.cos(this.rotation), Math.sin(this.rotation));
+            newOne.orientation = new Direction(Math.cos(this.rotation), Math.sin(this.rotation));
             reduceAmmo(idx);
             newOne.setFromAvatar(true);
         }

@@ -47,9 +47,7 @@ public class TeleportToExit extends Effect {
 			sprite1.setRect(destination.rect);
 			sprite1.lastmove = 0;
 
-			if (destination.is_oriented) {
-				sprite1.orientation = destination.orientation.copy();
-			}
+			sprite1.orientation = destination.orientation.copy();
 		} else {
 			// If there is no exit... kill the sprite
 			// boolean variable set to false to indicate the sprite was not transformed

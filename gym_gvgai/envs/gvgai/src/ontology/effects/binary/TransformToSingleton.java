@@ -76,7 +76,6 @@ public class TransformToSingleton extends Effect {
 
 			if (takeOrientation) {
 				Direction orientation = new Direction(-sprite2.orientation.x(), -sprite2.orientation.y());
-				newSprite.is_oriented = true;
 				newSprite.orientation = orientation;
 			}
 		}
@@ -84,9 +83,7 @@ public class TransformToSingleton extends Effect {
 
 	private void setSpriteFields(Game game, VGDLSprite newSprite, VGDLSprite oldSprite) {
 		// Orientation
-		if (newSprite.is_oriented && oldSprite.is_oriented) {
-			newSprite.orientation = oldSprite.orientation;
-		}
+          newSprite.orientation = oldSprite.orientation;
 
 		// Last position of the avatar.
 		newSprite.lastrect = new Rectangle(oldSprite.lastrect.x, oldSprite.lastrect.y, oldSprite.lastrect.width,

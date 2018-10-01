@@ -58,8 +58,7 @@ public class TransformTo extends Effect {
 		
 		if (newSprite != null) {
 			// Orientation
-			if (forceOrientation
-					|| newSprite.is_oriented && sprite1.is_oriented && newSprite.orientation.equals(Types.DNONE)) {
+			if (forceOrientation || newSprite.orientation.equals(Types.DNONE)) {
 				newSprite.orientation = sprite1.orientation;
 			}
 

@@ -23,7 +23,6 @@ public class Missile extends VGDLSprite {
 	protected void loadDefaults() {
 		super.loadDefaults();
 		speed = 1;
-		is_oriented = true;
 	}
 
 	public VGDLSprite copy() {
