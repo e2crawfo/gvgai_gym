@@ -54,7 +54,6 @@ public class Spreader extends Flicker {
 				}
 			}
 		}
-
 	}
 
 	public VGDLSprite copy() {

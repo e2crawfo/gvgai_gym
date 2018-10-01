@@ -11,45 +11,45 @@ import tracks.ArcadeMachine;
  */
 public class ErrorTestingMultiplayer {
 
-    public static void main(String[] args) {
-    String sampleMCTSController = "tracks.multiPlayer.advanced.sampleMCTS.Agent";
+	public static void main(String[] args) {
+		String sampleMCTSController = "tracks.multiPlayer.advanced.sampleMCTS.Agent";
 
-    // Available games:
-    String gamesPath = "examples/2player/";
-    String games[] = new String[] {};
+		// Available games:
+		String gamesPath = "examples/2player/";
+		String games[] = new String[] {};
 
-    // All public games
-    games = new String[] { "accelerator", "akkaarrh", "asteroids", "beekeeper", "bombergirl", // 0-4
-        "breedingdragons", "captureflag", "competesokoban", "copsNrobbers", "donkeykong", // 5-9
-        "dragonattack", "drowning", "egghunt", "fatty", "firetruck", // 10-14
-        "football", "ghostbusters", "gotcha", "isawsanta", "klax", // 15-19
-        "mimic", "minesweeper", "minions", "oopsbrokeit", "reflection", // 20-24
-        "rivalry", "romeoNjuliet", "samaritan", "sokoban", "steeplechase", // 25-29
-        "teamescape", "thebridge", "trainride", "treasuremap", "tron", // 30-34
-        "upgrade-x", "uphigh", "warzone", "watchout", "wheelme" }; // 35-39
+		// All public games
+		games = new String[] { "accelerator", "akkaarrh", "asteroids", "beekeeper", "bombergirl", // 0-4
+				"breedingdragons", "captureflag", "competesokoban", "copsNrobbers", "donkeykong", // 5-9
+				"dragonattack", "drowning", "egghunt", "fatty", "firetruck", // 10-14
+				"football", "ghostbusters", "gotcha", "isawsanta", "klax", // 15-19
+				"mimic", "minesweeper", "minions", "oopsbrokeit", "reflection", // 20-24
+				"rivalry", "romeoNjuliet", "samaritan", "sokoban", "steeplechase", // 25-29
+				"teamescape", "thebridge", "trainride", "treasuremap", "tron", // 30-34
+				"upgrade-x", "uphigh", "warzone", "watchout", "wheelme" }; // 35-39
 
-    // Other settings
-    for (String g : games) {
-        for (int i = 0; i < 5; i++) {
-        String game = gamesPath + g + ".txt";
-        String level1 = gamesPath + g + "_lvl" + i + ".txt";
-        Logger.getInstance().flushMessages();
-        try {
-            ArcadeMachine.runOneGame(game, level1, false, sampleMCTSController, null, new Random().nextInt(),
-                0);
-        } catch (Exception e) {
-            System.out.println("*************** " + g + " **************");
-            System.out.println("Level " + i);
-            e.printStackTrace();
-            System.out.println("****************************************");
-        }
-        if (Logger.getInstance().getMessageCount() > 0) {
-            System.out.println("*************** " + g + " **************");
-            System.out.println("Level " + i);
-            Logger.getInstance().printMessages();
-            System.out.println("****************************************");
-        }
-        }
-    }
-    }
+		// Other settings
+		for (String g : games) {
+			for (int i = 0; i < 5; i++) {
+				String game = gamesPath + g + ".txt";
+				String level1 = gamesPath + g + "_lvl" + i + ".txt";
+				Logger.getInstance().flushMessages();
+				try {
+					ArcadeMachine.runOneGame(game, level1, false, sampleMCTSController, null, new Random().nextInt(),
+							0);
+				} catch (Exception e) {
+					System.out.println("*************** " + g + " **************");
+					System.out.println("Level " + i);
+					e.printStackTrace();
+					System.out.println("****************************************");
+				}
+				if (Logger.getInstance().getMessageCount() > 0) {
+					System.out.println("*************** " + g + " **************");
+					System.out.println("Level " + i);
+					Logger.getInstance().printMessages();
+					System.out.println("****************************************");
+				}
+			}
+		}
+	}
 }

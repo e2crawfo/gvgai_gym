@@ -1,10 +1,7 @@
 package core.termination;
 
-import java.util.ArrayList;
-
 import core.content.TerminationContent;
 import core.game.Game;
-import core.game.GameDescription.TerminationData;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 22/10/13 Time: 18:48 This is a
@@ -50,14 +47,18 @@ public class Timeout extends Termination {
 						for (int i = 1; i < game.getNoPlayers(); i++) {
 							if (i == game.no_players - 1) {
 								win += "True";
-							} else win += "True,";
+							} else {
+								win += "True,";
+							}
 						}
 					} else {
 						win = "True,";
 						for (int i = 1; i < game.getNoPlayers(); i++) {
 							if (i == game.no_players - 1) {
 								win += "False";
-							} else win += "False,";
+							} else {
+								win += "False,";
+							}
 						}
 
 					}
@@ -67,23 +68,29 @@ public class Timeout extends Termination {
 					if (game.no_players != game.no_counters) {
 						win = "";
 						for (int i = 0; i < game.no_players; i++) {
-							if (i != game.no_players - 1)
+							if (i != game.no_players - 1) {
 								win += "False,";
-							else win += "False";
+							} else {
+								win += "False";
+							}
 						}
 					} else {
 						String[] split = limits.split(",");
 						int[] intlimits = new int[split.length];
-						for (int i = 0; i < intlimits.length; i++)
+						for (int i = 0; i < intlimits.length; i++) {
 							intlimits[i] = Integer.parseInt(split[i]);
+						}
 
 						for (int i = 0; i < game.no_players; i++) {
 							win = "";
 							if (game.getValueCounter(i) == intlimits[i]) {
 								win += "True";
-							} else win += "False";
-							if (i != game.no_players - 1)
+							} else {
+								win += "False";
+							}
+							if (i != game.no_players - 1) {
 								win += ",";
+							}
 						}
 					}
 				}

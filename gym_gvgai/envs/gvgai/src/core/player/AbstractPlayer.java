@@ -1,14 +1,5 @@
 package core.player;
 
-import java.awt.Graphics2D;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import core.game.Game;
-import core.game.StateObservation;
 import core.game.StateObservationMulti;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
@@ -22,13 +13,14 @@ import tools.ElapsedCpuTimer;
  */
 
 /**
- * Subclass of Player, for Single Player games.
- * Implements multi player act method (returns NULL).
+ * Subclass of Player, for Single Player games. Implements multi player act
+ * method (returns NULL).
  */
 public abstract class AbstractPlayer extends Player {
 
-    public Types.ACTIONS act(StateObservationMulti stateObs, ElapsedCpuTimer elapsedTimer) {
-        return Types.ACTIONS.ACTION_NIL;
-    }
+	@Override
+	public Types.ACTIONS act(StateObservationMulti stateObs, ElapsedCpuTimer elapsedTimer) {
+		return Types.ACTIONS.ACTION_NIL;
+	}
 
 }
