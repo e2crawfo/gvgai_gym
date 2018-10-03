@@ -13,6 +13,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.swing.JOptionPane;
 
@@ -943,7 +946,17 @@ public abstract class Game {
 					so.currentGameState = Types.GAMESTATES.ACT_STATE;
 					SerializableStateObservation sso = new SerializableStateObservation(so);
 					String filename = CompetitionParameters.ROLLOUT_DIR + String.format("/obs%05d.json", tick);
-					sso.serialize(filename);
+					try {
+						sso.serialize(filename);
+					} catch (IOException e) {
+						StringWriter writer = new StringWriter();
+						PrintWriter printWriter = new PrintWriter( writer );
+						e.printStackTrace(printWriter);
+						printWriter.flush();
+						String stackTrace = writer.toString();
+						System.out.println(stackTrace);
+						System.exit(1);	
+					}
 				}
 			}
 

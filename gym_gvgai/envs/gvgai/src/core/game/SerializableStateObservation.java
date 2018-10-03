@@ -303,16 +303,18 @@ public class SerializableStateObservation {
 	 * @param filename Name of the file to save the serialization to (optional)
 	 * @return
 	 */
-	public String serialize(String filename) {
+	public String serialize(String filename) throws IOException {
 		String message = "";
 		Gson gson = new Gson();
 		if (filename == null) {
 			message = gson.toJson(this);
 		} else {
+			message = gson.toJson(this);
+			FileWriter writer = new FileWriter(filename);
 			try {
-				message = gson.toJson(this);
-				gson.toJson(this, new FileWriter(filename));
-			} catch (Exception e) {
+				gson.toJson(this, writer);
+			} finally {
+				writer.close();
 			}
 		}
 		return message;
