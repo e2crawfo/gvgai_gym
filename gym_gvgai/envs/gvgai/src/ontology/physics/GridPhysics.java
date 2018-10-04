@@ -71,18 +71,20 @@ public class GridPhysics implements Physics {
                 else
                     speed = sprite.speed;
             }
-    
+
             if(speed != 0 && action != null && !(action.equals(Types.DNONE)))
             {
-                if(sprite.rotateInPlace)
-                {
-                    boolean change = sprite._updateOrientation(action);
-                    if(change)
-                        return Types.MOVEMENT.ROTATE;
+                // If `rotateInPlace=true`, then an action is required just for rotating.
+                // otherwise, an action is not required for rotating, orientation is updated to match the orientation of the action
+                boolean change = sprite._updateOrientation(action);
+
+                if(sprite.rotateInPlace && change) {
+                    return Types.MOVEMENT.ROTATE;
                 }
-    
-                if(sprite._updatePos(action, (int) (speed * this.gridsize.width)))
+
+                if(sprite._updatePos(action, (int) (speed * this.gridsize.width))) {
                     return Types.MOVEMENT.MOVE;
+                }
             }
         }
         return Types.MOVEMENT.STILL;

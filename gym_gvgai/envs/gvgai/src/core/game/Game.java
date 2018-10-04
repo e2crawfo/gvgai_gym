@@ -1533,6 +1533,10 @@ public abstract class Game {
 					for (VGDLSprite s1 : firstx) {
 						new_secondx = new ArrayList<VGDLSprite>();
 
+                              if(kill_list.contains(s1) || s1.is_disabled()){
+                                  continue;
+                              }
+
 						for (VGDLSprite s2 : secondx) {
 							if (s1 != s2 && s1.intersects(s2)) {
 								new_secondx.add(s2);
@@ -1545,8 +1549,7 @@ public abstract class Game {
 							} else {
 
 								for (int i = 0; i < new_secondx.size(); i++) {
-									if (!kill_list.contains(s1) && s1 != new_secondx.get(i)
-											&& s1.intersects(new_secondx.get(i))) {
+									if (s1 != new_secondx.get(i) && s1.intersects(new_secondx.get(i))) {
 										executeEffect(ef, s1, new_secondx.get(i));
 									}
 								}
@@ -1863,8 +1866,7 @@ public abstract class Game {
 	 *                    kill sprite even if avatar, instead of disabling it).
 	 */
 	public void killSprite(VGDLSprite sprite, boolean transformed) {
-		if (sprite instanceof MovingAvatar && !transformed) { // if avatar, just
-			// disable
+		if (sprite instanceof MovingAvatar && !transformed) { // if avatar, just disable
 			sprite.setDisabled(true);
 		} else {
 			kill_list.add(sprite);
