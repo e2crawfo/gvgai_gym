@@ -47,17 +47,8 @@ public class PathFinder {
 
 	private void init() {
 		if (x_arrNeig == null) {
-			// TODO: This is a bit of a hack, it wouldn't work with other (new) action sets.
-			ArrayList<Types.ACTIONS> actions = this.state.getAvailableActions();
-			if (actions.size() == 3) {
-				// left, right
-				x_arrNeig = new int[] { -1, 1 };
-				y_arrNeig = new int[] { 0, 0 };
-			} else {
-				// up, down, left, right
-				x_arrNeig = new int[] { 0, 0, -1, 1 };
-				y_arrNeig = new int[] { -1, 1, 0, 0 };
-			}
+			x_arrNeig = new int[] { 0, 0, -1, 1 };
+			y_arrNeig = new int[] { -1, 1, 0, 0 };
 		}
 	}
 

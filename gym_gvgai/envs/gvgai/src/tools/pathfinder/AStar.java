@@ -76,10 +76,8 @@ public class AStar {
 
 	private void _dijkstraa(Node start) {
 
-		ArrayList<Node> destinationsFromStart = new ArrayList<Node>();
-		// All unvisited at the beginning.
+		ArrayList<Node> reachable = new ArrayList<Node>();
 		visited = new boolean[pathfinder.grid.length][pathfinder.grid[0].length];
-		// ...except the starting node
 		visited[(int) start.position.x][(int) start.position.y] = true;
 
 		Node node = null;
@@ -93,8 +91,8 @@ public class AStar {
 			node = openList.poll();
 			// System.out.println("Remaining in list: " + openList.size());
 
-			if (!destinationsFromStart.contains(node) && node != start) {
-				destinationsFromStart.add(node);
+			if (!reachable.contains(node) && node != start) {
+				reachable.add(node);
 			}
 
 			ArrayList<Node> neighbours = pathfinder.getNeighbours(node);
@@ -116,11 +114,13 @@ public class AStar {
 
 		}
 
-		for (Node dest : destinationsFromStart) {
+		for (Node dest : reachable) {
+			System.out.println(dest.position);
 			int pathid = start.id * 10000 + dest.id;
 			pathCache.put(pathid, calculatePath(dest));
 		}
 
+		int x = 0;
 	}
 
 	private ArrayList<Node> _findPath(Node start, Node goal) {
