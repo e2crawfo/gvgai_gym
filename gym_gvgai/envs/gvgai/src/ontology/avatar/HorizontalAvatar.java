@@ -1,12 +1,17 @@
 package ontology.avatar;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import core.vgdl.VGDLRegistry;
 import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
 import ontology.Types;
+import tools.Direction;
 import tools.Vector2d;
+
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 22/10/13 Time: 18:07 This is a
@@ -22,19 +27,13 @@ public class HorizontalAvatar extends MovingAvatar {
 		this.parseParameters(cnt);
 	}
 
-	public void postProcess() {
-		// Define actions here first.
-		if (actions.size() == 0) {
-			actions.add(Types.ACTIONS.ACTION_LEFT);
-			actions.add(Types.ACTIONS.ACTION_RIGHT);
-		}
-
-		super.postProcess();
-	}
-
 	protected void loadDefaults() {
 		super.loadDefaults();
 	}
+	
+    public boolean filterDirs(Direction dir) {
+    	return dir == Types.DLEFT || dir == Types.DRIGHT;
+    }
 
 	public VGDLSprite copy() {
 		HorizontalAvatar newSprite = new HorizontalAvatar();

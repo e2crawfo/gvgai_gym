@@ -2,7 +2,9 @@ package ontology.avatar;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import core.vgdl.VGDLRegistry;
 import core.vgdl.VGDLSprite;
 import core.competition.CompetitionParameters;
 import core.content.SpriteContent;
@@ -34,7 +36,7 @@ public class MovingAvatar extends VGDLSprite {
      */
     protected boolean is_disqualified;
 
-    //Avatar can have any KeyHandler system. We use KeyInput by default.
+    // Avatar can have any KeyHandler system. We use KeyInput by default.
     private KeyHandler ki;
 
     public Types.MOVEMENT lastMovementType = Types.MOVEMENT.STILL;
@@ -43,47 +45,35 @@ public class MovingAvatar extends VGDLSprite {
     }
 
     public MovingAvatar(Vector2d position, Dimension size, SpriteContent cnt) {
-        //Init the sprite
         this.init(position, size);
-
-        //Specific class default parameter values.
         loadDefaults();
-
-        //Parse the arguments.
         this.parseParameters(cnt);
     }
 
     protected void loadDefaults() {
         super.loadDefaults();
-        actions = new ArrayList<Types.ACTIONS>();
-        actionsNIL = new ArrayList<Types.ACTIONS>();
 
         color = Types.WHITE;
         speed = 1;
         is_avatar = true;
         is_disqualified = false;
     }
+    
 
-    public void postProcess() {
+	public void postProcess() {
+		super.postProcess();
 
-        //Define actions here first.
-        if(actions.size()==0)
-        {
-            actions.add(Types.ACTIONS.ACTION_LEFT);
-            actions.add(Types.ACTIONS.ACTION_RIGHT);
-            actions.add(Types.ACTIONS.ACTION_DOWN);
-            actions.add(Types.ACTIONS.ACTION_UP);
-        }
-
-        super.postProcess();
-
-        //A separate array with the same actions, plus NIL.
-        for(Types.ACTIONS act : actions)
-        {
-            actionsNIL.add(act);
-        }
-        actionsNIL.add(Types.ACTIONS.ACTION_NIL);
-    }
+	    actions = new ArrayList<Types.ACTIONS>(
+	    	Arrays.asList(Types.ACTIONS.ACTION_USE,
+	    				  Types.ACTIONS.ACTION_LEFT,
+	    				  Types.ACTIONS.ACTION_RIGHT,
+	    				  Types.ACTIONS.ACTION_DOWN,
+	    				  Types.ACTIONS.ACTION_UP)
+	    );
+	    
+	    actionsNIL = new ArrayList<Types.ACTIONS>(actions);
+	    actionsNIL.add(Types.ACTIONS.ACTION_NIL);
+	}
 
     /**
      * This update call is for the game tick() loop.
@@ -110,13 +100,19 @@ public class MovingAvatar extends VGDLSprite {
         //Apply the physical movement.
         applyMovement(game, action);
     }
+    
+    public boolean filterDirs(Direction dir) {
+    	return true;
+    }
 
     public void applyMovement(Game game, Direction action)
     {
         //this.physics.passiveMovement(this);
         if (physicstype != Types.GRID)
             super.updatePassive();
-        lastMovementType = this.physics.activeMovement(this, action, speed);
+        if (filterDirs(action)) {
+        	lastMovementType = this.physics.activeMovement(this, action, speed);
+        }
     }
 
     /**

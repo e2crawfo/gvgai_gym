@@ -1,7 +1,7 @@
 BasicGame
     SpriteSet
         floor > Immovable hidden=True img=oryx/space2
-        turret > Bomber stype=bomb prob=0.4 cooldown=3 speed=0.1 rotateInPlace=True img=newset/cannon random_movement=True
+        turret > Bomber stype=bomb prob=0.4 cooldown=3 speed=0.0 rotateInPlace=True img=newset/cannon random_movement=True
         bomb > Missile color=RED  speed=0.9 img=newset/bomb shrinkfactor=0.7
         structure >
             goal  > Door color=GREEN img=oryx/dooropen1

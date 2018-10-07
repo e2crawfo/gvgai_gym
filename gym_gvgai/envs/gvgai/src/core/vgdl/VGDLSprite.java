@@ -371,7 +371,7 @@ public abstract class VGDLSprite {
 		shape = "circle";
 		lastmove = 0;
 		invisible = "false";
-		rotateInPlace = true;
+		rotateInPlace = false;
 		isFirstTick = true;
 		disabled = false;
 		limitHealthPoints = 1000;

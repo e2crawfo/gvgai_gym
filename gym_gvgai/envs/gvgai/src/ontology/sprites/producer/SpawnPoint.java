@@ -66,7 +66,7 @@ public class SpawnPoint extends SpriteProducer {
 
 				if (!(spawnorientation.equals(Types.DNONE)))
 					newSprite.orientation = spawnorientation.copy();
-				else if (newSprite.orientation.equals(Types.DNONE))
+				else
 					newSprite.orientation = this.orientation.copy();
 			}
 		}

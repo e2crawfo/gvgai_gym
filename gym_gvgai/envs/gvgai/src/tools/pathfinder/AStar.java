@@ -30,7 +30,7 @@ public class AStar {
 		double yDiff = Math.abs(curNode.position.y - goalNode.position.y);
 		return xDiff + yDiff;
 
-		// This is Euclidean distance(sub-optimal here).
+		// If you want to use Euclidean distance instead (though it's sub-optimal here).
 		// return curNode.position.dist(goalNode.position);
 	}
 
@@ -115,12 +115,9 @@ public class AStar {
 		}
 
 		for (Node dest : reachable) {
-			System.out.println(dest.position);
 			int pathid = start.id * 10000 + dest.id;
 			pathCache.put(pathid, calculatePath(dest));
 		}
-
-		int x = 0;
 	}
 
 	private ArrayList<Node> _findPath(Node start, Node goal) {

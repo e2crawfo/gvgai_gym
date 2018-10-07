@@ -4,9 +4,12 @@ import core.content.SpriteContent;
 import core.game.Game;
 import core.vgdl.VGDLSprite;
 import ontology.Types;
+import tools.Direction;
 import tools.Vector2d;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 22/10/13 Time: 18:07 This is a
@@ -22,19 +25,13 @@ public class VerticalAvatar extends MovingAvatar {
 		this.parseParameters(cnt);
 	}
 
-	public void postProcess() {
-		// Define actions here first.
-		if (actions.size() == 0) {
-			actions.add(Types.ACTIONS.ACTION_UP);
-			actions.add(Types.ACTIONS.ACTION_DOWN);
-		}
-
-		super.postProcess();
-	}
-
 	protected void loadDefaults() {
 		super.loadDefaults();
 	}
+	
+    public boolean filterDirs(Direction dir) {
+    	return dir == Types.DUP || dir == Types.DDOWN;
+    }
 
 	public VGDLSprite copy() {
 		VerticalAvatar newSprite = new VerticalAvatar();

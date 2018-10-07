@@ -102,15 +102,6 @@ public class ShootAvatar extends OrientedAvatar {
 	}
 
 	public void postProcess() {
-		// Define actions here first.
-		if (actions.size() == 0) {
-			actions.add(Types.ACTIONS.ACTION_USE);
-			actions.add(Types.ACTIONS.ACTION_LEFT);
-			actions.add(Types.ACTIONS.ACTION_RIGHT);
-			actions.add(Types.ACTIONS.ACTION_DOWN);
-			actions.add(Types.ACTIONS.ACTION_UP);
-		}
-
 		super.postProcess();
 
 		stypes = stype.split(",");

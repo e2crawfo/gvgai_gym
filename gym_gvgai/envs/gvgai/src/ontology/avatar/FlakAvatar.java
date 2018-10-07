@@ -2,12 +2,14 @@ package ontology.avatar;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import core.vgdl.VGDLRegistry;
 import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
 import ontology.Types;
+import tools.Direction;
 import tools.Utils;
 import tools.Vector2d;
 
@@ -43,13 +45,6 @@ public class FlakAvatar extends HorizontalAvatar {
 	}
 
 	public void postProcess() {
-		// Define actions here first.
-		if (actions.size() == 0) {
-			actions.add(Types.ACTIONS.ACTION_USE);
-			actions.add(Types.ACTIONS.ACTION_LEFT);
-			actions.add(Types.ACTIONS.ACTION_RIGHT);
-		}
-
 		super.postProcess();
 
 		itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype);
