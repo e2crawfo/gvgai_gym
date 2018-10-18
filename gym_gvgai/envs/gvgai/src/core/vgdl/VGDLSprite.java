@@ -413,7 +413,7 @@ public abstract class VGDLSprite {
 		Random colorRnd = new Random();
 		this.color = new Color((Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
 				(Integer) Utils.choice(Types.COLOR_DISC, colorRnd), (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
-		Random colorRnd2 = new Random();
+		colorRnd = new Random();
 		this.arrow_color = new Color((Integer) Utils.choice(Types.COLOR_DISC, colorRnd),
 				(Integer) Utils.choice(Types.COLOR_DISC, colorRnd), (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
 	}
@@ -435,9 +435,6 @@ public abstract class VGDLSprite {
 
 		determinePhysics(physicstype, size);
 
-		// post-process. Some sprites (e.g. SpawnPoint) may need to do something
-		// interesting
-		// once their parameters have been defined.
 		this.postProcess();
 	}
 

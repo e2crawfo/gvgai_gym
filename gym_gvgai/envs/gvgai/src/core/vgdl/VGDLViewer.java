@@ -59,15 +59,7 @@ public class VGDLViewer extends JComponent {
 			Types.LEARNING_SSO_TYPE ssoType = learningPlayer.getLearningSsoType();
 
 			if (ssoType == Types.LEARNING_SSO_TYPE.IMAGE || ssoType == Types.LEARNING_SSO_TYPE.BOTH) {
-
 				saveImage(CompetitionParameters.SCREENSHOT_FILENAME);
-			}
-		}
-
-		if (CompetitionParameters.ROLLOUT_DIR != "") {
-			int tick = game.getGameTick();
-			if (tick % CompetitionParameters.ROLLOUT_FREQ == 0) {
-				saveImage(CompetitionParameters.ROLLOUT_DIR + String.format("/img%05d.png", tick));
 			}
 		}
 	}
@@ -160,13 +152,12 @@ public class VGDLViewer extends JComponent {
 			Graphics2D graphics = bi.createGraphics();
 			paintWithGraphics(graphics);
 			File file = new File(fileName);
-			if (justImage) {
-				graphics.dispose();
-			}
+               if (justImage) {
+                   graphics.dispose();
+               }
 			ImageIO.write(bi, "png", file);
 		} catch (IOException ie) {
 			ie.printStackTrace();
 		}
-
 	}
 }
