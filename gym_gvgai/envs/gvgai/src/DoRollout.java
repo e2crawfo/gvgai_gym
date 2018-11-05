@@ -3,6 +3,7 @@
 import static core.competition.CompetitionParameters.ACTION_TIME;
 import static core.competition.CompetitionParameters.ROLLOUT_DIR;
 import static core.competition.CompetitionParameters.ROLLOUT_FREQ;
+import static core.competition.CompetitionParameters.DELAY;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +60,9 @@ public class DoRollout {
 			String agent = sampleOLMCTSController;
 			if (params.containsKey("random_agent")) {
 				agent = sampleRandomController;
+			}
+			if (params.containsKey("delay")) {
+                   DELAY = Integer.parseInt(params.get("delay").get(0));
 			}
 			boolean visuals = true;
 	

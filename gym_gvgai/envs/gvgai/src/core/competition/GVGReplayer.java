@@ -50,7 +50,7 @@ public class GVGReplayer {
 			parseParameter(args[i], args[i + 1]);
 		}
 
-		CompetitionParameters.LONG_DELAY = delay; // This is a bit of a hack, admittedly.
+		CompetitionParameters.DELAY = delay; // This is a bit of a hack, admittedly.
 		ArcadeMachine.replayGame(game, level, true, actionFile);
 	}
 

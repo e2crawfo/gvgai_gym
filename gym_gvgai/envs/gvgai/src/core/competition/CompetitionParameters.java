@@ -120,12 +120,7 @@ public class CompetitionParameters {
 	/**
 	 * Delay for human play.
 	 */
-	public static int DELAY = 15;
-
-	/**
-	 * Longer delay for human play.
-	 */
-	public static int LONG_DELAY = 25;
+	public static int DELAY = 25;
 
 	/**
 	 * Max time a game can run

@@ -48,6 +48,7 @@ public class Agent extends AbstractPlayer {
      * @return An action for the current state
      */
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
+        long remaining = elapsedTimer.remainingTimeMillis();
         int index = randomGenerator.nextInt(actions.size());
         return actions.get(index);
     }

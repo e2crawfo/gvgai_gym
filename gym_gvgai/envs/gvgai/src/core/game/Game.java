@@ -911,15 +911,7 @@ public abstract class Game {
 		frame.addWindowListener(wi);
 		wi.windowClosed = false;
 
-		// Determine the delay for playing with a good fps.
-		double delay = CompetitionParameters.LONG_DELAY;
-		for (Player player : players) {
-			if (player instanceof tracks.singlePlayer.tools.human.Agent) {
-				delay = 1000.0 / CompetitionParameters.DELAY; // in milliseconds
-				break;
-			}
-		}
-
+		double delay = CompetitionParameters.DELAY;
 		boolean firstRun = true;
 
 		// Play until the game is ended
@@ -1013,14 +1005,7 @@ public abstract class Game {
 		wi.windowClosed = false;
 
 		// Determine the delay for playing with a good fps.
-		double delay = CompetitionParameters.LONG_DELAY;
-		for (Player player : players) {
-			if (player instanceof tracks.singlePlayer.tools.human.Agent) {
-				delay = 1000.0 / CompetitionParameters.DELAY; // in milliseconds
-				break;
-			}
-		}
-
+		double delay = CompetitionParameters.DELAY;
 		boolean firstRun = true;
 
 		// Play until the game is ended
