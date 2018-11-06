@@ -85,9 +85,11 @@ public class ArcadeMachine {
 			System.out.println(" * WARNING: Time limitations based on WALL TIME on Windows * ");
 		}
 
+        Random seed_generator = new Random(randomSeed);
+
 		// First, we create the game to be played..
 		Game toPlay = new VGDLParser().parseGame(game_file);
-		toPlay.buildLevel(level_file, randomSeed);
+		toPlay.buildLevel(level_file, seed_generator.nextInt());
 
 		// Warm the game up.
 		ArcadeMachine.warmUp(toPlay, CompetitionParameters.WARMUP_TIME);
@@ -108,8 +110,6 @@ public class ArcadeMachine {
 		boolean humans[] = new boolean[no_players];
 		boolean anyHuman = false;
 
-		// System.out.println("Number of players: " + no_players);
-
 		Player[] players;
 		if (no_players > 1) {
 			// multi player games
@@ -127,11 +127,11 @@ public class ArcadeMachine {
 			if (no_players > 1) {
 				// multi player
 				players[i] = ArcadeMachine.createMultiPlayer(names[i], actionFile, toPlay.getObservationMulti(i),
-						randomSeed, i, humans[i]);
+						seed_generator.nextInt(), i, humans[i]);
 			} else {
+                int gen_seed = seed_generator.nextInt();
 				// single player
-				players[i] = ArcadeMachine.createPlayer(names[i], actionFile, toPlay.getObservation(), randomSeed,
-						humans[i]);
+				players[i] = ArcadeMachine.createPlayer(names[i], actionFile, toPlay.getObservation(), gen_seed, humans[i]);
 			}
 
 			if (players[i] == null) {
@@ -152,17 +152,18 @@ public class ArcadeMachine {
 			}
 		}
 
+          int game_seed = seed_generator.nextInt();
 		// Then, play the game.
 		double[] score;
 		if (visuals) {
-			score = toPlay.playGame(players, randomSeed, anyHuman, playerID);
+			score = toPlay.playGame(players, game_seed, anyHuman, playerID);
 		} else {
 			System.out.println("Playing game!");
 		}
-		score = toPlay.runGame(players, randomSeed);
+		score = toPlay.runGame(players, game_seed);
 
 		// Finally, when the game is over, we need to tear the players down.
-		ArcadeMachine.tearPlayerDown(toPlay, players, actionFile, randomSeed, true);
+		ArcadeMachine.tearPlayerDown(toPlay, players, actionFile, game_seed, true);
 
 		// This, the last thing to do in this method, always:
 		toPlay.handleResult();
@@ -527,8 +528,7 @@ public class ArcadeMachine {
 	 * @param isHuman    Indicates if the player is human
 	 * @return the player, created and initialized, ready to start playing the game.
 	 */
-	public static AbstractPlayer createPlayer(String playerName, String actionFile, StateObservation so, int randomSeed,
-			boolean isHuman) {
+	public static AbstractPlayer createPlayer(String playerName, String actionFile, StateObservation so, int randomSeed, boolean isHuman) {
 		AbstractPlayer player = null;
 
 		try {
@@ -808,8 +808,7 @@ public class ArcadeMachine {
 	 *                   otherwise
 	 * @return false if there was a timeout from the players. true otherwise.
 	 */
-	public static boolean tearPlayerDown(Game toPlay, Player[] players, String actionFile, int randomSeed,
-			boolean record) {
+	public static boolean tearPlayerDown(Game toPlay, Player[] players, String actionFile, int randomSeed, boolean record) {
 		// This is finished, no more actions, close the writer.
 		if (toPlay.no_players > 1) {
 			// multi player, write actions to files.

@@ -169,7 +169,6 @@ public class BasicGame extends Game {
 							avatars.add(s);
 						}
 						if (s.autotiling) {
-
 							ArrayList<Image> images = s.images.get("NONE");
 							if (images.size() > 0) {
 								s.image = images.get(similarTiles);

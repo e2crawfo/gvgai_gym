@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 import java.io.File;
 import java.nio.file.Paths;
 
@@ -65,9 +66,12 @@ public class DoRollout {
                    DELAY = Integer.parseInt(params.get("delay").get(0));
 			}
 			boolean visuals = true;
+
+			File[] level_files = new File(level_dir).listFiles();
+			Arrays.sort(level_files);
 	
 			int i = 0;
-			for (File level_file : new File(level_dir).listFiles()) {
+			for (File level_file : level_files) {
 				if(!level_file.toString().contains("lvl")) {
 					continue;
 				}

@@ -19,14 +19,9 @@ import tools.ElapsedCpuTimer;
  */
 public class Agent extends AbstractPlayer {
     /**
-     * Random generator for the agent.
-     */
-    protected Random randomGenerator;
-    /**
      * List of available actions for the agent
      */
     protected ArrayList<Types.ACTIONS> actions;
-
 
     /**
      * Public constructor with state observation and time due.
@@ -35,10 +30,8 @@ public class Agent extends AbstractPlayer {
      */
     public Agent(StateObservation so, ElapsedCpuTimer elapsedTimer)
     {
-        randomGenerator = new Random();
         actions = so.getAvailableActions();
     }
-
 
     /**
      * Picks an action. This function is called every game step to request an
@@ -52,5 +45,4 @@ public class Agent extends AbstractPlayer {
         int index = randomGenerator.nextInt(actions.size());
         return actions.get(index);
     }
-
 }

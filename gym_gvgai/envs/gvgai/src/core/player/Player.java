@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import core.game.Game;
 import core.game.StateObservation;
@@ -51,7 +52,8 @@ public abstract class Player {
 	/**
 	 * Random seed of the game.
 	 */
-	private int randomSeed;
+	public int randomSeed;
+	public Random randomGenerator;
 
 	/**
 	 * Is this a human player?
@@ -95,6 +97,11 @@ public abstract class Player {
 	public void resultMulti(StateObservationMulti stateObs, ElapsedCpuTimer elapsedCpuTimer) {
 	}
 
+	public void setRandomSeed(int randomSeed) {
+		this.randomSeed = randomSeed;
+		this.randomGenerator = new Random(randomSeed);
+	}
+	
 	/**
 	 * This function sets up the controller to save the actions executed in a given
 	 * game.
@@ -106,8 +113,9 @@ public abstract class Player {
 	 */
 	public void setup(String actionFile, int randomSeed, boolean isHuman) {
 		this.actionFile = actionFile;
-		this.randomSeed = randomSeed;
 		this.isHuman = isHuman;
+		
+		setRandomSeed(randomSeed);
 
 		if (this.actionFile != null && SHOULD_LOG) {
 			allActions = new ArrayList<>();

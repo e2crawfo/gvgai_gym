@@ -3,8 +3,8 @@ BasicGame square_size=10 obs=wall
     floor > Immovable hidden=True draw_arrow=False shape=square color=WHITE arrow_color=BLACK
     wall > Immovable draw_arrow=False shape=square color=BLACK arrow_color=WHITE
     top_level >
-      red > ShootAvatar healthPoints=3 orientation=UP singleton=False speed=0 stype=brown color=RED arrow_color=WHITE
-      brown > Missile healthPoints=2 speed=1 color=BROWN arrow_color=WHITE
+      red > ShootAvatar healthPoints=3 orientation=UP singleton=False speed=0 stype=brown color=RED arrow_color=WHITE shape=triangle
+      brown > Missile healthPoints=2 speed=1 color=BROWN arrow_color=WHITE shape=circle
   LevelMapping
     A > floor red
     a > floor brown
