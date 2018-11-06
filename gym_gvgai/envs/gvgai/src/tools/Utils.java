@@ -35,6 +35,37 @@ public class Utils {
 	}
 
 	/**
+	 * Returns the Polygon for an arrow head inside the given rect.
+	 *
+	 * @param rect        rectangle with the location
+	 * @param orientation orientation of the sprite.
+	 * @return a polygon (triangle) with the specified orientation.
+	 */
+	public static Polygon arrowHeadPoints(Rectangle rect, Direction orientation) {
+		Vector2d p1 = new Vector2d(
+              rect.getCenterX() + orientation.x() * rect.getWidth() / 3.0,
+              rect.getCenterY() + orientation.y() * rect.getHeight() / 3.0);
+
+		Vector2d p2 = new Vector2d(
+              rect.getCenterX() + orientation.x() * rect.getWidth() / 4.0,
+              rect.getCenterY() + orientation.y() * rect.getHeight() / 4.0);
+
+		Vector2d orthdir = new Vector2d(orientation.y(), -orientation.x());
+
+		Vector2d p2a = new Vector2d(
+              p2.x - orthdir.x * rect.getWidth() / 6.0,
+              p2.y - orthdir.y * rect.getHeight() / 6.0);
+		Vector2d p2b = new Vector2d(
+              p2.x + orthdir.x * rect.getWidth() / 6.0,
+              p2.y + orthdir.y * rect.getHeight() / 6.0);
+
+		return new Polygon(
+              new int[] { (int) p1.x, (int) p2a.x, (int) p2b.x },
+              new int[] { (int) p1.y, (int) p2a.y, (int) p2b.y },
+              3);
+	}
+
+	/**
 	 * Returns the Polygon for a triangle in the middle of the provided rect,
 	 * pointing in the orientation (given as angle from upwards, or orientation
 	 * vector)
@@ -43,20 +74,28 @@ public class Utils {
 	 * @param orientation orientation of the sprite.
 	 * @return a polygon (triangle) with the specified orientation.
 	 */
-	public static Polygon triPoints(Rectangle rect, Direction orientation) {
-		Vector2d p1 = new Vector2d(rect.getCenterX() + orientation.x() * rect.getWidth() / 3.0,
-				rect.getCenterY() + orientation.y() * rect.getHeight() / 3.0);
-		Vector2d p2 = new Vector2d(rect.getCenterX() + orientation.x() * rect.getWidth() / 4.0,
-				rect.getCenterY() + orientation.y() * rect.getHeight() / 4.0);
+	public static Polygon trianglePoints(Rectangle rect, Direction orientation) {
+		Vector2d p1 = new Vector2d(
+              rect.getCenterX() + orientation.x() * rect.getWidth() / 2.0,
+              rect.getCenterY() + orientation.y() * rect.getHeight() / 2.0);
+
+		Vector2d p2 = new Vector2d(
+              rect.getCenterX() - orientation.x() * rect.getWidth() / 4.0,
+              rect.getCenterY() - orientation.y() * rect.getHeight() / 4.0);
+
 		Vector2d orthdir = new Vector2d(orientation.y(), -orientation.x());
 
-		Vector2d p2a = new Vector2d(p2.x - orthdir.x * rect.getWidth() / 6.0,
-				p2.y - orthdir.y * rect.getHeight() / 6.0);
-		Vector2d p2b = new Vector2d(p2.x + orthdir.x * rect.getWidth() / 6.0,
-				p2.y + orthdir.y * rect.getHeight() / 6.0);
+		Vector2d p2a = new Vector2d(
+              p2.x - orthdir.x * rect.getWidth() / 3.0,
+              p2.y - orthdir.y * rect.getHeight() / 3.0);
+		Vector2d p2b = new Vector2d(
+              p2.x + orthdir.x * rect.getWidth() / 3.0,
+              p2.y + orthdir.y * rect.getHeight() / 3.0);
 
-		return new Polygon(new int[] { (int) p1.x, (int) p2a.x, (int) p2b.x },
-				new int[] { (int) p1.y, (int) p2a.y, (int) p2b.y }, 3);
+		return new Polygon(
+              new int[] { (int) p1.x, (int) p2a.x, (int) p2b.x },
+              new int[] { (int) p1.y, (int) p2a.y, (int) p2b.y },
+              3);
 	}
 
 	public static Polygon roundedPoints(Rectangle rect) {

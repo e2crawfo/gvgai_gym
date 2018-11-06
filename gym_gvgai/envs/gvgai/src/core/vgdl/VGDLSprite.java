@@ -690,8 +690,7 @@ public abstract class VGDLSprite {
 	}
 
 	/**
-	 * Draws this sprite (both the not oriented and, if appropriate, the oriented
-	 * part)
+	 * Draws this sprite (both the not oriented and, if appropriate, the oriented part)
 	 *
 	 * @param gphx graphics object to draw in.
 	 * @param game reference to the game that is being played now.
@@ -748,16 +747,19 @@ public abstract class VGDLSprite {
 				gphx.drawImage(image, r.x, r.y, (int) (w * scaleX), (int) (h * scaleY), null);
 			} else {
 				gphx.setColor(color);
-
-				if (shape == "circle") {
+				if (shape.equals("circle")) {
 					gphx.fillOval((int) r.getX(), (int) r.getY(), r.width, r.height);
-				} else {
+				} else if (shape.equals("triangle")) {
+                         Polygon p = Utils.trianglePoints(r, orientation);
+					gphx.drawPolygon(p);
+					gphx.fillPolygon(p);
+                    } else {
 					gphx.fillRect(r.x, r.y, r.width, r.height);
 				}
 			}
 
 			if (draw_arrow) {
-				Polygon p = Utils.triPoints(r, orientation);
+				Polygon p = Utils.arrowHeadPoints(r, orientation);
 				gphx.setColor(arrow_color);
 				gphx.drawPolygon(p);
 				gphx.fillPolygon(p);

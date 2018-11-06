@@ -464,8 +464,8 @@ public class VGDLParser {
 			// objects of this type.
 			if (el.children.size() == 0) {
 				if (VERBOSE_PARSER) {
-					System.out
-							.println("Defining: " + identifier + " " + sc.referenceClass + " " + el.content.toString());
+					System.out.println(
+                             "Defining: " + identifier + " " + sc.referenceClass + " " + el.content.toString());
 				}
 
 				if (spriteOrderTmp.contains(intId)) {
