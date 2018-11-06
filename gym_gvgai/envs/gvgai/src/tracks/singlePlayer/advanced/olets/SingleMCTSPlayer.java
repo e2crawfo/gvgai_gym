@@ -22,7 +22,7 @@ public class SingleMCTSPlayer {
     /**
      * Random generator.
      */
-    public static Random randomGenerator;
+    public static Random rng;
     /**
      * State observation at the root of the tree.
      */
@@ -62,8 +62,7 @@ public class SingleMCTSPlayer {
      *
      * @param randomGenerator sampleRandom generator object.
      */
-    public SingleMCTSPlayer(Random randomGenerator, Agent agent) {
-        SingleMCTSPlayer.randomGenerator = randomGenerator;
+    public SingleMCTSPlayer(Agent agent) {
         this.MCTSRolloutDepth = 5;
         this.agent = agent;
         this.rootNode = new SingleTreeNode(agent.NUM_ACTIONS);
@@ -72,8 +71,6 @@ public class SingleMCTSPlayer {
         this.pastAvatarPositions = new Vector2d[memoryLength];
         this.pastAvatarOrientations = new Vector2d[memoryLength];
         this.memoryIndex = 0;
-
-
     }
 
     /**
@@ -81,7 +78,8 @@ public class SingleMCTSPlayer {
      *
      * @param gameState current state of the game.
      */
-    public void init(StateObservation gameState) {
+    public void init(StateObservation gameState, Random randomGenerator) {
+        SingleMCTSPlayer.rng = randomGenerator;
         rootObservation = gameState;
         //Set the game observation to a newly root node.
         if (salvagedTree == null) { //if there is nothing saved from a previous time step, initialize an empty tree node
@@ -205,7 +203,7 @@ public class SingleMCTSPlayer {
         double bestValue = -1;
 
         for (int i = 0; i < fatherNode.children.length; i++) {
-            double x = SingleMCTSPlayer.randomGenerator.nextDouble();
+            double x = SingleMCTSPlayer.rng.nextDouble();
             if (x > bestValue && fatherNode.children[i] == null) {
                 bestAction = i;
                 bestValue = x;
@@ -263,7 +261,7 @@ public class SingleMCTSPlayer {
     {
         int rolloutDepth = 0;
         while (!finishRollout(_currentObservation,rolloutDepth)) {
-            int action = randomGenerator.nextInt(agent.NUM_ACTIONS);
+            int action = rng.nextInt(agent.NUM_ACTIONS);
             _currentObservation.advance(agent.actions[action]);
             rolloutDepth++;
         }

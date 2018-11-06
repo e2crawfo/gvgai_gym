@@ -3,8 +3,8 @@ BasicGame square_size=10 obs=wall
     floor > Immovable hidden=True draw_arrow=False shape=square color=WHITE arrow_color=BLACK
     wall > Immovable draw_arrow=False shape=square color=BLACK arrow_color=WHITE
     top_level >
-      red > ShootAvatar healthPoints=3 orientation=UP singleton=False speed=0 stype=brown color=RED arrow_color=WHITE shape=triangle
-      brown > Missile healthPoints=2 speed=1 color=BROWN arrow_color=WHITE shape=circle
+      red > MovingAvatar healthPoints=3 orientation=UP singleton=False speed=0 stype=brown color=RED arrow_color=WHITE shape=triangle
+      brown > GoalDirected healthPoints=2 speed=1 color=BROWN arrow_color=WHITE shape=circle flee=red path=True
   LevelMapping
     A > floor red
     a > floor brown
@@ -12,9 +12,6 @@ BasicGame square_size=10 obs=wall
     . > floor
   InteractionSet
     top_level wall > stepBack
-    brown red > killSprite scoreChange=3
-    brown red > killSprite scoreChange=-1
-    red red > stepBack
-    brown brown > killSprite scoreChange=1
+    red brown > killSprite scoreChange=1
   TerminationSet
     Timeout limit=40

@@ -321,9 +321,9 @@ public class SingleTreeNode {
         double bestValue = -Double.MAX_VALUE;
         int selectedIdx;
 
-        if (SingleMCTSPlayer.randomGenerator.nextDouble() < eMaxGreedyEpsilon) {
+        if (SingleMCTSPlayer.rng.nextDouble() < eMaxGreedyEpsilon) {
             //Choose randomly
-            selectedIdx = SingleMCTSPlayer.randomGenerator.nextInt(children.length);
+            selectedIdx = SingleMCTSPlayer.rng.nextInt(children.length);
             selected = this.children[selectedIdx];
         } else {
             //pick the best Q.
@@ -363,7 +363,7 @@ public class SingleTreeNode {
                 else if (first != children[i].nVisits) {
                     allEqual = false;
                 }
-                double challengerValue = children[i].nVisits + SingleMCTSPlayer.randomGenerator.nextDouble() * epsilon;
+                double challengerValue = children[i].nVisits + SingleMCTSPlayer.rng.nextDouble() * epsilon;
                 if (challengerValue > bestValue) {
                     bestValue = challengerValue;
                     selected = i;
@@ -389,7 +389,7 @@ public class SingleTreeNode {
         int selected = -1;
         double bestValue = -Double.MAX_VALUE;
         for (int i = 0; i < children.length; i++) {
-            if (children[i] != null && children[i].totValue + SingleMCTSPlayer.randomGenerator.nextDouble() * epsilon > bestValue) {
+            if (children[i] != null && children[i].totValue + SingleMCTSPlayer.rng.nextDouble() * epsilon > bestValue) {
                 bestValue = children[i].totValue;
                 selected = i;
             }

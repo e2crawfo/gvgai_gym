@@ -44,9 +44,8 @@ public class Agent extends AbstractPlayer {
     }
 
     public SingleMCTSPlayer getPlayer(StateObservation so, ElapsedCpuTimer elapsedTimer) {
-        return new SingleMCTSPlayer(new Random(), num_actions, actions);
+        return new SingleMCTSPlayer(num_actions, actions);
     }
-
 
     /**
      * Picks an action. This function is called every game step to request an
@@ -58,7 +57,7 @@ public class Agent extends AbstractPlayer {
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
 
         //Set the state observation object as the new root of the tree.
-        mctsPlayer.init(stateObs);
+        mctsPlayer.init(stateObs, randomGenerator);
 
         //Determine the action using MCTS...
         int action = mctsPlayer.run(elapsedTimer);

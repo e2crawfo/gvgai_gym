@@ -25,7 +25,6 @@ public class Agent extends AbstractPlayer {
     private int N_ACTIONS;
 
     private ElapsedCpuTimer timer;
-    private Random randomGenerator;
 
     private StateHeuristic heuristic;
     private double acumTimeTakenEval = 0,avgTimeTakenEval = 0;
@@ -39,7 +38,6 @@ public class Agent extends AbstractPlayer {
      * @param elapsedTimer Timer for the controller creation.
      */
     public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-        randomGenerator = new Random();
         heuristic = new WinScoreHeuristic(stateObs);
         this.timer = elapsedTimer;
 

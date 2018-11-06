@@ -14,8 +14,6 @@ import tools.ElapsedCpuTimer;
  */
 public class SingleMCTSPlayer
 {
-
-
     /**
      * Root of the tree.
      */
@@ -29,19 +27,20 @@ public class SingleMCTSPlayer
     public int num_actions;
     public Types.ACTIONS[] actions;
 
-    public SingleMCTSPlayer(Random a_rnd, int num_actions, Types.ACTIONS[] actions)
+    public SingleMCTSPlayer(int num_actions, Types.ACTIONS[] actions)
     {
         this.num_actions = num_actions;
         this.actions = actions;
-        m_rnd = a_rnd;
     }
 
     /**
      * Inits the tree with the new observation state in the root.
      * @param a_gameState current state of the game.
      */
-    public void init(StateObservation a_gameState)
+    public void init(StateObservation a_gameState, Random randomGenerator)
     {
+    	m_rnd = randomGenerator;
+    	
         //Set the game observation to a newly root node.
         //System.out.println("learning_style = " + learning_style);
         m_root = new SingleTreeNode(m_rnd, num_actions, actions);

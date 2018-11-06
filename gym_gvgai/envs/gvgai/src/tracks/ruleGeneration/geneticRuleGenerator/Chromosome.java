@@ -990,7 +990,7 @@ public class Chromosome implements Comparable<Chromosome>{
     
     private void cleanOpenloopAgents() {
         ((tracks.singlePlayer.advanced.olets.Agent)SharedData.automatedAgent).mctsPlayer =
-            new tracks.singlePlayer.advanced.olets.SingleMCTSPlayer(new Random(),
+            new tracks.singlePlayer.advanced.olets.SingleMCTSPlayer(
                 (tracks.singlePlayer.advanced.olets.Agent) SharedData.automatedAgent);
     }
     

@@ -45,7 +45,7 @@ public class Agent extends AbstractPlayer {
         NUM_ACTIONS = actions.length;
 
         //Create the player.
-        mctsPlayer = new SingleMCTSPlayer(new Random(), this);
+        mctsPlayer = new SingleMCTSPlayer(this);
     }
 
 
@@ -59,7 +59,7 @@ public class Agent extends AbstractPlayer {
      */
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
         //Set the state observation object as the new root of the tree.
-        mctsPlayer.init(stateObs);
+        mctsPlayer.init(stateObs, randomGenerator);
 
         //Determine the action using MCTS...
         int action = mctsPlayer.run(elapsedTimer);
