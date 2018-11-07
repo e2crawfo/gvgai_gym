@@ -9,6 +9,7 @@ import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
 import ontology.Types;
+import ontology.avatar.MovingAvatar;
 import tools.Direction;
 import tools.Utils;
 import tools.Vector2d;
@@ -17,18 +18,18 @@ import tools.Vector2d;
  * Created with IntelliJ IDEA. User: Diego Date: 22/10/13 Time: 18:10 This is a
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
-public class ShootAvatar extends OrientedAvatar {
+public class ShootAvatar extends MovingAvatar {
 	static int MAX_WEAPONS = 5;
 
-	// This is the resource I need, to be able to shoot.
 	public String ammo; // If ammo is null, no resource needed to shoot.
 	public String[] ammos;
 	public int[] ammoId;
 
-	// This is the sprite I shoot
 	public String stype;
 	public String[] stypes;
 	public int[] itype;
+
+    public boolean force_missile_orientation;
 
 	public ShootAvatar() {
 	}
@@ -47,6 +48,7 @@ public class ShootAvatar extends OrientedAvatar {
 		stype = null;
 		stypes = new String[MAX_WEAPONS];
 		itype = new int[MAX_WEAPONS];
+        force_missile_orientation = false;
 	}
 
 	/**
@@ -65,8 +67,7 @@ public class ShootAvatar extends OrientedAvatar {
 			for (int i = 0; i < itype.length; i++) {
 				if (hasAmmo(i)) {
 					shoot(game, i);
-					break; // remove this to shoot all types of bullets at once; if here, shoots the first
-							// priority one only
+					break;
 				}
 			}
 		}
@@ -76,23 +77,22 @@ public class ShootAvatar extends OrientedAvatar {
 		Vector2d dir = this.orientation.getVector();
 		dir.normalise();
 
-		VGDLSprite newOne = game.addSprite(itype[idx],
-				new Vector2d(this.rect.x + dir.x * this.lastrect.width, this.rect.y + dir.y * this.lastrect.height));
+		Vector2d missile_loc = new Vector2d(this.rect.x + dir.x * this.lastrect.width, this.rect.y + dir.y * this.lastrect.height);
+		VGDLSprite added = game.addSprite(itype[idx], missile_loc);
 
-		if (newOne != null) {
-               newOne.orientation = new Direction(dir.x, dir.y);
+		if (added != null) {
+               if(force_missile_orientation) {
+                   added.orientation = new Direction(dir.x, dir.y);
+               }
 			reduceAmmo(idx);
-			newOne.setFromAvatar(true);
+			added.setFromAvatar(true);
 		}
 	}
 
 	protected boolean hasAmmo(int idx) {
 		if (ammo == null || idx >= ammos.length)
-			return true; // no ammo defined, I can shoot.
-
-		// If I have ammo, I must have enough resource of ammo type to be able to shoot.
+			return true;
 		return resources.containsKey(ammoId[idx]) && resources.get(ammoId[idx]) > 0;
-
 	}
 
 	protected void reduceAmmo(int idx) {

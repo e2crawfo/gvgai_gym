@@ -4,7 +4,12 @@ import java.awt.Dimension;
 
 import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
+import core.game.Game;
+import ontology.Types;
+import tools.Direction;
+import tools.Utils;
 import tools.Vector2d;
+
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 21/10/13 Time: 17:35 This is a
@@ -23,6 +28,15 @@ public class Missile extends VGDLSprite {
 	protected void loadDefaults() {
 		super.loadDefaults();
 		speed = 1;
+		orientation = Types.DNIL;
+	}
+
+	public void update(Game game) {
+		if (orientation.equals(Types.DNIL)) {
+            orientation = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
+		}
+
+		this.updatePassive();
 	}
 
 	public VGDLSprite copy() {

@@ -47,7 +47,6 @@ public class OrientedAvatar extends MovingAvatar {
 				orientation = new Direction(dir.x, dir.y);
 			}
 		}
-		// Otherwise, orientation is already updated, no need to change anything.
 	}
 
 	public VGDLSprite copy() {

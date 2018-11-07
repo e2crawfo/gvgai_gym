@@ -23,11 +23,7 @@ import core.termination.StopCounter;
 import core.termination.Termination;
 import core.termination.Timeout;
 import ontology.Types;
-import ontology.avatar.FlakAvatar;
-import ontology.avatar.HorizontalAvatar;
 import ontology.avatar.MovingAvatar;
-import ontology.avatar.NullAvatar;
-import ontology.avatar.VerticalAvatar;
 import ontology.avatar.oriented.AimedAvatar;
 import ontology.avatar.oriented.BirdAvatar;
 import ontology.avatar.oriented.CarAvatar;
@@ -134,9 +130,9 @@ public class VGDLFactory {
 	 */
 	private String[] spriteStrings = new String[] { "Conveyor", "Flicker", "Immovable", "OrientedFlicker", "Passive",
 			"Resource", "Spreader", "Missile", "RandomMissile", "Walker", "WalkerJumper", "RandomInertial", "RandomNPC",
-			"GoalDirected", "Bomber", "Portal", "SpawnPoint", "SpriteProducer", "Door", "FlakAvatar",
-			"HorizontalAvatar", "VerticalAvatar", "MovingAvatar", "MissileAvatar", "OrientedAvatar", "ShootAvatar",
-			"OngoingAvatar", "OngoingTurningAvatar", "OngoingShootAvatar", "NullAvatar", "AimedAvatar",
+			"GoalDirected", "Bomber", "Portal", "SpawnPoint", "SpriteProducer", "Door",
+			"MovingAvatar", "MissileAvatar", "OrientedAvatar", "ShootAvatar",
+			"OngoingAvatar", "OngoingTurningAvatar", "OngoingShootAvatar", "AimedAvatar",
 			"PlatformerAvatar", "BirdAvatar", "SpaceshipAvatar", "CarAvatar", "WizardAvatar", "LanderAvatar",
 			"ShootOnlyAvatar", "SpawnPointMultiSprite" };
 
@@ -146,9 +142,9 @@ public class VGDLFactory {
 	private Class[] spriteClasses = new Class[] { Conveyor.class, Flicker.class, Immovable.class, OrientedFlicker.class,
 			Passive.class, Resource.class, Spreader.class, Missile.class, RandomMissile.class, Walker.class,
 			WalkerJumper.class, RandomInertial.class, RandomNPC.class, GoalDirected.class, Bomber.class, Portal.class,
-			SpawnPoint.class, SpriteProducer.class, Door.class, FlakAvatar.class, HorizontalAvatar.class,
-			VerticalAvatar.class, MovingAvatar.class, MissileAvatar.class, OrientedAvatar.class, ShootAvatar.class,
-			OngoingAvatar.class, OngoingTurningAvatar.class, OngoingShootAvatar.class, NullAvatar.class,
+			SpawnPoint.class, SpriteProducer.class, Door.class,
+			MovingAvatar.class, MissileAvatar.class, OrientedAvatar.class, ShootAvatar.class,
+			OngoingAvatar.class, OngoingTurningAvatar.class, OngoingShootAvatar.class,
 			AimedAvatar.class, PlatformerAvatar.class, BirdAvatar.class, SpaceshipAvatar.class, CarAvatar.class,
 			WizardAvatar.class, LanderAvatar.class, ShootOnlyAvatar.class, SpawnPointMultiSprite.class, };
 

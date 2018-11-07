@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import core.vgdl.VGDLRegistry;
 import core.vgdl.VGDLSprite;
 import core.competition.CompetitionParameters;
 import core.content.SpriteContent;
@@ -28,6 +27,9 @@ public class MovingAvatar extends VGDLSprite {
     private int playerID;
     private double score = 0.0;
     private Types.WINNER winState = Types.WINNER.NO_WINNER;
+    
+	boolean fixed_orientation;
+	boolean linear_movement;
 
     /**
      * Disqualified flag, moved from Game class to individual players,
@@ -57,6 +59,10 @@ public class MovingAvatar extends VGDLSprite {
         speed = 1;
         is_avatar = true;
         is_disqualified = false;
+		rotateInPlace = true;
+		orientation = Types.DRIGHT.copy();
+		fixed_orientation = false;
+		linear_movement = false;
     }
     
 
@@ -99,10 +105,27 @@ public class MovingAvatar extends VGDLSprite {
 
         //Apply the physical movement.
         applyMovement(game, action);
+        
+		// If moving, update orientation in direction of the move.
+		if (!fixed_orientation && lastMovementType == Types.MOVEMENT.MOVE) {
+			if (physicstype == 0) {
+				Vector2d dir = lastDirection();
+				dir.normalise();
+				orientation = new Direction(dir.x, dir.y);
+			}
+		}
     }
     
     public boolean filterDirs(Direction dir) {
-    	return true;
+    	if (linear_movement) {
+    		if (orientation.equals(Types.DLEFT) || orientation.equals(Types.DRIGHT)) {
+    			return dir.equals(Types.DUP) || dir.equals(Types.DDOWN);
+    		} else {
+    			return dir.equals(Types.DLEFT) || dir.equals(Types.DRIGHT);
+    		}
+    	} else {
+        	return true;
+    	}
     }
 
     public void applyMovement(Game game, Direction action)
@@ -258,6 +281,7 @@ public class MovingAvatar extends VGDLSprite {
         targetSprite.playerID = this.playerID;
         targetSprite.winState = this.winState;
         targetSprite.score = this.score;
+        targetSprite.fixed_orientation = this.fixed_orientation;
 
         //copy key handler
         targetSprite.setKeyHandler(this.getKeyHandler());
