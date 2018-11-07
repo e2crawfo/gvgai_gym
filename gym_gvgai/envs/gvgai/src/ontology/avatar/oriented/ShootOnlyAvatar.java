@@ -1,15 +1,15 @@
 package ontology.avatar.oriented;
 
-import core.vgdl.VGDLSprite;
+import java.awt.Dimension;
+import java.util.ArrayList;
+
 import core.content.SpriteContent;
 import core.game.Game;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import tools.Direction;
 import tools.Utils;
 import tools.Vector2d;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 22/10/13 Time: 18:08 This is a
@@ -46,15 +46,16 @@ public class ShootOnlyAvatar extends ShootAvatar {
     }
 
     public void applyMovement(Game game, Direction action) {
-        if (physicstype != 0)
+        if (physicstype != 0) {
             super.updatePassive();
+        }
     }
 
     public void updateUse(Game game) {
         int itypeToShoot;
-        if (Utils.processUseKey(getKeyHandler().getMask(), getPlayerID()))
+        if (Utils.processUseKey(getKeyHandler().getMask(), getPlayerID())) {
             itypeToShoot = actions.indexOf(Types.ACTIONS.ACTION_USE);
-        else {
+        } else {
             Direction action = Utils.processMovementActionKeys(getKeyHandler().getMask(), getPlayerID());
             itypeToShoot = actions.indexOf(Types.ACTIONS.fromVector(action));
         }

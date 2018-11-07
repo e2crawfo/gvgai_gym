@@ -40,13 +40,13 @@ public class Agent extends AbstractPlayer {
     @Override
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
         Direction move = Utils.processMovementActionKeys(Game.ki.getMask(), Types.DEFAULT_SINGLE_PLAYER_KEYIDX); // use
-                                                                                                                    // primary
-                                                                                                                    // set
-                                                                                                                    // of
-                                                                                                                    // keys,
-                                                                                                                    // idx
-                                                                                                                    // =
-                                                                                                                    // 0
+                                                                                                                 // primary
+                                                                                                                 // set
+                                                                                                                 // of
+                                                                                                                 // keys,
+                                                                                                                 // idx
+                                                                                                                 // =
+                                                                                                                 // 0
         boolean useOn = Utils.processUseKey(Game.ki.getMask(), Types.DEFAULT_SINGLE_PLAYER_KEYIDX); // use primary set
                                                                                                     // of keys, idx = 0
 

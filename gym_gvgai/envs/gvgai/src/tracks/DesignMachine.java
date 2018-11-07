@@ -160,12 +160,10 @@ public class DesignMachine {
             }
         }
 
-        // Then, play the game.
-        double[] score;
         if (visuals) {
-            score = toPlay.playGame(players, randomSeed, anyHuman, playerID);
+            toPlay.playGame(players, randomSeed, anyHuman, playerID);
         } else {
-            score = toPlay.runGame(players, randomSeed);
+            toPlay.runGame(players, randomSeed);
         }
 
         // Finally, when the game is over, we need to tear the players down.

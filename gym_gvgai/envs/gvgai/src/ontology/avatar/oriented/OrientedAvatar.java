@@ -2,9 +2,9 @@ package ontology.avatar.oriented;
 
 import java.awt.Dimension;
 
-import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import ontology.avatar.MovingAvatar;
 import tools.Direction;

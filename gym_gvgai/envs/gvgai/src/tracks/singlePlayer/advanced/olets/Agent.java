@@ -1,16 +1,15 @@
 package tracks.singlePlayer.advanced.olets;
 
+import java.util.ArrayList;
+
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 /**
- * Code written by Adrien Couetoux, acouetoux@ulg.ac.be.
- * Date: 15/12/2015
+ * Code written by Adrien Couetoux, acouetoux@ulg.ac.be. Date: 15/12/2015
+ * 
  * @author Adrien Couëtoux
  */
 
@@ -36,7 +35,7 @@ public class Agent extends AbstractPlayer {
      * @param elapsedTimer Timer for the controller creation.
      */
     public Agent(StateObservation so, ElapsedCpuTimer elapsedTimer) {
-        //Get the actions in a static array.
+        // Get the actions in a static array.
         ArrayList<Types.ACTIONS> act = so.getAvailableActions();
         actions = new Types.ACTIONS[act.size()];
         for (int i = 0; i < actions.length; ++i) {
@@ -44,27 +43,26 @@ public class Agent extends AbstractPlayer {
         }
         NUM_ACTIONS = actions.length;
 
-        //Create the player.
+        // Create the player.
         mctsPlayer = new SingleMCTSPlayer(this);
     }
 
-
     /**
-     * Picks an action. This function is called every game step to request an
-     * action from the player.
+     * Picks an action. This function is called every game step to request an action
+     * from the player.
      *
      * @param stateObs     Observation of the current state.
      * @param elapsedTimer Timer when the action returned is due.
      * @return An action for the current state
      */
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
-        //Set the state observation object as the new root of the tree.
+        // Set the state observation object as the new root of the tree.
         mctsPlayer.init(stateObs, randomGenerator);
 
-        //Determine the action using MCTS...
+        // Determine the action using MCTS...
         int action = mctsPlayer.run(elapsedTimer);
 
-        //... and return it.
+        // ... and return it.
         return actions[action];
     }
 

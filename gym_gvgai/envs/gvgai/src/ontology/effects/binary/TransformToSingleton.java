@@ -6,13 +6,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
 import core.player.Player;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import ontology.avatar.MovingAvatar;
 import ontology.effects.Effect;
@@ -60,14 +60,16 @@ public class TransformToSingleton extends Effect {
         // First, transform all sprites in the game to the itype_other type.
         // (in theory, there should be only 1 or none).
         Iterator<VGDLSprite> itSprites = game.getSpriteGroup(itype);
-        if (itSprites != null)
+        if (itSprites != null) {
             while (itSprites.hasNext()) {
                 VGDLSprite sprite = itSprites.next();
 
                 VGDLSprite newSprite = game.addSprite(itype_other, sprite.getPosition());
-                if (newSprite != null)
+                if (newSprite != null) {
                     setSpriteFields(game, newSprite, sprite);
+                }
             }
+        }
 
         // Now, make the transformTo normal operation.
         VGDLSprite newSprite = game.addSprite(itype, sprite1.getPosition());
@@ -83,7 +85,7 @@ public class TransformToSingleton extends Effect {
 
     private void setSpriteFields(Game game, VGDLSprite newSprite, VGDLSprite oldSprite) {
         // Orientation
-          newSprite.orientation = oldSprite.orientation;
+        newSprite.orientation = oldSprite.orientation;
 
         // Last position of the avatar.
         newSprite.lastrect = new Rectangle(oldSprite.lastrect.x, oldSprite.lastrect.y, oldSprite.lastrect.width,
@@ -126,10 +128,12 @@ public class TransformToSingleton extends Effect {
     @Override
     public ArrayList<String> getEffectSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
-        if (stype_other != null)
+        }
+        if (stype_other != null) {
             result.add(stype_other);
+        }
 
         return result;
     }

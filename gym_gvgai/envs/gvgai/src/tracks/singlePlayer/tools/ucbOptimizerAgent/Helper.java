@@ -42,25 +42,29 @@ public class Helper {
     public static int GRID_WIDTH = 30;
     public static int GRID_HEIGHT = 31;
 
-    public static int getObservationLength(ArrayList<Observation>[] list){
-        if(list == null) return 0;
+    public static int getObservationLength(ArrayList<Observation>[] list) {
+        if (list == null) {
+            return 0;
+        }
 
         int result = 0;
-        for(int i=0; i<list.length; i++){
-            result += list[i].size();
+        for (ArrayList<Observation> element : list) {
+            result += element.size();
         }
         return result;
     }
 
-    public static double getMaxObservation(ArrayList<Observation>[] list, Vector2d reference){
-        if(list == null) return 0;
+    public static double getMaxObservation(ArrayList<Observation>[] list, Vector2d reference) {
+        if (list == null) {
+            return 0;
+        }
 
         double result = 0;
 
-        for(int i=0; i<list.length; i++){
-            for(int j=0; j<list[i].size(); j++){
-                double distance = list[i].get(j).position.dist(reference);
-                if(distance > result){
+        for (ArrayList<Observation> element : list) {
+            for (int j = 0; j < element.size(); j++) {
+                double distance = element.get(j).position.dist(reference);
+                if (distance > result) {
                     result = distance;
                 }
             }
@@ -69,35 +73,39 @@ public class Helper {
         return result;
     }
 
-    public static double getMinObservation(ArrayList<Observation>[] list, Vector2d reference){
-        if(list == null) return 0;
+    public static double getMinObservation(ArrayList<Observation>[] list, Vector2d reference) {
+        if (list == null) {
+            return 0;
+        }
 
         double result = Double.MAX_VALUE;
 
-        for(int i=0; i<list.length; i++){
-            for(int j=0; j<list[i].size(); j++){
-                double distance = list[i].get(j).position.dist(reference);
-                if(distance < result){
+        for (ArrayList<Observation> element : list) {
+            for (int j = 0; j < element.size(); j++) {
+                double distance = element.get(j).position.dist(reference);
+                if (distance < result) {
                     result = distance;
                 }
             }
         }
 
-        if(result == Double.MAX_VALUE){
+        if (result == Double.MAX_VALUE) {
             return 0;
         }
 
         return result;
     }
 
-    public static double getTotObservation(ArrayList<Observation>[] list, Vector2d reference){
-        if(list == null) return 0;
+    public static double getTotObservation(ArrayList<Observation>[] list, Vector2d reference) {
+        if (list == null) {
+            return 0;
+        }
 
         double result = 0;
 
-        for(int i=0; i<list.length; i++){
-            for(int j=0; j<list[i].size(); j++){
-                double distance = list[i].get(j).position.dist(reference);
+        for (ArrayList<Observation> element : list) {
+            for (int j = 0; j < element.size(); j++) {
+                double distance = element.get(j).position.dist(reference);
                 result += distance;
             }
         }
@@ -105,34 +113,36 @@ public class Helper {
         return result;
     }
 
-    public static boolean isOpposite(Types.ACTIONS a1, Types.ACTIONS a2){
-        if(a1 == Types.ACTIONS.ACTION_LEFT && a2 == Types.ACTIONS.ACTION_RIGHT){
+    public static boolean isOpposite(Types.ACTIONS a1, Types.ACTIONS a2) {
+        if (a1 == Types.ACTIONS.ACTION_LEFT && a2 == Types.ACTIONS.ACTION_RIGHT) {
             return true;
         }
-        if(a2 == Types.ACTIONS.ACTION_LEFT && a1 == Types.ACTIONS.ACTION_RIGHT){
+        if (a2 == Types.ACTIONS.ACTION_LEFT && a1 == Types.ACTIONS.ACTION_RIGHT) {
             return true;
         }
 
-        if(a1 == Types.ACTIONS.ACTION_UP && a2 == Types.ACTIONS.ACTION_DOWN){
+        if (a1 == Types.ACTIONS.ACTION_UP && a2 == Types.ACTIONS.ACTION_DOWN) {
             return true;
         }
-        if(a2 == Types.ACTIONS.ACTION_UP && a1 == Types.ACTIONS.ACTION_DOWN){
+        if (a2 == Types.ACTIONS.ACTION_UP && a1 == Types.ACTIONS.ACTION_DOWN) {
             return true;
         }
 
         return false;
     }
 
-    public static int[][] updateTilesValue(int[][] tiles, int x, int y){
+    public static int[][] updateTilesValue(int[][] tiles, int x, int y) {
         int[][] result = new int[tiles.length][tiles[0].length];
 
-        for(int i=0; i<tiles.length; i++){
-            for(int j=0; j<tiles[i].length; j++){
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
                 result[i][j] = tiles[i][j];
             }
         }
 
-        if(x >= 0 && y >= 0 && x < tiles.length && y < tiles[0].length) tiles[x][y] += 1;
+        if (x >= 0 && y >= 0 && x < tiles.length && y < tiles[0].length) {
+            tiles[x][y] += 1;
+        }
 
         return result;
     }

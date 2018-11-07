@@ -3,10 +3,10 @@ package ontology.effects.unary;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 
 /**
@@ -27,8 +27,9 @@ public class UndoAll extends Effect {
         this.parseParameters(cnt);
         int notItypesArray[] = VGDLRegistry.GetInstance().explode(notStype);
         notItypes = new ArrayList<>();
-        for (Integer it : notItypesArray)
+        for (Integer it : notItypesArray) {
             notItypes.add(it);
+        }
     }
 
     @Override
@@ -38,15 +39,17 @@ public class UndoAll extends Effect {
         for (int i = 0; i < spriteOrderCount; ++i) {
             int spriteTypeInt = gameSpriteOrder[i];
 
-            if (notItypes.contains(spriteTypeInt))
+            if (notItypes.contains(spriteTypeInt)) {
                 continue;
+            }
 
             Iterator<VGDLSprite> spriteIt = game.getSpriteGroup(spriteTypeInt);
-            if (spriteIt != null)
+            if (spriteIt != null) {
                 while (spriteIt.hasNext()) {
                     VGDLSprite sp = spriteIt.next();
                     sp.setRect(sp.lastrect);
                 }
+            }
         }
     }
 }

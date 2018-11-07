@@ -2,12 +2,12 @@ package ontology.effects.binary;
 
 import java.util.Collection;
 
-import core.vgdl.VGDLFactory;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLFactory;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 import tools.Utils;
 
@@ -23,7 +23,8 @@ public class TeleportToExit extends Effect {
 
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
-        // Teleport sprite1 to a random instance of sprite2's `stype` value. Otherwise, kill sprite1.
+        // Teleport sprite1 to a random instance of sprite2's `stype` value. Otherwise,
+        // kill sprite1.
         // Kind of acts like a random portal.
 
         if (sprite1 == null || sprite2 == null) {

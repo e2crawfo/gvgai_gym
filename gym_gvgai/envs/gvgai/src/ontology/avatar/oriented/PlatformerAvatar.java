@@ -2,9 +2,9 @@ package ontology.avatar.oriented;
 
 import java.awt.Dimension;
 
-import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import ontology.avatar.MovingAvatar;
 import tools.Direction;
@@ -87,8 +87,9 @@ public class PlatformerAvatar extends MovingAvatar {
 
     public void applyMovement(Game game, Direction action) {
         // this.physics.passiveMovement(this);
-        if (physicstype != 0)
+        if (physicstype != 0) {
             super.updatePassive();
+        }
         if (action.x() != 0.0 || action.y() != 0.0) {
             Direction new_action = new Direction(action.x() * ground_speedup_factor, action.y());
             if (!on_ground) {

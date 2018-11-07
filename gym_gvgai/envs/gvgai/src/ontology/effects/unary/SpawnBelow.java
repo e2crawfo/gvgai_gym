@@ -1,5 +1,7 @@
 package ontology.effects.unary;
 
+import java.util.ArrayList;
+
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
@@ -8,10 +10,6 @@ import core.vgdl.VGDLRegistry;
 import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 import tools.Vector2d;
-
-import java.util.ArrayList;
-
-import static ontology.Types.DOWN;
 
 public class SpawnBelow extends Effect {
     // With probability `prob`, spawn a sprite with type `stype` below `sprite2`.
@@ -34,12 +32,15 @@ public class SpawnBelow extends Effect {
             return;
         }
 
-        if (game.getRandomGenerator().nextDouble() >= prob)
+        if (game.getRandomGenerator().nextDouble() >= prob) {
             return;
+        }
         Vector2d currentPos;
-        if (stepBack)
+        if (stepBack) {
             currentPos = sprite2.getLastPosition();
-        else currentPos = sprite2.getPosition();
+        } else {
+            currentPos = sprite2.getPosition();
+        }
         Vector2d dir = new Vector2d(0, 1).mul(game.getBlockSize());
         if (currentPos != null) {
             Vector2d nextPos = currentPos.add(dir);
@@ -51,8 +52,9 @@ public class SpawnBelow extends Effect {
     @Override
     public ArrayList<String> getEffectSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
+        }
 
         return result;
     }

@@ -3,6 +3,9 @@ package core.game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,9 +16,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import javax.swing.JOptionPane;
 
@@ -942,7 +942,7 @@ public abstract class Game {
                         sso.serialize(filename);
                     } catch (IOException e) {
                         StringWriter writer = new StringWriter();
-                        PrintWriter printWriter = new PrintWriter( writer );
+                        PrintWriter printWriter = new PrintWriter(writer);
                         e.printStackTrace(printWriter);
                         printWriter.flush();
                         String stackTrace = writer.toString();
@@ -1398,10 +1398,6 @@ public abstract class Game {
      */
     @SuppressWarnings("unchecked")
     protected void eventHandling() {
-        // Array to indicate that the sprite type has no representative in
-        // collisions.
-        boolean noSprites[] = new boolean[spriteGroups.length];
-
         // First, check the effects that are triggered in a timely manner.
         while (timeEffects.size() > 0 && timeEffects.first().nextExecution <= gameTick) {
             TimeEffect ef = timeEffects.pollFirst();
@@ -1518,9 +1514,9 @@ public abstract class Game {
                     for (VGDLSprite s1 : firstx) {
                         new_secondx = new ArrayList<VGDLSprite>();
 
-                              if(kill_list.contains(s1) || s1.is_disabled()){
-                                  continue;
-                              }
+                        if (kill_list.contains(s1) || s1.is_disabled()) {
+                            continue;
+                        }
 
                         for (VGDLSprite s2 : secondx) {
                             if (s1 != s2 && s1.intersects(s2)) {
@@ -2100,8 +2096,8 @@ public abstract class Game {
 
         this.definedEffects.clear();
         for (ArrayList<Effect>[] collisionEffect : this.collisionEffects) {
-            for (int j = 0; j < collisionEffect.length; j++) {
-                collisionEffect[j].clear();
+            for (ArrayList<Effect> element : collisionEffect) {
+                element.clear();
             }
         }
 

@@ -2,12 +2,12 @@ package ontology.effects.unary;
 
 import java.util.ArrayList;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 
 /**
@@ -46,8 +46,9 @@ public class SpawnIfHasMore extends Effect {
 
         applyScore = false;
 
-        if (game.getRandomGenerator().nextDouble() >= prob)
+        if (game.getRandomGenerator().nextDouble() >= prob) {
             return;
+        }
 
         if (sprite1.getAmountResource(resourceId) >= limit) {
             game.addSprite(itype, sprite1.getPosition());
@@ -60,8 +61,9 @@ public class SpawnIfHasMore extends Effect {
     @Override
     public ArrayList<String> getEffectSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
+        }
 
         return result;
     }

@@ -11,11 +11,8 @@ import ontology.Types;
 import tools.ElapsedCpuTimer;
 
 /**
- * Created with IntelliJ IDEA.
- * User: ssamot
- * Date: 14/11/13
- * Time: 21:45
- * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
+ * Created with IntelliJ IDEA. User: ssamot Date: 14/11/13 Time: 21:45 This is a
+ * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Agent extends AbstractPlayer {
 
@@ -34,42 +31,40 @@ public class Agent extends AbstractPlayer {
      */
     protected int block_size;
 
-
     /**
      * Public constructor with state observation and time due.
-     * @param so state observation of the current game.
+     * 
+     * @param so           state observation of the current game.
      * @param elapsedTimer Timer for the controller creation.
      */
-    public Agent(StateObservation so, ElapsedCpuTimer elapsedTimer)
-    {
+    public Agent(StateObservation so, ElapsedCpuTimer elapsedTimer) {
         randomGenerator = new Random();
         grid = so.getObservationGrid();
         block_size = so.getBlockSize();
     }
 
-
     /**
-     * Picks an action. This function is called every game step to request an
-     * action from the player.
-     * @param stateObs Observation of the current state.
+     * Picks an action. This function is called every game step to request an action
+     * from the player.
+     * 
+     * @param stateObs     Observation of the current state.
      * @param elapsedTimer Timer when the action returned is due.
      * @return An action for the current state
      */
     public Types.ACTIONS act(StateObservation stateObs, ElapsedCpuTimer elapsedTimer) {
         System.out.println("in ACT");
-        ArrayList<Observation>[] npcPositions = stateObs.getNPCPositions();
-        ArrayList<Observation>[] fixedPositions = stateObs.getImmovablePositions();
-        ArrayList<Observation>[] movingPositions = stateObs.getMovablePositions();
-        ArrayList<Observation>[] resourcesPositions = stateObs.getResourcesPositions();
-        ArrayList<Observation>[] portalPositions = stateObs.getPortalsPositions();
+        stateObs.getNPCPositions();
+        stateObs.getImmovablePositions();
+        stateObs.getMovablePositions();
+        stateObs.getResourcesPositions();
+        stateObs.getPortalsPositions();
         grid = stateObs.getObservationGrid();
 
-        /*printDebug(npcPositions,"npc");
-        printDebug(fixedPositions,"fix");
-        printDebug(movingPositions,"mov");
-        printDebug(resourcesPositions,"res");
-        printDebug(portalPositions,"por");
-        System.out.println();               */
+        /*
+         * printDebug(npcPositions,"npc"); printDebug(fixedPositions,"fix");
+         * printDebug(movingPositions,"mov"); printDebug(resourcesPositions,"res");
+         * printDebug(portalPositions,"por"); System.out.println();
+         */
 
         Types.ACTIONS action = Types.ACTIONS.ACTION_NIL;
         StateObservation stCopy = stateObs.copy();
@@ -82,8 +77,7 @@ public class Agent extends AbstractPlayer {
         System.out.println("before loop");
 
         int remainingLimit = 5;
-        while(remaining > 2*avgTimeTaken && remaining > remainingLimit)
-        {
+        while (remaining > 2 * avgTimeTaken && remaining > remainingLimit) {
             System.out.println("doing loop");
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
             ArrayList<Types.ACTIONS> actions = stateObs.getAvailableActions();
@@ -91,16 +85,17 @@ public class Agent extends AbstractPlayer {
             action = actions.get(index);
 
             stCopy.advance(action);
-            if(stCopy.isGameOver())
-            {
+            if (stCopy.isGameOver()) {
                 stCopy = stateObs.copy();
             }
 
             numIters++;
-            acumTimeTaken += (elapsedTimerIteration.elapsedMillis()) ;
-            System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
-            System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
-            avgTimeTaken  = acumTimeTaken/numIters;
+            acumTimeTaken += elapsedTimerIteration.elapsedMillis();
+            System.out
+                    .println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
+            System.out
+                    .println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
+            avgTimeTaken = acumTimeTaken / numIters;
             remaining = elapsedTimer.remainingTimeMillis();
         }
         System.out.println("done ACT");
@@ -109,29 +104,31 @@ public class Agent extends AbstractPlayer {
     }
 
     /**
-     * Prints the number of different types of sprites available in the "positions" array.
-     * Between brackets, the number of observations of each type.
+     * Prints the number of different types of sprites available in the "positions"
+     * array. Between brackets, the number of observations of each type.
+     * 
      * @param positions array with observations.
-     * @param str identifier to print
+     * @param str       identifier to print
      */
-    private void printDebug(ArrayList<Observation>[] positions, String str)
-    {
-        if(positions != null){
+    private void printDebug(ArrayList<Observation>[] positions, String str) {
+        if (positions != null) {
             System.out.print(str + ":" + positions.length + "(");
-            for (int i = 0; i < positions.length; i++) {
-                System.out.print(positions[i].size() + ",");
+            for (ArrayList<Observation> position : positions) {
+                System.out.print(position.size() + ",");
             }
             System.out.print("); ");
-        }else System.out.print(str + ": 0; ");
+        } else {
+            System.out.print(str + ": 0; ");
+        }
     }
 
     /**
-     * Gets the player the control to draw something on the screen.
-     * It can be used for debug purposes.
+     * Gets the player the control to draw something on the screen. It can be used
+     * for debug purposes.
+     * 
      * @param g Graphics device to draw to.
      */
-    public void draw(Graphics2D g)
-    {
+    public void draw(Graphics2D g) {
 //        int half_block = (int) (block_size*0.5);
 //        for(int j = 0; j < grid[0].length; ++j)
 //        {

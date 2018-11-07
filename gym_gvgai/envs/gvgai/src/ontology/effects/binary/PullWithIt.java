@@ -3,11 +3,11 @@ package ontology.effects.binary;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import ontology.effects.Effect;
 import ontology.physics.ContinuousPhysics;
@@ -49,8 +49,9 @@ public class PullWithIt extends Effect {
         }
 
         // the event gets triggered only once per time-step on each sprite.
-        if (spritesThisCycle.contains(sprite1))
+        if (spritesThisCycle.contains(sprite1)) {
             return;
+        }
 
         spritesThisCycle.add(sprite1);
 
@@ -61,10 +62,10 @@ public class PullWithIt extends Effect {
 
         int gridsize = 1;
         if (sprite1.physicstype == Types.GRID) {
-            GridPhysics gp = (GridPhysics) (sprite1.physics);
+            GridPhysics gp = (GridPhysics) sprite1.physics;
             gridsize = gp.gridsize.width;
         } else {
-            ContinuousPhysics gp = (ContinuousPhysics) (sprite1.physics);
+            ContinuousPhysics gp = (ContinuousPhysics) sprite1.physics;
             gridsize = gp.gridsize.width;
         }
 

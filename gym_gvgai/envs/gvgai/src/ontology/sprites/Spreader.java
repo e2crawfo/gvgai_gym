@@ -3,10 +3,10 @@ package ontology.sprites;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import tools.Vector2d;
 
@@ -15,7 +15,8 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Spreader extends Flicker {
-    // Creates copies of itself (or another type `stype` if specified) in all BASEDIRS
+    // Creates copies of itself (or another type `stype` if specified) in all
+    // BASEDIRS
     // with probability `spreadprob`.
 
     public double spreadprob;
@@ -39,8 +40,9 @@ public class Spreader extends Flicker {
     public void postProcess() {
         super.postProcess();
         itype = -1;
-        if (stype != null)
+        if (stype != null) {
             itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype);
+        }
     }
 
     public void update(Game game) {
@@ -48,7 +50,7 @@ public class Spreader extends Flicker {
         if (age == 2) {
             for (Vector2d u : Types.BASEDIRS) {
                 if (game.getRandomGenerator().nextDouble() < spreadprob) {
-                    int newType = (itype == -1) ? this.getType() : itype;
+                    int newType = itype == -1 ? this.getType() : itype;
                     game.addSprite(newType, new Vector2d(this.lastrect.x + u.x * this.lastrect.width,
                             this.lastrect.y + u.y * this.lastrect.height));
                 }
@@ -73,8 +75,9 @@ public class Spreader extends Flicker {
     @Override
     public ArrayList<String> getDependentSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
+        }
 
         return result;
     }

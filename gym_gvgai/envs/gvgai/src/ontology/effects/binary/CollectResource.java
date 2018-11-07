@@ -1,10 +1,10 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 import ontology.sprites.Resource;
 
@@ -13,7 +13,8 @@ import ontology.sprites.Resource;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class CollectResource extends Effect {
-    // Collect the resource, modifying amount of resource held by sprite1 by r.value.
+    // Collect the resource, modifying amount of resource held by sprite1 by
+    // r.value.
     public boolean killResource;
 
     public CollectResource(InteractionContent cnt) {
@@ -40,9 +41,10 @@ public class CollectResource extends Effect {
                 applyScore = true;
                 sprite2.modifyResource(r.resource_type, topup);
 
-                if (killResource)
+                if (killResource) {
                     // boolean variable set to false to indicate the sprite was not transformed
                     game.killSprite(sprite1, true);
+                }
             }
         }
     }

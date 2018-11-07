@@ -56,9 +56,6 @@ public abstract class Content {
         for (String parameter : this.parameters.keySet()) {
             String value = this.parameters.get(parameter);
             String[] tokens = value.split(",");
-            String[] allValues = new String[tokens.length];
-            int idx = 0;
-
             // For compatibility with N players, this might have more than one value.
             String[] values = value.split(",");
             String builtStValue = "";

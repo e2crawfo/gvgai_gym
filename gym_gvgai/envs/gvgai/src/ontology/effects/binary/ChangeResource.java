@@ -1,10 +1,11 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
-import core.logging.*;
+import core.logging.Logger;
+import core.logging.Message;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 
 /**
@@ -43,9 +44,10 @@ public class ChangeResource extends Effect {
             sprite1.modifyResource(resourceId, value);
             applyScore = true;
 
-            if (killResource)
+            if (killResource) {
                 // boolean variable set to true, as the sprite was transformed
                 game.killSprite(sprite2, true);
+            }
         }
     }
 }

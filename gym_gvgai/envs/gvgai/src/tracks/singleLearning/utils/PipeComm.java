@@ -3,8 +3,11 @@ package tracks.singleLearning.utils;
 /**
  * Created by Daniel on 05.04.2017.
  */
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class PipeComm extends Comm {
 
@@ -23,9 +26,9 @@ public class PipeComm extends Comm {
      */
     private Process client;
 
-
     /**
      * Public constructor of the player.
+     * 
      * @param client process that runs the agent.
      */
     public PipeComm(Process client) {
@@ -43,7 +46,6 @@ public class PipeComm extends Comm {
         output = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
     }
 
-
     /**
      * Sends a message through the pipe.
      *
@@ -59,28 +61,28 @@ public class PipeComm extends Comm {
     /**
      * Receives a message from the client.
      *
-     * @return the response got from the client, or null if no response was received after due time.
+     * @return the response got from the client, or null if no response was received
+     *         after due time.
      */
     public String commRecv() throws IOException {
         String ret = input.readLine();
-        //System.out.println("Received in server: " + ret);
-        if(ret != null && ret.trim().length() > 0)
-        {
+        // System.out.println("Received in server: " + ret);
+        if (ret != null && ret.trim().length() > 0) {
             String messageParts[] = ret.split(TOKEN_SEP);
-            if(messageParts.length < 2) {
+            if (messageParts.length < 2) {
                 return null;
             }
 
             int receivedID = Integer.parseInt(messageParts[0]);
             String msg = messageParts[1];
 
-            if(receivedID == (messageId-1)) {
+            if (receivedID == messageId - 1) {
                 return msg.trim();
-            } else if (receivedID < (messageId-1)) {
-                //Previous message, ignore and keep waiting.
+            } else if (receivedID < messageId - 1) {
+                // Previous message, ignore and keep waiting.
                 return commRecv();
-            }else{
-                //A message from the future? Ignore and return null;
+            } else {
+                // A message from the future? Ignore and return null;
                 return null;
             }
         }
@@ -89,5 +91,3 @@ public class PipeComm extends Comm {
     }
 
 }
-
-

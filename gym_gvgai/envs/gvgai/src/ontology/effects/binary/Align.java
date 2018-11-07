@@ -1,20 +1,21 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLSprite;
+import java.awt.Rectangle;
+
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
-
-import java.awt.*;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 04/11/13 Time: 15:56 This is a
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Align extends Effect {
-    // Put sprite1 in same location as sprite2. Give them the same orientation is orient=True.
+    // Put sprite1 in same location as sprite2. Give them the same orientation is
+    // orient=True.
 
     public boolean orient = true;
 

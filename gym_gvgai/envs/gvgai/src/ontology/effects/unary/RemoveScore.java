@@ -1,16 +1,16 @@
 package ontology.effects.unary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
+import java.util.Iterator;
+import java.util.Objects;
+
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.avatar.MovingAvatar;
 import ontology.effects.Effect;
-
-import java.util.Iterator;
-import java.util.Objects;
 
 public class RemoveScore extends Effect {
 
@@ -38,22 +38,25 @@ public class RemoveScore extends Effect {
             if (sprite1.is_avatar) {
                 MovingAvatar a = (MovingAvatar) sprite1;
                 a.setScore(0);
-                if (killSecond && sprite2 != null)
+                if (killSecond && sprite2 != null) {
                     game.killSprite(sprite2, true);
+                }
             }
         } else {
             Iterator<VGDLSprite> spriteIt = game.getSpriteGroup(itype);
 
-            if (spriteIt != null)
+            if (spriteIt != null) {
                 while (spriteIt.hasNext()) {
                     VGDLSprite s = spriteIt.next();
                     if (s.is_avatar) {
                         MovingAvatar a = (MovingAvatar) s;
                         a.setScore(0);
-                        if (killSecond && sprite2 != null)
+                        if (killSecond && sprite2 != null) {
                             game.killSprite(sprite2, true);
+                        }
                     }
                 }
+            }
         }
     }
 

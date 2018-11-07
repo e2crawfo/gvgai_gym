@@ -1,8 +1,8 @@
 package tracks.levelGeneration.constraints;
 
-import tracks.levelGeneration.geneticLevelGenerator.SharedData;
 import ontology.Types;
 import ontology.Types.WINNER;
+import tracks.levelGeneration.geneticLevelGenerator.SharedData;
 
 public class WinConstraint extends AbstractConstraint {
 
@@ -13,15 +13,16 @@ public class WinConstraint extends AbstractConstraint {
 
     /**
      * check if the player win the game
-     * @return  1 if the automated player wins and 0 otherwise
+     * 
+     * @return 1 if the automated player wins and 0 otherwise
      */
     @Override
     public double checkConstraint() {
         double result = 0;
-        if(bestPlayer == WINNER.PLAYER_WINS){
+        if (bestPlayer == WINNER.PLAYER_WINS) {
             result += 1;
         }
-        if(bestPlayer == WINNER.NO_WINNER){
+        if (bestPlayer == WINNER.NO_WINNER) {
             result += SharedData.DRAW_FITNESS;
         }
         return result;

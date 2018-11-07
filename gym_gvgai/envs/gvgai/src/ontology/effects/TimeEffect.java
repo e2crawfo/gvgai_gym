@@ -1,9 +1,9 @@
 package ontology.effects;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 23/10/13 Time: 15:20 This is a
@@ -52,20 +52,24 @@ public class TimeEffect extends Effect implements Comparable<TimeEffect> {
         this.parseParameters(ic);
         this.delegate = delegate;
 
-        if (ic.object1.equalsIgnoreCase("TIME")) // Depends on where TIME is in the effect.
+        if (ic.object1.equalsIgnoreCase("TIME")) {
             this.itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(ic.object2[0]);
-        else this.itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(ic.object1);
+        } else {
+            this.itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(ic.object1);
+        }
 
-        if (nextExecution != -1)
+        if (nextExecution != -1) {
             planExecution(null);
+        }
     }
 
     public TimeEffect(Effect delegate) {
         this.delegate = delegate;
         this.itype = -1;
 
-        if (nextExecution != -1)
+        if (nextExecution != -1) {
             planExecution(null);
+        }
     }
 
     /**
@@ -79,8 +83,9 @@ public class TimeEffect extends Effect implements Comparable<TimeEffect> {
         // If the time effect is not native, we cannot guarantee that the sprite will be
         // there.
         delegate.execute(sprite1, sprite2, game);
-        if (repeating)
+        if (repeating) {
             planExecution(game);
+        }
     }
 
     public void planExecution(Game game) {
@@ -91,13 +96,16 @@ public class TimeEffect extends Effect implements Comparable<TimeEffect> {
     @Override
     public int compareTo(TimeEffect o) {
 
-        if (this == o)
+        if (this == o) {
             return 0;
+        }
 
-        if (this.nextExecution < o.nextExecution)
+        if (this.nextExecution < o.nextExecution) {
             return -1; // 'this' executes first.
-        if (this.nextExecution > o.nextExecution)
+        }
+        if (this.nextExecution > o.nextExecution) {
             return 1; // 'this' executes second.
+        }
         return -1; // by default, with the same ordering.
     }
 

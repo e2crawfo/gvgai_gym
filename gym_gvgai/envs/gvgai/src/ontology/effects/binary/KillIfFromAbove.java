@@ -1,10 +1,10 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 
 /**
@@ -27,7 +27,7 @@ public class KillIfFromAbove extends Effect {
         }
 
         // Kills the sprite, only if the other one is higher and moving down.
-        boolean otherHigher = sprite1.lastrect.getMinY() > (sprite2.lastrect.getMinY() + (sprite2.rect.height / 2));
+        boolean otherHigher = sprite1.lastrect.getMinY() > sprite2.lastrect.getMinY() + sprite2.rect.height / 2;
         boolean goingDown = sprite2.rect.getMinY() > sprite2.lastrect.getMinY();
 
         applyScore = false;

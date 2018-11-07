@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import core.game.Observation;
 import core.game.StateObservation;
-import ontology.Types;
 import tools.Vector2d;
 
 /**

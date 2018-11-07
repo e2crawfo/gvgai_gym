@@ -1,16 +1,15 @@
 package tracks.singlePlayer.advanced.olets;
 
+import java.util.Random;
+
 import core.game.StateObservation;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
-
-import java.util.Random;
-
 import tools.Vector2d;
 
 /**
- * Code written by Adrien Couetoux, acouetoux@ulg.ac.be.
- * Date: 15/12/2015
+ * Code written by Adrien Couetoux, acouetoux@ulg.ac.be. Date: 15/12/2015
+ * 
  * @author Adrien Couëtoux
  */
 
@@ -28,7 +27,8 @@ public class SingleMCTSPlayer {
      */
     private StateObservation rootObservation;
     /**
-     * At the end of each time step, we keep the node that corresponds to the chosen action.
+     * At the end of each time step, we keep the node that corresponds to the chosen
+     * action.
      */
     private SingleTreeNode salvagedTree;
     /**
@@ -36,15 +36,18 @@ public class SingleMCTSPlayer {
      */
     private final int MCTSRolloutDepth;
     /**
-     * Array of past avatar positions. This is used to give a bias towards exploration of new board locations.
+     * Array of past avatar positions. This is used to give a bias towards
+     * exploration of new board locations.
      */
     private final Vector2d[] pastAvatarPositions;
     /**
-     * Array of past avatar orientations. This is used to give a bias towards exploration of new board locations.
+     * Array of past avatar orientations. This is used to give a bias towards
+     * exploration of new board locations.
      */
     private final Vector2d[] pastAvatarOrientations;
     /**
-     * Number of past positions and orientations that are kept in memory for the exploration bias (see above).
+     * Number of past positions and orientations that are kept in memory for the
+     * exploration bias (see above).
      */
     private static int memoryLength;
     /**
@@ -81,10 +84,12 @@ public class SingleMCTSPlayer {
     public void init(StateObservation gameState, Random randomGenerator) {
         SingleMCTSPlayer.rng = randomGenerator;
         rootObservation = gameState;
-        //Set the game observation to a newly root node.
-        if (salvagedTree == null) { //if there is nothing saved from a previous time step, initialize an empty tree node
+        // Set the game observation to a newly root node.
+        if (salvagedTree == null) { // if there is nothing saved from a previous time step, initialize an empty tree
+                                    // node
             rootNode = new SingleTreeNode(agent.NUM_ACTIONS);
-        } else {    //else, initialize the tree with the node that was chosen, and update the memory index for past position arrays
+        } else { // else, initialize the tree with the node that was chosen, and update the
+                 // memory index for past position arrays
             rootNode = salvagedTree;
             pastAvatarPositions[memoryIndex] = rootObservation.getAvatarPosition();
             pastAvatarOrientations[memoryIndex] = rootObservation.getAvatarOrientation();
@@ -104,8 +109,8 @@ public class SingleMCTSPlayer {
      * @return the action to execute in the game.
      */
     public int run(ElapsedCpuTimer elapsedTimer) {
-        mctsSearch(elapsedTimer, this.rootObservation);    //Do the search within the available time.
-        int action = rootNode.mostVisitedAction();  //Determine the best action to take and return it.
+        mctsSearch(elapsedTimer, this.rootObservation); // Do the search within the available time.
+        int action = rootNode.mostVisitedAction(); // Determine the best action to take and return it.
         salvagedTree = rootNode.children[action];
         salvagedTree.parent = null;
         salvagedTree.setNodeDepth(0);
@@ -116,8 +121,8 @@ public class SingleMCTSPlayer {
     /**
      * Builds the search tree, given a time budget and a state observation
      *
-     * @param elapsedTimer  Timer when the action returned is due
-     * @param rootObservation  Initial state observation
+     * @param elapsedTimer    Timer when the action returned is due
+     * @param rootObservation Initial state observation
      */
     private void mctsSearch(ElapsedCpuTimer elapsedTimer, StateObservation rootObservation) {
 
@@ -132,17 +137,18 @@ public class SingleMCTSPlayer {
             tempState = rootObservation.copy();
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
 
-            // treepolicy: navigate from the root node until either we add a new node or we reach a final state
+            // treepolicy: navigate from the root node until either we add a new node or we
+            // reach a final state
             SingleTreeNode selected = treePolicy(tempState);
 
             double delta = value(tempState, selected.getNodeDepth());
 //            double delta = rollOut(tempState);
 
             // backing up the run in the tree
-            selected.backUp(selected, delta);   //TODO : I should probably make the backup method cleaner
+            selected.backUp(selected, delta); // TODO : I should probably make the backup method cleaner
 
             numIters++;
-            acumTimeTaken += (elapsedTimerIteration.elapsedMillis());
+            acumTimeTaken += elapsedTimerIteration.elapsedMillis();
 
             avgTimeTaken = acumTimeTaken / numIters;
             remaining = elapsedTimer.remainingTimeMillis();
@@ -151,8 +157,11 @@ public class SingleMCTSPlayer {
 
     /**
      * The policy that navigates through the tree.
-     * @param currentObservation    the initial state observation, used as the root node
-     * @return  the tree node where the tree navigation has ended (it can be a final node/state, or just the node where the policy exited the tree.
+     * 
+     * @param currentObservation the initial state observation, used as the root
+     *                           node
+     * @return the tree node where the tree navigation has ended (it can be a final
+     *         node/state, or just the node where the policy exited the tree.
      */
     private SingleTreeNode treePolicy(StateObservation currentObservation) {
         SingleTreeNode currentNode = rootNode;
@@ -161,8 +170,7 @@ public class SingleMCTSPlayer {
         int i;
         boolean stateFound;
 
-        while (!(currentObservation.isGameOver()))
-        {
+        while (!currentObservation.isGameOver()) {
             if (currentNode.notFullyExpanded()) {
                 return expand(currentNode, currentObservation);
             } else {
@@ -174,7 +182,7 @@ public class SingleMCTSPlayer {
                     _tabooBias = 0.0;
                     i = 0;
                     stateFound = false;
-                    while ((!stateFound) && (i < memoryLength) && (this.pastAvatarPositions[i] != null)) {
+                    while (!stateFound && i < memoryLength && this.pastAvatarPositions[i] != null) {
                         if (this.pastAvatarPositions[i].equals(currentObservation.getAvatarPosition())) {
                             _tabooBias += 0.5;
                             stateFound = true;
@@ -194,9 +202,11 @@ public class SingleMCTSPlayer {
 
     /**
      * Expands the tree, from a given node, and given a certain state observation
-     * @param fatherNode    the node from which we are expanding the tree
-     * @param currentObservation   the state observation that we are currently in (for *this* particular simulation)
-     * @return  the new tree node that resulted from the expansion
+     * 
+     * @param fatherNode         the node from which we are expanding the tree
+     * @param currentObservation the state observation that we are currently in (for
+     *                           *this* particular simulation)
+     * @return the new tree node that resulted from the expansion
      */
     private SingleTreeNode expand(SingleTreeNode fatherNode, StateObservation currentObservation) {
         int bestAction = 0;
@@ -214,12 +224,13 @@ public class SingleMCTSPlayer {
         double _tabooBias = 0.0;
         int i = 0;
         boolean stateFound = false;
-        while ((!stateFound) && (i < SingleMCTSPlayer.memoryLength) && (this.pastAvatarPositions[i] != null)) {
+        while (!stateFound && i < SingleMCTSPlayer.memoryLength && this.pastAvatarPositions[i] != null) {
             if (this.pastAvatarPositions[i].equals(currentObservation.getAvatarPosition())) {
-                //if(this.midLevelManager.pastAvatarOrientations[i].equals(nextState.getAvatarOrientation())) {
+                // if(this.midLevelManager.pastAvatarOrientations[i].equals(nextState.getAvatarOrientation()))
+                // {
                 _tabooBias += 0.5;
                 stateFound = true;
-                //}
+                // }
             }
             i++;
         }
@@ -231,9 +242,10 @@ public class SingleMCTSPlayer {
 
     /**
      * Computes the value associated with a state observation and a tree depth
-     * @param a_gameState   the state observation that is evaluated
-     * @param treeDepth    the depth in the tree where this evaluation is made
-     * @return  the value of the state
+     * 
+     * @param a_gameState the state observation that is evaluated
+     * @param treeDepth   the depth in the tree where this evaluation is made
+     * @return the value of the state
      */
     private double value(StateObservation a_gameState, int treeDepth) {
 
@@ -242,25 +254,26 @@ public class SingleMCTSPlayer {
         double rawScore = a_gameState.getGameScore();
 
         if (gameOver && win == Types.WINNER.PLAYER_LOSES) {
-            return (rawScore - (2000.0 / Math.pow(1.0 + treeDepth, 2)) * (1.0 + Math.abs(rawScore)));
+            return rawScore - 2000.0 / Math.pow(1.0 + treeDepth, 2) * (1.0 + Math.abs(rawScore));
         }
 
-        if (gameOver && win == Types.WINNER.PLAYER_WINS)
-            return (rawScore + 100.0 * (1.0 + Math.abs(rawScore)));
+        if (gameOver && win == Types.WINNER.PLAYER_WINS) {
+            return rawScore + 100.0 * (1.0 + Math.abs(rawScore));
+        }
 
         return rawScore;
     }
 
     /**
-     * Plays random moves until the simulation ends (either because we do MCTSRolloutDepth moves, or the game ends)
+     * Plays random moves until the simulation ends (either because we do
+     * MCTSRolloutDepth moves, or the game ends)
      *
-     * @param _currentObservation   the initial state observation
-     * @return  the final value after playing the random moves
+     * @param _currentObservation the initial state observation
+     * @return the final value after playing the random moves
      */
-    public double rollOut(StateObservation _currentObservation)
-    {
+    public double rollOut(StateObservation _currentObservation) {
         int rolloutDepth = 0;
-        while (!finishRollout(_currentObservation,rolloutDepth)) {
+        while (!finishRollout(_currentObservation, rolloutDepth)) {
             int action = rng.nextInt(agent.NUM_ACTIONS);
             _currentObservation.advance(agent.actions[action]);
             rolloutDepth++;
@@ -271,16 +284,16 @@ public class SingleMCTSPlayer {
 
     /**
      * Checks if a rollout should end or not
-     * @param rollerState   the current state observation
-     * @param depth     the current depth of the rollout
-     * @return  the value in the last reached state
+     * 
+     * @param rollerState the current state observation
+     * @param depth       the current depth of the rollout
+     * @return the value in the last reached state
      */
-    private boolean finishRollout(StateObservation rollerState, int depth)
-    {
-        if(depth >= MCTSRolloutDepth )      //rollout end condition.
+    private boolean finishRollout(StateObservation rollerState, int depth) {
+        if (depth >= MCTSRolloutDepth) {
             return true;
+        }
         return rollerState.isGameOver();
     }
-
 
 }

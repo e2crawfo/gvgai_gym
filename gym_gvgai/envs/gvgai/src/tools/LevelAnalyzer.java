@@ -115,8 +115,8 @@ public class LevelAnalyzer {
         }
 
         for (String[] element : level) {
-            for (int x = 0; x < element.length; x++) {
-                String[] parts = element[x].split(",");
+            for (String element2 : element) {
+                String[] parts = element2.split(",");
                 if (parts != null) {
                     for (String part : parts) {
                         SpriteData s1 = getSpriteData(gameSprites, part.trim());

@@ -7,10 +7,9 @@ import ontology.Types;
 import tools.ElapsedCpuTimer;
 import tools.Utils;
 
-public class SingleTreeNode
-{
+public class SingleTreeNode {
     private final double HUGE_NEGATIVE = -10000000.0;
-    private final double HUGE_POSITIVE =  10000000.0;
+    private final double HUGE_POSITIVE = 10000000.0;
     public double epsilon = 1e-6;
     public double egreedyEpsilon = 0.05;
     public StateObservation state;
@@ -20,20 +19,21 @@ public class SingleTreeNode
     public int nVisits;
     public Random m_rnd;
     private int m_depth;
-    protected double[] bounds = new double[]{Double.MAX_VALUE, -Double.MAX_VALUE};
+    protected double[] bounds = new double[] { Double.MAX_VALUE, -Double.MAX_VALUE };
     public int num_actions;
     Types.ACTIONS[] actions;
 
     public int ROLLOUT_DEPTH = 10;
     public double K = Math.sqrt(2);
 
-    //public static int totalIters = 0;
+    // public static int totalIters = 0;
 
     public SingleTreeNode(Random rnd, int num_actions, Types.ACTIONS[] actions) {
         this(null, null, rnd, num_actions, actions);
     }
 
-    public SingleTreeNode(StateObservation state, SingleTreeNode parent, Random rnd, int num_actions, Types.ACTIONS[] actions) {
+    public SingleTreeNode(StateObservation state, SingleTreeNode parent, Random rnd, int num_actions,
+            Types.ACTIONS[] actions) {
         this.state = state;
         this.parent = parent;
         this.num_actions = num_actions;
@@ -41,13 +41,13 @@ public class SingleTreeNode
         this.actions = actions;
         children = new SingleTreeNode[num_actions];
         totValue = 0.0;
-        if(parent != null)
-            m_depth = parent.m_depth+1;
-        else
+        if (parent != null) {
+            m_depth = parent.m_depth + 1;
+        } else {
             m_depth = 0;
+        }
 
     }
-
 
     public void mctsSearch(ElapsedCpuTimer elapsedTimer) {
 
@@ -57,44 +57,43 @@ public class SingleTreeNode
         int numIters = 0;
 
         int remainingLimit = 5;
-        while(remaining > 2*avgTimeTaken && remaining > remainingLimit){
+        while (remaining > 2 * avgTimeTaken && remaining > remainingLimit) {
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
             SingleTreeNode selected = treePolicy();
             double delta = selected.rollOut();
             backUp(selected, delta);
 
             numIters++;
-            acumTimeTaken += (elapsedTimerIteration.elapsedMillis()) ;
+            acumTimeTaken += elapsedTimerIteration.elapsedMillis();
 
-            avgTimeTaken  = acumTimeTaken/numIters;
+            avgTimeTaken = acumTimeTaken / numIters;
             remaining = elapsedTimer.remainingTimeMillis();
-            //System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
+            // System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " +
+            // acumTimeTaken + " (" + remaining + ")");
         }
-        //System.out.println("-- " + numIters + " -- ( " + avgTimeTaken + ")");
-        //totalIters = numIters;
+        // System.out.println("-- " + numIters + " -- ( " + avgTimeTaken + ")");
+        // totalIters = numIters;
 
-        //ArcadeMachine.performance.add(numIters);
+        // ArcadeMachine.performance.add(numIters);
     }
 
     public SingleTreeNode treePolicy() {
 
         SingleTreeNode cur = this;
 
-        while (!cur.state.isGameOver() && cur.m_depth < ROLLOUT_DEPTH)
-        {
+        while (!cur.state.isGameOver() && cur.m_depth < ROLLOUT_DEPTH) {
             if (cur.notFullyExpanded()) {
                 return cur.expand();
 
             } else {
                 SingleTreeNode next = cur.uct();
-                //SingleTreeNode next = cur.egreedy();
+                // SingleTreeNode next = cur.egreedy();
                 cur = next;
             }
         }
 
         return cur;
     }
-
 
     public SingleTreeNode expand() {
 
@@ -122,19 +121,16 @@ public class SingleTreeNode
 
         SingleTreeNode selected = null;
         double bestValue = -Double.MAX_VALUE;
-        for (SingleTreeNode child : this.children)
-        {
+        for (SingleTreeNode child : this.children) {
             double hvVal = child.totValue;
-            double childValue =  hvVal / (child.nVisits + this.epsilon);
-
+            double childValue = hvVal / (child.nVisits + this.epsilon);
 
             childValue = Utils.normalise(childValue, bounds[0], bounds[1]);
 
-            double uctValue = childValue +
-                    K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + this.epsilon));
+            double uctValue = childValue + K * Math.sqrt(Math.log(this.nVisits + 1) / (child.nVisits + this.epsilon));
 
             // small sampleRandom numbers: break ties in unexpanded nodes
-            uctValue = Utils.noise(uctValue, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+            uctValue = Utils.noise(uctValue, this.epsilon, this.m_rnd.nextDouble()); // break ties randomly
 
             // small sampleRandom numbers: break ties in unexpanded nodes
             if (uctValue > bestValue) {
@@ -143,8 +139,7 @@ public class SingleTreeNode
             }
         }
 
-        if (selected == null)
-        {
+        if (selected == null) {
             throw new RuntimeException("Warning! returning null: " + bestValue + " : " + this.children.length);
         }
 
@@ -153,22 +148,19 @@ public class SingleTreeNode
 
     public SingleTreeNode egreedy() {
 
-
         SingleTreeNode selected = null;
 
-        if(m_rnd.nextDouble() < egreedyEpsilon)
-        {
-            //Choose randomly
+        if (m_rnd.nextDouble() < egreedyEpsilon) {
+            // Choose randomly
             int selectedIdx = m_rnd.nextInt(children.length);
             selected = this.children[selectedIdx];
 
-        }else{
-            //pick the best Q.
+        } else {
+            // pick the best Q.
             double bestValue = -Double.MAX_VALUE;
-            for (SingleTreeNode child : this.children)
-            {
+            for (SingleTreeNode child : this.children) {
                 double hvVal = child.totValue;
-                hvVal = Utils.noise(hvVal, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+                hvVal = Utils.noise(hvVal, this.epsilon, this.m_rnd.nextDouble()); // break ties randomly
                 // small sampleRandom numbers: break ties in unexpanded nodes
                 if (hvVal > bestValue) {
                     selected = child;
@@ -178,22 +170,18 @@ public class SingleTreeNode
 
         }
 
-
-        if (selected == null)
-        {
+        if (selected == null) {
             throw new RuntimeException("Warning! returning null: " + this.children.length);
         }
 
         return selected;
     }
 
-
-    public double rollOut()
-    {
+    public double rollOut() {
         StateObservation rollerState = state.copy();
         int thisDepth = this.m_depth;
 
-        while (!finishRollout(rollerState,thisDepth)) {
+        while (!finishRollout(rollerState, thisDepth)) {
 
             int action = m_rnd.nextInt(num_actions);
             rollerState.advance(actions[action]);
@@ -202,11 +190,13 @@ public class SingleTreeNode
 
         double delta = value(rollerState);
 
-        if(delta < bounds[0])
+        if (delta < bounds[0]) {
             bounds[0] = delta;
+        }
 
-        if(delta > bounds[1])
+        if (delta > bounds[1]) {
             bounds[1] = delta;
+        }
 
         return delta;
     }
@@ -217,31 +207,32 @@ public class SingleTreeNode
         Types.WINNER win = a_gameState.getGameWinner();
         double rawScore = a_gameState.getGameScore();
 
-        if(gameOver && win == Types.WINNER.PLAYER_LOSES)
+        if (gameOver && win == Types.WINNER.PLAYER_LOSES) {
             rawScore += HUGE_NEGATIVE;
+        }
 
-        if(gameOver && win == Types.WINNER.PLAYER_WINS)
+        if (gameOver && win == Types.WINNER.PLAYER_WINS) {
             rawScore += HUGE_POSITIVE;
+        }
 
         return rawScore;
     }
 
-    public boolean finishRollout(StateObservation rollerState, int depth)
-    {
-        if(depth >= ROLLOUT_DEPTH)      //rollout end condition.
+    public boolean finishRollout(StateObservation rollerState, int depth) {
+        if (depth >= ROLLOUT_DEPTH) {
             return true;
+        }
 
-        if(rollerState.isGameOver())               //end of game
+        if (rollerState.isGameOver()) {
             return true;
+        }
 
         return false;
     }
 
-    public void backUp(SingleTreeNode node, double result)
-    {
+    public void backUp(SingleTreeNode node, double result) {
         SingleTreeNode n = node;
-        while(n != null)
-        {
+        while (n != null) {
             n.nVisits++;
             n.totValue += result;
             if (result < n.bounds[0]) {
@@ -254,26 +245,23 @@ public class SingleTreeNode
         }
     }
 
-
     public int mostVisitedAction() {
         int selected = -1;
         double bestValue = -Double.MAX_VALUE;
         boolean allEqual = true;
         double first = -1;
 
-        for (int i=0; i<children.length; i++) {
+        for (int i = 0; i < children.length; i++) {
 
-            if(children[i] != null)
-            {
-                if(first == -1)
+            if (children[i] != null) {
+                if (first == -1) {
                     first = children[i].nVisits;
-                else if(first != children[i].nVisits)
-                {
+                } else if (first != children[i].nVisits) {
                     allEqual = false;
                 }
 
                 double childValue = children[i].nVisits;
-                childValue = Utils.noise(childValue, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+                childValue = Utils.noise(childValue, this.epsilon, this.m_rnd.nextDouble()); // break ties randomly
                 if (childValue > bestValue) {
                     bestValue = childValue;
                     selected = i;
@@ -281,28 +269,25 @@ public class SingleTreeNode
             }
         }
 
-        if (selected == -1)
-        {
+        if (selected == -1) {
             System.out.println("Unexpected selection!");
             selected = 0;
-        }else if(allEqual)
-        {
-            //If all are equal, we opt to choose for the one with the best Q.
+        } else if (allEqual) {
+            // If all are equal, we opt to choose for the one with the best Q.
             selected = bestAction();
         }
         return selected;
     }
 
-    public int bestAction()
-    {
+    public int bestAction() {
         int selected = -1;
         double bestValue = -Double.MAX_VALUE;
 
-        for (int i=0; i<children.length; i++) {
+        for (int i = 0; i < children.length; i++) {
 
-            if(children[i] != null) {
+            if (children[i] != null) {
                 double childValue = children[i].totValue / (children[i].nVisits + this.epsilon);
-                childValue = Utils.noise(childValue, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+                childValue = Utils.noise(childValue, this.epsilon, this.m_rnd.nextDouble()); // break ties randomly
                 if (childValue > bestValue) {
                     bestValue = childValue;
                     selected = i;
@@ -310,15 +295,13 @@ public class SingleTreeNode
             }
         }
 
-        if (selected == -1)
-        {
+        if (selected == -1) {
             System.out.println("Unexpected selection!");
             selected = 0;
         }
 
         return selected;
     }
-
 
     public boolean notFullyExpanded() {
         for (SingleTreeNode tn : children) {

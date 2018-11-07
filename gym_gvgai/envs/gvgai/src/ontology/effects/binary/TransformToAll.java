@@ -1,15 +1,13 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
-import core.content.InteractionContent;
-import core.game.Game;
-import core.logging.Logger;
-import core.logging.Message;
-import ontology.effects.unary.TransformTo;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import core.content.InteractionContent;
+import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
+import ontology.effects.unary.TransformTo;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 23/10/13 Time: 15:21 This is a
@@ -32,19 +30,21 @@ public class TransformToAll extends TransformTo {
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
         Iterator<VGDLSprite> spriteIt = game.getSpriteGroup(itype);
-        if (spriteIt != null)
+        if (spriteIt != null) {
             while (spriteIt.hasNext()) {
                 VGDLSprite s = spriteIt.next();
                 VGDLSprite newSprite = game.addSprite(itypeTo, s.getPosition(), true);
                 super.transformTo(newSprite, s, sprite2, game);
             }
+        }
     }
 
     @Override
     public ArrayList<String> getEffectSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
+        }
 
         return result;
     }

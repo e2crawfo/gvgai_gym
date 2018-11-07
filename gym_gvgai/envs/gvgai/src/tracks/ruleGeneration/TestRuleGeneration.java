@@ -7,21 +7,17 @@ import java.util.Random;
  */
 public class TestRuleGeneration {
     public static void main(String[] args) throws Exception {
-    //Available Controllers
-    String sampleMCTSController = "tracks.singlePlayer.advanced.sampleMCTS.Agent";
+        // Available Controllers
+        String sampleMCTSController = "tracks.singlePlayer.advanced.sampleMCTS.Agent";
 
         // Available Rule Generator
         String randomRuleGenerator = "tracks.ruleGeneration.randomRuleGenerator.RuleGenerator";
-        String constructiveRuleGenerator = "tracks.ruleGeneration.constructiveRuleGenerator.RuleGenerator";
-        String geneticRuleGenerator = "tracks.ruleGeneration.geneticRuleGenerator.RuleGenerator";
-
         // Available games:
         String gamesPath = "examples/gridphysics/";
-        String physicsGamesPath = "examples/contphysics/";
         String generateRulePath = gamesPath;
 
         // All public games (gridphysics)
-        String[] games = new String[]{"aliens", "angelsdemons", "assemblyline", "avoidgeorge", "bait", // 0-4
+        String[] games = new String[] { "aliens", "angelsdemons", "assemblyline", "avoidgeorge", "bait", // 0-4
                 "beltmanager", "blacksmoke", "boloadventures", "bomber", "bomberman", // 5-9
                 "boulderchase", "boulderdash", "brainman", "butterflies", "cakybaky", // 10-14
                 "camelRace", "catapults", "chainreaction", "chase", "chipschallenge", // 15-19
@@ -39,8 +35,7 @@ public class TestRuleGeneration {
                 "sokoban", "solarfox", "superman", "surround", "survivezombies", // 75-79
                 "tercio", "thecitadel", "thesnowman", "waitforbreakfast", "watergame", // 80-84
                 "waves", "whackamole", "wildgunman", "witnessprotection", "wrapsokoban", // 85-89
-                "zelda", "zenpuzzle"}; // 90, 91
-
+                "zelda", "zenpuzzle" }; // 90, 91
 
         String recordActionsFile = null;// "actions_" + games[gameIdx] + "_lvl"
         // + levelIdx + "_" + seed + ".txt";
@@ -57,10 +52,11 @@ public class TestRuleGeneration {
         String recordGameFile = generateRulePath + games[gameIdx] + "_ggame.txt";
 
         // 1. Generate rules (Interaction and Terminations) for a fixed level
-        if(RuleGenMachine.generateRules(game, level1, randomRuleGenerator, recordGameFile, seed)){
-            // RuleGenMachine.playOneGame(game, recordGameFile, level1, recordActionsFile, seed);
-            RuleGenMachine.runOneGame(game, recordGameFile, level1, visuals, sampleMCTSController, recordActionsFile, seed, 0);
+        if (RuleGenMachine.generateRules(game, level1, randomRuleGenerator, recordGameFile, seed)) {
+            // RuleGenMachine.playOneGame(game, recordGameFile, level1, recordActionsFile,
+            // seed);
+            RuleGenMachine.runOneGame(game, recordGameFile, level1, visuals, sampleMCTSController, recordActionsFile,
+                    seed, 0);
         }
     }
 }
-

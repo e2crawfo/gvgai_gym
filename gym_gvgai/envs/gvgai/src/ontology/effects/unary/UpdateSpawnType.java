@@ -1,17 +1,18 @@
 package ontology.effects.unary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
-import core.content.InteractionContent;
-import core.game.Game;
-import ontology.effects.Effect;
-import ontology.sprites.producer.SpawnPoint;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import core.content.InteractionContent;
+import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
+import ontology.effects.Effect;
+import ontology.sprites.producer.SpawnPoint;
+
 public class UpdateSpawnType extends Effect {
-    // For all sprites of type `spawnPoint`, change spawn type (type of sprite spawned)
+    // For all sprites of type `spawnPoint`, change spawn type (type of sprite
+    // spawned)
     // to `stype`.
 
     public String stype; // new missile to replace sprite2
@@ -35,7 +36,7 @@ public class UpdateSpawnType extends Effect {
         ArrayList<Integer> subtypes = game.getSubTypes(ispawn);
         for (Integer i : subtypes) {
             Iterator<VGDLSprite> spriteIt = game.getSpriteGroup(i);
-            if (spriteIt != null)
+            if (spriteIt != null) {
                 while (spriteIt.hasNext()) {
                     try {
                         VGDLSprite sp = spriteIt.next();
@@ -45,14 +46,16 @@ public class UpdateSpawnType extends Effect {
                         e.printStackTrace();
                     }
                 }
+            }
         }
     }
 
     @Override
     public ArrayList<String> getEffectSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
+        }
 
         return result;
     }

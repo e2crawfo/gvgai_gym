@@ -152,9 +152,9 @@ public class VGDLViewer extends JComponent {
             Graphics2D graphics = bi.createGraphics();
             paintWithGraphics(graphics);
             File file = new File(fileName);
-               if (justImage) {
-                   graphics.dispose();
-               }
+            if (justImage) {
+                graphics.dispose();
+            }
             ImageIO.write(bi, "png", file);
         } catch (IOException ie) {
             ie.printStackTrace();

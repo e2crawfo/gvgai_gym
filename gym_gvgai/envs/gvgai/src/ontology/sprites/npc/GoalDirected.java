@@ -1,19 +1,20 @@
 package ontology.sprites.npc;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
 import core.content.SpriteContent;
 import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import tools.Direction;
 import tools.Utils;
 import tools.Vector2d;
 import tools.pathfinder.Node;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 21/10/13 Time: 18:14 This is a
@@ -78,19 +79,19 @@ public class GoalDirected extends RandomNPC {
         if (prevAction == Types.DNONE || prevAction == Types.DNIL) {
             canSee = false;
         } else if (prevAction.equals(Types.DDOWN)) {
-            if ((s.rect.x == rect.x && s.rect.y >= rect.y)) {
+            if (s.rect.x == rect.x && s.rect.y >= rect.y) {
                 canSee = true;
             }
         } else if (prevAction.equals(Types.DUP)) {
-            if ((s.rect.x == rect.x && s.rect.y <= rect.y)) {
+            if (s.rect.x == rect.x && s.rect.y <= rect.y) {
                 canSee = true;
             }
         } else if (prevAction.equals(Types.DLEFT)) {
-            if ((s.rect.x <= rect.x && s.rect.y == rect.y)) {
+            if (s.rect.x <= rect.x && s.rect.y == rect.y) {
                 canSee = true;
             }
         } else if (prevAction.equals(Types.DRIGHT)) {
-            if ((s.rect.x >= rect.x && s.rect.y == rect.y)) {
+            if (s.rect.x >= rect.x && s.rect.y == rect.y) {
                 canSee = true;
             }
         }
@@ -98,11 +99,11 @@ public class GoalDirected extends RandomNPC {
         return canSee;
     }
 
-    protected ArrayList<VGDLSprite> closestRelevantSprites(Game game){
+    protected ArrayList<VGDLSprite> closestRelevantSprites(Game game) {
         ArrayList<VGDLSprite> targets = new ArrayList<VGDLSprite>();
         double bestDist = Double.MAX_VALUE;
         int i = 0;
-        for(int it : all_itype) {
+        for (int it : all_itype) {
             Iterator<VGDLSprite> spriteIt = game.getSubSpritesGroup(it);
             if (spriteIt == null) {
                 continue;
@@ -152,7 +153,7 @@ public class GoalDirected extends RandomNPC {
                     Rectangle r = new Rectangle(this.rect);
                     r.translate((int) action.x(), (int) action.y());
                     double minDist = Double.MAX_VALUE;
-                    for(VGDLSprite target : targets) {
+                    for (VGDLSprite target : targets) {
                         double newDist = this.physics.distance(r, target.rect);
                         if (newDist < minDist) {
                             minDist = newDist;
@@ -241,12 +242,14 @@ public class GoalDirected extends RandomNPC {
         ArrayList<String> result = new ArrayList<String>();
 
         String[] stypes1 = chase.split(",");
-        for (String s : stypes1)
+        for (String s : stypes1) {
             result.add(s);
+        }
 
         String[] stypes2 = flee.split(",");
-        for (String s : stypes2)
+        for (String s : stypes2) {
             result.add(s);
+        }
 
         return result;
     }

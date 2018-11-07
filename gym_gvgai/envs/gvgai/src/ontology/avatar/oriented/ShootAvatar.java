@@ -60,8 +60,9 @@ public class ShootAvatar extends MovingAvatar {
      */
     public void updateAvatar(Game game, boolean requestInput, boolean[] actionMask) {
         super.updateAvatar(game, requestInput, actionMask);
-        if (lastMovementType == Types.MOVEMENT.STILL)
+        if (lastMovementType == Types.MOVEMENT.STILL) {
             updateUse(game);
+        }
     }
 
     public void updateUse(Game game) {
@@ -98,8 +99,9 @@ public class ShootAvatar extends MovingAvatar {
     }
 
     protected boolean hasAmmo(int idx) {
-        if (ammo == null || idx >= ammos.length)
+        if (ammo == null || idx >= ammos.length) {
             return true;
+        }
         return resources.containsKey(ammoId[idx]) && resources.get(ammoId[idx]) > 0;
     }
 
@@ -115,8 +117,9 @@ public class ShootAvatar extends MovingAvatar {
         stypes = stype.split(",");
         itype = new int[stypes.length];
 
-        for (int i = 0; i < itype.length; i++)
+        for (int i = 0; i < itype.length; i++) {
             itype[i] = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stypes[i]);
+        }
         if (ammo != null) {
             ammos = ammo.split(",");
             ammoId = new int[ammos.length];
@@ -149,10 +152,12 @@ public class ShootAvatar extends MovingAvatar {
     @Override
     public ArrayList<String> getDependentSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (ammo != null)
+        if (ammo != null) {
             result.addAll(Arrays.asList(ammos));
-        if (stype != null)
+        }
+        if (stype != null) {
             result.addAll(Arrays.asList(stypes));
+        }
 
         return result;
     }

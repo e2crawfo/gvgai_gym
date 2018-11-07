@@ -2,9 +2,9 @@ package ontology.sprites;
 
 import java.awt.Dimension;
 
-import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import tools.Vector2d;
 
@@ -37,8 +37,9 @@ public class Flicker extends VGDLSprite {
     public void update(Game game) {
         super.update(game);
 
-        if (age > limit)
+        if (age > limit) {
             game.killSprite(this, false);
+        }
         age++;
 
     }

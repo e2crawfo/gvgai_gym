@@ -1,7 +1,8 @@
 package tracks.singlePlayer.advanced.sampleRHEA;
+
 import java.util.Random;
 
-public class Individual implements Comparable{
+public class Individual implements Comparable {
 
     protected int[] actions; // actions in individual. length of individual = actions.length
     protected int n; // number of legal actions
@@ -19,16 +20,17 @@ public class Individual implements Comparable{
         this.gen = gen;
     }
 
-    public void setActions (int[] a) {
+    public void setActions(int[] a) {
         System.arraycopy(a, 0, actions, 0, a.length);
     }
 
     /**
      * Returns new individual
+     * 
      * @param MUT
      * @return
      */
-    public Individual mutate (int MUT) {
+    public Individual mutate(int MUT) {
         Individual b = this.copy();
         b.setActions(actions);
 
@@ -54,18 +56,20 @@ public class Individual implements Comparable{
 
     /**
      * Modifies individual
+     * 
      * @param cross
      * @param CROSSOVER_TYPE
      */
-    public void crossover (Individual[] cross, int CROSSOVER_TYPE) {
+    public void crossover(Individual[] cross, int CROSSOVER_TYPE) {
         if (CROSSOVER_TYPE == Agent.POINT1_CROSS) {
             // 1-point
             int p = gen.nextInt(actions.length - 3) + 1;
-            for ( int i = 0; i < actions.length; i++) {
-                if (i < p)
+            for (int i = 0; i < actions.length; i++) {
+                if (i < p) {
                     actions[i] = cross[0].actions[i];
-                else
+                } else {
                     actions[i] = cross[1].actions[i];
+                }
             }
 
         } else if (CROSSOVER_TYPE == Agent.UNIFORM_CROSS) {
@@ -79,25 +83,31 @@ public class Individual implements Comparable{
     @Override
     public int compareTo(Object o) {
         Individual a = this;
-        Individual b = (Individual)o;
-        if (a.value < b.value) return 1;
-        else if (a.value > b.value) return -1;
-        else return 0;
+        Individual b = (Individual) o;
+        if (a.value < b.value) {
+            return 1;
+        } else if (a.value > b.value) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public boolean equals(Object o) {
         Individual a = this;
-        Individual b = (Individual)o;
+        Individual b = (Individual) o;
 
         for (int i = 0; i < actions.length; i++) {
-            if (a.actions[i] != b.actions[i]) return false;
+            if (a.actions[i] != b.actions[i]) {
+                return false;
+            }
         }
 
         return true;
     }
 
-    public Individual copy () {
+    public Individual copy() {
         Individual a = new Individual(this.actions.length, this.n, this.gen);
         a.value = this.value;
         a.setActions(this.actions);
@@ -108,8 +118,9 @@ public class Individual implements Comparable{
     @Override
     public String toString() {
         String s = "" + value + ": ";
-        for (int i = 0; i < actions.length; i++)
-            s += actions[i] + " ";
+        for (int action : actions) {
+            s += action + " ";
+        }
         return s;
     }
 }

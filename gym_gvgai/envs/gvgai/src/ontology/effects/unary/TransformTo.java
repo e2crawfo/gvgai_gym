@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
 import core.player.Player;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import ontology.avatar.MovingAvatar;
 import ontology.effects.Effect;
@@ -53,7 +53,8 @@ public class TransformTo extends Effect {
     }
 
     protected void transformTo(VGDLSprite newSprite, VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
-        // Give `newSprite` all the properties of `sprite1` (other than type) and then kill sprite1.
+        // Give `newSprite` all the properties of `sprite1` (other than type) and then
+        // kill sprite1.
         // If `sprite2` is not null, and killSecond is True, sprite2 is killed.
 
         if (newSprite != null) {
@@ -103,16 +104,18 @@ public class TransformTo extends Effect {
             // to indicate the sprite was transformed
             game.killSprite(sprite1, transformed);
 
-            if (killSecond && sprite2 != null)
+            if (killSecond && sprite2 != null) {
                 game.killSprite(sprite2, true);
+            }
         }
     }
 
     @Override
     public ArrayList<String> getEffectSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
+        }
 
         return result;
     }

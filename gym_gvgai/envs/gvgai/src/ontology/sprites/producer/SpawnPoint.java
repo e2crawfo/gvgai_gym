@@ -3,10 +3,10 @@ package ontology.sprites.producer;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import tools.Direction;
 import tools.Vector2d;
@@ -48,26 +48,29 @@ public class SpawnPoint extends SpriteProducer {
 
     public void postProcess() {
         super.postProcess();
-        is_stochastic = (prob > 0 && prob < 1);
+        is_stochastic = prob > 0 && prob < 1;
         counter = 0;
-        if (stype != null) // Could be, if we're using different stype variants in subclasses.
+        if (stype != null) {
             itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype);
+        }
     }
 
     public void update(Game game) {
-        if (start == -1)
+        if (start == -1) {
             start = game.getGameTick();
+        }
 
         float rollDie = game.getRandomGenerator().nextFloat();
-        if (((start + game.getGameTick()) % cooldown == 0) && rollDie < prob) {
+        if ((start + game.getGameTick()) % cooldown == 0 && rollDie < prob) {
             VGDLSprite newSprite = game.addSprite(itype, this.getPosition());
             if (newSprite != null) {
                 counter++;
 
-                if (!(spawnorientation.equals(Types.DNONE)))
+                if (!spawnorientation.equals(Types.DNONE)) {
                     newSprite.orientation = spawnorientation.copy();
-                else
+                } else {
                     newSprite.orientation = this.orientation.copy();
+                }
             }
         }
 
@@ -110,8 +113,9 @@ public class SpawnPoint extends SpriteProducer {
     @Override
     public ArrayList<String> getDependentSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
+        }
 
         return result;
     }

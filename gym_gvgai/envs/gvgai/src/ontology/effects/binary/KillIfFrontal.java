@@ -1,10 +1,10 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import ontology.effects.Effect;
 import tools.Direction;
@@ -29,7 +29,8 @@ public class KillIfFrontal extends Effect {
             return;
         }
 
-        // Kills the sprite, only if they are going in opposite directions or sprite1 is static.
+        // Kills the sprite, only if they are going in opposite directions or sprite1 is
+        // static.
         Vector2d firstV = sprite1.lastDirection();
         Vector2d otherV = sprite2.lastDirection();
 
@@ -41,7 +42,7 @@ public class KillIfFrontal extends Effect {
         Direction firstDir = new Direction(firstV.x, firstV.y);
 
         applyScore = false;
-        if (firstDir.equals(Types.DNONE) || (sumDir.equals(Types.DNONE))) {
+        if (firstDir.equals(Types.DNONE) || sumDir.equals(Types.DNONE)) {
             applyScore = true;
             // boolean variable set to false to indicate the sprite was not transformed
             game.killSprite(sprite1, false);

@@ -1,15 +1,14 @@
 package tracks.singleLearning.utils;
 
-import core.competition.CompetitionParameters;
-import tools.ElapsedWallTimer;
-import tracks.LearningMachine;
+import static core.competition.CompetitionParameters.IMG_PATH;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static core.competition.CompetitionParameters.IMG_PATH;
+import tools.ElapsedWallTimer;
+import tracks.LearningMachine;
 
 /**
  * Created by dperez on 01/06/2017.
@@ -19,19 +18,15 @@ public class JavaServer {
     public static void main(String[] args) throws Exception {
         /** Init params */
         String game = "";
-        int gameIdx = 0;
         int portNum = 8080;
-        String clientType = "java"; //"python"; // Type of client to test against (Python/Java)
-        String shDir = "src/tracks/singleLearning/utils";
-        String clientDir = ".";
+        String clientType = "java"; // "python"; // Type of client to test against (Python/Java)
         String gamesDir = ".";
-        //Other settings
+        // Other settings
         boolean visuals = false;
         /** Get arguments */
         Map<String, List<String>> params = new HashMap<>();
         List<String> options = null;
-        for (int i = 0; i < args.length; i++) {
-            final String a = args[i];
+        for (final String a : args) {
             if (a.charAt(0) == '-') {
                 if (a.length() < 2) {
                     System.err.println("Error at argument " + a);
@@ -41,8 +36,7 @@ public class JavaServer {
                 params.put(a.substring(1), options);
             } else if (options != null) {
                 options.add(a);
-            }
-            else {
+            } else {
                 System.err.println("Illegal parameter usage");
                 return;
             }
@@ -55,20 +49,20 @@ public class JavaServer {
             portNum = Integer.parseInt(params.get("portNum").get(0));
         }
         if (params.containsKey("gameId")) {
-            gameIdx = Integer.parseInt(params.get("gameId").get(0));
+            Integer.parseInt(params.get("gameId").get(0));
         }
         if (params.containsKey("clientType")) {
             clientType = params.get("clientType").get(0);
         }
         if (params.containsKey("shDir")) {
-            shDir = params.get("shDir").get(0);
+            params.get("shDir").get(0);
         }
         if (params.containsKey("clientDir")) {
-            clientDir = params.get("clientDir").get(0);
+            params.get("clientDir").get(0);
         }
         if (params.containsKey("gamesDir")) {
             gamesDir = params.get("gamesDir").get(0);
-            //IMG_PATH = gamesDir + "/" + IMG_PATH;
+            // IMG_PATH = gamesDir + "/" + IMG_PATH;
         }
         if (params.containsKey("imgDir")) {
             String imgDir = params.get("imgDir").get(0);
@@ -82,13 +76,12 @@ public class JavaServer {
         /** Now prepare to start */
         ElapsedWallTimer wallClock = new ElapsedWallTimer();
 
-        //Port for the socket.
-        //String port = CompetitionParameters.SOCKET_PORT + "";
+        // Port for the socket.
+        // String port = CompetitionParameters.SOCKET_PORT + "";
         String port = portNum + "";
 
-        //Building the command line
-        String cmd[] = new String[]{null, null, port, clientType};
-
+        // Building the command line
+        String cmd[] = new String[] { null, null, port, clientType };
 
         // Available games:
         // String gridGamesPath = gamesDir + "/examples/gridphysics/";
@@ -101,49 +94,55 @@ public class JavaServer {
 
         // All public games (gridphysics)
         // if(GRID_PHYSICS) {
-        //     gamesPath = gridGamesPath;
-        //     games = new String[]{"aliens", "angelsdemons", "assemblyline", "avoidgeorge", "bait", // 0-4
-        //         "beltmanager", "blacksmoke", "boloadventures", "bomber", "bomberman", // 5-9
-        //         "boulderchase", "boulderdash", "brainman", "butterflies", "cakybaky", // 10-14
-        //         "camelRace", "catapults", "chainreaction", "chase", "chipschallenge", // 15-19
-        //         "clusters", "colourescape", "chopper", "cookmepasta", "cops", // 20-24
-        //         "crossfire", "defem", "defender", "digdug", "dungeon", // 25-29
-        //         "eighthpassenger", "eggomania", "enemycitadel", "escape", "factorymanager", // 30-34
-        //         "firecaster", "fireman", "firestorms", "freeway", "frogs", // 35-39
-        //         "garbagecollector", "gymkhana", "hungrybirds", "iceandfire", "ikaruga", // 40-44
-        //         "infection", "intersection", "islands", "jaws", "killBillVol1", // 45-49
-        //         "labyrinth", "labyrinthdual", "lasers", "lasers2", "lemmings", // 50-54
-        //         "missilecommand", "modality", "overload", "pacman", "painter", // 55-59
-        //         "pokemon", "plants", "plaqueattack", "portals", "raceBet", // 60-64
-        //         "raceBet2", "realportals", "realsokoban", "rivers", "roadfighter", // 65-69
-        //         "roguelike", "run", "seaquest", "sheriff", "shipwreck", // 70-74
-        //         "sokoban", "solarfox", "superman", "surround", "survivezombies", // 75-79
-        //         "tercio", "thecitadel", "thesnowman", "waitforbreakfast", "watergame", // 80-84
-        //         "waves", "whackamole", "wildgunman", "witnessprotection", "wrapsokoban", // 85-89
-        //         "zelda", "zenpuzzle"}; // 90, 91
+        // gamesPath = gridGamesPath;
+        // games = new String[]{"aliens", "angelsdemons", "assemblyline", "avoidgeorge",
+        // "bait", // 0-4
+        // "beltmanager", "blacksmoke", "boloadventures", "bomber", "bomberman", // 5-9
+        // "boulderchase", "boulderdash", "brainman", "butterflies", "cakybaky", //
+        // 10-14
+        // "camelRace", "catapults", "chainreaction", "chase", "chipschallenge", //
+        // 15-19
+        // "clusters", "colourescape", "chopper", "cookmepasta", "cops", // 20-24
+        // "crossfire", "defem", "defender", "digdug", "dungeon", // 25-29
+        // "eighthpassenger", "eggomania", "enemycitadel", "escape", "factorymanager",
+        // // 30-34
+        // "firecaster", "fireman", "firestorms", "freeway", "frogs", // 35-39
+        // "garbagecollector", "gymkhana", "hungrybirds", "iceandfire", "ikaruga", //
+        // 40-44
+        // "infection", "intersection", "islands", "jaws", "killBillVol1", // 45-49
+        // "labyrinth", "labyrinthdual", "lasers", "lasers2", "lemmings", // 50-54
+        // "missilecommand", "modality", "overload", "pacman", "painter", // 55-59
+        // "pokemon", "plants", "plaqueattack", "portals", "raceBet", // 60-64
+        // "raceBet2", "realportals", "realsokoban", "rivers", "roadfighter", // 65-69
+        // "roguelike", "run", "seaquest", "sheriff", "shipwreck", // 70-74
+        // "sokoban", "solarfox", "superman", "surround", "survivezombies", // 75-79
+        // "tercio", "thecitadel", "thesnowman", "waitforbreakfast", "watergame", //
+        // 80-84
+        // "waves", "whackamole", "wildgunman", "witnessprotection", "wrapsokoban", //
+        // 85-89
+        // "zelda", "zenpuzzle"}; // 90, 91
 
         // }else{
-        //     gamesPath = contGamesPath;
-        //     games = new String[]{"artillery", "asteroids", "bird", "bubble", "candy",   //0 - 4
-        //         "lander", "mario", "pong", "ptsp", "racing"};                       //5 - 9
+        // gamesPath = contGamesPath;
+        // games = new String[]{"artillery", "asteroids", "bird", "bubble", "candy", //0
+        // - 4
+        // "lander", "mario", "pong", "ptsp", "racing"}; //5 - 9
         // }
 
-
-        //Game and level to play
+        // Game and level to play
         String game_file = gamesDir + "/" + game + ".txt";
         String[] level_files = new String[6];
-        for (int i = 0; i <= 4; i++){
-            level_files[i] = gamesDir + "/" + game + "_lvl" + i +".txt";
+        for (int i = 0; i <= 4; i++) {
+            level_files[i] = gamesDir + "/" + game + "_lvl" + i + ".txt";
         }
         level_files[5] = "game_lvl5.txt";
         // This plays a training round for a specified game.
         System.out.println("[GAME] Game " + game);
-        LearningMachine.runMultipleGames(game_file, level_files, cmd, new String[]{null}, visuals);
+        LearningMachine.runMultipleGames(game_file, level_files, cmd, new String[] { null }, visuals);
 
-
-        //Report total time spent.
+        // Report total time spent.
         int minutes = (int) wallClock.elapsedMinutes();
-        int seconds = ((int) wallClock.elapsedSeconds()) % 60;
+        int seconds = (int) wallClock.elapsedSeconds() % 60;
         System.out.printf("\n \t --> Real execution time: %d minutes, %d seconds of wall time.\n", minutes, seconds);
     }
 }

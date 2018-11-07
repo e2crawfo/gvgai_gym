@@ -3,10 +3,10 @@ package ontology.sprites.producer;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
 import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import tools.Direction;
 import tools.Utils;

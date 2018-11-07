@@ -1,4 +1,10 @@
 package tracks.singlePlayer.advanced.sampleRHEA;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import ontology.Types;
@@ -6,19 +12,17 @@ import tools.ElapsedCpuTimer;
 import tracks.singlePlayer.tools.Heuristics.StateHeuristic;
 import tracks.singlePlayer.tools.Heuristics.WinScoreHeuristic;
 
-import java.util.*;
-
 public class Agent extends AbstractPlayer {
 
     // variable
     private int POPULATION_SIZE = 10;
     private int SIMULATION_DEPTH = 10;
-    private double DISCOUNT = 1; //0.99;
+    private double DISCOUNT = 1; // 0.99;
     private int CROSSOVER_TYPE = UNIFORM_CROSS;
 
     // set
     private boolean REEVALUATE = false;
-    //    private boolean REPLACE = false;
+    // private boolean REPLACE = false;
     private int MUTATION = 1;
     private int TOURNAMENT_SIZE = 2;
     private int NO_PARENTS = 2;
@@ -39,7 +43,7 @@ public class Agent extends AbstractPlayer {
     private ElapsedCpuTimer timer;
 
     private StateHeuristic heuristic;
-    private double acumTimeTakenEval = 0,avgTimeTakenEval = 0, avgTimeTaken = 0, acumTimeTaken = 0;
+    private double acumTimeTakenEval = 0, avgTimeTakenEval = 0, avgTimeTaken = 0, acumTimeTaken = 0;
     private int numEvals = 0, numIters = 0;
     private boolean keepIterating = true;
     private long remaining;
@@ -84,6 +88,7 @@ public class Agent extends AbstractPlayer {
 
     /**
      * Run evolutionary process for one generation
+     * 
      * @param stateObs - current game state
      */
     private void runIteration(StateObservation stateObs) {
@@ -91,15 +96,19 @@ public class Agent extends AbstractPlayer {
 
         if (REEVALUATE) {
             for (int i = 0; i < ELITISM; i++) {
-                if (remaining > 2*avgTimeTakenEval && remaining > BREAK_MS) { // if enough time to evaluate one more individual
+                if (remaining > 2 * avgTimeTakenEval && remaining > BREAK_MS) { // if enough time to evaluate one more
+                                                                                // individual
                     evaluate(population[i], heuristic, stateObs);
-                } else {keepIterating = false;}
+                } else {
+                    keepIterating = false;
+                }
             }
         }
 
         if (NUM_INDIVIDUALS > 1) {
             for (int i = ELITISM; i < NUM_INDIVIDUALS; i++) {
-                if (remaining > 2*avgTimeTakenEval && remaining > BREAK_MS) { // if enough time to evaluate one more individual
+                if (remaining > 2 * avgTimeTakenEval && remaining > BREAK_MS) { // if enough time to evaluate one more
+                                                                                // individual
                     Individual newind;
 
                     newind = crossover();
@@ -110,7 +119,10 @@ public class Agent extends AbstractPlayer {
 
                     remaining = timer.remainingTimeMillis();
 
-                } else {keepIterating = false; break;}
+                } else {
+                    keepIterating = false;
+                    break;
+                }
             }
             Arrays.sort(nextPop, new Comparator<Individual>() {
                 @Override
@@ -127,26 +139,29 @@ public class Agent extends AbstractPlayer {
                     return o1.compareTo(o2);
                 }
             });
-        } else if (NUM_INDIVIDUALS == 1){
+        } else if (NUM_INDIVIDUALS == 1) {
             Individual newind = new Individual(SIMULATION_DEPTH, N_ACTIONS, randomGenerator).mutate(MUTATION);
             evaluate(newind, heuristic, stateObs);
-            if (newind.value > population[0].value)
+            if (newind.value > population[0].value) {
                 nextPop[0] = newind;
+            }
         }
 
         population = nextPop.clone();
 
         numIters++;
-        acumTimeTaken += (elapsedTimerIteration.elapsedMillis());
+        acumTimeTaken += elapsedTimerIteration.elapsedMillis();
         avgTimeTaken = acumTimeTaken / numIters;
     }
 
     /**
-     * Evaluates an individual by rolling the current state with the actions in the individual
-     * and returning the value of the resulting state; random action chosen for the opponent
+     * Evaluates an individual by rolling the current state with the actions in the
+     * individual and returning the value of the resulting state; random action
+     * chosen for the opponent
+     * 
      * @param individual - individual to be valued
-     * @param heuristic - heuristic to be used for state evaluation
-     * @param state - current state, root of rollouts
+     * @param heuristic  - heuristic to be used for state evaluation
+     * @param state      - current state, root of rollouts
      * @return - value of last state reached
      */
     private double evaluate(Individual individual, StateHeuristic heuristic, StateObservation state) {
@@ -157,13 +172,15 @@ public class Agent extends AbstractPlayer {
         int i;
         double acum = 0, avg;
         for (i = 0; i < SIMULATION_DEPTH; i++) {
-            if (! st.isGameOver()) {
+            if (!st.isGameOver()) {
                 ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
                 st.advance(action_mapping.get(individual.actions[i]));
                 acum += elapsedTimerIteration.elapsedMillis();
-                avg = acum / (i+1);
+                avg = acum / (i + 1);
                 remaining = timer.remainingTimeMillis();
-                if (remaining < 2*avg || remaining < BREAK_MS) break;
+                if (remaining < 2 * avg || remaining < BREAK_MS) {
+                    break;
+                }
             } else {
                 break;
             }
@@ -173,12 +190,12 @@ public class Agent extends AbstractPlayer {
         double value = heuristic.evaluateState(first);
 
         // Apply discount factor
-        value *= Math.pow(DISCOUNT,i);
+        value *= Math.pow(DISCOUNT, i);
 
         individual.value = value;
 
         numEvals++;
-        acumTimeTakenEval += (elapsedTimerIterationEval.elapsedMillis());
+        acumTimeTakenEval += elapsedTimerIterationEval.elapsedMillis();
         avgTimeTakenEval = acumTimeTakenEval / numEvals;
         remaining = timer.remainingTimeMillis();
 
@@ -186,7 +203,8 @@ public class Agent extends AbstractPlayer {
     }
 
     /**
-     * @return - the individual resulting from crossover applied to the specified population
+     * @return - the individual resulting from crossover applied to the specified
+     *         population
      */
     private Individual crossover() {
         Individual newind = null;
@@ -202,7 +220,8 @@ public class Agent extends AbstractPlayer {
                 list.addAll(Arrays.asList(population));
             }
 
-            //Select a number of random distinct individuals for tournament and sort them based on value
+            // Select a number of random distinct individuals for tournament and sort them
+            // based on value
             for (int i = 0; i < TOURNAMENT_SIZE; i++) {
                 int index = randomGenerator.nextInt(list.size());
                 tournament[i] = list.get(index);
@@ -210,7 +229,7 @@ public class Agent extends AbstractPlayer {
             }
             Arrays.sort(tournament);
 
-            //get best individuals in tournament as parents
+            // get best individuals in tournament as parents
             if (NO_PARENTS <= TOURNAMENT_SIZE) {
                 for (int i = 0; i < NO_PARENTS; i++) {
                     parents[i] = list.get(i);
@@ -224,10 +243,12 @@ public class Agent extends AbstractPlayer {
     }
 
     /**
-     * Insert a new individual into the population at the specified position by replacing the old one.
-     * @param newind - individual to be inserted into population
-     * @param pop - population
-     * @param idx - position where individual should be inserted
+     * Insert a new individual into the population at the specified position by
+     * replacing the old one.
+     * 
+     * @param newind   - individual to be inserted into population
+     * @param pop      - population
+     * @param idx      - position where individual should be inserted
      * @param stateObs - current game state
      */
     private void add_individual(Individual newind, Individual[] pop, int idx, StateObservation stateObs) {
@@ -237,6 +258,7 @@ public class Agent extends AbstractPlayer {
 
     /**
      * Initialize population
+     * 
      * @param stateObs - current game state
      */
     private void init_pop(StateObservation stateObs) {
@@ -259,11 +281,13 @@ public class Agent extends AbstractPlayer {
                 population[i] = new Individual(SIMULATION_DEPTH, N_ACTIONS, randomGenerator);
                 evaluate(population[i], heuristic, stateObs);
                 remaining = timer.remainingTimeMillis();
-                NUM_INDIVIDUALS = i+1;
-            } else {break;}
+                NUM_INDIVIDUALS = i + 1;
+            } else {
+                break;
+            }
         }
 
-        if (NUM_INDIVIDUALS > 1)
+        if (NUM_INDIVIDUALS > 1) {
             Arrays.sort(population, new Comparator<Individual>() {
                 @Override
                 public int compare(Individual o1, Individual o2) {
@@ -277,17 +301,21 @@ public class Agent extends AbstractPlayer {
                         return -1;
                     }
                     return o1.compareTo(o2);
-                }});
+                }
+            });
+        }
         for (int i = 0; i < NUM_INDIVIDUALS; i++) {
-            if (population[i] != null)
+            if (population[i] != null) {
                 nextPop[i] = population[i].copy();
+            }
         }
 
     }
 
     /**
      * @param pop - last population obtained after evolution
-     * @return - first action of best individual in the population (found at index 0)
+     * @return - first action of best individual in the population (found at index
+     *         0)
      */
     private Types.ACTIONS get_best_action(Individual[] pop) {
         int bestAction = pop[0].actions[0];

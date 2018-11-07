@@ -1,16 +1,16 @@
 package ontology.effects;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import core.vgdl.VGDLFactory;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLFactory;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import tools.Direction;
 import tools.Vector2d;
@@ -164,10 +164,11 @@ public abstract class Effect {
                 Vector2d s1Center = new Vector2d(o1.lastrect.getCenterX(), o1.lastrect.getCenterY());
                 Vector2d s2Center = new Vector2d(o2.lastrect.getCenterX(), o2.lastrect.getCenterY());
 
-                if (spCompareCenter.dist(s1Center) < spCompareCenter.dist(s2Center))
+                if (spCompareCenter.dist(s1Center) < spCompareCenter.dist(s2Center)) {
                     return -1;
-                else if (spCompareCenter.dist(s1Center) > spCompareCenter.dist(s2Center))
+                } else if (spCompareCenter.dist(s1Center) > spCompareCenter.dist(s2Center)) {
                     return 1;
+                }
                 return 0;
             }
         });
@@ -184,35 +185,36 @@ public abstract class Effect {
     protected boolean[] determineCollision(VGDLSprite sprite1, Rectangle s2rect, Game g) {
 
         Rectangle intersec = sprite1.rect.intersection(s2rect);
-        boolean horizontalBounce = (sprite1.rect.height == intersec.height);
-        boolean verticalBounce = (sprite1.rect.width == intersec.width);
+        boolean horizontalBounce = sprite1.rect.height == intersec.height;
+        boolean verticalBounce = sprite1.rect.width == intersec.width;
 
         if (!horizontalBounce && !verticalBounce) {
             Vector2d vel = sprite1._velocity();
 
             // Distance on X, according to the direction of travel
-            double distX = (vel.x == 0.0) ? Math.abs(sprite1.lastrect.x - s2rect.x) : // Travelling vertically
-                    ((vel.x > 0.0) ? Math.abs((sprite1.lastrect.x + sprite1.rect.width) - s2rect.x) : // Going right
-                            Math.abs((s2rect.x + s2rect.width) - sprite1.lastrect.x)); // Going left
+            double distX = vel.x == 0.0 ? Math.abs(sprite1.lastrect.x - s2rect.x) : // Travelling vertically
+                    vel.x > 0.0 ? Math.abs(sprite1.lastrect.x + sprite1.rect.width - s2rect.x) : // Going right
+                            Math.abs(s2rect.x + s2rect.width - sprite1.lastrect.x); // Going left
 
             // Distance on Y, according to the direction of travel
-            double distY = (vel.y == 0.0) ? Math.abs(sprite1.lastrect.y - s2rect.y) : // Travelling laterally
-                    ((vel.y > 0.0) ? Math.abs((sprite1.lastrect.y + sprite1.rect.height) - s2rect.y) : // Going
-                                                                                                        // downwards
-                            Math.abs(sprite1.lastrect.y - (s2rect.y + s2rect.height))); // Going upwards
+            double distY = vel.y == 0.0 ? Math.abs(sprite1.lastrect.y - s2rect.y) : // Travelling laterally
+                    vel.y > 0.0 ? Math.abs(sprite1.lastrect.y + sprite1.rect.height - s2rect.y) : // Going
+                                                                                                  // downwards
+                            Math.abs(sprite1.lastrect.y - (s2rect.y + s2rect.height)); // Going upwards
 
             double tX = Math.abs(distX / vel.x);
             double tY = Math.abs(distY / vel.y);
-            horizontalBounce = (tX < tY);
-            verticalBounce = (tY < tX);
+            horizontalBounce = tX < tY;
+            verticalBounce = tY < tX;
         }
 
         return new boolean[] { horizontalBounce, verticalBounce };
     }
 
     public void setStochastic() {
-        if (prob > 0 && prob < 1)
+        if (prob > 0 && prob < 1) {
             is_stochastic = true;
+        }
     }
 
     public void parseParameters(InteractionContent content) {
@@ -311,7 +313,7 @@ public abstract class Effect {
     }
 
     private Rectangle adjustRight(VGDLSprite sprite1, VGDLSprite sprite2) {
-        int overlay = (sprite1.rect.x + sprite1.rect.width) - sprite2.rect.x;
+        int overlay = sprite1.rect.x + sprite1.rect.width - sprite2.rect.x;
         return new Rectangle(sprite1.rect.x - overlay, sprite1.rect.y, sprite1.rect.width, sprite1.rect.height);
     }
 
@@ -326,7 +328,7 @@ public abstract class Effect {
     }
 
     private Rectangle adjustDown(VGDLSprite sprite1, VGDLSprite sprite2) {
-        int overlay = (sprite1.rect.y + sprite1.rect.height) - sprite2.rect.y;
+        int overlay = sprite1.rect.y + sprite1.rect.height - sprite2.rect.y;
         return new Rectangle(sprite1.rect.x, sprite1.rect.y - overlay, sprite1.rect.width, sprite1.rect.height);
     }
 }

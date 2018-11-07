@@ -3,9 +3,9 @@ package ontology.sprites;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import core.content.SpriteContent;
 import core.vgdl.VGDLRegistry;
 import core.vgdl.VGDLSprite;
-import core.content.SpriteContent;
 import tools.Vector2d;
 
 /**

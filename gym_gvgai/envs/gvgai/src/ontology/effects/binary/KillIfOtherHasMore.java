@@ -1,11 +1,11 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 
 /**
@@ -40,8 +40,9 @@ public class KillIfOtherHasMore extends Effect {
             applyScore = true;
             // boolean variable set to false to indicate the sprite was not transformed
             game.killSprite(sprite1, false);
-            if (subtract)
+            if (subtract) {
                 sprite2.subtractResource(resourceId, limit);
+            }
 
         }
     }

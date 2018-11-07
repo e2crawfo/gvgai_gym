@@ -1,8 +1,8 @@
 package tracks.singlePlayer.advanced.olets;
 
 /**
- * Code written by Adrien Couetoux, acouetoux@ulg.ac.be.
- * Date: 15/12/2015
+ * Code written by Adrien Couetoux, acouetoux@ulg.ac.be. Date: 15/12/2015
+ * 
  * @author Adrien Couëtoux
  */
 
@@ -21,7 +21,8 @@ public class SingleTreeNode {
      */
     private final double egreedyEpsilon = 0.05;
     /**
-     * A constant used to add some exploration in the expectimax exploration/exploitation policy
+     * A constant used to add some exploration in the expectimax
+     * exploration/exploitation policy
      */
     private final double eMaxGreedyEpsilon = 0.05;
     /**
@@ -29,16 +30,19 @@ public class SingleTreeNode {
      */
     public SingleTreeNode parent;
     /**
-     * The array that stores the children nodes. It should be of fixed size equal to the number of actions
+     * The array that stores the children nodes. It should be of fixed size equal to
+     * the number of actions
      */
     public final SingleTreeNode[] children;
     /**
-     * The cumulated value of a node (i.e. the sum of all observed rewards in this node)
+     * The cumulated value of a node (i.e. the sum of all observed rewards in this
+     * node)
      */
     private double totValue;
     /**
-     * The expectimax value of a node (i.e. we back up the max value from its children nodes, plus the instant values
-     * observed when a simulation exited in this node, weighted proportionally to the number of exits
+     * The expectimax value of a node (i.e. we back up the max value from its
+     * children nodes, plus the instant values observed when a simulation exited in
+     * this node, weighted proportionally to the number of exits
      */
     private double expectimax;
     /**
@@ -46,16 +50,18 @@ public class SingleTreeNode {
      */
     private int nVisits;
     /**
-     * Action index of the action that was chosen immediately before landing in this node. Should be null for a root node
+     * Action index of the action that was chosen immediately before landing in this
+     * node. Should be null for a root node
      */
     private final int actionIndex;
     /**
-     * Number of times a simulation passed through this node by calling the model (i.e. the advance method)
+     * Number of times a simulation passed through this node by calling the model
+     * (i.e. the advance method)
      */
     private int nbGenerated;
     /**
-     * The bias given to a node according to the avatar location - a negative score bias is given if the location has
-     * been visited many times before
+     * The bias given to a node according to the avatar location - a negative score
+     * bias is given if the location has been visited many times before
      */
     private double tabooBias;
     /**
@@ -63,7 +69,8 @@ public class SingleTreeNode {
      */
     public int nodeDepth;
     /**
-     * Number of simulations that passed through this node AND ended here (game over or simulation over)
+     * Number of simulations that passed through this node AND ended here (game over
+     * or simulation over)
      */
     private int nbExitsHere;
     /**
@@ -75,7 +82,8 @@ public class SingleTreeNode {
      */
     private double childrenMaxAdjEmax;
     /**
-     * Like expectimax, but adjusted using the observed ratio of exits vs no exits in the node
+     * Like expectimax, but adjusted using the observed ratio of exits vs no exits
+     * in the node
      */
     private double adjEmax;
 
@@ -90,7 +98,8 @@ public class SingleTreeNode {
     public int num_actions;
 
     /**
-     * Public constructor for nodes with no declared parent node (eg. for a root node)
+     * Public constructor for nodes with no declared parent node (eg. for a root
+     * node)
      */
     public SingleTreeNode(int num_actions) {
         this(null, 0, -1, 0.0, num_actions);
@@ -103,10 +112,13 @@ public class SingleTreeNode {
 
     /**
      * Public constructor for nodes with a parent node
-     * @param parent    the parent node
-     * @param depth    the tree depth at which the node is added
-     * @param actionIndex   the index of the action that was chosen immediately before creating this node
-     * @param tabooBias     the location bias of this node, computed based on the avatar location
+     * 
+     * @param parent      the parent node
+     * @param depth       the tree depth at which the node is added
+     * @param actionIndex the index of the action that was chosen immediately before
+     *                    creating this node
+     * @param tabooBias   the location bias of this node, computed based on the
+     *                    avatar location
      */
     public SingleTreeNode(SingleTreeNode parent, int depth, int actionIndex, double tabooBias, int num_actions) {
         this.parent = parent;
@@ -130,18 +142,25 @@ public class SingleTreeNode {
     }
 
     public int getNodeDepth() {
-        return (this.nodeDepth);
+        return this.nodeDepth;
     }
 
-    public int getActionIndex() { return (this.actionIndex); }
+    public int getActionIndex() {
+        return this.actionIndex;
+    }
 
-    public int getNbGenerated() { return (this.nbGenerated); }
+    public int getNbGenerated() {
+        return this.nbGenerated;
+    }
 
-    public void setTabooBias(double tabooBias) {this.tabooBias = tabooBias;}
+    public void setTabooBias(double tabooBias) {
+        this.tabooBias = tabooBias;
+    }
 
     /**
-     * Updates nodes attributes in a tree; mostly used to reset number of simulations to 1 to reduce the weight of past
-     * simulations when salvaging a tree branch from one time step to the next
+     * Updates nodes attributes in a tree; mostly used to reset number of
+     * simulations to 1 to reduce the weight of past simulations when salvaging a
+     * tree branch from one time step to the next
      */
     public void refreshTree() {
         for (SingleTreeNode aChildren : this.children) {
@@ -158,7 +177,6 @@ public class SingleTreeNode {
             }
         }
     }
-
 
 //    public SingleTreeNode uct(StateObservation _currentObservation) {
 //        SingleTreeNode selected = null;
@@ -261,18 +279,22 @@ public class SingleTreeNode {
 //    }
 
     /**
-     * Computes the weighted expectimax of a node, minus a location bias to increase the value of nodes in locations that
-     * have not been visited often in the past
-     * @return  the weighted expectimax with location bias
+     * Computes the weighted expectimax of a node, minus a location bias to increase
+     * the value of nodes in locations that have not been visited often in the past
+     * 
+     * @return the weighted expectimax with location bias
      */
     private double getAdjustedEmaxScore() {
-        return (adjEmax + K * Math.sqrt(Math.log(parent.nVisits + 1) / (nVisits + epsilon)) - tabooBias);
+        return adjEmax + K * Math.sqrt(Math.log(parent.nVisits + 1) / (nVisits + epsilon)) - tabooBias;
     }
 
     /**
-     * Backtracks along the visited branch of the tree, to update the stored data, including the expectimax values
-     * @param node  the initial node of the backup (usually a tree leaf)
-     * @param result    the value measured before back tracking (eg. the score when the simulation ended)
+     * Backtracks along the visited branch of the tree, to update the stored data,
+     * including the expectimax values
+     * 
+     * @param node   the initial node of the backup (usually a tree leaf)
+     * @param result the value measured before back tracking (eg. the score when the
+     *               simulation ended)
      */
     public void backUp(SingleTreeNode node, double result) {
         SingleTreeNode n = node;
@@ -284,25 +306,27 @@ public class SingleTreeNode {
             if (backUpDepth > 0) {
                 double bestExpectimax = HUGE_NEGATIVE;
                 double bestAdjustedExpectimax = HUGE_NEGATIVE;
-                for (int i = 0; i < n.children.length; i++) {
-                    if (n.children[i] != null) {
-                        if (n.children[i].expectimax > bestExpectimax) {
-                            bestExpectimax = n.children[i].expectimax;
+                for (SingleTreeNode element : n.children) {
+                    if (element != null) {
+                        if (element.expectimax > bestExpectimax) {
+                            bestExpectimax = element.expectimax;
                         }
-                        if (n.children[i].adjEmax > bestAdjustedExpectimax) {
-                            bestAdjustedExpectimax = n.children[i].adjEmax;
+                        if (element.adjEmax > bestAdjustedExpectimax) {
+                            bestAdjustedExpectimax = element.adjEmax;
                         }
                     }
                 }
 
                 n.expectimax = bestExpectimax;
                 n.childrenMaxAdjEmax = bestAdjustedExpectimax;
-                n.adjEmax = (((float) n.nbExitsHere) / n.nVisits) * (n.totalValueOnExit / n.nbExitsHere) + (1.0 - (((float) n.nbExitsHere) / n.nVisits)) * n.childrenMaxAdjEmax;
+                n.adjEmax = (float) n.nbExitsHere / n.nVisits * (n.totalValueOnExit / n.nbExitsHere)
+                        + (1.0 - (float) n.nbExitsHere / n.nVisits) * n.childrenMaxAdjEmax;
             } else {
                 n.nbExitsHere += 1;
                 n.totalValueOnExit += result;
 
-                n.adjEmax = (((float) n.nbExitsHere) / n.nVisits) * (n.totalValueOnExit / n.nbExitsHere) + (1.0 - (((float) n.nbExitsHere) / n.nVisits)) * n.childrenMaxAdjEmax;
+                n.adjEmax = (float) n.nbExitsHere / n.nVisits * (n.totalValueOnExit / n.nbExitsHere)
+                        + (1.0 - (float) n.nbExitsHere / n.nVisits) * n.childrenMaxAdjEmax;
                 n.expectimax = n.totValue / n.nVisits;
             }
 
@@ -312,9 +336,11 @@ public class SingleTreeNode {
     }
 
     /**
-     * Selects a child node, from the current node. It currently selects based on an epsilon-greedy, the greedy part
-     * being made according to adjusted expectimax values
-     * @return  the selected child node
+     * Selects a child node, from the current node. It currently selects based on an
+     * epsilon-greedy, the greedy part being made according to adjusted expectimax
+     * values
+     * 
+     * @return the selected child node
      */
     public SingleTreeNode selectChild() {
         SingleTreeNode selected = null;
@@ -322,15 +348,15 @@ public class SingleTreeNode {
         int selectedIdx;
 
         if (SingleMCTSPlayer.rng.nextDouble() < eMaxGreedyEpsilon) {
-            //Choose randomly
+            // Choose randomly
             selectedIdx = SingleMCTSPlayer.rng.nextInt(children.length);
             selected = this.children[selectedIdx];
         } else {
-            //pick the best Q.
+            // pick the best Q.
             for (SingleTreeNode child : this.children) {
-                //double score = child.getEmaxScore();
+                // double score = child.getEmaxScore();
                 double score = child.getAdjustedEmaxScore();
-                //double score = child.getUCTscore();
+                // double score = child.getUCTscore();
                 // small sampleRandom numbers: break ties in unexpanded nodes
                 if (score > bestValue) {
                     selected = child;
@@ -348,7 +374,8 @@ public class SingleTreeNode {
 
     /**
      * Finds the action that was selected the most times
-     * @return  the most selected action from the current node
+     * 
+     * @return the most selected action from the current node
      */
     public int mostVisitedAction() {
         int selected = -1;
@@ -358,9 +385,9 @@ public class SingleTreeNode {
 
         for (int i = 0; i < children.length; i++) {
             if (children[i] != null) {
-                if (first == -1)
+                if (first == -1) {
                     first = children[i].nVisits;
-                else if (first != children[i].nVisits) {
+                } else if (first != children[i].nVisits) {
                     allEqual = false;
                 }
                 double challengerValue = children[i].nVisits + SingleMCTSPlayer.rng.nextDouble() * epsilon;
@@ -375,15 +402,17 @@ public class SingleTreeNode {
             System.out.println("Unexpected selection!");
             selected = 0;
         } else if (allEqual) {
-            //If all are equal, we opt to choose for the one with the best Q.
+            // If all are equal, we opt to choose for the one with the best Q.
             selected = bestAction();
         }
         return selected;
     }
 
     /**
-     * Finds the action with the highest cumulative value. Used in case of a tie when comparing the number of simulations
-     * @return  the action with the highest cumulative value.
+     * Finds the action with the highest cumulative value. Used in case of a tie
+     * when comparing the number of simulations
+     * 
+     * @return the action with the highest cumulative value.
      */
     private int bestAction() {
         int selected = -1;
@@ -419,8 +448,11 @@ public class SingleTreeNode {
 //    }
 
     /**
-     * Checks if the current node is fully expanded, i.e. if all actions have been selected at least once.
-     * @return  true if there is an action that has not been tried yet, false otherwise.
+     * Checks if the current node is fully expanded, i.e. if all actions have been
+     * selected at least once.
+     * 
+     * @return true if there is an action that has not been tried yet, false
+     *         otherwise.
      */
     public boolean notFullyExpanded() {
         for (SingleTreeNode tn : children) {

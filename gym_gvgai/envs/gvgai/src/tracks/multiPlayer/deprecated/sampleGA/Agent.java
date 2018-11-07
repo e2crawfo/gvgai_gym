@@ -1,25 +1,21 @@
 package tracks.multiPlayer.deprecated.sampleGA;
 
-
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
-import tracks.multiPlayer.tools.heuristics.StateHeuristicMulti;
-import tracks.multiPlayer.tools.heuristics.WinScoreHeuristic;
 import core.game.StateObservationMulti;
 import core.player.AbstractMultiPlayer;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import tools.Utils;
+import tracks.multiPlayer.tools.heuristics.StateHeuristicMulti;
+import tracks.multiPlayer.tools.heuristics.WinScoreHeuristic;
 
 /**
- * Created with IntelliJ IDEA.
- * User: ssamot
- * Date: 26/02/14
- * Time: 15:17
- * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
+ * Created with IntelliJ IDEA. User: ssamot Date: 26/02/14 Time: 15:17 This is a
+ * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 
 public class Agent extends AbstractMultiPlayer {
@@ -30,7 +26,7 @@ public class Agent extends AbstractMultiPlayer {
     private static int POPULATION_SIZE = 5;
 
     private static double RECPROB = 0.1;
-    private double MUT = (1.0 / SIMULATION_DEPTH);
+    private double MUT = 1.0 / SIMULATION_DEPTH;
     private int[] N_ACTIONS;
 
     private ElapsedCpuTimer timer;
@@ -63,8 +59,7 @@ public class Agent extends AbstractMultiPlayer {
     }
 
     @SuppressWarnings("unchecked")
-    private void initActions(StateObservationMulti stateObs)
-    {
+    private void initActions(StateObservationMulti stateObs) {
         N_ACTIONS = new int[no_players];
 
         action_mapping = new HashMap[no_players];
@@ -83,11 +78,10 @@ public class Agent extends AbstractMultiPlayer {
         }
     }
 
-
-    double microbial_tournament(int[][] actionGenome, StateObservationMulti stateObs, StateHeuristicMulti heuristic, int playerID) throws TimeoutException {
-        int a, b, c, W, L;
+    double microbial_tournament(int[][] actionGenome, StateObservationMulti stateObs, StateHeuristicMulti heuristic,
+            int playerID) throws TimeoutException {
+        int a, b, W, L;
         int i;
-
 
         a = (int) ((POPULATION_SIZE - 1) * randomGenerator.nextDouble());
         do {
@@ -114,7 +108,9 @@ public class Agent extends AbstractMultiPlayer {
         }
 
         for (i = 0; i < LEN; i++) {
-            if (randomGenerator.nextDouble() < MUT) actionGenome[L][i] = randomGenerator.nextInt(N_ACTIONS[playerID]);
+            if (randomGenerator.nextDouble() < MUT) {
+                actionGenome[L][i] = randomGenerator.nextInt(N_ACTIONS[playerID]);
+            }
         }
 
         return Math.max(score_a, score_b);
@@ -125,10 +121,11 @@ public class Agent extends AbstractMultiPlayer {
 
         int max = 0;
         for (int i = 0; i < stateObs.getNoPlayers(); i++) {
-            if (N_ACTIONS[i] > max) max = N_ACTIONS[i];
+            if (N_ACTIONS[i] > max) {
+                max = N_ACTIONS[i];
+            }
         }
         genome = new int[stateObs.getNoPlayers()][max][POPULATION_SIZE][SIMULATION_DEPTH];
-
 
         // Randomize initial genome
         for (int i = 0; i < genome.length; i++) {
@@ -142,17 +139,15 @@ public class Agent extends AbstractMultiPlayer {
         }
     }
 
+    private double simulate(StateObservationMulti stateObs, StateHeuristicMulti heuristic, int[] policy)
+            throws TimeoutException {
 
-    private double simulate(StateObservationMulti stateObs, StateHeuristicMulti heuristic, int[] policy) throws TimeoutException {
-
-
-        //System.out.println("depth" + depth);
+        // System.out.println("depth" + depth);
         long remaining = timer.remainingTimeMillis();
         if (remaining < BREAK_MS) {
-            //System.out.println(remaining);
+            // System.out.println(remaining);
             throw new TimeoutException("Timeout");
         }
-
 
         int depth = 0;
         stateObs = stateObs.copy();
@@ -160,8 +155,9 @@ public class Agent extends AbstractMultiPlayer {
             Types.ACTIONS[] acts = new Types.ACTIONS[stateObs.getNoPlayers()];
             for (int i = 0; i < stateObs.getNoPlayers(); i++) {
                 acts[i] = action_mapping[i].get(policy[depth]);
-                if(acts[i] == null)
-                    acts[i] = action_mapping[1-i].get(policy[depth]);
+                if (acts[i] == null) {
+                    acts[i] = action_mapping[1 - i].get(policy[depth]);
+                }
             }
 
             stateObs.advance(acts);
@@ -176,10 +172,10 @@ public class Agent extends AbstractMultiPlayer {
         double score = Math.pow(GAMMA, depth) * heuristic.evaluateState(stateObs, id);
         return score;
 
-
     }
 
-    private Types.ACTIONS microbial(StateObservationMulti stateObs, int maxdepth, StateHeuristicMulti heuristic, int iterations) {
+    private Types.ACTIONS microbial(StateObservationMulti stateObs, int maxdepth, StateHeuristicMulti heuristic,
+            int iterations) {
 
         double[][] maxScores = new double[no_players][];
         for (int i = 0; i < no_players; i++) {
@@ -190,8 +186,7 @@ public class Agent extends AbstractMultiPlayer {
             }
         }
 
-        outerloop:
-        for (int i = 0; i < iterations; i++) {
+        outerloop: for (int i = 0; i < iterations; i++) {
 
             for (Types.ACTIONS action : stateObs.getAvailableActions(id)) {
                 for (Types.ACTIONS action2 : stateObs.getAvailableActions(oppID)) {
@@ -205,8 +200,10 @@ public class Agent extends AbstractMultiPlayer {
 
                     double score = 0, scoreOpp = 0;
                     try {
-                        score = microbial_tournament(genome[id][r_action_mapping[id].get(acts[id])], stCopy, heuristic, id) + randomGenerator.nextDouble() * 0.00001;
-                        scoreOpp = microbial_tournament(genome[oppID][r_action_mapping[oppID].get(acts[oppID])], stCopy, heuristic, oppID) + randomGenerator.nextDouble() * 0.00001;
+                        score = microbial_tournament(genome[id][r_action_mapping[id].get(acts[id])], stCopy, heuristic,
+                                id) + randomGenerator.nextDouble() * 0.00001;
+                        scoreOpp = microbial_tournament(genome[oppID][r_action_mapping[oppID].get(acts[oppID])], stCopy,
+                                heuristic, oppID) + randomGenerator.nextDouble() * 0.00001;
                     } catch (TimeoutException e) {
                         break outerloop;
                     }
@@ -221,7 +218,8 @@ public class Agent extends AbstractMultiPlayer {
                         if (scoreOpp > maxScores[oppID][int_act_opp]) {
                             maxScores[oppID][int_act_opp] = scoreOpp;
                         }
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
 
                 }
 
@@ -230,14 +228,13 @@ public class Agent extends AbstractMultiPlayer {
 
         Types.ACTIONS maxAction = this.action_mapping[id].get(Utils.argmax(maxScores[id]));
 
-
         return maxAction;
 
     }
 
     /**
-     * Picks an action. This function is called every game step to request an
-     * action from the player.
+     * Picks an action. This function is called every game step to request an action
+     * from the player.
      *
      * @param stateObs     Observation of the current state.
      * @param elapsedTimer Timer when the action returned is due.
@@ -245,9 +242,8 @@ public class Agent extends AbstractMultiPlayer {
      */
     public Types.ACTIONS act(StateObservationMulti stateObs, ElapsedCpuTimer elapsedTimer) {
 
-        if(action_mapping[id].size() != stateObs.getAvailableActions(id).size() ||
-           action_mapping[oppID].size() != stateObs.getAvailableActions(oppID).size())
-        {
+        if (action_mapping[id].size() != stateObs.getAvailableActions(id).size()
+                || action_mapping[oppID].size() != stateObs.getAvailableActions(oppID).size()) {
             this.initActions(stateObs);
             this.initGenome(stateObs);
         }
@@ -260,10 +256,8 @@ public class Agent extends AbstractMultiPlayer {
         return lastGoodAction;
     }
 
-
     @Override
-    public void draw(Graphics2D g)
-    {
-        //g.drawString("Num Simulations: " + numSimulations, 10, 20);
+    public void draw(Graphics2D g) {
+        // g.drawString("Num Simulations: " + numSimulations, 10, 20);
     }
 }

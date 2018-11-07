@@ -1,18 +1,5 @@
 package tracks.levelGeneration;
 
-import tracks.ArcadeMachine;
-import core.vgdl.VGDLFactory;
-import core.vgdl.VGDLParser;
-import core.vgdl.VGDLRegistry;
-import core.competition.CompetitionParameters;
-import core.game.Game;
-import core.game.GameDescription;
-import core.generator.AbstractLevelGenerator;
-import core.player.AbstractPlayer;
-import tools.ElapsedCpuTimer;
-import tools.IO;
-import tools.StatSummary;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,19 +10,31 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import core.competition.CompetitionParameters;
+import core.game.Game;
+import core.game.GameDescription;
+import core.generator.AbstractLevelGenerator;
+import core.player.AbstractPlayer;
+import core.vgdl.VGDLFactory;
+import core.vgdl.VGDLParser;
+import core.vgdl.VGDLRegistry;
+import tools.ElapsedCpuTimer;
+import tools.IO;
+import tools.StatSummary;
+import tracks.ArcadeMachine;
+
 /**
  * Created by dperez on 19/03/2017.
  */
-public class LevelGenMachine
-{
+public class LevelGenMachine {
 
     /**
-     * Generate a level for a certain described game and test it against a
-     * supplied agent
+     * Generate a level for a certain described game and test it against a supplied
+     * agent
      *
-     * @param gameFile game description file.
+     * @param gameFile       game description file.
      * @param levelGenerator level generator class path.
-     * @param levelFile file to save the generated level in it
+     * @param levelFile      file to save the generated level in it
      */
     public static boolean generateOneLevel(String gameFile, String levelGenerator, String levelFile) {
         VGDLFactory.GetInstance().init(); // This always first thing to do.
@@ -83,12 +82,12 @@ public class LevelGenMachine
         return true;
     }
 
-
     /**
      * Generate multiple levels for a certain game
-     * @param gameFile The game description file path
+     *
+     * @param gameFile       The game description file path
      * @param levelGenerator The current used level generator
-     * @param levelFile array of level files to save the generated levels
+     * @param levelFile      array of level files to save the generated levels
      */
     public static void generateLevels(String gameFile, String levelGenerator, String[] levelFile) {
         VGDLFactory.GetInstance().init(); // This always first thing to do.
@@ -136,17 +135,13 @@ public class LevelGenMachine
         }
     }
 
-
     /**
-     * Reads game description then generate level using the supplied generator.
-     * It also launches the game for a human to be played. Graphics always on.
+     * Reads game description then generate level using the supplied generator. It
+     * also launches the game for a human to be played. Graphics always on.
      *
-     * @param gameFile
-     *            the game description file
-     * @param actionFile
-     *            the action file name
-     * @param levelFile
-     *            a file to save the generated level
+     * @param gameFile   the game description file
+     * @param actionFile the action file name
+     * @param levelFile  a file to save the generated level
      */
     public static double playOneGeneratedLevel(String gameFile, String actionFile, String levelFile, int randomSeed) {
         String agentName = "tracks.singlePlayer.tools.human.Agent";
@@ -154,22 +149,22 @@ public class LevelGenMachine
         return runOneGeneratedLevel(gameFile, visuals, agentName, actionFile, levelFile, randomSeed, true);
     }
 
-
     /**
      * A player (human or bot) plays a generated level, which is passed by
      * parameter, in a determined game.
      *
-     * @param gameFile game description file.
-     * @param visuals true to show the graphics, false otherwise.
-     * @param agentName name (inc. package) where the controller is otherwise.
-     * @param actionFile  filename of the file where the actions of this player, for this game, should be recorded.
-     * @param levelFile level file to play in
+     * @param gameFile   game description file.
+     * @param visuals    true to show the graphics, false otherwise.
+     * @param agentName  name (inc. package) where the controller is otherwise.
+     * @param actionFile filename of the file where the actions of this player, for
+     *                   this game, should be recorded.
+     * @param levelFile  level file to play in
      * @param randomSeed random seed for the game to be played
-     * @param isHuman indicates if the game is played by a human or a bot
+     * @param isHuman    indicates if the game is played by a human or a bot
      * @return score of the game plaayed
      */
     public static double runOneGeneratedLevel(String gameFile, boolean visuals, String agentName, String actionFile,
-                                              String levelFile, int randomSeed, boolean isHuman) {
+            String levelFile, int randomSeed, boolean isHuman) {
         VGDLFactory.GetInstance().init(); // This always first thing to do.
         VGDLRegistry.GetInstance().init();
 
@@ -200,24 +195,21 @@ public class LevelGenMachine
             return result;
         }
 
-        // Then, play the game.
-        double score = 0.0;
-
         /**
-         * playGame and runGame methods from the Game class take an array of
-         * players as argument, including all players in the game. As this
-         * method refers to single player games, an array is created containing
-         * only one element: the player created earlier. To get back just 1
-         * score for the player, the first element in the score array is
-         * returned.
+         * playGame and runGame methods from the Game class take an array of players as
+         * argument, including all players in the game. As this method refers to single
+         * player games, an array is created containing only one element: the player
+         * created earlier. To get back just 1 score for the player, the first element
+         * in the score array is returned.
          */
         AbstractPlayer[] p = new AbstractPlayer[1];
         p[0] = player;
 
-        if (visuals)
-            score = toPlay.playGame(p, randomSeed, isHuman, 0)[0];
-        else
-            score = toPlay.runGame(p, randomSeed)[0];
+        if (visuals) {
+            toPlay.playGame(p, randomSeed, isHuman, 0);
+        } else {
+            toPlay.runGame(p, randomSeed);
+        }
 
         // Finally, when the game is over, we need to tear the player down.
         ArcadeMachine.tearPlayerDown(toPlay, p, actionFile, randomSeed, true);
@@ -227,13 +219,13 @@ public class LevelGenMachine
         return result;
     }
 
-
     /**
      * play a couple of generated levels for a certain game
-     * @param gameFile The game description file path
-     * @param actionFile  array of files to save the actions in
+     *
+     * @param gameFile   The game description file path
+     * @param actionFile array of files to save the actions in
      * @param levelFile  array of level files to save the generated levels
-     * @param isHuman indicates if the level will be played by a human or a bot.
+     * @param isHuman    indicates if the level will be played by a human or a bot.
      */
     public static void playGeneratedLevels(String gameFile, String[] actionFile, String[] levelFile, boolean isHuman) {
         String agentName = "tracks.singlePlayer.tools.human.Agent";
@@ -293,12 +285,11 @@ public class LevelGenMachine
                 // Then, play the game.
 
                 /**
-                 * playGame method from Game class takes an array of players as
-                 * argument, including all players in the game. As this method
-                 * refers to single player games, an array is created containing
-                 * only one element: the player created earlier. To get back
-                 * just 1 score for the player, the first element in the score
-                 * array is returned.
+                 * playGame method from Game class takes an array of players as argument,
+                 * including all players in the game. As this method refers to single player
+                 * games, an array is created containing only one element: the player created
+                 * earlier. To get back just 1 score for the player, the first element in the
+                 * score array is returned.
                  */
                 score = toPlay.playGame(p, randomSeed, isHuman, 0)[0];
             }
@@ -306,8 +297,9 @@ public class LevelGenMachine
             scores.add(score);
 
             // Finally, when the game is over, we need to tear the player down.
-            if (player != null)
+            if (player != null) {
                 ArcadeMachine.tearPlayerDown(toPlay, p, filename, randomSeed, true);
+            }
 
             // reset the game.
             toPlay.reset();
@@ -320,15 +312,14 @@ public class LevelGenMachine
         System.out.println(" *********");
     }
 
-
-
     /// PRIVATE METHODS:
 
     /**
-     * Generate AbstractLevelGenerator object to generate levels for the game
-     * using the supplied class path.
+     * Generate AbstractLevelGenerator object to generate levels for the game using
+     * the supplied class path.
+     *
      * @param levelGenerator class path for the supplied level generator
-     * @param gd abstract object describes the game
+     * @param gd             abstract object describes the game
      * @return AbstractLevelGenerator object.
      */
     protected static AbstractLevelGenerator createLevelGenerator(String levelGenerator, GameDescription gd)
@@ -392,15 +383,14 @@ public class LevelGenMachine
         return generator;
     }
 
-
     /**
-     * Generate a level for the described game using the supplied level
-     * generator.
+     * Generate a level for the described game using the supplied level generator.
      *
-     * @param gd Abstract description of game elements
-     * @param game Current game object.
+     * @param gd        Abstract description of game elements
+     * @param game      Current game object.
      * @param generator Current level generator.
-     * @return String of symbols contains the generated level. Same as Level Description File string.
+     * @return String of symbols contains the generated level. Same as Level
+     *         Description File string.
      */
     private static String getGeneratedLevel(GameDescription gd, Game game, AbstractLevelGenerator generator) {
         ElapsedCpuTimer ect = new ElapsedCpuTimer();
@@ -414,10 +404,10 @@ public class LevelGenMachine
             if (ect.elapsedMillis() > CompetitionParameters.LEVEL_ACTION_TIME_DISQ) {
                 // The agent took too long to replay. The game is over and the
                 // agent is disqualified
-                System.out.println("Too long: " + "(exceeding " + (exceeded) + "ms): controller disqualified.");
+                System.out.println("Too long: " + "(exceeding " + exceeded + "ms): controller disqualified.");
                 level = "";
             } else {
-                System.out.println("Overspent: " + "(exceeding " + (exceeded) + "ms): applying Empty Level.");
+                System.out.println("Overspent: " + "(exceeding " + exceeded + "ms): applying Empty Level.");
                 level = " ";
             }
         }
@@ -425,10 +415,10 @@ public class LevelGenMachine
         return level;
     }
 
-
     /**
      * Saves a level string to a file
-     * @param level current level to save
+     *
+     * @param level     current level to save
      * @param levelFile saved file
      */
     private static void saveLevel(String level, String levelFile, HashMap<Character, ArrayList<String>> charMapping) {
@@ -457,8 +447,9 @@ public class LevelGenMachine
 
     /**
      * Load a generated level file.
+     *
      * @param currentGame Current Game object to se the Level Mapping
-     * @param levelFile The generated level file path
+     * @param levelFile   The generated level file path
      * @return Level String to be loaded
      */
     protected static String loadGeneratedFile(Game currentGame, String levelFile) {
@@ -473,30 +464,29 @@ public class LevelGenMachine
                 mode = 1;
             } else {
                 switch (mode) {
-                    case 0:
-                        if (line.trim().length() == 0) {
+                case 0:
+                    if (line.trim().length() == 0) {
+                        continue;
+                    }
+                    String[] sides = line.split(">");
+                    ArrayList<String> sprites = new ArrayList<String>();
+                    for (String sprite : sides[1].trim().split(" ")) {
+                        if (sprite.trim().length() == 0) {
                             continue;
+                        } else {
+                            sprites.add(sprite.trim());
                         }
-                        String[] sides = line.split(">");
-                        ArrayList<String> sprites = new ArrayList<String>();
-                        for (String sprite : sides[1].trim().split(" ")) {
-                            if (sprite.trim().length() == 0) {
-                                continue;
-                            } else {
-                                sprites.add(sprite.trim());
-                            }
-                        }
-                        levelMapping.put(sides[0].trim().charAt(0), sprites);
-                        break;
-                    case 1:
-                        level += line + "\n";
-                        break;
+                    }
+                    levelMapping.put(sides[0].trim().charAt(0), sprites);
+                    break;
+                case 1:
+                    level += line + "\n";
+                    break;
                 }
             }
         }
         currentGame.setCharMapping(levelMapping);
         return level;
     }
-
 
 }

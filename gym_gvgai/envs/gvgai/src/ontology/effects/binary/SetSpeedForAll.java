@@ -1,13 +1,13 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
-import core.content.InteractionContent;
-import core.game.Game;
-import ontology.effects.Effect;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import core.content.InteractionContent;
+import core.game.Game;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
+import ontology.effects.Effect;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 03/12/13 Time: 16:17 This is a
@@ -33,7 +33,7 @@ public class SetSpeedForAll extends Effect {
         ArrayList<Integer> subtypes = game.getSubTypes(itype);
         for (Integer i : subtypes) {
             Iterator<VGDLSprite> spriteIt = game.getSpriteGroup(i);
-            if (spriteIt != null)
+            if (spriteIt != null) {
                 while (spriteIt.hasNext()) {
                     try {
                         VGDLSprite s = spriteIt.next();
@@ -42,6 +42,7 @@ public class SetSpeedForAll extends Effect {
                         e.printStackTrace();
                     }
                 }
+            }
         }
     }
 }

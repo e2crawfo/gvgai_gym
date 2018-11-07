@@ -145,7 +145,7 @@ public class SerializableStateObservation {
     }
 
     private void buildDataArraylists(StateObservation s) {
-        ElapsedCpuTimer ect = new ElapsedCpuTimer();
+        new ElapsedCpuTimer();
 
         // Create a row to be used for translation from ArrayList to array
         ArrayList<Observation> row;
@@ -339,8 +339,8 @@ public class SerializableStateObservation {
         String observation = "ObservationGrid{\n";
         if (observationGrid != null) {
             for (Observation[][] element : observationGrid) {
-                for (int j = 0; j < element.length; j++) {
-                    for (Observation obs : element[j]) {
+                for (Observation[] element2 : element) {
+                    for (Observation obs : element2) {
                         observation += obs.toString();
                     }
                 }

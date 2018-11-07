@@ -7,10 +7,9 @@ import ontology.Types;
 import tools.ElapsedCpuTimer;
 import tools.Utils;
 
-public class SingleTreeNode
-{
+public class SingleTreeNode {
     private static final double HUGE_NEGATIVE = -10000000.0;
-    private static final double HUGE_POSITIVE =  10000000.0;
+    private static final double HUGE_POSITIVE = 10000000.0;
     public static double epsilon = 1e-6;
     public static double egreedyEpsilon = 0.05;
     public StateObservation state;
@@ -22,7 +21,8 @@ public class SingleTreeNode
     public int[][] visitedTiles;
     public static Random m_rnd;
     private int m_depth;
-    protected static double[] bounds = new double[]{Double.MAX_VALUE, -Double.MAX_VALUE};
+    protected static double[] bounds = new double[] { Double.MAX_VALUE, -Double.MAX_VALUE };
+
     public SingleTreeNode(Random rnd, int[][] visSpace) {
         this(null, null, rnd, visSpace);
     }
@@ -32,21 +32,22 @@ public class SingleTreeNode
     public SingleTreeNode(StateObservation state, SingleTreeNode parent, Random rnd, int[][] visSpace) {
         this.state = state;
         this.parent = parent;
-        this.m_rnd = rnd;
+        SingleTreeNode.m_rnd = rnd;
         this.visitedTiles = visSpace;
-        if(state != null){
-            this.visitedTiles = Helper.updateTilesValue(visSpace, (int)(state.getAvatarPosition().x / state.getBlockSize()),
-                    (int)(state.getAvatarPosition().y / state.getBlockSize()));
+        if (state != null) {
+            this.visitedTiles = Helper.updateTilesValue(visSpace,
+                    (int) (state.getAvatarPosition().x / state.getBlockSize()),
+                    (int) (state.getAvatarPosition().y / state.getBlockSize()));
         }
         children = new SingleTreeNode[Agent.NUM_ACTIONS];
         totValue = 0.0;
         maxValue = 0.0;
-        if(parent != null)
-            m_depth = parent.m_depth+1;
-        else
+        if (parent != null) {
+            m_depth = parent.m_depth + 1;
+        } else {
             m_depth = 0;
+        }
     }
-
 
     public void mctsSearch(ElapsedCpuTimer elapsedTimer) {
 
@@ -56,37 +57,37 @@ public class SingleTreeNode
         int numIters = 0;
 
         int remainingLimit = 5;
-        while(remaining > 2*avgTimeTaken + Agent.safetyMargin && remaining > remainingLimit + Agent.safetyMargin){
+        while (remaining > 2 * avgTimeTaken + Agent.safetyMargin && remaining > remainingLimit + Agent.safetyMargin) {
             ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
             SingleTreeNode selected = treePolicy();
             double delta = selected.rollOut();
             backUp(selected, delta);
 
             numIters++;
-            acumTimeTaken += (elapsedTimerIteration.elapsedMillis()) ;
+            acumTimeTaken += elapsedTimerIteration.elapsedMillis();
 
-            avgTimeTaken  = acumTimeTaken/numIters;
+            avgTimeTaken = acumTimeTaken / numIters;
             remaining = elapsedTimer.remainingTimeMillis();
-            //System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " + acumTimeTaken + " (" + remaining + ")");
+            // System.out.println(elapsedTimerIteration.elapsedMillis() + " --> " +
+            // acumTimeTaken + " (" + remaining + ")");
         }
-        //System.out.println("-- " + numIters + " -- ( " + avgTimeTaken + ")");
+        // System.out.println("-- " + numIters + " -- ( " + avgTimeTaken + ")");
         totalIters = numIters;
 
-        //ArcadeMachine.performance.add(numIters);
+        // ArcadeMachine.performance.add(numIters);
     }
 
     public SingleTreeNode treePolicy() {
 
         SingleTreeNode cur = this;
 
-        while (!cur.state.isGameOver() && cur.m_depth < Agent.ROLLOUT_DEPTH)
-        {
+        while (!cur.state.isGameOver() && cur.m_depth < Agent.ROLLOUT_DEPTH) {
             if (cur.notFullyExpanded()) {
                 return cur.expand();
 
             } else {
                 SingleTreeNode next = cur.uct();
-                //SingleTreeNode next = cur.egreedy();
+                // SingleTreeNode next = cur.egreedy();
                 cur = next;
             }
         }
@@ -94,10 +95,10 @@ public class SingleTreeNode
         return cur;
     }
 
-    public int getCurrentAction(SingleTreeNode node){
-        if(node!=null && node.parent != null){
-            for(int i=0; i<node.parent.children.length; i++){
-                if(node.parent.children[i] == node){
+    public int getCurrentAction(SingleTreeNode node) {
+        if (node != null && node.parent != null) {
+            for (int i = 0; i < node.parent.children.length; i++) {
+                if (node.parent.children[i] == node) {
                     return i;
                 }
             }
@@ -105,14 +106,14 @@ public class SingleTreeNode
         return -1;
     }
 
-    public int getNumberOfReverseActions(SingleTreeNode node){
+    public int getNumberOfReverseActions(SingleTreeNode node) {
         int result = 0;
 
         int previousAction = -1;
-        while(node != null){
+        while (node != null) {
             int currentAction = getCurrentAction(node);
-            if(previousAction != -1 && currentAction != -1){
-                if(Helper.isOpposite(Agent.actions[previousAction], Agent.actions[currentAction])){
+            if (previousAction != -1 && currentAction != -1) {
+                if (Helper.isOpposite(Agent.actions[previousAction], Agent.actions[currentAction])) {
                     result += 1;
                 }
             }
@@ -122,14 +123,14 @@ public class SingleTreeNode
         return result;
     }
 
-    public int getNumberOfSameActions(SingleTreeNode node){
+    public int getNumberOfSameActions(SingleTreeNode node) {
         int result = 0;
 
         int previousAction = -1;
-        while(node != null){
+        while (node != null) {
             int currentAction = getCurrentAction(node);
-            if(previousAction != -1 && currentAction != -1){
-                if(currentAction == previousAction){
+            if (previousAction != -1 && currentAction != -1) {
+                if (currentAction == previousAction) {
                     result += 1;
                 }
             }
@@ -139,18 +140,18 @@ public class SingleTreeNode
         return result;
     }
 
-    public boolean isUselessMove(StateObservation oldState, StateObservation newState){
-        return (oldState.getAvatarPosition().equals(newState.getAvatarPosition()) &&
-                oldState.getAvatarOrientation().equals(newState.getAvatarOrientation()));
+    public boolean isUselessMove(StateObservation oldState, StateObservation newState) {
+        return oldState.getAvatarPosition().equals(newState.getAvatarPosition())
+                && oldState.getAvatarOrientation().equals(newState.getAvatarOrientation());
     }
 
-    public int getNumberOfUselessMoves(SingleTreeNode node){
+    public int getNumberOfUselessMoves(SingleTreeNode node) {
         int result = 0;
 
-        while(node != null){
+        while (node != null) {
             int currentAction = getCurrentAction(node);
-            if(currentAction != -1 && Agent.actions[currentAction] != Types.ACTIONS.ACTION_USE){
-                if(isUselessMove(node.parent.state, node.state)){
+            if (currentAction != -1 && Agent.actions[currentAction] != Types.ACTIONS.ACTION_USE) {
+                if (isUselessMove(node.parent.state, node.state)) {
                     result += 1;
                 }
             }
@@ -160,13 +161,13 @@ public class SingleTreeNode
         return result;
     }
 
-    public int getMaxVisitedValue(){
+    public int getMaxVisitedValue() {
         int result = 0;
 
-        for(int i=0; i<visitedTiles.length; i++){
-            for(int j=0; j<visitedTiles[i].length; j++){
-                if(visitedTiles[i][j] > result){
-                    result = visitedTiles[i][j];
+        for (int[] visitedTile : visitedTiles) {
+            for (int j = 0; j < visitedTile.length; j++) {
+                if (visitedTile[j] > result) {
+                    result = visitedTile[j];
                 }
             }
         }
@@ -190,7 +191,7 @@ public class SingleTreeNode
         StateObservation nextState = state.copy();
         nextState.advance(Agent.actions[bestAction]);
 
-        SingleTreeNode tn = new SingleTreeNode(nextState, this, this.m_rnd, visitedTiles);
+        SingleTreeNode tn = new SingleTreeNode(nextState, this, SingleTreeNode.m_rnd, visitedTiles);
         children[bestAction] = tn;
         return tn;
 
@@ -201,72 +202,65 @@ public class SingleTreeNode
         SingleTreeNode selected = null;
         double bestValue = -Double.MAX_VALUE;
         double[] values = new double[32];
-        for (SingleTreeNode child : this.children)
-        {
+        for (SingleTreeNode child : this.children) {
             values[Helper.TREE_CHILD_DEPTH] = Double.valueOf(child.m_depth);
             values[Helper.TREE_CHILD_VALUE] = Double.valueOf(child.totValue);
             values[Helper.TREE_PARENT_VISITS] = Double.valueOf(this.nVisits);
             values[Helper.TREE_CHILD_VISITS] = Double.valueOf(child.nVisits);
             values[Helper.TREE_CHILD_MAX_VALUE] = Double.valueOf(child.maxValue);
 
-            //Game related variables
+            // Game related variables
             values[Helper.HISTORY_REVERSE_VALUE] = getNumberOfReverseActions(child);
             values[Helper.HISTORY_REPEATING_VALUE] = getNumberOfSameActions(child);
             values[Helper.USELESS_MOVE_VALUE] = getNumberOfUselessMoves(child);
-            int x = (int)(child.state.getAvatarPosition().x / child.state.getBlockSize());
-            int y = (int)(child.state.getAvatarPosition().y / child.state.getBlockSize());
-            if(x >= 0 && y>= 0 && x < visitedTiles.length && y < visitedTiles[0].length){
+            int x = (int) (child.state.getAvatarPosition().x / child.state.getBlockSize());
+            int y = (int) (child.state.getAvatarPosition().y / child.state.getBlockSize());
+            if (x >= 0 && y >= 0 && x < visitedTiles.length && y < visitedTiles[0].length) {
                 values[Helper.SPACE_EXPLORATION_VALUE] = visitedTiles[x][y];
-            }
-            else{
+            } else {
                 values[Helper.SPACE_EXPLORATION_VALUE] = getMaxVisitedValue();
             }
             values[Helper.SPACE_EXPLORATION_MAX_VALUE] = getMaxVisitedValue();
 
-            //VGDL related variables
-            values[Helper.DISTANCE_MAX_IMMOVABLE] =
-                    Helper.getMaxObservation(child.state.getImmovablePositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_MAX_MOVABLE] =
-                    Helper.getMaxObservation(child.state.getMovablePositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_MAX_NPC] =
-                    Helper.getMaxObservation(child.state.getNPCPositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_MAX_PORTAL] =
-                    Helper.getMaxObservation(child.state.getPortalsPositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_MAX_RESOURCE] =
-                    Helper.getMaxObservation(child.state.getResourcesPositions(), child.state.getAvatarPosition());
+            // VGDL related variables
+            values[Helper.DISTANCE_MAX_IMMOVABLE] = Helper.getMaxObservation(child.state.getImmovablePositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MAX_MOVABLE] = Helper.getMaxObservation(child.state.getMovablePositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MAX_NPC] = Helper.getMaxObservation(child.state.getNPCPositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MAX_PORTAL] = Helper.getMaxObservation(child.state.getPortalsPositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MAX_RESOURCE] = Helper.getMaxObservation(child.state.getResourcesPositions(),
+                    child.state.getAvatarPosition());
 
-            values[Helper.DISTANCE_MIN_IMMOVABLE] =
-                    Helper.getMinObservation(child.state.getImmovablePositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_MIN_MOVABLE] =
-                    Helper.getMinObservation(child.state.getMovablePositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_MIN_NPC] =
-                    Helper.getMinObservation(child.state.getNPCPositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_MIN_PORTAL] =
-                    Helper.getMinObservation(child.state.getPortalsPositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_MIN_RESOURCE] =
-                    Helper.getMinObservation(child.state.getResourcesPositions(), child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MIN_IMMOVABLE] = Helper.getMinObservation(child.state.getImmovablePositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MIN_MOVABLE] = Helper.getMinObservation(child.state.getMovablePositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MIN_NPC] = Helper.getMinObservation(child.state.getNPCPositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MIN_PORTAL] = Helper.getMinObservation(child.state.getPortalsPositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_MIN_RESOURCE] = Helper.getMinObservation(child.state.getResourcesPositions(),
+                    child.state.getAvatarPosition());
 
-            values[Helper.DISTANCE_TOT_IMMOVABLE] =
-                    Helper.getTotObservation(child.state.getImmovablePositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_TOT_MOVABLE] =
-                    Helper.getTotObservation(child.state.getMovablePositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_TOT_NPC] =
-                    Helper.getTotObservation(child.state.getNPCPositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_TOT_PORTAL] =
-                    Helper.getTotObservation(child.state.getPortalsPositions(), child.state.getAvatarPosition());
-            values[Helper.DISTANCE_TOT_RESOURCE] =
-                    Helper.getTotObservation(child.state.getResourcesPositions(), child.state.getAvatarPosition());
+            values[Helper.DISTANCE_TOT_IMMOVABLE] = Helper.getTotObservation(child.state.getImmovablePositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_TOT_MOVABLE] = Helper.getTotObservation(child.state.getMovablePositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_TOT_NPC] = Helper.getTotObservation(child.state.getNPCPositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_TOT_PORTAL] = Helper.getTotObservation(child.state.getPortalsPositions(),
+                    child.state.getAvatarPosition());
+            values[Helper.DISTANCE_TOT_RESOURCE] = Helper.getTotObservation(child.state.getResourcesPositions(),
+                    child.state.getAvatarPosition());
 
-            values[Helper.NUMBER_IMMOVABLE] =
-                    Helper.getObservationLength(child.state.getImmovablePositions());
-            values[Helper.NUMBER_MOVABLE] =
-                    Helper.getObservationLength(child.state.getMovablePositions());
-            values[Helper.NUMBER_NPC] =
-                    Helper.getObservationLength(child.state.getNPCPositions());
-            values[Helper.NUMBER_PORTAL] =
-                    Helper.getObservationLength(child.state.getPortalsPositions());
-            values[Helper.NUMBER_RESOURCE] =
-                    Helper.getObservationLength(child.state.getResourcesPositions());
+            values[Helper.NUMBER_IMMOVABLE] = Helper.getObservationLength(child.state.getImmovablePositions());
+            values[Helper.NUMBER_MOVABLE] = Helper.getObservationLength(child.state.getMovablePositions());
+            values[Helper.NUMBER_NPC] = Helper.getObservationLength(child.state.getNPCPositions());
+            values[Helper.NUMBER_PORTAL] = Helper.getObservationLength(child.state.getPortalsPositions());
+            values[Helper.NUMBER_RESOURCE] = Helper.getObservationLength(child.state.getResourcesPositions());
 
             values[Helper.GRID_WIDTH] = state.getObservationGrid()[0].length;
             values[Helper.GRID_HEIGHT] = state.getObservationGrid().length;
@@ -274,7 +268,8 @@ public class SingleTreeNode
             double uctValue = Agent.ucb.evaluate(values, Agent.parameters);
 
             // small sampleRandom numbers: break ties in unexpanded nodes
-            uctValue = Utils.noise(uctValue, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+            uctValue = Utils.noise(uctValue, SingleTreeNode.epsilon, SingleTreeNode.m_rnd.nextDouble()); // break ties
+                                                                                                         // randomly
 
             // small sampleRandom numbers: break ties in unexpanded nodes
             if (uctValue > bestValue) {
@@ -283,8 +278,7 @@ public class SingleTreeNode
             }
         }
 
-        if (selected == null)
-        {
+        if (selected == null) {
             throw new RuntimeException("Warning! returning null: " + bestValue + " : " + this.children.length);
         }
 
@@ -294,19 +288,18 @@ public class SingleTreeNode
     public SingleTreeNode egreedy() {
         SingleTreeNode selected = null;
 
-        if(m_rnd.nextDouble() < egreedyEpsilon)
-        {
-            //Choose randomly
+        if (m_rnd.nextDouble() < egreedyEpsilon) {
+            // Choose randomly
             int selectedIdx = m_rnd.nextInt(children.length);
             selected = this.children[selectedIdx];
 
-        }else{
-            //pick the best Q.
+        } else {
+            // pick the best Q.
             double bestValue = -Double.MAX_VALUE;
-            for (SingleTreeNode child : this.children)
-            {
+            for (SingleTreeNode child : this.children) {
                 double hvVal = child.totValue;
-                hvVal = Utils.noise(hvVal, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+                hvVal = Utils.noise(hvVal, SingleTreeNode.epsilon, SingleTreeNode.m_rnd.nextDouble()); // break ties
+                                                                                                       // randomly
                 // small sampleRandom numbers: break ties in unexpanded nodes
                 if (hvVal > bestValue) {
                     selected = child;
@@ -316,22 +309,18 @@ public class SingleTreeNode
 
         }
 
-
-        if (selected == null)
-        {
+        if (selected == null) {
             throw new RuntimeException("Warning! returning null: " + this.children.length);
         }
 
         return selected;
     }
 
-
-    public double rollOut()
-    {
+    public double rollOut() {
         StateObservation rollerState = state.copy();
         int thisDepth = this.m_depth;
 
-        while (!finishRollout(rollerState,thisDepth)) {
+        while (!finishRollout(rollerState, thisDepth)) {
 
             int action = m_rnd.nextInt(Agent.NUM_ACTIONS);
             rollerState.advance(Agent.actions[action]);
@@ -340,11 +329,13 @@ public class SingleTreeNode
 
         double delta = value(rollerState);
 
-        if(delta < bounds[0])
+        if (delta < bounds[0]) {
             bounds[0] = delta;
+        }
 
-        if(delta > bounds[1])
+        if (delta > bounds[1]) {
             bounds[1] = delta;
+        }
 
         return delta;
     }
@@ -354,40 +345,40 @@ public class SingleTreeNode
         Types.WINNER win = a_gameState.getGameWinner();
         double rawScore = a_gameState.getGameScore();
 
-        if(gameOver && win == Types.WINNER.PLAYER_LOSES)
+        if (gameOver && win == Types.WINNER.PLAYER_LOSES) {
             rawScore += HUGE_NEGATIVE;
+        }
 
-        if(gameOver && win == Types.WINNER.PLAYER_WINS)
+        if (gameOver && win == Types.WINNER.PLAYER_WINS) {
             rawScore += HUGE_POSITIVE;
+        }
 
         return rawScore;
     }
 
-    public boolean finishRollout(StateObservation rollerState, int depth)
-    {
-        if(depth >= Agent.ROLLOUT_DEPTH)      //rollout end condition.
+    public boolean finishRollout(StateObservation rollerState, int depth) {
+        if (depth >= Agent.ROLLOUT_DEPTH) {
             return true;
+        }
 
-        if(rollerState.isGameOver())               //end of game
+        if (rollerState.isGameOver()) {
             return true;
+        }
 
         return false;
     }
 
-    public void backUp(SingleTreeNode node, double result)
-    {
+    public void backUp(SingleTreeNode node, double result) {
         SingleTreeNode n = node;
-        while(n != null)
-        {
+        while (n != null) {
             n.nVisits++;
             n.totValue += result;
-            if(result > n.maxValue){
+            if (result > n.maxValue) {
                 n.maxValue = result;
             }
             n = n.parent;
         }
     }
-
 
     public int mostVisitedAction() {
         int selected = -1;
@@ -395,19 +386,19 @@ public class SingleTreeNode
         boolean allEqual = true;
         double first = -1;
 
-        for (int i=0; i<children.length; i++) {
+        for (int i = 0; i < children.length; i++) {
 
-            if(children[i] != null)
-            {
-                if(first == -1)
+            if (children[i] != null) {
+                if (first == -1) {
                     first = children[i].nVisits;
-                else if(first != children[i].nVisits)
-                {
+                } else if (first != children[i].nVisits) {
                     allEqual = false;
                 }
 
                 double childValue = children[i].nVisits;
-                childValue = Utils.noise(childValue, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+                childValue = Utils.noise(childValue, SingleTreeNode.epsilon, SingleTreeNode.m_rnd.nextDouble()); // break
+                                                                                                                 // ties
+                                                                                                                 // randomly
                 if (childValue > bestValue) {
                     bestValue = childValue;
                     selected = i;
@@ -415,28 +406,27 @@ public class SingleTreeNode
             }
         }
 
-        if (selected == -1)
-        {
+        if (selected == -1) {
             System.out.println("Unexpected selection!");
             selected = 0;
-        }else if(allEqual)
-        {
-            //If all are equal, we opt to choose for the one with the best Q.
+        } else if (allEqual) {
+            // If all are equal, we opt to choose for the one with the best Q.
             selected = bestAction();
         }
         return selected;
     }
 
-    public int bestAction()
-    {
+    public int bestAction() {
         int selected = -1;
         double bestValue = -Double.MAX_VALUE;
 
-        for (int i=0; i<children.length; i++) {
+        for (int i = 0; i < children.length; i++) {
 
-            if(children[i] != null) {
-                double childValue = children[i].totValue / (children[i].nVisits + this.epsilon);
-                childValue = Utils.noise(childValue, this.epsilon, this.m_rnd.nextDouble());     //break ties randomly
+            if (children[i] != null) {
+                double childValue = children[i].totValue / (children[i].nVisits + SingleTreeNode.epsilon);
+                childValue = Utils.noise(childValue, SingleTreeNode.epsilon, SingleTreeNode.m_rnd.nextDouble()); // break
+                                                                                                                 // ties
+                                                                                                                 // randomly
                 if (childValue > bestValue) {
                     bestValue = childValue;
                     selected = i;
@@ -444,15 +434,13 @@ public class SingleTreeNode
             }
         }
 
-        if (selected == -1)
-        {
+        if (selected == -1) {
             System.out.println("Unexpected selection!");
             selected = 0;
         }
 
         return selected;
     }
-
 
     public boolean notFullyExpanded() {
         for (SingleTreeNode tn : children) {

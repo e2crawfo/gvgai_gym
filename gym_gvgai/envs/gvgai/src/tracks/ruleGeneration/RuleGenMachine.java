@@ -1,9 +1,13 @@
 package tracks.ruleGeneration;
 
-import core.vgdl.Node;
-import core.vgdl.VGDLFactory;
-import core.vgdl.VGDLParser;
-import core.vgdl.VGDLRegistry;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import core.competition.CompetitionParameters;
 import core.content.InteractionContent;
 import core.content.SpriteContent;
@@ -17,77 +21,60 @@ import core.logging.Message;
 import core.player.AbstractMultiPlayer;
 import core.player.AbstractPlayer;
 import core.player.Player;
+import core.vgdl.Node;
+import core.vgdl.VGDLFactory;
+import core.vgdl.VGDLParser;
+import core.vgdl.VGDLRegistry;
 import tools.ElapsedCpuTimer;
 import tools.IO;
 import tracks.ArcadeMachine;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
  * Created by dperez on 19/03/2017.
  */
-public class RuleGenMachine
-{
+public class RuleGenMachine {
     /**
      * Reads and launches a game for a human to be played. Graphics always on.
      *
-     * @param original_game
-     *        original game description file.
-     * @param generated_game
-     *            generated game description file.
-     * @param level_file
-     *            file with the level to be played.
+     * @param original_game  original game description file.
+     * @param generated_game generated game description file.
+     * @param level_file     file with the level to be played.
      */
-    public static double[] playOneGame(String original_game, String generated_game, String level_file, String actionFile, int randomSeed) {
+    public static double[] playOneGame(String original_game, String generated_game, String level_file,
+            String actionFile, int randomSeed) {
         String agentName = "tracks.singlePlayer.tools.human.Agent";
         boolean visuals = true;
         return runOneGame(original_game, generated_game, level_file, visuals, agentName, actionFile, randomSeed, 0);
     }
 
     /**
-     * Reads and launches a game for a bot to be played. Graphics can be on or
-     * off.
+     * Reads and launches a game for a bot to be played. Graphics can be on or off.
      *
-     * @param original_game
-     *        original game description file.
-     * @param generated_game
-     *            generated game description file.
-     * @param level_file
-     *            file with the level to be played.
-     * @param visuals
-     *            true to show the graphics, false otherwise.
-     * @param agentNames
-     *            names (inc. package) where the tracks are otherwise.
-     *            Names separated by space.
-     * @param actionFile
-     *            filename of the files where the actions of these players, for
-     *            this game, should be recorded.
-     * @param randomSeed
-     *            sampleRandom seed for the sampleRandom generator.
-     * @param playerID
-     *            ID of the human player
+     * @param original_game  original game description file.
+     * @param generated_game generated game description file.
+     * @param level_file     file with the level to be played.
+     * @param visuals        true to show the graphics, false otherwise.
+     * @param agentNames     names (inc. package) where the tracks are otherwise.
+     *                       Names separated by space.
+     * @param actionFile     filename of the files where the actions of these
+     *                       players, for this game, should be recorded.
+     * @param randomSeed     sampleRandom seed for the sampleRandom generator.
+     * @param playerID       ID of the human player
      */
-    public static double[] runOneGame(String original_game, String generated_game, String level_file, boolean visuals, String agentNames,
-                                      String actionFile, int randomSeed, int playerID) {
+    public static double[] runOneGame(String original_game, String generated_game, String level_file, boolean visuals,
+            String agentNames, String actionFile, int randomSeed, int playerID) {
         VGDLFactory.GetInstance().init(); // This always first thing to do.
         VGDLRegistry.GetInstance().init();
 
-        if (CompetitionParameters.OS_WIN)
-        {
+        if (CompetitionParameters.OS_WIN) {
             System.out.println(" * WARNING: Time limitations based on WALL TIME on Windows * ");
         }
 
         // First, we create the game to be played..
         Game toPlay = new VGDLParser().parseGame(generated_game);
         Node n = new VGDLParser().indentTreeParser(new tools.IO().readFile(original_game));
-        for(Node c:n.children){
-            if(c.content instanceof SpriteContent){
+        for (Node c : n.children) {
+            if (c.content instanceof SpriteContent) {
                 new VGDLParser().modifyTheSpriteRender(toPlay, c.children);
                 break;
             }
@@ -104,8 +91,9 @@ public class RuleGenMachine
             // We fill with more human players
             String[] newNames = new String[no_players];
             System.arraycopy(names, 0, newNames, 0, names.length);
-            for (int i = names.length; i < no_players; ++i)
+            for (int i = names.length; i < no_players; ++i) {
                 newNames[i] = "tracks.multiPlayer.tools.human.Agent";
+            }
             names = newNames;
         }
 
@@ -154,12 +142,11 @@ public class RuleGenMachine
             }
         }
 
-        // Then, play the game.
-        double[] score;
-        if (visuals)
-            score = toPlay.playGame(players, randomSeed, anyHuman, playerID);
-        else
-            score = toPlay.runGame(players, randomSeed);
+        if (visuals) {
+            toPlay.playGame(players, randomSeed, anyHuman, playerID);
+        } else {
+            toPlay.runGame(players, randomSeed);
+        }
 
         // Finally, when the game is over, we need to tear the players down.
         ArcadeMachine.tearPlayerDown(toPlay, players, actionFile, randomSeed, true);
@@ -173,14 +160,16 @@ public class RuleGenMachine
 
     /**
      * create a new game file using the new generated rules
+     * 
      * @param gameFile      current game file
      * @param levelFile     current level file
      * @param ruleGenerator current rule generator
      * @param modifiedFile  the resulted game file
      * @param randomSeed    random seed used in encoding game sprites
-     * @return          true if everything worked fine, false otherwise
+     * @return true if everything worked fine, false otherwise
      */
-    public static boolean generateRules(String gameFile, String levelFile, String ruleGenerator, String modifiedFile, int randomSeed) {
+    public static boolean generateRules(String gameFile, String levelFile, String ruleGenerator, String modifiedFile,
+            int randomSeed) {
         VGDLFactory.GetInstance().init();
         VGDLRegistry.GetInstance().init();
 
@@ -197,17 +186,18 @@ public class RuleGenMachine
 
             SpriteData[] data = sl.getGameSprites();
             HashMap<String, String> msprites = new HashMap<String, String>();
-            for(int i=0; i<data.length; i++){
-                String decodedLine = sl.modifyRules(new String[]{data[i].toString()}, new String[]{}, randomSeed)[0][0];
-                msprites.put(sl.decodeName(data[i].name, randomSeed), decodedLine);
+            for (SpriteData element : data) {
+                String decodedLine = sl.modifyRules(new String[] { element.toString() }, new String[] {},
+                        randomSeed)[0][0];
+                msprites.put(sl.decodeName(element.name, randomSeed), decodedLine);
             }
             HashMap<String, ArrayList<String>> msetStructure = new HashMap<String, ArrayList<String>>();
-            if(spriteSetStructure != null){
-                for(String key:spriteSetStructure.keySet()){
+            if (spriteSetStructure != null) {
+                for (String key : spriteSetStructure.keySet()) {
                     msetStructure.put(key, new ArrayList<String>());
-                    for(int i=0; i<spriteSetStructure.get(key).size(); i++){
+                    for (int i = 0; i < spriteSetStructure.get(key).size(); i++) {
                         String decodedName = sl.decodeName(spriteSetStructure.get(key).get(i), randomSeed);
-                        if(decodedName.length() > 0){
+                        if (decodedName.length() > 0) {
                             msetStructure.get(key).add(decodedName);
                         }
                     }
@@ -227,12 +217,11 @@ public class RuleGenMachine
         return true;
     }
 
-
     /// PRIVATE METHODS
 
     /**
      * @param ruleGenerator rule generatord
-     * @param sl Level Description
+     * @param sl            Level Description
      * @return The rule generator created
      * @throws RuntimeException
      */
@@ -297,13 +286,13 @@ public class RuleGenMachine
         return generator;
     }
 
-
     /**
      * run the generator to get new rules
-     * @param sl    current game sprites and level description object
-     * @param game  current game object
+     * 
+     * @param sl        current game sprites and level description object
+     * @param game      current game object
      * @param generator current rule generator
-     * @return      the new interaction rules and termination conditions
+     * @return the new interaction rules and termination conditions
      */
     private static String[][] getGeneratedRules(SLDescription sl, Game game, AbstractRuleGenerator generator) {
         ElapsedCpuTimer ect = new ElapsedCpuTimer();
@@ -317,10 +306,10 @@ public class RuleGenMachine
             if (ect.elapsedMillis() > CompetitionParameters.LEVEL_ACTION_TIME_DISQ) {
                 // The agent took too long to replay. The game is over and the
                 // agent is disqualified
-                System.out.println("Too long: " + "(exceeding " + (exceeded) + "ms): controller disqualified.");
+                System.out.println("Too long: " + "(exceeding " + exceeded + "ms): controller disqualified.");
                 rules = new String[1][1];
             } else {
-                System.out.println("Overspent: " + "(exceeding " + (exceeded) + "ms): applying Empty Level.");
+                System.out.println("Overspent: " + "(exceeding " + exceeded + "ms): applying Empty Level.");
                 rules = new String[1][1];
             }
         }
@@ -329,52 +318,52 @@ public class RuleGenMachine
     }
 
     /**
-     * Recursive function to save game tree and replace the old rules with the new rules
-     * @param n         current Node that need to be printed
-     * @param level     current level in the tree
-     * @param w         current writer object
-     * @param rules     array of interaction rules or terminations
-     * @throws IOException  thrown when a problem happens during writing
+     * Recursive function to save game tree and replace the old rules with the new
+     * rules
+     * 
+     * @param n     current Node that need to be printed
+     * @param level current level in the tree
+     * @param w     current writer object
+     * @param rules array of interaction rules or terminations
+     * @throws IOException thrown when a problem happens during writing
      */
-    private static void saveTree(Node n, int level, BufferedWriter w, String[][] rules, HashMap<String, ArrayList<String>> setStructure, HashMap<String, String> sprites) throws IOException{
+    private static void saveTree(Node n, int level, BufferedWriter w, String[][] rules,
+            HashMap<String, ArrayList<String>> setStructure, HashMap<String, String> sprites) throws IOException {
         String template = "    ";
         String message = "";
-        for(int i=0; i<level; i++){
+        for (int i = 0; i < level; i++) {
             message += template;
         }
         w.write(message + n.content.line.trim() + "\n");
-        if(n.content instanceof InteractionContent){
-            for(int i=0; i<rules[0].length; i++){
+        if (n.content instanceof InteractionContent) {
+            for (int i = 0; i < rules[0].length; i++) {
                 w.write(message + template + rules[0][i].trim() + "\n");
             }
-        }
-        else if(n.content instanceof TerminationContent){
-            for(int i=0; i<rules[1].length; i++){
+        } else if (n.content instanceof TerminationContent) {
+            for (int i = 0; i < rules[1].length; i++) {
                 w.write(message + template + rules[1][i].trim() + "\n");
             }
-        }
-        else if(n.content instanceof SpriteContent){
+        } else if (n.content instanceof SpriteContent) {
             ArrayList<String> msprites = new ArrayList<String>();
-            for(String key:setStructure.keySet()){
+            for (String key : setStructure.keySet()) {
                 msprites.add(template + key + " >");
-                for(int i=0; i<setStructure.get(key).size(); i++){
-                    if(sprites.containsKey(setStructure.get(key).get(i).trim())){
+                for (int i = 0; i < setStructure.get(key).size(); i++) {
+                    if (sprites.containsKey(setStructure.get(key).get(i).trim())) {
                         msprites.add(template + template + sprites.get(setStructure.get(key).get(i).trim()).trim());
                         sprites.remove(setStructure.get(key).get(i).trim());
-                    }
-                    else{
-                        Logger.getInstance().addMessage(new Message(Message.ERROR, "Undefined " + setStructure.get(key).get(i) + " in the provided sprite set."));
+                    } else {
+                        Logger.getInstance().addMessage(new Message(Message.ERROR,
+                                "Undefined " + setStructure.get(key).get(i) + " in the provided sprite set."));
                     }
                 }
             }
-            for(String value:sprites.values()){
+            for (String value : sprites.values()) {
                 msprites.add(template + value.trim());
             }
-            for(String value:msprites){
+            for (String value : msprites) {
                 w.write(message + value + "\n");
             }
-        }
-        else{
+        } else {
             for (int i = 0; i < n.children.size(); i++) {
                 saveTree(n.children.get(i), level + 1, w, rules, setStructure, sprites);
             }
@@ -383,11 +372,13 @@ public class RuleGenMachine
 
     /**
      * Save the result of the rule generations
-     * @param gameFile      current game file
-     * @param modifiedFile  current new game file
-     * @param rules     the generated rules
+     * 
+     * @param gameFile     current game file
+     * @param modifiedFile current new game file
+     * @param rules        the generated rules
      */
-    private static void saveGame(String gameFile, String modifiedFile, String[][] rules, HashMap<String, ArrayList<String>> setStructure, HashMap<String, String> sprites) {
+    private static void saveGame(String gameFile, String modifiedFile, String[][] rules,
+            HashMap<String, ArrayList<String>> setStructure, HashMap<String, String> sprites) {
         try {
             if (modifiedFile != null) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(modifiedFile));
@@ -403,8 +394,9 @@ public class RuleGenMachine
 
     private static final boolean isHuman(String agentName) {
         if (agentName.equalsIgnoreCase("tracks.multiPlayer.tools.human.Agent")
-                || agentName.equalsIgnoreCase("tracks.singlePlayer.tools.human.Agent"))
+                || agentName.equalsIgnoreCase("tracks.singlePlayer.tools.human.Agent")) {
             return true;
+        }
         return false;
     }
 

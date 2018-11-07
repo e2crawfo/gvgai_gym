@@ -1,24 +1,26 @@
 package ontology.effects.unary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Objects;
+
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 04/11/13 Time: 15:57 This is a
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class SubtractHealthPoints extends Effect {
-    // Remove `value` health points from `sprite1`, and then kill `sprite1` if health points
-    // are less than or equal to `limit`. Change score by `scoreChangeIfKilled` if `sprite1` dies.
+    // Remove `value` health points from `sprite1`, and then kill `sprite1` if
+    // health points
+    // are less than or equal to `limit`. Change score by `scoreChangeIfKilled` if
+    // `sprite1` dies.
     // If `stype` is not null, apply to sprite of type `stype` instead of `sprite1`.
 
     public int value; // healthpoints removed from sprite1
@@ -50,7 +52,7 @@ public class SubtractHealthPoints extends Effect {
             ArrayList<Integer> subtypes = game.getSubTypes(itype);
             for (Integer i : subtypes) {
                 Iterator<VGDLSprite> spriteIt = game.getSpriteGroup(i);
-                if (spriteIt != null)
+                if (spriteIt != null) {
                     while (spriteIt.hasNext()) {
                         try {
                             s = spriteIt.next();
@@ -59,6 +61,7 @@ public class SubtractHealthPoints extends Effect {
                             e.printStackTrace();
                         }
                     }
+                }
             }
         } else {
             if (sprite1 == null) {

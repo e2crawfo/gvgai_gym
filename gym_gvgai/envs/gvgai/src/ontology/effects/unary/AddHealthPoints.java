@@ -1,10 +1,10 @@
 package ontology.effects.unary;
 
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 
 /**
@@ -32,14 +32,16 @@ public class AddHealthPoints extends Effect {
         if (sprite1.healthPoints + value < sprite1.limitHealthPoints) {
             sprite1.healthPoints += value;
 
-            if (sprite1.healthPoints > sprite1.maxHealthPoints)
+            if (sprite1.healthPoints > sprite1.maxHealthPoints) {
                 sprite1.maxHealthPoints = sprite1.healthPoints;
+            }
 
             applyScore = true;
 
-            if (killSecond && sprite2 != null)
+            if (killSecond && sprite2 != null) {
                 // boolean variable set to false to indicate the sprite was not transformed
                 game.killSprite(sprite2, false);
+            }
         }
     }
 }

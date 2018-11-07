@@ -1,11 +1,11 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 import ontology.sprites.Resource;
 
@@ -15,7 +15,8 @@ import ontology.sprites.Resource;
  */
 public class CollectResourceIfHeld extends Effect {
     // If sprite2 has at least `value` amount of `heldResource`,
-    // then collect the resource embodied in sprite1 (sprite1 should be a resource sprite)
+    // then collect the resource embodied in sprite1 (sprite1 should be a resource
+    // sprite)
 
     public boolean killResource; // Only if the resource is collected.
     public String heldResource;
@@ -45,8 +46,9 @@ public class CollectResourceIfHeld extends Effect {
 
             // Check if we have the secondary resource first
             int numResourcesHeld = sprite2.getAmountResource(heldResourceId);
-            if (numResourcesHeld < value)
+            if (numResourcesHeld < value) {
                 return;
+            }
 
             int numResources = sprite2.getAmountResource(r.resource_type);
             if (numResources + r.value <= game.getResourceLimit(r.resource_type)) {
@@ -54,9 +56,10 @@ public class CollectResourceIfHeld extends Effect {
                 sprite2.modifyResource(r.resource_type, r.value);
             }
 
-            if (killResource)
+            if (killResource) {
                 // boolean variable set to false to indicate the sprite was not transformed
                 game.killSprite(sprite1, false);
+            }
         }
     }
 }

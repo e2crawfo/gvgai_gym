@@ -3,9 +3,9 @@ package ontology.sprites.producer;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import core.content.SpriteContent;
 import core.vgdl.VGDLRegistry;
 import core.vgdl.VGDLSprite;
-import core.content.SpriteContent;
 import ontology.Types;
 import tools.Vector2d;
 
@@ -54,8 +54,9 @@ public class Portal extends SpriteProducer {
     @Override
     public ArrayList<String> getDependentSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
+        }
 
         return result;
     }

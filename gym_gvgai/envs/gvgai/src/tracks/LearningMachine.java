@@ -181,13 +181,10 @@ public class LearningMachine {
         }
 
         System.out.println("[PHASE] End Training.");
-        String vict = "", sc = "";
         for (int i = 0; i < toPlay.no_players; i++) {
-            vict += victories[i].mean();
-            sc += scores[i].mean();
+            victories[i].mean();
+            scores[i].mean();
             if (i != toPlay.no_players - 1) {
-                vict += ", ";
-                sc += ", ";
             }
         }
 
@@ -228,8 +225,6 @@ public class LearningMachine {
         }
 
         Game toPlay = new VGDLParser().parseGame(game_file);
-        int levelIdx = 0;
-
         StatSummary[] victories = new StatSummary[toPlay.getNoPlayers()];
         StatSummary[] scores = new StatSummary[toPlay.getNoPlayers()];
         victories[0] = new StatSummary();
@@ -312,13 +307,10 @@ public class LearningMachine {
             }
         }
         System.out.println("[PHASE] End Validation in " + validationLevels.length + " levels.");
-        String vict = "", sc = "";
         for (int i = 0; i < toPlay.no_players; i++) {
-            vict += victories[i].mean();
-            sc += scores[i].mean();
+            victories[i].mean();
+            scores[i].mean();
             if (i != toPlay.no_players - 1) {
-                vict += ", ";
-                sc += ", ";
             }
         }
 
@@ -370,8 +362,6 @@ public class LearningMachine {
 
         // build the level in the game.
         toPlay.buildLevel(level_file, randomSeed);
-
-        String filename = recordActions ? actionFiles[levelIdx * level_time] : null; // TODO: 22/05/17 check this
 
         // Score array to hold handled results.
         double[] score;

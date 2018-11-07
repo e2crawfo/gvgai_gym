@@ -1,10 +1,10 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLSprite;
 import ontology.Types;
 import ontology.effects.Effect;
 import tools.Direction;
@@ -42,7 +42,7 @@ public class KillIfNotFrontal extends Effect {
         Direction firstDir = new Direction(firstV.x, firstV.y);
 
         applyScore = false;
-        if (firstDir.equals(Types.DNONE) || !(sumDir.equals(Types.DNONE))) {
+        if (firstDir.equals(Types.DNONE) || !sumDir.equals(Types.DNONE)) {
             // boolean variable set to false to indicate the sprite was not transformed
             applyScore = true;
             game.killSprite(sprite1, false);

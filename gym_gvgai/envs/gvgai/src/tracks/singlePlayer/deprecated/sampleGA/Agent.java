@@ -1,25 +1,21 @@
 package tracks.singlePlayer.deprecated.sampleGA;
 
-
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
-import tracks.singlePlayer.tools.Heuristics.StateHeuristic;
-import tracks.singlePlayer.tools.Heuristics.WinScoreHeuristic;
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import ontology.Types;
 import tools.ElapsedCpuTimer;
 import tools.Utils;
+import tracks.singlePlayer.tools.Heuristics.StateHeuristic;
+import tracks.singlePlayer.tools.Heuristics.WinScoreHeuristic;
 
 /**
- * Created with IntelliJ IDEA.
- * User: ssamot
- * Date: 26/02/14
- * Time: 15:17
- * This is a Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
+ * Created with IntelliJ IDEA. User: ssamot Date: 26/02/14 Time: 15:17 This is a
+ * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Agent extends AbstractPlayer {
 
@@ -29,7 +25,7 @@ public class Agent extends AbstractPlayer {
     private int POPULATION_SIZE = 5;
 
     private double RECPROB = 0.1;
-    private double MUT = (1.0 / SIMULATION_DEPTH);
+    private double MUT = 1.0 / SIMULATION_DEPTH;
     private final int N_ACTIONS;
 
     private ElapsedCpuTimer timer;
@@ -63,14 +59,12 @@ public class Agent extends AbstractPlayer {
         N_ACTIONS = stateObs.getAvailableActions().size();
         initGenome(stateObs);
 
-
     }
 
-
-    double microbial_tournament(int[][] actionGenome, StateObservation stateObs, StateHeuristic heuristic) throws TimeoutException {
-        int a, b, c, W, L;
+    double microbial_tournament(int[][] actionGenome, StateObservation stateObs, StateHeuristic heuristic)
+            throws TimeoutException {
+        int a, b, W, L;
         int i;
-
 
         a = (int) ((POPULATION_SIZE - 1) * randomGenerator.nextDouble());
         do {
@@ -96,9 +90,10 @@ public class Agent extends AbstractPlayer {
             }
         }
 
-
         for (i = 0; i < LEN; i++) {
-            if (randomGenerator.nextDouble() < MUT) actionGenome[L][i] = randomGenerator.nextInt(N_ACTIONS);
+            if (randomGenerator.nextDouble() < MUT) {
+                actionGenome[L][i] = randomGenerator.nextInt(N_ACTIONS);
+            }
         }
 
         return Math.max(score_a, score_b);
@@ -108,7 +103,6 @@ public class Agent extends AbstractPlayer {
     private void initGenome(StateObservation stateObs) {
 
         genome = new int[N_ACTIONS][POPULATION_SIZE][SIMULATION_DEPTH];
-
 
         // Randomize initial genome
         for (int i = 0; i < genome.length; i++) {
@@ -120,17 +114,14 @@ public class Agent extends AbstractPlayer {
         }
     }
 
-
     private double simulate(StateObservation stateObs, StateHeuristic heuristic, int[] policy) throws TimeoutException {
 
-
-        //System.out.println("depth" + depth);
+        // System.out.println("depth" + depth);
         long remaining = timer.remainingTimeMillis();
         if (remaining < BREAK_MS) {
-            //System.out.println(remaining);
+            // System.out.println(remaining);
             throw new TimeoutException("Timeout");
         }
-
 
         int depth = 0;
         stateObs = stateObs.copy();
@@ -148,7 +139,6 @@ public class Agent extends AbstractPlayer {
         double score = Math.pow(GAMMA, depth) * heuristic.evaluateState(stateObs);
         return score;
 
-
     }
 
     private Types.ACTIONS microbial(StateObservation stateObs, int maxdepth, StateHeuristic heuristic, int iterations) {
@@ -159,18 +149,16 @@ public class Agent extends AbstractPlayer {
             maxScores[i] = Double.NEGATIVE_INFINITY;
         }
 
-
-        outerloop:
-        for (int i = 0; i < iterations; i++) {
+        outerloop: for (int i = 0; i < iterations; i++) {
             for (Types.ACTIONS action : stateObs.getAvailableActions()) {
-
 
                 StateObservation stCopy = stateObs.copy();
                 stCopy.advance(action);
 
                 double score = 0;
                 try {
-                    score = microbial_tournament(genome[r_action_mapping.get(action)], stCopy, heuristic) + randomGenerator.nextDouble()*0.00001;
+                    score = microbial_tournament(genome[r_action_mapping.get(action)], stCopy, heuristic)
+                            + randomGenerator.nextDouble() * 0.00001;
                 } catch (TimeoutException e) {
                     break outerloop;
                 }
@@ -181,21 +169,21 @@ public class Agent extends AbstractPlayer {
                     if (score > maxScores[int_act]) {
                         maxScores[int_act] = score;
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
 
             }
         }
 
         Types.ACTIONS maxAction = this.action_mapping.get(Utils.argmax(maxScores));
 
-
         return maxAction;
 
     }
 
     /**
-     * Picks an action. This function is called every game step to request an
-     * action from the player.
+     * Picks an action. This function is called every game step to request an action
+     * from the player.
      *
      * @param stateObs     Observation of the current state.
      * @param elapsedTimer Timer when the action returned is due.
@@ -211,10 +199,8 @@ public class Agent extends AbstractPlayer {
         return lastGoodAction;
     }
 
-
     @Override
-    public void draw(Graphics2D g)
-    {
-        //g.drawString("Num Simulations: " + numSimulations, 10, 20);
+    public void draw(Graphics2D g) {
+        // g.drawString("Num Simulations: " + numSimulations, 10, 20);
     }
 }

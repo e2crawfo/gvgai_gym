@@ -1,10 +1,10 @@
 package ontology.effects.unary;
 
-import core.vgdl.VGDLSprite;
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLSprite;
 import ontology.effects.Effect;
 import tools.Vector2d;
 
@@ -13,7 +13,8 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class KillIfSlow extends Effect {
-    // If (directed) speed of `sprite1` relative to `sprite2` is less than `limspeed`, kill `sprite1`.
+    // If (directed) speed of `sprite1` relative to `sprite2` is less than
+    // `limspeed`, kill `sprite1`.
     public double limspeed;
 
     public KillIfSlow(InteractionContent cnt) {

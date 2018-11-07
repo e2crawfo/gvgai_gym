@@ -352,7 +352,6 @@ public class VGDLParser {
      * @param parentclass previous parent in the tree (root have null parent)
      */
     private void modifySpriteOrder(ArrayList<Node> elements, String parentclass) {
-        String prevParentClass = parentclass;
         for (Node el : elements) {
             SpriteContent sc = (SpriteContent) el.content;
             if (!sc.is_definition) {
@@ -464,8 +463,8 @@ public class VGDLParser {
             // objects of this type.
             if (el.children.size() == 0) {
                 if (VERBOSE_PARSER) {
-                    System.out.println(
-                             "Defining: " + identifier + " " + sc.referenceClass + " " + el.content.toString());
+                    System.out
+                            .println("Defining: " + identifier + " " + sc.referenceClass + " " + el.content.toString());
                 }
 
                 if (spriteOrderTmp.contains(intId)) {

@@ -131,7 +131,8 @@ public class ArcadeMachine {
             } else {
                 int gen_seed = seed_generator.nextInt();
                 // single player
-                players[i] = ArcadeMachine.createPlayer(names[i], actionFile, toPlay.getObservation(), gen_seed, humans[i]);
+                players[i] = ArcadeMachine.createPlayer(names[i], actionFile, toPlay.getObservation(), gen_seed,
+                        humans[i]);
             }
 
             if (players[i] == null) {
@@ -152,15 +153,13 @@ public class ArcadeMachine {
             }
         }
 
-          int game_seed = seed_generator.nextInt();
-        // Then, play the game.
-        double[] score;
+        int game_seed = seed_generator.nextInt();
         if (visuals) {
-            score = toPlay.playGame(players, game_seed, anyHuman, playerID);
+            toPlay.playGame(players, game_seed, anyHuman, playerID);
         } else {
             System.out.println("Playing game!");
         }
-        score = toPlay.runGame(players, game_seed);
+        toPlay.runGame(players, game_seed);
 
         // Finally, when the game is over, we need to tear the players down.
         ArcadeMachine.tearPlayerDown(toPlay, players, actionFile, game_seed, true);
@@ -528,7 +527,8 @@ public class ArcadeMachine {
      * @param isHuman    Indicates if the player is human
      * @return the player, created and initialized, ready to start playing the game.
      */
-    public static AbstractPlayer createPlayer(String playerName, String actionFile, StateObservation so, int randomSeed, boolean isHuman) {
+    public static AbstractPlayer createPlayer(String playerName, String actionFile, StateObservation so, int randomSeed,
+            boolean isHuman) {
         AbstractPlayer player = null;
 
         try {
@@ -808,7 +808,8 @@ public class ArcadeMachine {
      *                   otherwise
      * @return false if there was a timeout from the players. true otherwise.
      */
-    public static boolean tearPlayerDown(Game toPlay, Player[] players, String actionFile, int randomSeed, boolean record) {
+    public static boolean tearPlayerDown(Game toPlay, Player[] players, String actionFile, int randomSeed,
+            boolean record) {
         // This is finished, no more actions, close the writer.
         if (toPlay.no_players > 1) {
             // multi player, write actions to files.

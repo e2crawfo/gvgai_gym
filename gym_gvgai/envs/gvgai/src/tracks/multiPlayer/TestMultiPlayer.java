@@ -2,7 +2,6 @@ package tracks.multiPlayer;
 
 import java.util.Random;
 
-import core.logging.Logger;
 import tools.Utils;
 import tracks.ArcadeMachine;
 
@@ -14,25 +13,11 @@ public class TestMultiPlayer {
 
     public static void main(String[] args) {
 
-        // Available controllers:
-        String doNothingController = "tracks.multiPlayer.simple.doNothing.Agent";
-        String randomController = "tracks.multiPlayer.simple.sampleRandom.Agent";
-        String oneStepController = "tracks.multiPlayer.simple.sampleOneStepLookAhead.Agent";
-
         String sampleMCTSController = "tracks.multiPlayer.advanced.sampleMCTS.Agent";
-        String sampleRSController = "tracks.multiPlayer.advanced.sampleRS.Agent";
-        String sampleRHEAController = "tracks.multiPlayer.advanced.sampleRHEA.Agent";
-        String humanController = "tracks.multiPlayer.tools.human.Agent";
-
-        // Set here the controllers used in the games (need 2 separated by space).
-        String controllers = sampleMCTSController + " " + sampleMCTSController;
-
-        //Load available games
-        String spGamesCollection =  "examples/all_games_2p.csv";
+        // Load available games
+        String spGamesCollection = "examples/all_games_2p.csv";
         String[][] games = Utils.readGames(spGamesCollection);
 
-        // Other settings
-        boolean visuals = true;
         int seed = new Random().nextInt();
 
         // Game and level to play
@@ -43,13 +28,12 @@ public class TestMultiPlayer {
         String level1 = game.replace(gameName, gameName + "_lvl" + levelIdx);
 
         String recordActionsFile = null;// "actions_" + games[gameIdx] + "_lvl"
-                        // + levelIdx + "_" + seed + ".txt";
-                        // //where to record the actions
-                        // executed. null if not to save.
+        // + levelIdx + "_" + seed + ".txt";
+        // //where to record the actions
+        // executed. null if not to save.
 
         // 1. This starts a game, in a level, played by two humans.
         ArcadeMachine.playOneGameMulti(game, level1, recordActionsFile, seed);
-
 
         // 2. This plays a game in a level by the tracks. If one of the
         // players is human, change the playerID passed
@@ -70,7 +54,8 @@ public class TestMultiPlayer {
 //          ArcadeMachine.runGames(game, new String[]{level1}, M, controllers, null);
 //      }
 
-         // 5. This plays N games, in the first L levels, M times each. Actions to file optional (set saveActions to true).
+        // 5. This plays N games, in the first L levels, M times each. Actions to file
+        // optional (set saveActions to true).
 //       int N = games.length, L = 2, M = 1;
 //       boolean saveActions = false;
 //       String[] levels = new String[L];
@@ -89,8 +74,10 @@ public class TestMultiPlayer {
 //          ArcadeMachine.runGames(game, levels, M, controllers, saveActions? actionFiles:null);
 //       }
 
-         // 6. This plays a round robin style tournament between multiple tracks, in N games, first L levels, M times each.
-         // Controllers are swapped for each match as well. Actions to file optional (set saveActions to true).
+        // 6. This plays a round robin style tournament between multiple tracks, in N
+        // games, first L levels, M times each.
+        // Controllers are swapped for each match as well. Actions to file optional (set
+        // saveActions to true).
 //       int N = games.length, L = 5, M = 2;
 //       boolean saveActions = false;
 //       String[] levels = new String[L];
@@ -136,8 +123,6 @@ public class TestMultiPlayer {
 //              }
 //          }
 //       }
-
-
 
     }
 }

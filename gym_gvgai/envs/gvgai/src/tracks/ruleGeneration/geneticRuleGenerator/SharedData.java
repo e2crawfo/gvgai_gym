@@ -27,7 +27,8 @@ public class SharedData {
     public static final long EVALUATION_TIME = 10000;
 
     /**
-     * number of the best chromosomes that are transfered from one generation to another
+     * number of the best chromosomes that are transfered from one generation to
+     * another
      */
     public static final int ELITISM_NUMBER = 1;
 
@@ -122,7 +123,8 @@ public class SharedData {
      */
     public static final double DELETE_PARAM_PROB = 0.5;
     /**
-     * The probability of putting a number or a sprite as the value of a parameter insertion
+     * The probability of putting a number or a sprite as the value of a parameter
+     * insertion
      */
     public static final double PARAM_NUM_OR_SPRITE_PROB = 0.5;
     /**
@@ -135,7 +137,8 @@ public class SharedData {
     public static final int NUMERICAL_VALUE_PARAM = 2000;
 
     /**
-     * The upper bound on a numerical value for a termination limit parameter insertion
+     * The upper bound on a numerical value for a termination limit parameter
+     * insertion
      */
     public static final int TERMINATION_LIMIT_PARAM = 1000;
 
@@ -166,29 +169,23 @@ public class SharedData {
     /**
      * Array contains all interactions we want to mutate over
      */
-    public static String[] interactions = new String[]{
-            "killSprite", "killAll", "killIfHasMore", "killIfHasLess", "killIfFromAbove",
-            "killIfOtherHasMore", "transformToSingleton", "spawnBehind",
-            "spawnIfHasMore", "spawnIfHasLess", "cloneSprite", "transformTo", "transformIfCounts",
-            "transformToRandomChild", "updateSpawnType", "removeScore",
-            "addHealthPoints",  "addHealthPointsToMax", "subtractHealthPoints", "increaseSpeedToAll",
-            "decreaseSpeedToAll", "setSpeedForAll", "stepBack",  "undoAll", "flipDirection",
-            "reverseDirection", "attractGaze", "align", "turnAround", "wrapAround", "teleportToExit",
-            "pullWithIt", "bounceForward", "collectResource", "changeResource"};
+    public static String[] interactions = new String[] { "killSprite", "killAll", "killIfHasMore", "killIfHasLess",
+            "killIfFromAbove", "killIfOtherHasMore", "transformToSingleton", "spawnBehind", "spawnIfHasMore",
+            "spawnIfHasLess", "cloneSprite", "transformTo", "transformIfCounts", "transformToRandomChild",
+            "updateSpawnType", "removeScore", "addHealthPoints", "addHealthPointsToMax", "subtractHealthPoints",
+            "increaseSpeedToAll", "decreaseSpeedToAll", "setSpeedForAll", "stepBack", "undoAll", "flipDirection",
+            "reverseDirection", "attractGaze", "align", "turnAround", "wrapAround", "teleportToExit", "pullWithIt",
+            "bounceForward", "collectResource", "changeResource" };
     /**
      * Array contains all terminations
      */
-    public static String[] terminations = new String[] {
-        "SpriteCounter", "SpriteCounterMore", "MultiSpriteCounter",
-        "StopCounter", "Timeout"};
+    public static String[] terminations = new String[] { "SpriteCounter", "SpriteCounterMore", "MultiSpriteCounter",
+            "StopCounter", "Timeout" };
     /**
      * Array contains all possible interaction parameter types
      */
-    public static String[] interactionParams = new String[] {
-        "scoreChange", "stype", "limit", "resource", "stype_other", "forceOrientation", "spawnPoint",
-        "value", "geq", "leq"};
-    public static String[] terminationParams = new String[] {
-        "stype", "stype1", "stype2", "stype3"
-    };
+    public static String[] interactionParams = new String[] { "scoreChange", "stype", "limit", "resource",
+            "stype_other", "forceOrientation", "spawnPoint", "value", "geq", "leq" };
+    public static String[] terminationParams = new String[] { "stype", "stype1", "stype2", "stype3" };
 
 }

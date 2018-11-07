@@ -1,14 +1,14 @@
 package ontology.effects.binary;
 
-import core.vgdl.VGDLRegistry;
-import core.vgdl.VGDLSprite;
+import java.util.ArrayList;
+
 import core.content.InteractionContent;
 import core.game.Game;
 import core.logging.Logger;
 import core.logging.Message;
+import core.vgdl.VGDLRegistry;
+import core.vgdl.VGDLSprite;
 import ontology.effects.unary.TransformTo;
-
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA. User: Diego Date: 23/10/13 Time: 15:21 This is a
@@ -32,8 +32,9 @@ public class TransformIfCount extends TransformTo {
         this.parseParameters(cnt);
         itypeCount = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stypeCount);
 
-        if (estype != null)
+        if (estype != null) {
             eitype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(estype);
+        }
     }
 
     @Override
@@ -64,12 +65,15 @@ public class TransformIfCount extends TransformTo {
     @Override
     public ArrayList<String> getEffectSprites() {
         ArrayList<String> result = new ArrayList<String>();
-        if (stype != null)
+        if (stype != null) {
             result.add(stype);
-        if (stypeCount != null)
+        }
+        if (stypeCount != null) {
             result.add(stypeCount);
-        if (estype != null)
+        }
+        if (estype != null) {
             result.add(estype);
+        }
 
         return result;
     }

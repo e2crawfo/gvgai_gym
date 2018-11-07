@@ -12,7 +12,8 @@ public class SharedData {
      */
     public static final int POPULATION_SIZE = 50;
     /**
-     * The amount of times used to check the one step look ahead and do nothing algorithm
+     * The amount of times used to check the one step look ahead and do nothing
+     * algorithm
      */
     public static final int REPETITION_AMOUNT = 50;
     /**
@@ -32,7 +33,8 @@ public class SharedData {
      */
     public static final double MUTATION_PROB = 0.1;
     /**
-     * number of the best chromosomes that are transfered from one generation to another
+     * number of the best chromosomes that are transfered from one generation to
+     * another
      */
     public static final int ELITISM_NUMBER = 1;
     /**
@@ -64,7 +66,7 @@ public class SharedData {
     /**
      * a fitness value given if the player ends in draw (not winning neither losing)
      */
-    public static final double DRAW_FITNESS  = 0;
+    public static final double DRAW_FITNESS = 0;
     /**
      * minimum level size
      */
@@ -124,7 +126,8 @@ public class SharedData {
      */
     public static Random random;
     /**
-     * constructive level generator to help in speeding up the level generation process
+     * constructive level generator to help in speeding up the level generation
+     * process
      */
     public static tracks.levelGeneration.constructiveLevelGenerator.LevelGenerator constructiveGen;
 

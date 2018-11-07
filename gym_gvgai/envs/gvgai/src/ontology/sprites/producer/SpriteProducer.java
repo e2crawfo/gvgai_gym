@@ -2,8 +2,8 @@ package ontology.sprites.producer;
 
 import java.awt.Dimension;
 
-import core.vgdl.VGDLSprite;
 import core.content.SpriteContent;
+import core.vgdl.VGDLSprite;
 import tools.Vector2d;
 
 /**

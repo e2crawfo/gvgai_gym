@@ -1,17 +1,17 @@
 
 // package tracks.singleLearning.utils;
 import static core.competition.CompetitionParameters.ACTION_TIME;
+import static core.competition.CompetitionParameters.DELAY;
 import static core.competition.CompetitionParameters.ROLLOUT_DIR;
 import static core.competition.CompetitionParameters.ROLLOUT_FREQ;
-import static core.competition.CompetitionParameters.DELAY;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Arrays;
-import java.io.File;
-import java.nio.file.Paths;
 
 import tracks.ArcadeMachine;
 
@@ -45,9 +45,6 @@ public class DoRollout {
             // Available controllers:
             String sampleRandomController = "tracks.singlePlayer.simple.simpleRandom.Agent";
             String sampleOLMCTSController = "tracks.singlePlayer.advanced.sampleMCTS.Agent";
-            String sampleOLETSController = "tracks.singlePlayer.advanced.olets.Agent";
-            String repeatOLETS = "tracks.singlePlayer.tools.repeatOLETS.Agent";
-
             String game_file = params.get("game_file").get(0);
             String level_dir = params.get("level_dir").get(0);
             String rollout_dir = params.get("rollout_dir").get(0);
@@ -63,7 +60,7 @@ public class DoRollout {
                 agent = sampleRandomController;
             }
             if (params.containsKey("delay")) {
-                   DELAY = Integer.parseInt(params.get("delay").get(0));
+                DELAY = Integer.parseInt(params.get("delay").get(0));
             }
             boolean visuals = true;
 
@@ -72,14 +69,15 @@ public class DoRollout {
 
             int i = 0;
             for (File level_file : level_files) {
-                if(!level_file.toString().contains("lvl")) {
+                if (!level_file.toString().contains("lvl")) {
                     continue;
                 }
 
                 ROLLOUT_DIR = Paths.get(rollout_dir, String.format("rollout%05d", i)).toString();
-                (new File(ROLLOUT_DIR)).mkdir();
+                new File(ROLLOUT_DIR).mkdir();
                 String action_file = ROLLOUT_DIR + "/actions.txt";
-                ArcadeMachine.runOneGame(game_file, level_file.getAbsolutePath(), visuals, agent, action_file, seed+i, 0);
+                ArcadeMachine.runOneGame(game_file, level_file.getAbsolutePath(), visuals, agent, action_file, seed + i,
+                        0);
                 i++;
             }
         } catch (Exception e) {

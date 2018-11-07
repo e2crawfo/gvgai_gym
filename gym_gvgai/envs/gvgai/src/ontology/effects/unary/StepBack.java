@@ -27,8 +27,10 @@ public class StepBack extends Effect {
             return;
         }
 
-        if (pixelPerfect && sprite2 != null) // Sprite2 could be Null in an EOS case.
+        if (pixelPerfect && sprite2 != null) {
             sprite1.setRect(calculatePixelPerfect(sprite1, sprite2));
-        else sprite1.setRect(sprite1.lastrect);
+        } else {
+            sprite1.setRect(sprite1.lastrect);
+        }
     }
 }

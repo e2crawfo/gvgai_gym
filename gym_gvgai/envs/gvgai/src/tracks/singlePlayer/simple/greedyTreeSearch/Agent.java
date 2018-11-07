@@ -29,18 +29,18 @@ public class Agent extends AbstractPlayer {
         int bestAction = -1;
         TreeNode root = new TreeNode(stateObs, null);
 
-        while(elapsedTimer.remainingTimeMillis() > 2 * avgTime && elapsedTimer.remainingTimeMillis() > worstCase){
+        while (elapsedTimer.remainingTimeMillis() > 2 * avgTime && elapsedTimer.remainingTimeMillis() > worstCase) {
             ElapsedCpuTimer temp = new ElapsedCpuTimer();
-            //treeSelect
+            // treeSelect
             TreeNode node = root.SelectNode();
 
-            //Simulate
+            // Simulate
             double value = node.ExploreNode();
 
-            //RollBack
+            // RollBack
             node.UpdateNode(value);
 
-            //Get the best action
+            // Get the best action
             bestAction = root.GetBestChild();
 
             totalTime += temp.elapsedMillis();
@@ -48,7 +48,7 @@ public class Agent extends AbstractPlayer {
             avgTime = totalTime / iteration;
         }
 
-        if(bestAction == -1){
+        if (bestAction == -1) {
             System.out.println("Out of time choosing random action");
             bestAction = random.nextInt(actions.length);
         }

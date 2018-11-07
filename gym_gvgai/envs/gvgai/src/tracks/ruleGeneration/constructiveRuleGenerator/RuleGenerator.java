@@ -107,12 +107,12 @@ public class RuleGenerator extends AbstractRuleGenerator {
 
         // Identify the wall object
         wall = null;
-        SpriteData[] temp = la.getBorderObjects((1.0 * la.getPerimeter()) / la.getArea(), this.wallPercentageProb);
+        SpriteData[] temp = la.getBorderObjects(1.0 * la.getPerimeter() / la.getArea(), this.wallPercentageProb);
         if (temp.length > 0) {
             wall = temp[0];
-            for (int i = 0; i < temp.length; i++) {
-                if (la.getNumberOfObjects(temp[i].name) < la.getNumberOfObjects(wall.name)) {
-                    wall = temp[i];
+            for (SpriteData element : temp) {
+                if (la.getNumberOfObjects(element.name) < la.getNumberOfObjects(wall.name)) {
+                    wall = element;
                 }
             }
         }
@@ -120,9 +120,9 @@ public class RuleGenerator extends AbstractRuleGenerator {
         // identify the exit sprite
         exit = new ArrayList<SpriteData>();
         temp = la.getPortals(true);
-        for (int i = 0; i < temp.length; i++) {
-            if (!temp[i].type.equalsIgnoreCase("portal")) {
-                exit.add(temp[i]);
+        for (SpriteData element : temp) {
+            if (!element.type.equalsIgnoreCase("portal")) {
+                exit.add(element);
             }
         }
 
@@ -138,14 +138,14 @@ public class RuleGenerator extends AbstractRuleGenerator {
             } else {
                 tempList = new ArrayList<SpriteData>();
                 SpriteData[] relatedSprites = la.getSpritesOnSameTile(wall.name);
-                for (int i = 0; i < temp.length; i++) {
-                    for (int j = 0; j < relatedSprites.length; j++) {
-                        if (!temp[i].name.equals(relatedSprites[j].name)) {
-                            tempList.add(temp[i]);
+                for (SpriteData element : temp) {
+                    for (SpriteData relatedSprite : relatedSprites) {
+                        if (!element.name.equals(relatedSprite.name)) {
+                            tempList.add(element);
                         }
                     }
                     if (relatedSprites.length == 0) {
-                        tempList.add(temp[i]);
+                        tempList.add(element);
                     }
                 }
 
@@ -163,8 +163,8 @@ public class RuleGenerator extends AbstractRuleGenerator {
      */
     private boolean isAvatar(String spriteName) {
         SpriteData[] avatar = la.getAvatars(false);
-        for (int i = 0; i < avatar.length; i++) {
-            if (avatar[i].equals(spriteName)) {
+        for (SpriteData element : avatar) {
+            if (element.equals(spriteName)) {
                 return true;
             }
         }
@@ -188,8 +188,8 @@ public class RuleGenerator extends AbstractRuleGenerator {
             action = "killSprite";
         }
         SpriteData[] temp = la.getAvatars(false);
-        for (int i = 0; i < temp.length; i++) {
-            interactions.add(temp[i].name + " " + wallName + " > " + action);
+        for (SpriteData element : temp) {
+            interactions.add(element.name + " " + wallName + " > " + action);
         }
 
         // Get the interaction between all movable objects (including npcs) with wall or
@@ -199,16 +199,16 @@ public class RuleGenerator extends AbstractRuleGenerator {
             action = "killSprite";
         }
         temp = la.getMovables(false);
-        for (int i = 0; i < temp.length; i++) {
-            interactions.add(temp[i].name + " " + wallName + " > " + action);
+        for (SpriteData element : temp) {
+            interactions.add(element.name + " " + wallName + " > " + action);
         }
         action = movableWallInteraction[random.nextInt(movableWallInteraction.length)];
         if (isFireWall) {
             action = "killSprite";
         }
         temp = la.getNPCs(false);
-        for (int i = 0; i < temp.length; i++) {
-            interactions.add(temp[i].name + " " + wallName + " > " + action);
+        for (SpriteData element : temp) {
+            interactions.add(element.name + " " + wallName + " > " + action);
         }
     }
 
@@ -220,9 +220,9 @@ public class RuleGenerator extends AbstractRuleGenerator {
         SpriteData[] resources = la.getResources(true);
 
         // make the avatar collect the resources
-        for (int i = 0; i < avatar.length; i++) {
-            for (int j = 0; j < resources.length; j++) {
-                interactions.add(resources[j].name + " " + avatar[i].name + " > collectResource");
+        for (SpriteData element : avatar) {
+            for (SpriteData resource : resources) {
+                interactions.add(resource.name + " " + element.name + " > collectResource");
             }
         }
     }
@@ -236,41 +236,41 @@ public class RuleGenerator extends AbstractRuleGenerator {
 
         // make the spawned object harmful to the avatar with a chance to be useful
         if (random.nextDouble() < spawnedProb) {
-            for (int i = 0; i < avatar.length; i++) {
-                for (int j = 0; j < spawners.length; j++) {
-                    for (int k = 0; k < spawners[j].sprites.size(); k++) {
-                        harmfulObjects.add(spawners[j].sprites.get(k));
-                        interactions.add(avatar[i].name + " " + spawners[j].sprites.get(k) + " > killSprite");
+            for (SpriteData element : avatar) {
+                for (SpriteData spawner : spawners) {
+                    for (int k = 0; k < spawner.sprites.size(); k++) {
+                        harmfulObjects.add(spawner.sprites.get(k));
+                        interactions.add(element.name + " " + spawner.sprites.get(k) + " > killSprite");
                     }
                 }
             }
         } else {
-            for (int i = 0; i < avatar.length; i++) {
-                for (int j = 0; j < spawners.length; j++) {
-                    for (int k = 0; k < spawners[j].sprites.size(); k++) {
-                        if (!harmfulObjects.contains(spawners[j].sprites.get(k))) {
-                            collectible.add(spawners[j].sprites.get(k));
-                            interactions.add(
-                                    spawners[j].sprites.get(k) + " " + avatar[i].name + " > killSprite scoreChange=1");
+            for (SpriteData element : avatar) {
+                for (SpriteData spawner : spawners) {
+                    for (int k = 0; k < spawner.sprites.size(); k++) {
+                        if (!harmfulObjects.contains(spawner.sprites.get(k))) {
+                            collectible.add(spawner.sprites.get(k));
+                            interactions
+                                    .add(spawner.sprites.get(k) + " " + element.name + " > killSprite scoreChange=1");
                         }
                     }
                 }
             }
         }
 
-        for (int j = 0; j < spawners.length; j++) {
-            for (int k = 0; k < spawners[j].sprites.size(); k++) {
-                if (harmfulObjects.contains(spawners[j].sprites.get(k))) {
-                    harmfulObjects.add(spawners[j].name);
+        for (SpriteData spawner : spawners) {
+            for (int k = 0; k < spawner.sprites.size(); k++) {
+                if (harmfulObjects.contains(spawner.sprites.get(k))) {
+                    harmfulObjects.add(spawner.name);
                     break;
                 }
             }
         }
 
-        for (int j = 0; j < spawners.length; j++) {
-            for (int k = 0; k < spawners[j].sprites.size(); k++) {
-                if (collectible.contains(spawners[j].sprites.get(k))) {
-                    collectible.add(spawners[j].name);
+        for (SpriteData spawner : spawners) {
+            for (int k = 0; k < spawner.sprites.size(); k++) {
+                if (collectible.contains(spawner.sprites.get(k))) {
+                    collectible.add(spawner.name);
                     break;
                 }
             }
@@ -285,9 +285,9 @@ public class RuleGenerator extends AbstractRuleGenerator {
 
         // If we have a score object make the avatar can collect it
         if (score != null) {
-            for (int i = 0; i < avatar.length; i++) {
+            for (SpriteData element : avatar) {
                 collectible.add(score.name);
-                interactions.add(score.name + " " + avatar[i].name + " > killSprite scoreChange=1");
+                interactions.add(score.name + " " + element.name + " > killSprite scoreChange=1");
             }
         }
 
@@ -296,13 +296,13 @@ public class RuleGenerator extends AbstractRuleGenerator {
         if (spike != null && !spike.name.equalsIgnoreCase(score.name)) {
             if (random.nextDouble() < spikeProb) {
                 harmfulObjects.add(spike.name);
-                for (int i = 0; i < avatar.length; i++) {
-                    interactions.add(avatar[i].name + " " + spike.name + " > killSprite");
+                for (SpriteData element : avatar) {
+                    interactions.add(element.name + " " + spike.name + " > killSprite");
                 }
             } else {
-                for (int i = 0; i < avatar.length; i++) {
+                for (SpriteData element : avatar) {
                     collectible.add(spike.name);
-                    interactions.add(spike.name + " " + avatar[i].name + " > killSprite scoreChange=2");
+                    interactions.add(spike.name + " " + element.name + " > killSprite scoreChange=2");
                 }
             }
         }
@@ -315,12 +315,12 @@ public class RuleGenerator extends AbstractRuleGenerator {
         SpriteData[] avatar = la.getAvatars(false);
 
         // Kill the avatar bullet kill any harmful objects
-        for (int i = 0; i < avatar.length; i++) {
+        for (SpriteData element : avatar) {
             for (int j = 0; j < harmfulObjects.size(); j++) {
-                for (int k = 0; k < avatar[i].sprites.size(); k++) {
-                    interactions.add(
-                            harmfulObjects.get(j) + " " + avatar[i].sprites.get(k) + " > killSprite scoreChange=1");
-                    interactions.add(avatar[i].sprites.get(k) + " " + harmfulObjects.get(j) + " > killSprite");
+                for (int k = 0; k < element.sprites.size(); k++) {
+                    interactions
+                            .add(harmfulObjects.get(j) + " " + element.sprites.get(k) + " > killSprite scoreChange=1");
+                    interactions.add(element.sprites.get(k) + " " + harmfulObjects.get(j) + " > killSprite");
                 }
             }
         }
@@ -334,16 +334,16 @@ public class RuleGenerator extends AbstractRuleGenerator {
         SpriteData[] portals = la.getPortals(true);
 
         // make the exits die with collision of the player (going through them)
-        for (int i = 0; i < avatar.length; i++) {
+        for (SpriteData element : avatar) {
             for (int j = 0; j < exit.size(); j++) {
-                interactions.add(exit.get(j).name + " " + avatar[i].name + " > killSprite");
+                interactions.add(exit.get(j).name + " " + element.name + " > killSprite");
             }
         }
         // If they are Portal type then u can teleport toward it
-        for (int i = 0; i < portals.length; i++) {
-            for (int j = 0; j < avatar.length; j++) {
-                if (portals[i].type.equalsIgnoreCase("Portal")) {
-                    interactions.add(avatar[j].name + " " + portals[i].name + " > teleportToExit");
+        for (SpriteData portal : portals) {
+            for (SpriteData element : avatar) {
+                if (portal.type.equalsIgnoreCase("Portal")) {
+                    interactions.add(element.name + " " + portal.name + " > teleportToExit");
                 }
             }
         }
@@ -356,64 +356,64 @@ public class RuleGenerator extends AbstractRuleGenerator {
         SpriteData[] avatar = la.getAvatars(false);
         SpriteData[] npc = la.getNPCs(false);
 
-        for (int i = 0; i < npc.length; i++) {
+        for (SpriteData element : npc) {
             // If its fleeing object make it useful
-            if (npc[i].type.equalsIgnoreCase("fleeing")) {
-                for (int j = 0; j < npc[i].sprites.size(); j++) {
-                    fleeingNPCs.add(npc[i].sprites.get(j));
-                    interactions.add(npc[i].name + " " + npc[i].sprites.get(j) + " > killSprite scoreChange=1");
+            if (element.type.equalsIgnoreCase("fleeing")) {
+                for (int j = 0; j < element.sprites.size(); j++) {
+                    fleeingNPCs.add(element.sprites.get(j));
+                    interactions.add(element.name + " " + element.sprites.get(j) + " > killSprite scoreChange=1");
                 }
-            } else if (npc[i].type.equalsIgnoreCase("bomber") || npc[i].type.equalsIgnoreCase("randombomber")) {
+            } else if (element.type.equalsIgnoreCase("bomber") || element.type.equalsIgnoreCase("randombomber")) {
                 // make the bomber harmful for the player
-                for (int j = 0; j < avatar.length; j++) {
-                    harmfulObjects.add(npc[i].name);
-                    interactions.add(avatar[j].name + " " + npc[i].name + " > killSprite");
+                for (SpriteData element2 : avatar) {
+                    harmfulObjects.add(element.name);
+                    interactions.add(element2.name + " " + element.name + " > killSprite");
                 }
                 // make the spawned object harmful
                 if (this.random.nextDouble() < bomberProb) {
-                    for (int j = 0; j < npc[i].sprites.size(); j++) {
-                        harmfulObjects.add(npc[i].sprites.get(j));
-                        interactions.add(avatar[j].name + " " + npc[i].sprites.get(j) + " > killSprite");
+                    for (int j = 0; j < element.sprites.size(); j++) {
+                        harmfulObjects.add(element.sprites.get(j));
+                        interactions.add(avatar[j].name + " " + element.sprites.get(j) + " > killSprite");
                     }
                 }
                 // make the spawned object useful
                 else {
-                    for (int j = 0; j < npc[i].sprites.size(); j++) {
-                        interactions.add(npc[i].sprites.get(j) + " " + avatar[j].name + " > killSprite scoreChange=1");
+                    for (int j = 0; j < element.sprites.size(); j++) {
+                        interactions.add(element.sprites.get(j) + " " + avatar[j].name + " > killSprite scoreChange=1");
                     }
                 }
-            } else if (npc[i].type.equalsIgnoreCase("chaser") || npc[i].type.equalsIgnoreCase("AlternateChaser")
-                    || npc[i].type.equalsIgnoreCase("RandomAltChaser")) {
+            } else if (element.type.equalsIgnoreCase("chaser") || element.type.equalsIgnoreCase("AlternateChaser")
+                    || element.type.equalsIgnoreCase("RandomAltChaser")) {
                 // make chasers harmful for the avatar
-                for (int j = 0; j < npc[i].sprites.size(); j++) {
-                    if (isAvatar(npc[i].sprites.get(j))) {
-                        for (int k = 0; k < avatar.length; k++) {
-                            harmfulObjects.add(npc[i].name);
-                            interactions.add(avatar[k].name + " " + npc[i].name + " > killSprite");
+                for (int j = 0; j < element.sprites.size(); j++) {
+                    if (isAvatar(element.sprites.get(j))) {
+                        for (SpriteData element2 : avatar) {
+                            harmfulObjects.add(element.name);
+                            interactions.add(element2.name + " " + element.name + " > killSprite");
                         }
                     } else {
                         if (random.nextDouble() < doubleNPCsProb) {
-                            interactions.add(npc[i].sprites.get(j) + " " + npc[i].name + " > killSprite");
+                            interactions.add(element.sprites.get(j) + " " + element.name + " > killSprite");
                         } else {
-                            interactions.add(
-                                    npc[i].sprites.get(j) + " " + npc[i].name + " > transformTo stype=" + npc[i].name);
+                            interactions.add(element.sprites.get(j) + " " + element.name + " > transformTo stype="
+                                    + element.name);
                         }
 
                     }
                 }
-            } else if (npc[i].type.equalsIgnoreCase("randomnpc")) {
+            } else if (element.type.equalsIgnoreCase("randomnpc")) {
                 // random npc are harmful to the avatar
                 if (this.random.nextDouble() < randomNPCProb) {
-                    for (int j = 0; j < avatar.length; j++) {
-                        harmfulObjects.add(npc[i].name);
-                        interactions.add(avatar[j].name + " " + npc[i].name + " > killSprite");
+                    for (SpriteData element2 : avatar) {
+                        harmfulObjects.add(element.name);
+                        interactions.add(element2.name + " " + element.name + " > killSprite");
                     }
                 }
                 // random npc are userful to the avatar
                 else {
-                    for (int j = 0; j < avatar.length; j++) {
-                        collectible.add(npc[i].name);
-                        interactions.add(npc[i].name + " " + avatar[j].name + " > killSprite scoreChange=1");
+                    for (SpriteData element2 : avatar) {
+                        collectible.add(element.name);
+                        interactions.add(element.name + " " + element2.name + " > killSprite scoreChange=1");
                     }
                 }
             }
@@ -428,30 +428,30 @@ public class RuleGenerator extends AbstractRuleGenerator {
         SpriteData[] avatar = la.getAvatars(false);
         SpriteData[] spawners = la.getSpawners(false);
 
-        for (int j = 0; j < movables.length; j++) {
+        for (SpriteData movable : movables) {
             // Check if the movable object is not avatar or spawned child
             boolean found = false;
-            for (int i = 0; i < avatar.length; i++) {
-                if (avatar[i].sprites.contains(movables[j].name)) {
+            for (SpriteData element : avatar) {
+                if (element.sprites.contains(movable.name)) {
                     found = true;
                 }
             }
-            for (int i = 0; i < spawners.length; i++) {
-                if (spawners[i].sprites.contains(movables[j].name)) {
+            for (SpriteData spawner : spawners) {
+                if (spawner.sprites.contains(movable.name)) {
                     found = true;
                 }
             }
             if (!found) {
                 // Either make them harmful or useful
                 if (random.nextDouble() < harmfulMovableProb) {
-                    for (int i = 0; i < avatar.length; i++) {
-                        harmfulObjects.add(movables[j].name);
-                        interactions.add(avatar[i].name + " " + movables[j].name + " > killSprite");
+                    for (SpriteData element : avatar) {
+                        harmfulObjects.add(movable.name);
+                        interactions.add(element.name + " " + movable.name + " > killSprite");
                     }
                 } else {
-                    for (int i = 0; i < avatar.length; i++) {
-                        collectible.add(movables[j].name);
-                        interactions.add(movables[j].name + " " + avatar[i].name + " > killSprite scoreChange=1");
+                    for (SpriteData element : avatar) {
+                        collectible.add(movable.name);
+                        interactions.add(movable.name + " " + element.name + " > killSprite scoreChange=1");
                     }
                 }
             }
@@ -495,8 +495,8 @@ public class RuleGenerator extends AbstractRuleGenerator {
         // Add the losing condition which is the player dies
         if (harmfulObjects.size() > 0) {
             SpriteData[] usefulAvatar = this.la.getAvatars(true);
-            for (int i = 0; i < usefulAvatar.length; i++) {
-                terminations.add("SpriteCounter stype=" + usefulAvatar[i].name + " limit=0 win=False");
+            for (SpriteData element : usefulAvatar) {
+                terminations.add("SpriteCounter stype=" + element.name + " limit=0 win=False");
             }
         }
     }

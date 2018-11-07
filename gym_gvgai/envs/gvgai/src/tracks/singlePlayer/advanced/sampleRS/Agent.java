@@ -1,5 +1,10 @@
 package tracks.singlePlayer.advanced.sampleRS;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+
 import core.game.StateObservation;
 import core.player.AbstractPlayer;
 import ontology.Types;
@@ -7,13 +12,11 @@ import tools.ElapsedCpuTimer;
 import tracks.singlePlayer.tools.Heuristics.StateHeuristic;
 import tracks.singlePlayer.tools.Heuristics.WinScoreHeuristic;
 
-import java.util.*;
-
 public class Agent extends AbstractPlayer {
 
     // variable
     private int SIMULATION_DEPTH = 10;
-    private double DISCOUNT = 1; //0.99;
+    private double DISCOUNT = 1; // 0.99;
 
     // constants
     private final long BREAK_MS = 10;
@@ -27,7 +30,7 @@ public class Agent extends AbstractPlayer {
     private ElapsedCpuTimer timer;
 
     private StateHeuristic heuristic;
-    private double acumTimeTakenEval = 0,avgTimeTakenEval = 0;
+    private double acumTimeTakenEval = 0, avgTimeTakenEval = 0;
     private int numEvals = 0;
     private long remaining;
 
@@ -61,13 +64,14 @@ public class Agent extends AbstractPlayer {
         return best;
     }
 
-
     /**
-     * Evaluates an individual by rolling the current state with the actions in the individual
-     * and returning the value of the resulting state; random action chosen for the opponent
+     * Evaluates an individual by rolling the current state with the actions in the
+     * individual and returning the value of the resulting state; random action
+     * chosen for the opponent
+     * 
      * @param individual - individual to be valued
-     * @param heuristic - heuristic to be used for state evaluation
-     * @param state - current state, root of rollouts
+     * @param heuristic  - heuristic to be used for state evaluation
+     * @param state      - current state, root of rollouts
      * @return - value of last state reached
      */
     private double evaluate(Individual individual, StateHeuristic heuristic, StateObservation state) {
@@ -78,13 +82,15 @@ public class Agent extends AbstractPlayer {
         int i;
         for (i = 0; i < SIMULATION_DEPTH; i++) {
             double acum = 0, avg;
-            if (! st.isGameOver()) {
+            if (!st.isGameOver()) {
                 ElapsedCpuTimer elapsedTimerIteration = new ElapsedCpuTimer();
                 st.advance(action_mapping.get(individual.actions[i]));
                 acum += elapsedTimerIteration.elapsedMillis();
-                avg = acum / (i+1);
+                avg = acum / (i + 1);
                 remaining = timer.remainingTimeMillis();
-                if (remaining < 2*avg || remaining < BREAK_MS) break;
+                if (remaining < 2 * avg || remaining < BREAK_MS) {
+                    break;
+                }
             } else {
                 break;
             }
@@ -94,24 +100,25 @@ public class Agent extends AbstractPlayer {
         double value = heuristic.evaluateState(first);
 
         // Apply discount factor
-        value *= Math.pow(DISCOUNT,i);
+        value *= Math.pow(DISCOUNT, i);
 
         individual.value = value;
 
         numEvals++;
-        acumTimeTakenEval += (elapsedTimerIterationEval.elapsedMillis());
+        acumTimeTakenEval += elapsedTimerIterationEval.elapsedMillis();
         avgTimeTakenEval = acumTimeTakenEval / numEvals;
         remaining = timer.remainingTimeMillis();
 
         return value;
     }
 
-
     /**
-     * Insert a new individual into the population at the specified position by replacing the old one.
-     * @param newind - individual to be inserted into population
-     * @param pop - population
-     * @param idx - position where individual should be inserted
+     * Insert a new individual into the population at the specified position by
+     * replacing the old one.
+     * 
+     * @param newind   - individual to be inserted into population
+     * @param pop      - population
+     * @param idx      - position where individual should be inserted
      * @param stateObs - current game state
      */
     private void add_individual(Individual newind, Individual[] pop, int idx, StateObservation stateObs) {
@@ -121,6 +128,7 @@ public class Agent extends AbstractPlayer {
 
     /**
      * Initialize population
+     * 
      * @param stateObs - current game state
      */
     private void init_pop(StateObservation stateObs) {
@@ -146,9 +154,9 @@ public class Agent extends AbstractPlayer {
             remaining = timer.remainingTimeMillis();
             NUM_INDIVIDUALS++;
 
-        } while(remaining > avgTimeTakenEval && remaining > BREAK_MS);
+        } while (remaining > avgTimeTakenEval && remaining > BREAK_MS);
 
-        if (NUM_INDIVIDUALS > 1)
+        if (NUM_INDIVIDUALS > 1) {
             Collections.sort(population, new Comparator<Individual>() {
                 @Override
                 public int compare(Individual o1, Individual o2) {
@@ -162,12 +170,15 @@ public class Agent extends AbstractPlayer {
                         return -1;
                     }
                     return o1.compareTo(o2);
-                }});
+                }
+            });
+        }
     }
 
     /**
      * @param pop - last population obtained after evolution
-     * @return - first action of best individual in the population (found at index 0)
+     * @return - first action of best individual in the population (found at index
+     *         0)
      */
     private Types.ACTIONS get_best_action(ArrayList<Individual> pop) {
         int bestAction = pop.get(0).actions[0];
