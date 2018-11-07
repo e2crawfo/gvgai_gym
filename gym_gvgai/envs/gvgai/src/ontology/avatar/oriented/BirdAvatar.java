@@ -19,7 +19,7 @@ import tools.Vector2d;
  */
 public class BirdAvatar extends OrientedAvatar
 {
-    
+
     public BirdAvatar(){}
 
     public BirdAvatar(Vector2d position, Dimension size, SpriteContent cnt)

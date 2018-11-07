@@ -1552,7 +1552,7 @@ public class JsonReader implements Closeable {
     case '\'':
     case '"':
     case '\\':
-    case '/':   
+    case '/':
         return escaped;
     default:
         // throw error when none of the above cases are matched

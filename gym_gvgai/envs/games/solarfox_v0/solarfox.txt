@@ -16,7 +16,7 @@ BasicGame square_size=25
             downshot > orientation=DOWN speed=0.15 img=oryx/firedown1
         res > Resource color=GREEN value=0 limit=4 img=oryx/diamond2
         wall > Immovable img=oryx/wall3 autotiling=True
-        
+
 
     LevelMapping
         b > floor blib
@@ -27,7 +27,7 @@ BasicGame square_size=25
         w > wall
         + > floor
         A > floor avatar
- 
+
 
     TerminationSet
         SpriteCounter      stype=avatar               limit=0 win=False

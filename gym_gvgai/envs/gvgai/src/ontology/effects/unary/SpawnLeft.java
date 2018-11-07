@@ -33,7 +33,7 @@ public class SpawnLeft extends Effect {
         Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with SpawnBehind interaction."));
         return;
     }
-    
+
         if(game.getRandomGenerator().nextDouble() >= prob) return;
         Vector2d currentPos;
         if (stepBack)
@@ -51,7 +51,7 @@ public class SpawnLeft extends Effect {
     public ArrayList<String> getEffectSprites(){
         ArrayList<String> result = new ArrayList<String>();
         if(stype!=null) result.add(stype);
-        
+
         return result;
     }
 }

@@ -5,13 +5,13 @@ import ontology.Types.WINNER;
 
 public class TreeNode {
     public double HUGE_NUMBER = 1000000.0;
-    
+
     private TreeNode parent;
     private TreeNode[] children;
     private StateObservation state;
     private double value;
     private int depth;
-    
+
     public TreeNode(StateObservation state, TreeNode parent) {
         this.parent = parent;
         this.state = state;
@@ -24,7 +24,7 @@ public class TreeNode {
         this.children = new TreeNode[Agent.actions.length];
         this.value = 0;
     }
-    
+
     public TreeNode SelectNode(){
         TreeNode current = this;
         while(!current.state.isGameOver() && current.depth < Agent.MAX_DEPTH){
@@ -37,12 +37,12 @@ public class TreeNode {
                 newState.advance(Agent.actions[index]);
                 current.children[index] = new TreeNode(newState, current);
                 return current.children[index];
-            }   
+            }
         }
-        
+
         return current;
     }
-    
+
     public double ExploreNode(){
         StateObservation future = state.copy();
         int depth = this.depth;
@@ -51,10 +51,10 @@ public class TreeNode {
             future.advance(Agent.actions[GetRandomActionIndex()]);
             depth+=1;
         }
-        
+
         return EvaluateState(future);
     }
-    
+
     public void UpdateNode(double value){
         TreeNode current = this;
         while(current != null){
@@ -62,7 +62,7 @@ public class TreeNode {
             current = current.parent;
         }
     }
-    
+
     private double EvaluateState(StateObservation state){
         if(state.isGameOver()){
             if(state.getGameWinner() == WINNER.PLAYER_WINS){
@@ -77,21 +77,21 @@ public class TreeNode {
         }
         return state.getGameScore();
     }
-    
+
     private int GetRandomActionIndex(){
         return Agent.random.nextInt(Agent.actions.length);
     }
-    
+
     private int GetUnexplored(){
         for(int i=0;i<Agent.actions.length;i++){
             if(children[i] == null){
                 return i;
             }
         }
-        
+
         return -1;
     }
-    
+
     public int GetBestChild(){
         int bestIndex = -1;
         double bestValue = -Double.MAX_VALUE;
@@ -101,7 +101,7 @@ public class TreeNode {
                 bestIndex = i;
             }
         }
-        
+
         return bestIndex;
     }
 }

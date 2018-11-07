@@ -14,7 +14,7 @@ public class CoverPercentageConstraint extends AbstractConstraint{
      * the max acceptable cover percentage
      */
     public double maxCoverPercentage;
-    
+
     /**
      * Check if the percentage of objects in the play field is between minCoverPercentage
      * and maxCoverPercentage
@@ -27,10 +27,10 @@ public class CoverPercentageConstraint extends AbstractConstraint{
             if(coverPercentage <= maxCoverPercentage){
                 return 1;
             }
-            
+
             return (coverPercentage - 1) / (maxCoverPercentage - 1);
         }
-        
+
         return coverPercentage / minCoverPercentage;
     }
 }

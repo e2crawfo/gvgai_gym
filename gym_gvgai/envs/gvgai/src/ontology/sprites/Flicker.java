@@ -13,46 +13,46 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Flicker extends VGDLSprite {
-	// An object that dies after `limit` update steps.
-	
-	public int limit;
-	public int age;
+    // An object that dies after `limit` update steps.
 
-	public Flicker() {
-	}
+    public int limit;
+    public int age;
 
-	public Flicker(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public Flicker() {
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-		limit = 1;
-		age = 0;
-		color = Types.RED;
-	}
+    public Flicker(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	public void update(Game game) {
-		super.update(game);
+    protected void loadDefaults() {
+        super.loadDefaults();
+        limit = 1;
+        age = 0;
+        color = Types.RED;
+    }
 
-		if (age > limit)
-			game.killSprite(this, false);
-		age++;
+    public void update(Game game) {
+        super.update(game);
 
-	}
+        if (age > limit)
+            game.killSprite(this, false);
+        age++;
 
-	public VGDLSprite copy() {
-		Flicker newSprite = new Flicker();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    }
 
-	public void copyTo(VGDLSprite target) {
-		Flicker targetSprite = (Flicker) target;
-		targetSprite.limit = this.limit;
-		targetSprite.age = this.age;
-		super.copyTo(targetSprite);
-	}
+    public VGDLSprite copy() {
+        Flicker newSprite = new Flicker();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
+
+    public void copyTo(VGDLSprite target) {
+        Flicker targetSprite = (Flicker) target;
+        targetSprite.limit = this.limit;
+        targetSprite.age = this.age;
+        super.copyTo(targetSprite);
+    }
 }

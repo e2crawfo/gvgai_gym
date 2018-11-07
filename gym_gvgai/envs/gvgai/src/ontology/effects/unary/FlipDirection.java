@@ -32,7 +32,7 @@ public class FlipDirection extends Effect
         Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with FlipDirection interaction."));
         return;
     }
-    
+
         sprite1.orientation = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
     }
 }

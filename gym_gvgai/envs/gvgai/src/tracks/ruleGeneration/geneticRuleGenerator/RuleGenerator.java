@@ -19,7 +19,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
     private ArrayList<Integer> numOfFeasible;
     /** number of infeasible chromosomes across generations **/
     private ArrayList<Integer> numOfInFeasible;
-    
+
     /**
      * initialize the agents used during evaluating the chromosome
      */
@@ -59,7 +59,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
             e.printStackTrace();
         }
     }
-    
+
     /**
      * This is an evolutionary rule generator
      * @param sl    contains information about sprites and current level
@@ -69,7 +69,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
         SharedData.usefulSprites = new ArrayList<String>();
         SharedData.random = new Random();
         SharedData.la = new LevelAnalyzer(sl);
-        
+
         String[][] currentLevel = sl.getCurrentLevel();
         // Just get the useful sprites from the current level
         for (int y = 0; y < currentLevel.length; y++) {
@@ -90,7 +90,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
         SharedData.constGen = new tracks.ruleGeneration.constructiveRuleGenerator.RuleGenerator(sl, time);
         SharedData.constGen.generateRules(sl, time);
     }
-    
+
     private ArrayList<Chromosome> getFirstPopulation(SLDescription sl, String name, int amount, int mutations){
             ArrayList<Chromosome> chromosomes = new ArrayList<Chromosome>();
             try{
@@ -112,7 +112,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
             }
             return chromosomes;
     }
-    
+
     /**
      * Get the next population based on the current feasible infeasible population
      * @param fPopulation   array of the current feasible chromosomes
@@ -138,7 +138,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
         numOfFeasible.add(fPopulation.size());
         numOfInFeasible.add(iPopulation.size());
 
-        
+
         // CLEANSING PART
         // cleanse the population
         for(Chromosome c : fPopulation) {
@@ -147,7 +147,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
         for(Chromosome c: iPopulation) {
             c.cleanseChromosome();
         }
-        
+
         while(newPopulation.size() < SharedData.POPULATION_SIZE){
             //choosing which population to work on with 50/50 probability
             //of selecting either any of them
@@ -191,7 +191,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
             else if(SharedData.random.nextDouble() < SharedData.MUTATION_PROB){
                 child2.mutate();
             }
-            
+
             //add the new children to the new population
             newPopulation.add(child1);
             newPopulation.add(child2);
@@ -263,7 +263,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
      */
     @Override
     public String[][] generateRules(SLDescription sl, ElapsedCpuTimer time) {
-        
+
         //initialize the statistics objects
         bestFitness = new ArrayList<Double>();
         numOfFeasible = new ArrayList<Integer>();
@@ -273,7 +273,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
         ArrayList<Chromosome> fChromosomes = new ArrayList<Chromosome>();
         ArrayList<Chromosome> iChromosomes = new ArrayList<Chromosome>();
         ArrayList<Chromosome> allChromosomes = new ArrayList<Chromosome>();
-        
+
         allChromosomes.addAll(getFirstPopulation(sl, "tracks.ruleGeneration.constructiveRuleGenerator.RuleGenerator",
             (int)(SharedData.POPULATION_SIZE * SharedData.INIT_CONSTRUCT_PERCENT), 0));
         allChromosomes.addAll(getFirstPopulation(sl, "tracks.ruleGeneration.randomRuleGenerator.RuleGenerator",
@@ -287,7 +287,7 @@ public class RuleGenerator extends AbstractRuleGenerator{
         double avgTime = worstTime;
         double totalTime = 0;
         int numberOfIterations = 0;
-        
+
         // START EVO LOOP
         while(time.remainingTimeMillis() > 2 * avgTime && time.remainingTimeMillis() > worstTime){
             ElapsedCpuTimer timer = new ElapsedCpuTimer();

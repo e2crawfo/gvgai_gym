@@ -16,7 +16,7 @@ public class GoalConstraint extends AbstractConstraint{
      * Game description object send by the system
      */
     public GameDescription gameDescription;
-    
+
     /**
      * Check if all terminate conditions are unsatisfiable
      * @return  return 1 if all conditions are unsatisfiable and percentage
@@ -30,7 +30,7 @@ public class GoalConstraint extends AbstractConstraint{
             for(String s:t.sprites){
                 acheived += numOfObjects.get(s);
             }
-            
+
             if(t.type.equals("SpriteCounter")){
                 if(acheived > t.limit){
                     result += 1;
@@ -42,8 +42,8 @@ public class GoalConstraint extends AbstractConstraint{
                 }
             }
         }
-        
+
         return result / gameDescription.getTerminationConditions().size();
     }
-    
+
 }

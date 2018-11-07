@@ -42,7 +42,7 @@ public class ShieldFrom extends Effect {
         Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with ShieldFrom interaction."));
         return;
     }
-    
+
         game.addShield(sprite1.getType(), istype, iftype);
     }
 

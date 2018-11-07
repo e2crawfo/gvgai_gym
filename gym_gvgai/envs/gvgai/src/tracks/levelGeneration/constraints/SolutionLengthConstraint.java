@@ -12,7 +12,7 @@ public class SolutionLengthConstraint extends AbstractConstraint{
      * the minimum number of steps the agent should do
      */
     public double minSolutionLength;
-    
+
     /**
      * check if the solution length is at least equal to minSolutionLength
      * @return  1 if the solution length is larger than or equal to min solution length

@@ -20,22 +20,22 @@ public class SharedData {
      * the analyzer of this level
      */
     public static LevelAnalyzer la;
-    
+
     /**
      * the amount of time to evaluate a single level
      */
     public static final long EVALUATION_TIME = 10000;
-    
+
     /**
      * number of the best chromosomes that are transfered from one generation to another
      */
     public static final int ELITISM_NUMBER = 1;
-    
+
     /**
      * Crossover probability
      */
     public static final double CROSSOVER_PROB = 0.9;
-    
+
     /**
      * Mutation probability
      */
@@ -53,7 +53,7 @@ public class SharedData {
      * off what already exists (random and constructive) in the population
      */
     public static final double INIT_MUT_PERCENT = 0.4;
-    
+
     /**
      * the initial amount of mutations in the init pop
      */
@@ -62,7 +62,7 @@ public class SharedData {
      * random object to help in choosing random stuff
      */
     public static Random random;
-    
+
     /**
      * The name of a the best agent with some human error
      */
@@ -79,12 +79,12 @@ public class SharedData {
      * The name of the do nothing agent
      */
     public static final String DO_NOTHING_AGENT_NAME = "tracks.singlePlayer.simple.doNothing.Agent";
-    
+
     /**
      * How many steps the best agent gets to evaluate a game
      */
     public static final int EVALUATION_STEP_COUNT = 300;
-    
+
     /**
      * The amount of times used to run each agent
      */
@@ -133,17 +133,17 @@ public class SharedData {
      * The upper bound on a numerical value for a parameter insertion
      */
     public static final int NUMERICAL_VALUE_PARAM = 2000;
-    
+
     /**
      * The upper bound on a numerical value for a termination limit parameter insertion
      */
     public static final int TERMINATION_LIMIT_PARAM = 1000;
-    
+
     /**
      * Protects the fitness function from looping forever
      */
     public static final int PROTECTION_COUNTER = 3;
-    
+
     /**
      * the best automated agent
      */
@@ -160,9 +160,9 @@ public class SharedData {
      * the random agent
      */
     public static AbstractPlayer randomAgent;
-    
+
     public static tracks.ruleGeneration.constructiveRuleGenerator.RuleGenerator constGen;
-    
+
     /**
      * Array contains all interactions we want to mutate over
      */

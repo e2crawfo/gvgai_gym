@@ -38,7 +38,7 @@ public class WallStop extends Effect
         Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither the 1st nor 2nd sprite can be EOS with WallStop interaction."));
         return;
     }
-    
+
         // Stop just in front of the wall, removing that velocity component, but possibly sliding along it.
 
         //Keep in the list, for the current cycle, the sprites that have triggered this event.

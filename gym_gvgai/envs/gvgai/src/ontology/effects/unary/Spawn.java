@@ -30,11 +30,11 @@ public class Spawn extends Effect {
     @Override
     public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game)
     {
-    	if(sprite1 == null){
-    		Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with Spawn interaction."));
-    		return;
-    	}
-    	
+        if(sprite1 == null){
+            Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with Spawn interaction."));
+            return;
+        }
+
         if(game.getRandomGenerator().nextDouble() >= prob) return;
         game.addSprite(itype, sprite1.getPosition());
     }
@@ -43,7 +43,7 @@ public class Spawn extends Effect {
     public ArrayList<String> getEffectSprites(){
         ArrayList<String> result = new ArrayList<String>();
         if(stype!=null) result.add(stype);
-        
+
         return result;
     }
 }

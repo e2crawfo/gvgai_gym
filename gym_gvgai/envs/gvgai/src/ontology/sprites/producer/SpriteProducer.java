@@ -11,28 +11,28 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class SpriteProducer extends VGDLSprite {
-	public SpriteProducer() {
-	}
+    public SpriteProducer() {
+    }
 
-	public SpriteProducer(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public SpriteProducer(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-	}
+    protected void loadDefaults() {
+        super.loadDefaults();
+    }
 
-	public VGDLSprite copy() {
-		SpriteProducer newSprite = new SpriteProducer();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    public VGDLSprite copy() {
+        SpriteProducer newSprite = new SpriteProducer();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
 
-	public void copyTo(VGDLSprite target) {
-		SpriteProducer targetSprite = (SpriteProducer) target;
-		super.copyTo(targetSprite);
-	}
+    public void copyTo(VGDLSprite target) {
+        SpriteProducer targetSprite = (SpriteProducer) target;
+        super.copyTo(targetSprite);
+    }
 
 }

@@ -10,34 +10,34 @@ import tools.Vector2d;
  * Created by diego on 17/02/14.
  */
 public class Door extends Immovable {
-	// Seems to have no distinguishing features...
-	
-	public Door() {
-	}
+    // Seems to have no distinguishing features...
 
-	public Door(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public Door() {
+    }
 
-	public void postProcess() {
-		super.postProcess();
-	}
+    public Door(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-		portal = true;
-	}
+    public void postProcess() {
+        super.postProcess();
+    }
 
-	public VGDLSprite copy() {
-		Door newSprite = new Door();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    protected void loadDefaults() {
+        super.loadDefaults();
+        portal = true;
+    }
 
-	public void copyTo(VGDLSprite target) {
-		Door targetSprite = (Door) target;
-		super.copyTo(targetSprite);
-	}
+    public VGDLSprite copy() {
+        Door newSprite = new Door();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
+
+    public void copyTo(VGDLSprite target) {
+        Door targetSprite = (Door) target;
+        super.copyTo(targetSprite);
+    }
 }

@@ -36,7 +36,7 @@ public class BounceDirection extends Effect
         Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither 1st not 2nd sprite can be EOS with BounceDirection interaction."));
         return;
     }
-    
+
         //We need the actual intersection:
         Rectangle interRect = sprite1.rect.intersection(sprite2.rect);
         double padLenght = sprite2.rect.height;

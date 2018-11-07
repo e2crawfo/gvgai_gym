@@ -20,7 +20,7 @@ public class ContinuousPhysics extends GridPhysics
     @Override
     public Types.MOVEMENT passiveMovement(VGDLSprite sprite)
     {
-        
+
         if(sprite.isFirstTick)
         {
             sprite.isFirstTick = false;
@@ -29,7 +29,7 @@ public class ContinuousPhysics extends GridPhysics
 
         //This needs to be thoroughly tested when continuous physics are added
         //Specially the returned type.
-        
+
         if(sprite.speed != 0)
         {
             sprite._updatePos(sprite.orientation, (int) sprite.speed);
@@ -51,13 +51,13 @@ public class ContinuousPhysics extends GridPhysics
     {
         //Here the assumption is that the controls determine the direction of
         //acceleration of the sprite.
-        
+
         if(speed == 0)
             speed = sprite.speed;
 
         if(speed == -1)
             speed = sprite.speed;
-        
+
         double v1 = (action.x() / (float)sprite.mass) + (sprite.orientation.x() * speed);
         double v2 = (action.y() / (float)sprite.mass) + (sprite.orientation.y() * speed);
 

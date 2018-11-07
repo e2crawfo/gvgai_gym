@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 public abstract class AbstractConstraint {
-    
+
     /**
      * Set the parameter of the constrains from a HashMap
      * @param parameters    hashmap of constraints parameters
@@ -27,13 +27,13 @@ public abstract class AbstractConstraint {
                         }
                     }
                     catch(Exception e){
-                        e.printStackTrace();    
+                        e.printStackTrace();
                     }
                 }
             }
         }
     }
-    
+
     /**
      * Check if the current constrain is achieved or not
      * @return  Reflect how much the constrain is achieved 1: achieved 0: very bad

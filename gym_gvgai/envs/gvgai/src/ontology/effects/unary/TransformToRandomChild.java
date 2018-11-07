@@ -35,7 +35,7 @@ public class TransformToRandomChild extends TransformTo {
         Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with TransformToRandomChild interaction."));
         return;
     }
-    
+
         ArrayList<Integer> subtypes = game.getSubTypes(itype);
         if (subtypes.size() > 1) {
             int[] types = new int[subtypes.size()-1];
@@ -60,7 +60,7 @@ public class TransformToRandomChild extends TransformTo {
     public ArrayList<String> getEffectSprites(){
         ArrayList<String> result = new ArrayList<String>();
         if(stype!=null) result.add(stype);
-        
+
         return result;
     }
 }

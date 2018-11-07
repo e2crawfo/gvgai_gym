@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import tools.GameAnalyzer;
 
 public class SpriteNumberConstraint extends AbstractConstraint{
-    
+
 
     /**
      * hashmap contains the number of objects for each type
@@ -16,7 +16,7 @@ public class SpriteNumberConstraint extends AbstractConstraint{
      * Object for game analyzer
      */
     public GameAnalyzer gameAnalyzer;
-    
+
     /**
      *
      * @return  1 if all objects appears at least once and
@@ -26,7 +26,7 @@ public class SpriteNumberConstraint extends AbstractConstraint{
     public double checkConstraint() {
         double totalNum = 0;
         double acheivedNum = 0;
-        
+
         for(Entry<String, Integer> n:numOfObjects.entrySet()){
             if(gameAnalyzer.checkIfSpawned(n.getKey()) > 0){
                 totalNum += 1;
@@ -35,7 +35,7 @@ public class SpriteNumberConstraint extends AbstractConstraint{
                 }
             }
         }
-        
+
         return acheivedNum / totalNum;
     }
 

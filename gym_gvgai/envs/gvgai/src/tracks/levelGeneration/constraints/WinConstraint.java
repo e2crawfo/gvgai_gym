@@ -10,7 +10,7 @@ public class WinConstraint extends AbstractConstraint {
      * the winning state of the player
      */
     public Types.WINNER bestPlayer;
-    
+
     /**
      * check if the player win the game
      * @return  1 if the automated player wins and 0 otherwise

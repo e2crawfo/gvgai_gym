@@ -52,7 +52,7 @@ BasicGame square_size=30
         m > undergroundWallHdn floor
         1 > overgroundGem floor
         2 > undergroundGemHdn floor
-		
+
     InteractionSet
         overground overgroundWall > stepBack
         underground undergroundWall > stepBack

@@ -107,7 +107,7 @@ public class SingleTreeNode
 
     public int getNumberOfReverseActions(SingleTreeNode node){
         int result = 0;
-        
+
         int previousAction = -1;
         while(node != null){
             int currentAction = getCurrentAction(node);
@@ -118,13 +118,13 @@ public class SingleTreeNode
             }
             node = node.parent;
         }
-        
+
         return result;
     }
 
     public int getNumberOfSameActions(SingleTreeNode node){
         int result = 0;
-        
+
         int previousAction = -1;
         while(node != null){
             int currentAction = getCurrentAction(node);
@@ -135,7 +135,7 @@ public class SingleTreeNode
             }
             node = node.parent;
         }
-        
+
         return result;
     }
 
@@ -146,7 +146,7 @@ public class SingleTreeNode
 
     public int getNumberOfUselessMoves(SingleTreeNode node){
         int result = 0;
-        
+
         while(node != null){
             int currentAction = getCurrentAction(node);
             if(currentAction != -1 && Agent.actions[currentAction] != Types.ACTIONS.ACTION_USE){
@@ -156,13 +156,13 @@ public class SingleTreeNode
             }
             node = node.parent;
         }
-        
+
         return result;
     }
 
     public int getMaxVisitedValue(){
         int result = 0;
-        
+
         for(int i=0; i<visitedTiles.length; i++){
             for(int j=0; j<visitedTiles[i].length; j++){
                 if(visitedTiles[i][j] > result){
@@ -170,7 +170,7 @@ public class SingleTreeNode
                 }
             }
         }
-        
+
         return result;
     }
 
@@ -203,12 +203,12 @@ public class SingleTreeNode
         double[] values = new double[32];
         for (SingleTreeNode child : this.children)
         {
-            values[Helper.TREE_CHILD_DEPTH] = Double.valueOf(child.m_depth);            
+            values[Helper.TREE_CHILD_DEPTH] = Double.valueOf(child.m_depth);
             values[Helper.TREE_CHILD_VALUE] = Double.valueOf(child.totValue);
             values[Helper.TREE_PARENT_VISITS] = Double.valueOf(this.nVisits);
             values[Helper.TREE_CHILD_VISITS] = Double.valueOf(child.nVisits);
             values[Helper.TREE_CHILD_MAX_VALUE] = Double.valueOf(child.maxValue);
-            
+
             //Game related variables
             values[Helper.HISTORY_REVERSE_VALUE] = getNumberOfReverseActions(child);
             values[Helper.HISTORY_REPEATING_VALUE] = getNumberOfSameActions(child);
@@ -222,7 +222,7 @@ public class SingleTreeNode
                 values[Helper.SPACE_EXPLORATION_VALUE] = getMaxVisitedValue();
             }
             values[Helper.SPACE_EXPLORATION_MAX_VALUE] = getMaxVisitedValue();
-            
+
             //VGDL related variables
             values[Helper.DISTANCE_MAX_IMMOVABLE] =
                     Helper.getMaxObservation(child.state.getImmovablePositions(), child.state.getAvatarPosition());
@@ -234,7 +234,7 @@ public class SingleTreeNode
                     Helper.getMaxObservation(child.state.getPortalsPositions(), child.state.getAvatarPosition());
             values[Helper.DISTANCE_MAX_RESOURCE] =
                     Helper.getMaxObservation(child.state.getResourcesPositions(), child.state.getAvatarPosition());
-            
+
             values[Helper.DISTANCE_MIN_IMMOVABLE] =
                     Helper.getMinObservation(child.state.getImmovablePositions(), child.state.getAvatarPosition());
             values[Helper.DISTANCE_MIN_MOVABLE] =
@@ -245,7 +245,7 @@ public class SingleTreeNode
                     Helper.getMinObservation(child.state.getPortalsPositions(), child.state.getAvatarPosition());
             values[Helper.DISTANCE_MIN_RESOURCE] =
                     Helper.getMinObservation(child.state.getResourcesPositions(), child.state.getAvatarPosition());
-            
+
             values[Helper.DISTANCE_TOT_IMMOVABLE] =
                     Helper.getTotObservation(child.state.getImmovablePositions(), child.state.getAvatarPosition());
             values[Helper.DISTANCE_TOT_MOVABLE] =
@@ -256,7 +256,7 @@ public class SingleTreeNode
                     Helper.getTotObservation(child.state.getPortalsPositions(), child.state.getAvatarPosition());
             values[Helper.DISTANCE_TOT_RESOURCE] =
                     Helper.getTotObservation(child.state.getResourcesPositions(), child.state.getAvatarPosition());
-            
+
             values[Helper.NUMBER_IMMOVABLE] =
                     Helper.getObservationLength(child.state.getImmovablePositions());
             values[Helper.NUMBER_MOVABLE] =
@@ -267,10 +267,10 @@ public class SingleTreeNode
                     Helper.getObservationLength(child.state.getPortalsPositions());
             values[Helper.NUMBER_RESOURCE] =
                     Helper.getObservationLength(child.state.getResourcesPositions());
-            
+
             values[Helper.GRID_WIDTH] = state.getObservationGrid()[0].length;
             values[Helper.GRID_HEIGHT] = state.getObservationGrid().length;
-            
+
             double uctValue = Agent.ucb.evaluate(values, Agent.parameters);
 
             // small sampleRandom numbers: break ties in unexpanded nodes

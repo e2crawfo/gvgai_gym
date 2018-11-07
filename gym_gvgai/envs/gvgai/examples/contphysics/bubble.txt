@@ -3,15 +3,15 @@ BasicGame
         avatar > FlakAvatar stype=bullet physicstype=CONT friction=0.02 img=oryx/spider3
         bullet > Missile speed=25 singleton=True orientation=DUP physicstype=CONT img=oryx/bullet1
         bubble > Missile physicstype=CONT gravity=0.5
-        	bubble1 > speed=4 shrinkfactor=1.2 img=oryx/orb1
-        		bubble1a > orientation=DLEFT
-        		bubble1b > orientation=DRIGHT
-        	bubble2 > speed=7 img=oryx/orb2
-        		bubble2a > orientation=DLEFT
-        		bubble2b > orientation=DRIGHT
-        	bubble3 > speed=10 shrinkfactor=0.8 img=oryx/orb3
-        		bubble3a > orientation=DLEFT
-        		bubble3b > orientation=DRIGHT
+            bubble1 > speed=4 shrinkfactor=1.2 img=oryx/orb1
+                bubble1a > orientation=DLEFT
+                bubble1b > orientation=DRIGHT
+            bubble2 > speed=7 img=oryx/orb2
+                bubble2a > orientation=DLEFT
+                bubble2b > orientation=DRIGHT
+            bubble3 > speed=10 shrinkfactor=0.8 img=oryx/orb3
+                bubble3a > orientation=DLEFT
+                bubble3b > orientation=DRIGHT
 
     TerminationSet
         SpriteCounter stype=bubble    win=True

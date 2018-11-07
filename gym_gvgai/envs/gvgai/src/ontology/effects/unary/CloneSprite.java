@@ -14,20 +14,20 @@ import tools.Vector2d;
  */
 public class CloneSprite extends Effect {
 
-	public CloneSprite(InteractionContent cnt) {
-		this.parseParameters(cnt);
-	}
+    public CloneSprite(InteractionContent cnt) {
+        this.parseParameters(cnt);
+    }
 
-	@Override
-	public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
-		if (sprite1 == null) {
-			Logger.getInstance()
-					.addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with CloneSprite interaction."));
-			return;
-		}
+    @Override
+    public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
+        if (sprite1 == null) {
+            Logger.getInstance()
+                    .addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with CloneSprite interaction."));
+            return;
+        }
 
-		int itype = sprite1.getType();
-		Vector2d pos = sprite1.getPosition();
-		game.addSprite(itype, pos);
-	}
+        int itype = sprite1.getType();
+        Vector2d pos = sprite1.getPosition();
+        game.addSprite(itype, pos);
+    }
 }

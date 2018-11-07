@@ -12,28 +12,28 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class RandomInertial extends RandomNPC {
-	public RandomInertial() {
-	}
+    public RandomInertial() {
+    }
 
-	public RandomInertial(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public RandomInertial(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-		physicstype = Types.CONT;
-	}
+    protected void loadDefaults() {
+        super.loadDefaults();
+        physicstype = Types.CONT;
+    }
 
-	public VGDLSprite copy() {
-		RandomInertial newSprite = new RandomInertial();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    public VGDLSprite copy() {
+        RandomInertial newSprite = new RandomInertial();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
 
-	public void copyTo(VGDLSprite target) {
-		RandomInertial targetSprite = (RandomInertial) target;
-		super.copyTo(targetSprite);
-	}
+    public void copyTo(VGDLSprite target) {
+        RandomInertial targetSprite = (RandomInertial) target;
+        super.copyTo(targetSprite);
+    }
 }

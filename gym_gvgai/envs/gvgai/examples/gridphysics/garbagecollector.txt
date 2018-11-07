@@ -10,7 +10,7 @@ BasicGame square_size=10
         A > avatar floor
         g > garbage floor
         . > floor
-		
+
     InteractionSet
         avatar playerWall wall > killSprite scoreChange=-1
         garbage avatar > killSprite scoreChange=2

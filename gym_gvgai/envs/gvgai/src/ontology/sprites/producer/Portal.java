@@ -14,49 +14,49 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Portal extends SpriteProducer {
-	public String stype;
-	public int itype;
+    public String stype;
+    public int itype;
 
-	public Portal() {
-	}
+    public Portal() {
+    }
 
-	public Portal(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public Portal(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-		is_static = true;
-		portal = true;
-		color = Types.BLUE;
-	}
+    protected void loadDefaults() {
+        super.loadDefaults();
+        is_static = true;
+        portal = true;
+        color = Types.BLUE;
+    }
 
-	public void postProcess() {
-		super.postProcess();
-		itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype);
-	}
+    public void postProcess() {
+        super.postProcess();
+        itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype);
+    }
 
-	public VGDLSprite copy() {
-		Portal newSprite = new Portal();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    public VGDLSprite copy() {
+        Portal newSprite = new Portal();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
 
-	public void copyTo(VGDLSprite target) {
-		Portal targetSprite = (Portal) target;
-		targetSprite.stype = this.stype;
-		targetSprite.itype = this.itype;
-		super.copyTo(targetSprite);
-	}
+    public void copyTo(VGDLSprite target) {
+        Portal targetSprite = (Portal) target;
+        targetSprite.stype = this.stype;
+        targetSprite.itype = this.itype;
+        super.copyTo(targetSprite);
+    }
 
-	@Override
-	public ArrayList<String> getDependentSprites() {
-		ArrayList<String> result = new ArrayList<String>();
-		if (stype != null)
-			result.add(stype);
+    @Override
+    public ArrayList<String> getDependentSprites() {
+        ArrayList<String> result = new ArrayList<String>();
+        if (stype != null)
+            result.add(stype);
 
-		return result;
-	}
+        return result;
+    }
 }

@@ -29,7 +29,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
      * number of infeasible chromosomes across generations
      */
     private ArrayList<Integer> numOfInFeasible;
-    
+
     /**
      * Initializing the level generator
      * @param game          game description object
@@ -45,7 +45,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
         numOfFeasible = null;
         numOfInFeasible = null;
     }
-    
+
     /**
      * Get the next population based on the current feasible infeasible population
      * @param fPopulation   array of the current feasible chromosomes
@@ -54,7 +54,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
      */
     private ArrayList<Chromosome> getNextPopulation(ArrayList<Chromosome> fPopulation, ArrayList<Chromosome> iPopulation){
         ArrayList<Chromosome> newPopulation = new ArrayList<Chromosome>();
-        
+
         //collect some statistics about the current generation
         ArrayList<Double> fitnessArray = new ArrayList<Double>();
         for(int i=0;i<fPopulation.size();i++){
@@ -70,9 +70,9 @@ public class LevelGenerator extends AbstractLevelGenerator{
         }
         numOfFeasible.add(fPopulation.size());
         numOfInFeasible.add(iPopulation.size());
-        
 
-        
+
+
         while(newPopulation.size() < SharedData.POPULATION_SIZE){
             //choosing which population to work on with 50/50 probability
             //of selecting either any of them
@@ -86,7 +86,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
                     population = fPopulation;
                 }
             }
-            
+
 
             //select the parents using roulletewheel selection
             Chromosome parent1 = rouletteWheelSelection(population);
@@ -98,7 +98,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
                 ArrayList<Chromosome> children = parent1.crossOver(parent2);
                 child1 = children.get(0);
                 child2 = children.get(1);
-                
+
 
                 //do muation to the children
                 if(SharedData.random.nextDouble() < SharedData.MUTATION_PROB){
@@ -116,13 +116,13 @@ public class LevelGenerator extends AbstractLevelGenerator{
             else if(SharedData.random.nextDouble() < SharedData.MUTATION_PROB){
                 child2.mutate();
             }
-            
+
 
             //add the new children to the new population
             newPopulation.add(child1);
             newPopulation.add(child2);
         }
-        
+
 
         //calculate fitness of the new population chromosomes
         for(int i=0;i<newPopulation.size();i++){
@@ -134,7 +134,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
                 System.out.println("\tChromosome #" + (i+1) + " Fitness: " + newPopulation.get(i).getFitness());
             }
         }
-        
+
 
         //add the best chromosome(s) from old population to the new population
         Collections.sort(newPopulation);
@@ -154,7 +154,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
                 newPopulation.add(fPopulation.get(i));
             }
         }
-        
+
         return newPopulation;
     }
 
@@ -170,11 +170,11 @@ public class LevelGenerator extends AbstractLevelGenerator{
         for(int i=1; i<population.size(); i++){
             probabilities[i] = probabilities[i-1] + population.get(i).getConstrainFitness() + SharedData.EIPSLON;
         }
-        
+
         for(int i=0; i<probabilities.length; i++){
             probabilities[i] = probabilities[i] / probabilities[probabilities.length - 1];
         }
-        
+
 
         //choose a chromosome based on its probability
         double prob = SharedData.random.nextDouble();
@@ -183,10 +183,10 @@ public class LevelGenerator extends AbstractLevelGenerator{
                 return population.get(i);
             }
         }
-        
+
         return population.get(0);
     }
-    
+
 
     /**
      * Get the fitness for any population
@@ -198,7 +198,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
         if(population.get(0).getConstrainFitness() < 1){
             return constraintRouletteWheelSelection(population);
         }
-        
+
 
         //calculate the probabilities for the current population
         double[] probabilities = new double[population.size()];
@@ -206,7 +206,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
         for(int i=1; i<population.size(); i++){
             probabilities[i] = probabilities[i-1] + population.get(i).getCombinedFitness() + SharedData.EIPSLON;
         }
-        
+
         for(int i=0; i<probabilities.length; i++){
             probabilities[i] = probabilities[i] / probabilities[probabilities.length - 1];
         }
@@ -218,10 +218,10 @@ public class LevelGenerator extends AbstractLevelGenerator{
                 return population.get(i);
             }
         }
-        
+
         return population.get(0);
     }
-    
+
     /**
      * Generate a level using GA in a fixed amount of time and
      * return the level in form of a string
@@ -235,21 +235,21 @@ public class LevelGenerator extends AbstractLevelGenerator{
         bestFitness = new ArrayList<Double>();
         numOfFeasible = new ArrayList<Integer>();
         numOfInFeasible = new ArrayList<Integer>();
-        
+
         SharedData.gameDescription = game;
-        
+
         int size = 0;
         if(SharedData.gameAnalyzer.getSolidSprites().size() > 0){
             size = 2;
         }
-        
+
 
         //get the level size
         int width = (int)Math.max(SharedData.MIN_SIZE + size, game.getAllSpriteData().size() * (1 + 0.25 * SharedData.random.nextDouble()) + size);
         int height = (int)Math.max(SharedData.MIN_SIZE + size, game.getAllSpriteData().size() * (1 + 0.25 * SharedData.random.nextDouble()) + size);
         width = (int)Math.min(width, SharedData.MAX_SIZE + size);
         height = (int)Math.min(height, SharedData.MAX_SIZE + size);
-        
+
         System.out.println("Generation #1: ");
         ArrayList<Chromosome> fChromosomes = new ArrayList<Chromosome>();
         ArrayList<Chromosome> iChromosomes = new ArrayList<Chromosome>();
@@ -276,7 +276,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
                 System.out.println("\tChromosome #" + (i+1) + " Fitness: " + chromosome.getFitness());
             }
         }
-        
+
 
         //some variables to make sure not getting out of time
         double worstTime = SharedData.EVALUATION_TIME * SharedData.POPULATION_SIZE;
@@ -288,9 +288,9 @@ public class LevelGenerator extends AbstractLevelGenerator{
         while(elapsedTimer.remainingTimeMillis() > 2 * avgTime &&
                 elapsedTimer.remainingTimeMillis() > worstTime){
             ElapsedCpuTimer timer = new ElapsedCpuTimer();
-            
+
             System.out.println("Generation #" + (numberOfIterations + 2) + ": ");
-            
+
 
             //get the new population and split it to a the feasible and infeasible populations
             ArrayList<Chromosome> chromosomes = getNextPopulation(fChromosomes, iChromosomes);
@@ -304,12 +304,12 @@ public class LevelGenerator extends AbstractLevelGenerator{
                     fChromosomes.add(c);
                 }
             }
-            
+
             numberOfIterations += 1;
             totalTime += timer.elapsedMillis();
             avgTime = totalTime / numberOfIterations;
         }
-        
+
 
         //return the best infeasible chromosome
         if(fChromosomes.isEmpty()){
@@ -322,7 +322,7 @@ public class LevelGenerator extends AbstractLevelGenerator{
             System.out.println("Best Fitness: " + iChromosomes.get(0).getConstrainFitness());
             return iChromosomes.get(0).getLevelString(bestChromosomeLevelMapping);
         }
-        
+
         //return the best feasible chromosome otherwise and print some statistics
         for(int i=0;i<fChromosomes.size();i++){
             fChromosomes.get(i).calculateFitness(SharedData.EVALUATION_TIME);

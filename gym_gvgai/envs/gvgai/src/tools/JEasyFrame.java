@@ -13,34 +13,34 @@ import core.competition.CompetitionParameters;
  */
 public class JEasyFrame extends JFrame {
 
-	/**
-	 * Main component of the frame.
-	 */
-	public Component comp;
+    /**
+     * Main component of the frame.
+     */
+    public Component comp;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param comp  Main component of the frame.
-	 * @param title Title of the window.
-	 */
-	public JEasyFrame(Component comp, String title) {
-		super(title);
-		this.comp = comp;
-		getContentPane().add(BorderLayout.CENTER, comp);
-		pack();
-		this.setVisible(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		if (CompetitionParameters.closeAppOnClosingWindow) {
-			setDefaultCloseOperation(EXIT_ON_CLOSE);
-		}
-		repaint();
-	}
+    /**
+     * Constructor
+     *
+     * @param comp  Main component of the frame.
+     * @param title Title of the window.
+     */
+    public JEasyFrame(Component comp, String title) {
+        super(title);
+        this.comp = comp;
+        getContentPane().add(BorderLayout.CENTER, comp);
+        pack();
+        this.setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        if (CompetitionParameters.closeAppOnClosingWindow) {
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+        }
+        repaint();
+    }
 
-	/**
-	 * Closes this component.
-	 */
-	public void quit() {
-		System.exit(0);
-	}
+    /**
+     * Closes this component.
+     */
+    public void quit() {
+        System.exit(0);
+    }
 }

@@ -27,7 +27,7 @@ BasicGame square_size=20 obs=wall
 
             pacman > OrientedAvatar img=newset/pacman rotateInPlace=false speed=0.5
                 hungry  > color=YELLOW
-                powered > color=ORANGE            
+                powered > color=ORANGE
         wall > Immovable img=oryx/wall3 autotiling=True
     InteractionSet
         moving wall > stepBack
@@ -58,7 +58,7 @@ BasicGame square_size=20 obs=wall
         ghost powered > killSprite scoreChange=40
 
 
-        
+
     LevelMapping
         + > floor
         0 > floor power
@@ -70,7 +70,7 @@ BasicGame square_size=20 obs=wall
         4 > floor pinkspawn
         f > floor fruit
         w > floor wall
-        
+
     TerminationSet
-        SpriteCounter stype=food   win=True     
+        SpriteCounter stype=food   win=True
         SpriteCounter stype=pacman win=False

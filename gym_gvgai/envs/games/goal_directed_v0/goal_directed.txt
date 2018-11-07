@@ -1,18 +1,19 @@
-BasicGame square_size=40 obs=wall
+BasicGame obs=wall square_size=40
   SpriteSet
-    floor > Immovable hidden=True draw_arrow=False shape=square color=WHITE arrow_color=BLACK
-    wall > Immovable draw_arrow=False shape=square color=BLACK arrow_color=WHITE
+    floor > Immovable arrow_color=BLACK color=WHITE draw_arrow=False hidden=True shape=square
+    wall > Immovable arrow_color=WHITE color=BLACK draw_arrow=False shape=square
     top_level >
-      red > ShootAvatar healthPoints=3 orientation=DOWN rotateInPlace=False force_missile_orientation=True fixed_orientation=False linear_movement=False speed=1 stype=blue color=RED arrow_color=WHITE shape=triangle missile_on_top=True
-      # red > ShootAvatar healthPoints=3 orientation=DOWN force_missile_orientation=False fixed_orientation=True linear_movement=False speed=1 stype=blue color=RED arrow_color=WHITE shape=triangle missile_on_top=True
-      blue > Missile color=BLUE orientation=RIGHT arrow_color=WHITE speed=0.5 healthPoints=1
+      yellow > ShootAvatar arrow_color=BLACK color=YELLOW fixed_orientation=False force_missile_orientation=True healthPoints=2 linear_movement=False missile_on_top=False orientation=NONE speed=0.5 stype=brown
+      brown > Missile arrow_color=WHITE color=BROWN orientation=NONE shape=square speed=1.5
   LevelMapping
-    R > floor red
-    b > floor blue
+    Y > floor yellow
+    b > floor brown
     w > floor wall
     . > floor
   InteractionSet
     top_level wall > stepBack
-    red blue > stepBack
+    brown yellow > stepBack
+    yellow yellow > killSprite scoreChange=2
+    brown brown > stepBack
   TerminationSet
     Timeout limit=20

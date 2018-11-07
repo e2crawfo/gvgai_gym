@@ -28,7 +28,7 @@ public class KillIfAlive extends Effect {
             Logger.getInstance().addMessage(new Message(Message.WARNING, "Neither 1st not 2nd sprite can be EOS with KillIfAlive interaction."));
             return;
         }
-    
+
         //boolean variable set to false to indicate the sprite was not transformed
         if (!game.kill_list.contains(sprite2))
             game.killSprite(sprite1, false);

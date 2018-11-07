@@ -158,7 +158,7 @@ public class RuleGenerator extends AbstractRuleGenerator {
                 sl.testRules(getArray(interaction), getArray(termination));
             }
         }
-        
+
         // Add a winning termination condition
         if (this.random.nextBoolean()) {
             termination.add("Timeout limit=" + (800 + this.random.nextInt(500)) + " win=True");

@@ -14,23 +14,23 @@ import java.awt.*;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class AttractGaze extends Effect {
-	// Move sprite 1 so that it is looking in same direction as sprite 2,
-	// and is "aligned" with sprite 2 (ie they are looking at the same point
-	// in the distance)
-	public boolean align = false;
+    // Move sprite 1 so that it is looking in same direction as sprite 2,
+    // and is "aligned" with sprite 2 (ie they are looking at the same point
+    // in the distance)
+    public boolean align = false;
 
-	public AttractGaze(InteractionContent cnt) {
-		this.parseParameters(cnt);
-		setStochastic();
-	}
+    public AttractGaze(InteractionContent cnt) {
+        this.parseParameters(cnt);
+        setStochastic();
+    }
 
-	@Override
-	public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
-		if (sprite1 == null || sprite2 == null) {
-			Logger.getInstance().addMessage(new Message(Message.WARNING,
-					"Neither 1st not 2nd sprite can be EOS with AttractGaze interaction."));
-			return;
-		}
+    @Override
+    public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
+        if (sprite1 == null || sprite2 == null) {
+            Logger.getInstance().addMessage(new Message(Message.WARNING,
+                    "Neither 1st not 2nd sprite can be EOS with AttractGaze interaction."));
+            return;
+        }
 
           if (game.getRandomGenerator().nextDouble() < prob) {
                sprite1.orientation = sprite2.orientation.copy();
@@ -49,5 +49,5 @@ public class AttractGaze extends Effect {
                }
 
           }
-	}
+    }
 }

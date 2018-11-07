@@ -14,7 +14,7 @@ import ontology.effects.Effect;
  */
 public class KillIfNotUpright extends Effect
 {
-    
+
     public KillIfNotUpright(InteractionContent cnt)
     {
         is_kill_effect = true;

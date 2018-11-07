@@ -6,19 +6,19 @@ import java.util.HashMap;
 
 public class CombinedConstraints extends AbstractConstraint{
 
-    
+
     /**
      * array of all constraints need to be checked
      */
     private ArrayList<AbstractConstraint> constraints;
-    
+
     /**
      *
      */
     public CombinedConstraints(){
         constraints = new ArrayList<AbstractConstraint>();
     }
-    
+
 
     /**
      * Add multiple constraints to the combined constraints class
@@ -38,7 +38,7 @@ public class CombinedConstraints extends AbstractConstraint{
             }
         }
     }
-    
+
 
     /**
      * Set the parameters of all the constraints added
@@ -50,7 +50,7 @@ public class CombinedConstraints extends AbstractConstraint{
             c.setParameters(parameters);
         }
     }
-    
+
 
     /**
      * Check if all constraints are satisfied

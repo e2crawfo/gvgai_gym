@@ -14,7 +14,7 @@ public class LevelData {
      * hashmap to hold the current level mapping
      */
     private HashMap<String, Character> levelMapping;
-    
+
     /**
      * construct data for a level
      * @param width     level width
@@ -24,7 +24,7 @@ public class LevelData {
         level = new String[width][length];
         levelMapping = new HashMap<String, Character>();
     }
-    
+
 
     /**
      * get the 2D level in form of string
@@ -33,7 +33,7 @@ public class LevelData {
     public String getLevel(){
         String result = "";
         char mapChar = 'a';
-        
+
         for(int y=0; y<level[0].length; y++){
             for(int x=0; x<level.length; x++){
                 if(level[x][y] == null){
@@ -50,10 +50,10 @@ public class LevelData {
             result += "\n";
         }
         result = result.substring(0, result.length() - 1);
-        
+
         return result;
     }
-    
+
 
     /**
      * set a position in the map to a certain type
@@ -64,7 +64,7 @@ public class LevelData {
     public void set(int x, int y, String stype){
         level[x][y] = stype;
     }
-    
+
 
     /**
      * get the sprite at a certain position
@@ -75,7 +75,7 @@ public class LevelData {
     public String get(int x, int y){
         return level[x][y];
     }
-    
+
 
     /**
      * get the width of the level
@@ -84,7 +84,7 @@ public class LevelData {
     public int getWidth(){
         return level.length;
     }
-    
+
 
     /**
      * get the height of the level
@@ -93,7 +93,7 @@ public class LevelData {
     public int getHeight(){
         return level[0].length;
     }
-    
+
 
     /**
      * check if the two positions are connected
@@ -129,7 +129,7 @@ public class LevelData {
         }
         return false;
     }
-    
+
 
     /**
      * check if this wall will case the world not to be connected any more
@@ -149,7 +149,7 @@ public class LevelData {
         set(x, y, null);
         return result;
     }
-    
+
 
     /**
      * check if the point is inside the borders of the level
@@ -160,7 +160,7 @@ public class LevelData {
     public boolean checkInLevel(int x, int y){
         return (x >= 0 && y >=0 && x < getWidth() && y < getHeight());
     }
-    
+
 
     /**
      * get all empty locations in the level
@@ -175,10 +175,10 @@ public class LevelData {
                 }
             }
         }
-        
+
         return result;
     }
-    
+
 
     /**
      * get the level mapping hashmap
@@ -193,7 +193,7 @@ public class LevelData {
         }
         return result;
     }
-    
+
 
     /**
      * Special point class that is used to get neighbors and handle
@@ -203,17 +203,17 @@ public class LevelData {
     public static class Point{
         public int x;
         public int y;
-        
+
         public Point(){
             this.x = 0;
             this.y = 0;
         }
-        
+
         public Point(int x, int y){
             this.x = x;
             this.y = y;
         }
-        
+
 
         /**
          * get a list of all 4 neighbor points
@@ -225,10 +225,10 @@ public class LevelData {
             result.add(new Point(this.x - 1, this.y));
             result.add(new Point(this.x, this.y + 1));
             result.add(new Point(this.x, this.y - 1));
-            
+
             return result;
         }
-        
+
 
         /**
          * get distance between this point and the input point

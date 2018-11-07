@@ -14,7 +14,7 @@ BasicGame
 
       avatar > OrientedAvatar img=newset/man4 rotateInPlace=false frameRate=8
       wall > Immovable color=BLACK img=newset/floor4
-    
+
    LevelMapping
       1 > inc1 floor
       2 > inc2 floor
@@ -27,12 +27,12 @@ BasicGame
       A > avatar floor
       c > chef floor
       . > floor
-           
+
    TerminationSet
       Timeout limit=1500 win=False
       SpriteCounter stype=avatar win=False
       SpriteCounter stype=inc6 limit=0 win=True
-        
+
    InteractionSet
       avatar  wall table  > stepBack
       chef  wall table  > stepBack

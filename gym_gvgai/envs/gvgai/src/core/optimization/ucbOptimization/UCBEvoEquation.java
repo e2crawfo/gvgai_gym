@@ -12,7 +12,7 @@ public class UCBEvoEquation implements UCBEquation {
      * small value to avoid division by zero
      */
     public static double epsilon = 1e-6;
-    
+
     /**
      * get the number of parameters used in this equation
      * @return number of ucb parameters (14)
@@ -36,7 +36,7 @@ public class UCBEvoEquation implements UCBEquation {
             }
             parameters = temp;
         }
-        
+
         double uctValue =
                 parameters[0] * (values[Helper.TREE_CHILD_VALUE] / (values[Helper.TREE_CHILD_VISITS] + this.epsilon)) +
                 parameters[1] * values[Helper.TREE_CHILD_MAX_VALUE] +
@@ -46,7 +46,7 @@ public class UCBEvoEquation implements UCBEquation {
                 parameters[8] * Math.pow(values[Helper.DISTANCE_MIN_PORTAL] + this.epsilon, parameters[9]) +
                 parameters[10] * Math.pow(values[Helper.DISTANCE_MIN_MOVABLE] + this.epsilon, parameters[11]) +
                 parameters[12] * Math.pow(values[Helper.DISTANCE_MIN_RESOURCE] + this.epsilon, parameters[13]);
-        
+
         return uctValue;
     }
     /**
@@ -69,7 +69,7 @@ public class UCBEvoEquation implements UCBEquation {
             temp[i] = (int)parameters[i] + ((int)((parameters[i] - (int)parameters[i]) * 1000)) / 1000.0;
             term[i] = !(Math.abs(temp[i]) <= this.epsilon);
         }
-        
+
         String result = "UCB = " +
                 (term[0]?(temp[0] + " * average(X(j)) + "):"") +
                 (term[1]?(temp[1] + " * max(X(j)) + "):"") +

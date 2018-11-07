@@ -13,20 +13,20 @@ import ontology.effects.Effect;
  */
 public class KillSprite extends Effect {
 
-	public KillSprite(InteractionContent cnt) {
-		is_kill_effect = true;
-		this.parseParameters(cnt);
-	}
+    public KillSprite(InteractionContent cnt) {
+        is_kill_effect = true;
+        this.parseParameters(cnt);
+    }
 
-	@Override
-	public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
-		if (sprite1 == null) {
-			Logger.getInstance()
-					.addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with KillSprite interaction."));
-			return;
-		}
+    @Override
+    public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
+        if (sprite1 == null) {
+            Logger.getInstance()
+                    .addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with KillSprite interaction."));
+            return;
+        }
 
-		// boolean variable set to false to indicate the sprite was not transformed
-		game.killSprite(sprite1, false);
-	}
+        // boolean variable set to false to indicate the sprite was not transformed
+        game.killSprite(sprite1, false);
+    }
 }

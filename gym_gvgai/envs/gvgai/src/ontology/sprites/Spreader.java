@@ -15,67 +15,67 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Spreader extends Flicker {
-	// Creates copies of itself (or another type `stype` if specified) in all BASEDIRS
-	// with probability `spreadprob`.
-	
-	public double spreadprob;
-	public String stype;
-	public int itype;
+    // Creates copies of itself (or another type `stype` if specified) in all BASEDIRS
+    // with probability `spreadprob`.
 
-	public Spreader() {
-	}
+    public double spreadprob;
+    public String stype;
+    public int itype;
 
-	public Spreader(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public Spreader() {
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-		spreadprob = 1.0;
-	}
+    public Spreader(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	public void postProcess() {
-		super.postProcess();
-		itype = -1;
-		if (stype != null)
-			itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype);
-	}
+    protected void loadDefaults() {
+        super.loadDefaults();
+        spreadprob = 1.0;
+    }
 
-	public void update(Game game) {
-		super.update(game);
-		if (age == 2) {
-			for (Vector2d u : Types.BASEDIRS) {
-				if (game.getRandomGenerator().nextDouble() < spreadprob) {
-					int newType = (itype == -1) ? this.getType() : itype;
-					game.addSprite(newType, new Vector2d(this.lastrect.x + u.x * this.lastrect.width,
-							this.lastrect.y + u.y * this.lastrect.height));
-				}
-			}
-		}
-	}
+    public void postProcess() {
+        super.postProcess();
+        itype = -1;
+        if (stype != null)
+            itype = VGDLRegistry.GetInstance().getRegisteredSpriteValue(stype);
+    }
 
-	public VGDLSprite copy() {
-		Spreader newSprite = new Spreader();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    public void update(Game game) {
+        super.update(game);
+        if (age == 2) {
+            for (Vector2d u : Types.BASEDIRS) {
+                if (game.getRandomGenerator().nextDouble() < spreadprob) {
+                    int newType = (itype == -1) ? this.getType() : itype;
+                    game.addSprite(newType, new Vector2d(this.lastrect.x + u.x * this.lastrect.width,
+                            this.lastrect.y + u.y * this.lastrect.height));
+                }
+            }
+        }
+    }
 
-	public void copyTo(VGDLSprite target) {
-		Spreader targetSprite = (Spreader) target;
-		targetSprite.spreadprob = this.spreadprob;
-		targetSprite.stype = this.stype;
-		((Spreader) target).itype = this.itype;
-		super.copyTo(targetSprite);
-	}
+    public VGDLSprite copy() {
+        Spreader newSprite = new Spreader();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
 
-	@Override
-	public ArrayList<String> getDependentSprites() {
-		ArrayList<String> result = new ArrayList<String>();
-		if (stype != null)
-			result.add(stype);
+    public void copyTo(VGDLSprite target) {
+        Spreader targetSprite = (Spreader) target;
+        targetSprite.spreadprob = this.spreadprob;
+        targetSprite.stype = this.stype;
+        ((Spreader) target).itype = this.itype;
+        super.copyTo(targetSprite);
+    }
 
-		return result;
-	}
+    @Override
+    public ArrayList<String> getDependentSprites() {
+        ArrayList<String> result = new ArrayList<String>();
+        if (stype != null)
+            result.add(stype);
+
+        return result;
+    }
 }

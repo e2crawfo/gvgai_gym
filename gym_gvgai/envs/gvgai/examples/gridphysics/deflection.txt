@@ -19,7 +19,7 @@ BasicGame square_size=25
         p > emptyPlanet background
         w > nebula background
         a > atmosphere background
-		
+
     InteractionSet
 
         avatar nebula > subtractHealthPoints scoreChange=-1

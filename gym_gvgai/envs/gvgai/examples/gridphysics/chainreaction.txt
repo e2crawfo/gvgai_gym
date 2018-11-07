@@ -31,12 +31,12 @@ BasicGame key_handler=Pulse
         masterBoulder avatar  > transformTo stype=mboulderm
         mboulderm avatar > attractGaze
         avatar normalBoulder masterBoulder > stepBack
-    
+
         avatar wall > stepBack
         box avatar  > bounceForward
         box wall box hole goal   > undoAll
         box boulder > stepBack
-        
+
         avatar wall > stepBack
 
         mboulderm wall > transformTo stype=masterBoulder

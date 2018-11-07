@@ -13,32 +13,32 @@ import tools.Vector2d;
  */
 public class OrientedFlicker extends Flicker {
 
-	public OrientedFlicker() {
-	}
+    public OrientedFlicker() {
+    }
 
-	public OrientedFlicker(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public OrientedFlicker(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-		speed = 0;
-	}
+    protected void loadDefaults() {
+        super.loadDefaults();
+        speed = 0;
+    }
 
-	public void update(Game game) {
-		super.update(game);
-	}
+    public void update(Game game) {
+        super.update(game);
+    }
 
-	public VGDLSprite copy() {
-		OrientedFlicker newSprite = new OrientedFlicker();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    public VGDLSprite copy() {
+        OrientedFlicker newSprite = new OrientedFlicker();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
 
-	public void copyTo(VGDLSprite target) {
-		OrientedFlicker targetSprite = (OrientedFlicker) target;
-		super.copyTo(targetSprite);
-	}
+    public void copyTo(VGDLSprite target) {
+        OrientedFlicker targetSprite = (OrientedFlicker) target;
+        super.copyTo(targetSprite);
+    }
 }

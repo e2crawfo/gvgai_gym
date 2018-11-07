@@ -5,7 +5,7 @@ BasicGame square_size=30 key_handler=Pulse
         floor > Immovable autotiling=true img=oryx/grass hidden=True
         wall  > Immovable img=oryx/bush5
         goal  > Immovable color=GREEN img=oryx/doorclosed1 portal=True
-        
+
         forest > SpawnPoint stype=log prob=0.25  cooldown=10 img=oryx/seaWater
             forestR > stype=logR
             forestL > stype=logL

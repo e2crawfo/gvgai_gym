@@ -13,7 +13,7 @@ public class AvatarNumberConstraint extends AbstractConstraint{
      * Object for game analyzer
      */
     public GameAnalyzer gameAnalyzer;
-    
+
     /**
      * Check if there is only 1 avatar in the level
      * @return  1 if constraint is staisfied and 0 otherwise
@@ -26,7 +26,7 @@ public class AvatarNumberConstraint extends AbstractConstraint{
                 totalAvatars += numOfObjects.get(avatar);
             }
         }
-        
+
         return totalAvatars == 1? 1:0;
     }
 

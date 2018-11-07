@@ -12,28 +12,28 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Passive extends VGDLSprite {
-	public Passive() {
-	}
+    public Passive() {
+    }
 
-	public Passive(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public Passive(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-		color = Types.RED;
-	}
+    protected void loadDefaults() {
+        super.loadDefaults();
+        color = Types.RED;
+    }
 
-	public VGDLSprite copy() {
-		Passive newSprite = new Passive();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    public VGDLSprite copy() {
+        Passive newSprite = new Passive();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
 
-	public void copyTo(VGDLSprite target) {
-		Passive targetSprite = (Passive) target;
-		super.copyTo(targetSprite);
-	}
+    public void copyTo(VGDLSprite target) {
+        Passive targetSprite = (Passive) target;
+        super.copyTo(targetSprite);
+    }
 }

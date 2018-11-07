@@ -18,9 +18,9 @@ import tools.ElapsedCpuTimer;
  */
 public abstract class AbstractPlayer extends Player {
 
-	@Override
-	public Types.ACTIONS act(StateObservationMulti stateObs, ElapsedCpuTimer elapsedTimer) {
-		return Types.ACTIONS.ACTION_NIL;
-	}
+    @Override
+    public Types.ACTIONS act(StateObservationMulti stateObs, ElapsedCpuTimer elapsedTimer) {
+        return Types.ACTIONS.ACTION_NIL;
+    }
 
 }

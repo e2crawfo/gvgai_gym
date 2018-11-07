@@ -18,7 +18,7 @@ public class DeathConstraint extends AbstractConstraint{
      * the end state of the do nothing algorithm
      */
     public Types.WINNER doNothingState;
-    
+
     /**
      * Check if the do nothing player staisfy the minDoNothingSteps and didn't win
      * @return  1 if the do nothing player didn't win and statisfy the minDoNothingSteps

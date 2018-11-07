@@ -27,7 +27,7 @@ public class HalfSpeed extends Effect {
         Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with HalfSpeed interaction."));
         return;
     }
-    
+
         sprite1.speed *= 0.5;
     }
 }

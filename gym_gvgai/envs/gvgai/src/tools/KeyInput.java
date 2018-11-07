@@ -8,26 +8,26 @@ import java.awt.event.KeyEvent;
  */
 public class KeyInput extends KeyHandler {
 
-	/**
-	 * Manages KeyPressed events
-	 * 
-	 * @param e the event.
-	 */
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		key_mask[key] = true;
-	}
+    /**
+     * Manages KeyPressed events
+     *
+     * @param e the event.
+     */
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+        key_mask[key] = true;
+    }
 
-	/**
-	 * Manages keyReleased events
-	 * 
-	 * @param e the event.
-	 */
-	@Override
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-		key_mask[key] = false;
+    /**
+     * Manages keyReleased events
+     *
+     * @param e the event.
+     */
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+        key_mask[key] = false;
 
-	}
+    }
 }

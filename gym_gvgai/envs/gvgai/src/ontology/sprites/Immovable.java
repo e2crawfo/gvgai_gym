@@ -12,36 +12,36 @@ import tools.Vector2d;
  * Java port from Tom Schaul's VGDL - https://github.com/schaul/py-vgdl
  */
 public class Immovable extends VGDLSprite {
-	// A static object. In order to make something that objects can't move through,
-	// need to use the `step_back` effect.
-	
-	public Immovable() {
-	}
+    // A static object. In order to make something that objects can't move through,
+    // need to use the `step_back` effect.
 
-	public Immovable(Vector2d position, Dimension size, SpriteContent cnt) {
-		this.init(position, size);
-		loadDefaults();
-		this.parseParameters(cnt);
-	}
+    public Immovable() {
+    }
 
-	public void postProcess() {
-		super.postProcess();
-	}
+    public Immovable(Vector2d position, Dimension size, SpriteContent cnt) {
+        this.init(position, size);
+        loadDefaults();
+        this.parseParameters(cnt);
+    }
 
-	protected void loadDefaults() {
-		super.loadDefaults();
-		color = Types.GRAY;
-		is_static = true;
-	}
+    public void postProcess() {
+        super.postProcess();
+    }
 
-	public VGDLSprite copy() {
-		Immovable newSprite = new Immovable();
-		this.copyTo(newSprite);
-		return newSprite;
-	}
+    protected void loadDefaults() {
+        super.loadDefaults();
+        color = Types.GRAY;
+        is_static = true;
+    }
 
-	public void copyTo(VGDLSprite target) {
-		Immovable targetSprite = (Immovable) target;
-		super.copyTo(targetSprite);
-	}
+    public VGDLSprite copy() {
+        Immovable newSprite = new Immovable();
+        this.copyTo(newSprite);
+        return newSprite;
+    }
+
+    public void copyTo(VGDLSprite target) {
+        Immovable targetSprite = (Immovable) target;
+        super.copyTo(targetSprite);
+    }
 }

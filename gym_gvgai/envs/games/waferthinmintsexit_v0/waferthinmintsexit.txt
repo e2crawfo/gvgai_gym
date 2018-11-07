@@ -2,21 +2,21 @@ BasicGame
     SpriteSet
         wall > Immovable color=GRAY img=newset/wallRed
         floor > Immovable color=RED img=newset/tile3
-        
+
         moving >
             avatar  > MovingAvatar color=BLACK img=newset/niceGuy
             waiter  > Bomber  cooldown=4 color=WHITE img=newset/chef prob=0.2 stype=wfm random_movement=True
         wfm > Resource color=GREEN img=newset/butter limit=11
         exit > Immovable img=newset/exit
-        
+
     InteractionSet
         moving wall > stepBack
         wfm avatar > collectResource scoreChange=1
         avatar wfm > killIfHasMore limit=10 resource=wfm
-        wfm avatar > killSprite 
+        wfm avatar > killSprite
         wfm wfm > killBoth
         exit avatar > killSprite
-    
+
     LevelMapping
         w > wall
         . > floor
@@ -24,7 +24,7 @@ BasicGame
         m > floor wfm
         e > floor waiter
         x > floor exit
-    
+
     TerminationSet
         SpriteCounter stype=avatar limit=0 win=false
         SpriteCounter stype=exit limit=0 win=true

@@ -16,7 +16,7 @@ public class Agent extends AbstractPlayer{
      */
     public Agent(StateObservation stateObs, ElapsedCpuTimer elapsedTimer){
     }
-    
+
     /**
      * return ACTION_NIL on every call to simulate doNothing player
      * @param stateObs Observation of the current state.

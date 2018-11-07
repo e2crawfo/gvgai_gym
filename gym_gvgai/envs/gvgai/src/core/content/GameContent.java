@@ -8,53 +8,53 @@ import java.util.HashMap;
  */
 public class GameContent extends Content {
 
-	/**
-	 * Class of the element defined by this content. It is only assigned when
-	 * processing the tree of contents.
-	 */
-	public String referenceClass;
+    /**
+     * Class of the element defined by this content. It is only assigned when
+     * processing the tree of contents.
+     */
+    public String referenceClass;
 
-	/**
-	 * Default constructor.
-	 */
-	public GameContent() {
-	}
+    /**
+     * Default constructor.
+     */
+    public GameContent() {
+    }
 
-	/**
-	 * Constructor that extracts the contents from a String line
-	 * 
-	 * @param line String with the contents in VGDL format, to be mapped to the data
-	 *             structures of this class.
-	 */
-	public GameContent(String line) {
-		super();
-		this.referenceClass = null;
-		this.line = line;
-		this.is_definition = false;
+    /**
+     * Constructor that extracts the contents from a String line
+     *
+     * @param line String with the contents in VGDL format, to be mapped to the data
+     *             structures of this class.
+     */
+    public GameContent(String line) {
+        super();
+        this.referenceClass = null;
+        this.line = line;
+        this.is_definition = false;
 
-		// Init structures of node content.
-		parameters = new HashMap<String, String>();
+        // Init structures of node content.
+        parameters = new HashMap<String, String>();
 
-		// Take the pieces and the first one is the name that defines the content
-		String pieces[] = line.split(" ");
-		referenceClass = pieces[0].trim();
+        // Take the pieces and the first one is the name that defines the content
+        String pieces[] = line.split(" ");
+        referenceClass = pieces[0].trim();
 
-		// Take the other pieces and extract properties and parameters key-value.
-		for (int i = 1; i < pieces.length; ++i) {
-			String piece = pieces[i].trim();
-			if (piece.contains("=")) {
-				String keyValue[] = piece.split("=");
-				String key = keyValue[0];
-				String value = keyValue[1];
+        // Take the other pieces and extract properties and parameters key-value.
+        for (int i = 1; i < pieces.length; ++i) {
+            String piece = pieces[i].trim();
+            if (piece.contains("=")) {
+                String keyValue[] = piece.split("=");
+                String key = keyValue[0];
+                String value = keyValue[1];
 
-				parameters.put(key, value);
-			}
-		}
-	}
+                parameters.put(key, value);
+            }
+        }
+    }
 
-	@Override
-	public void decorate(HashMap<String, ParameterContent> pcs) {
-		// Nothing to do here, for the moment.
-	}
+    @Override
+    public void decorate(HashMap<String, ParameterContent> pcs) {
+        // Nothing to do here, for the moment.
+    }
 
 }

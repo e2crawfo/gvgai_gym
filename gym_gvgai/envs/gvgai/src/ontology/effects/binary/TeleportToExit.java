@@ -17,41 +17,41 @@ import tools.Utils;
  */
 public class TeleportToExit extends Effect {
 
-	public TeleportToExit(InteractionContent cnt) {
-		this.parseParameters(cnt);
-	}
+    public TeleportToExit(InteractionContent cnt) {
+        this.parseParameters(cnt);
+    }
 
-	@Override
-	public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
-		// Teleport sprite1 to a random instance of sprite2's `stype` value. Otherwise, kill sprite1.
-		// Kind of acts like a random portal.
-		
-		if (sprite1 == null || sprite2 == null) {
-			Logger.getInstance().addMessage(new Message(Message.WARNING,
-					"Neither the 1st nor 2nd sprite can be EOS with TeleportToExit interaction."));
-			return;
-		}
+    @Override
+    public void execute(VGDLSprite sprite1, VGDLSprite sprite2, Game game) {
+        // Teleport sprite1 to a random instance of sprite2's `stype` value. Otherwise, kill sprite1.
+        // Kind of acts like a random portal.
 
-		int destinationId = VGDLFactory.GetInstance().requestFieldValueInt(sprite2, "itype");
-		Collection<VGDLSprite> sprites = null;
-		if (destinationId != -1) {
-			sprites = game.getSprites(destinationId);
-		} else {
-			Logger.getInstance().addMessage(new Message(Message.WARNING,
-					"Ignoring TeleportToExit effect as " + sprite2.name + " isn't of type portal."));
-			return;
-		}
+        if (sprite1 == null || sprite2 == null) {
+            Logger.getInstance().addMessage(new Message(Message.WARNING,
+                    "Neither the 1st nor 2nd sprite can be EOS with TeleportToExit interaction."));
+            return;
+        }
 
-		if (sprites.size() > 0) {
-			VGDLSprite destination = (VGDLSprite) Utils.choice(sprites.toArray(), game.getRandomGenerator());
-			sprite1.setRect(destination.rect);
-			sprite1.lastmove = 0;
+        int destinationId = VGDLFactory.GetInstance().requestFieldValueInt(sprite2, "itype");
+        Collection<VGDLSprite> sprites = null;
+        if (destinationId != -1) {
+            sprites = game.getSprites(destinationId);
+        } else {
+            Logger.getInstance().addMessage(new Message(Message.WARNING,
+                    "Ignoring TeleportToExit effect as " + sprite2.name + " isn't of type portal."));
+            return;
+        }
 
-			sprite1.orientation = destination.orientation.copy();
-		} else {
-			// If there is no exit... kill the sprite
-			// boolean variable set to false to indicate the sprite was not transformed
-			game.killSprite(sprite1, false);
-		}
-	}
+        if (sprites.size() > 0) {
+            VGDLSprite destination = (VGDLSprite) Utils.choice(sprites.toArray(), game.getRandomGenerator());
+            sprite1.setRect(destination.rect);
+            sprite1.lastmove = 0;
+
+            sprite1.orientation = destination.orientation.copy();
+        } else {
+            // If there is no exit... kill the sprite
+            // boolean variable set to false to indicate the sprite was not transformed
+            game.killSprite(sprite1, false);
+        }
+    }
 }

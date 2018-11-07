@@ -48,7 +48,7 @@ public class SpawnIfCounterSubTypes extends Effect {
         Logger.getInstance().addMessage(new Message(Message.WARNING, "1st sprite can't be EOS with SpawnIfCounterSubTypes interaction."));
         return;
     }
-    
+
         applyScore = false;
         count=false;
 
@@ -89,7 +89,7 @@ public class SpawnIfCounterSubTypes extends Effect {
     public ArrayList<String> getEffectSprites(){
         ArrayList<String> result = new ArrayList<String>();
         if(stype!=null) result.add(stype);
-        
+
         return result;
     }
 }
