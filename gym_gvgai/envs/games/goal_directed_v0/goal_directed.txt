@@ -3,17 +3,22 @@ BasicGame obs=wall square_size=40
     floor > Immovable arrow_color=BLACK color=WHITE draw_arrow=False hidden=True shape=square
     wall > Immovable arrow_color=WHITE color=BLACK draw_arrow=False shape=square
     top_level >
-      yellow > ShootAvatar arrow_color=BLACK color=YELLOW fixed_orientation=False force_missile_orientation=True healthPoints=2 linear_movement=False missile_on_top=False orientation=NONE speed=0.5 stype=brown
-      brown > Missile arrow_color=WHITE color=BROWN orientation=NONE shape=square speed=1.5
+      orange > MovingAvatar arrow_color=BLACK color=ORANGE fixed_orientation=True linear_movement=True orientation=NONE
+      blue > GoalDirected arrow_color=WHITE chase=orange color=BLUE healthPoints=2 path=True shape=square speed=1
+      yellow > GoalDirected arrow_color=BLACK color=YELLOW flee=orange healthPoints=2 path=True shape=triangle speed=1
   LevelMapping
-    Y > floor yellow
-    b > floor brown
+    O > floor orange
+    b > floor blue
+    y > floor yellow
     w > floor wall
     . > floor
   InteractionSet
     top_level wall > stepBack
-    brown yellow > stepBack
-    yellow yellow > killSprite scoreChange=2
-    brown brown > stepBack
+    yellow blue > stepBack
+    yellow orange > killSprite scoreChange=3
+    orange orange > killSprite scoreChange=2
+    yellow yellow > stepBack
+    blue blue > killSprite scoreChange=-1
+    orange blue > stepBack
   TerminationSet
     Timeout limit=20

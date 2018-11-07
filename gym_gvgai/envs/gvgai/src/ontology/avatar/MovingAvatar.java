@@ -80,10 +80,14 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * This update call is for the game tick() loop.
-     * 
+     *
      * @param game current state of the game.
      */
     public void updateAvatar(Game game, boolean requestInput, boolean[] actionMask) {
+        if (orientation.equals(Types.DNONE)) {
+            orientation = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
+        }
+
         lastMovementType = Types.MOVEMENT.STILL;
 
         Direction action;
@@ -119,8 +123,9 @@ public class MovingAvatar extends VGDLSprite {
 
     public void applyMovement(Game game, Direction action) {
         // this.physics.passiveMovement(this);
-        if (physicstype != Types.GRID)
+        if (physicstype != Types.GRID) {
             super.updatePassive();
+        }
 
         if (filterDirs(action)) {
             lastMovementType = this.physics.activeMovement(this, action, speed);
@@ -130,7 +135,7 @@ public class MovingAvatar extends VGDLSprite {
     /**
      * Requests the controller's input, setting the game.ki.action mask with the
      * processed data.
-     * 
+     *
      * @param game
      */
     protected void requestPlayerInput(Game game) {
@@ -178,7 +183,7 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Gets the key handler of this avatar.
-     * 
+     *
      * @return - KeyHandler object.
      */
     public KeyHandler getKeyHandler() {
@@ -187,18 +192,20 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Sets the key handler of this avatar.
-     * 
+     *
      * @param k - new KeyHandler object.
      */
     public void setKeyHandler(KeyHandler k) {
-        if (k instanceof KeyInput)
+        if (k instanceof KeyInput) {
             ki = new KeyInput();
-        else ki = k;
+        } else {
+            ki = k;
+        }
     }
 
     /**
      * Checks whether this player is disqualified.
-     * 
+     *
      * @return true if disqualified, false otherwise.
      */
     public boolean is_disqualified() {
@@ -214,7 +221,7 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Gets the score of this player.
-     * 
+     *
      * @return score.
      */
     public double getScore() {
@@ -223,7 +230,7 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Sets the score of this player to a new value.
-     * 
+     *
      * @param s - new score.
      */
     public void setScore(double s) {
@@ -232,7 +239,7 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Adds a value to the current score of this player.
-     * 
+     *
      * @param s - value to add to the score.
      */
     public void addScore(double s) {
@@ -241,7 +248,7 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Gets the win state of this player.
-     * 
+     *
      * @return - win state, value of Types.WINNER
      */
     public Types.WINNER getWinState() {
@@ -250,7 +257,7 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Sets the win state of this player.
-     * 
+     *
      * @param w - new win state.
      */
     public void setWinState(Types.WINNER w) {
@@ -259,7 +266,7 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Get this player's ID.
-     * 
+     *
      * @return player ID.
      */
     public int getPlayerID() {
@@ -268,7 +275,7 @@ public class MovingAvatar extends VGDLSprite {
 
     /**
      * Set this player's ID to a new value.
-     * 
+     *
      * @param id - new player ID.
      */
     public void setPlayerID(int id) {

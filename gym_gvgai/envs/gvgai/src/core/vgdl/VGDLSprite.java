@@ -421,11 +421,6 @@ public abstract class VGDLSprite {
                 (Integer) Utils.choice(Types.COLOR_DISC, colorRnd), (Integer) Utils.choice(Types.COLOR_DISC, colorRnd));
     }
 
-    private void setRandomOrientation() {
-        Random rand = new Random();
-        this.orientation = (Direction) Utils.choice(Types.DBASEDIRS, rand);
-    }
-
     /**
      * Parses parameters for the sprite, received as a SpriteContent object.
      *
@@ -468,10 +463,6 @@ public abstract class VGDLSprite {
      * @param game the current game that is being played.
      */
     public void update(Game game) {
-        if (orientation.equals(Types.DNONE)) {
-            this.orientation = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
-        }
-
         updatePassive();
         if (timeToLive > -1) {
             if (timeToLive > 0) {
