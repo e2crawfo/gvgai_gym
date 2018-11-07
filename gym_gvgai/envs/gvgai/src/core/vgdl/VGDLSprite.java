@@ -118,6 +118,8 @@ public abstract class VGDLSprite {
 	 * Orientation of the sprite.
 	 */
 	public Direction orientation;
+	
+	public boolean fixed_orientation;
 
 	/**
 	 * Whether or not to draw the orientation arrow.
@@ -367,6 +369,7 @@ public abstract class VGDLSprite {
 		frameRemaining = 0;
 		currentFrame = -1;
 		orientation = Types.DNONE;
+		fixed_orientation = false;
 		draw_arrow = true;
 		shape = "circle";
 		lastmove = 0;
@@ -547,10 +550,16 @@ public abstract class VGDLSprite {
 	 *         oriented is the same as the one passed in.
 	 */
 	public boolean _updateOrientation(Direction orientation) {
+		if (this.fixed_orientation) {
+			return false;
+		}
+		
 		if (this.orientation.equals(orientation)) {
 			return false;
 		}
+		
 		this.orientation = orientation.copy();
+		
 		return true;
 	}
 
@@ -1066,6 +1075,7 @@ public abstract class VGDLSprite {
 		toSprite.physics = this.physics; // Object reference, but should be ok.
 		toSprite.shrinkfactor = this.shrinkfactor;
 		toSprite.orientation = new Direction(orientation.x(), orientation.y());
+        toSprite.fixed_orientation = this.fixed_orientation;
 		toSprite.draw_arrow = this.draw_arrow;
 		toSprite.shape = this.shape;
 		toSprite.rect = new Rectangle(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
@@ -1172,6 +1182,9 @@ public abstract class VGDLSprite {
 			return false;
 		}
 		if (other.shrinkfactor != this.shrinkfactor) {
+			return false;
+		}
+		if (other.fixed_orientation != this.fixed_orientation) {
 			return false;
 		}
 		if (!other.orientation.equals(this.orientation)) {

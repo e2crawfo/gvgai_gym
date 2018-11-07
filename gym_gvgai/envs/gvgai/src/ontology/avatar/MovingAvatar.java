@@ -27,10 +27,9 @@ public class MovingAvatar extends VGDLSprite {
     private int playerID;
     private double score = 0.0;
     private Types.WINNER winState = Types.WINNER.NO_WINNER;
-    
-	boolean fixed_orientation;
-	boolean linear_movement;
-
+	
+	public boolean linear_movement;
+	
     /**
      * Disqualified flag, moved from Game class to individual players,
      * as there may be more than 1 in a game; variable still in Game
@@ -59,9 +58,7 @@ public class MovingAvatar extends VGDLSprite {
         speed = 1;
         is_avatar = true;
         is_disqualified = false;
-		rotateInPlace = true;
-		orientation = Types.DRIGHT.copy();
-		fixed_orientation = false;
+		rotateInPlace = false;
 		linear_movement = false;
     }
     
@@ -103,17 +100,8 @@ public class MovingAvatar extends VGDLSprite {
             action = Utils.processMovementActionKeys(actionMask, getPlayerID());
         }
 
-        //Apply the physical movement.
+        // Apply the physical movement.
         applyMovement(game, action);
-        
-		// If moving, update orientation in direction of the move.
-		if (!fixed_orientation && lastMovementType == Types.MOVEMENT.MOVE) {
-			if (physicstype == 0) {
-				Vector2d dir = lastDirection();
-				dir.normalise();
-				orientation = new Direction(dir.x, dir.y);
-			}
-		}
     }
     
     public boolean filterDirs(Direction dir) {
@@ -133,6 +121,7 @@ public class MovingAvatar extends VGDLSprite {
         //this.physics.passiveMovement(this);
         if (physicstype != Types.GRID)
             super.updatePassive();
+        
         if (filterDirs(action)) {
         	lastMovementType = this.physics.activeMovement(this, action, speed);
         }
@@ -281,7 +270,7 @@ public class MovingAvatar extends VGDLSprite {
         targetSprite.playerID = this.playerID;
         targetSprite.winState = this.winState;
         targetSprite.score = this.score;
-        targetSprite.fixed_orientation = this.fixed_orientation;
+        targetSprite.linear_movement = this.linear_movement;
 
         //copy key handler
         targetSprite.setKeyHandler(this.getKeyHandler());
