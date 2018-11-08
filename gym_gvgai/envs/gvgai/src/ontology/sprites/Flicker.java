@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import core.content.SpriteContent;
 import core.game.Game;
 import core.vgdl.VGDLSprite;
-import ontology.Types;
 import tools.Vector2d;
 
 /**
@@ -31,7 +30,6 @@ public class Flicker extends VGDLSprite {
         super.loadDefaults();
         limit = 1;
         age = 0;
-        color = Types.RED;
     }
 
     public void update(Game game) {

@@ -30,6 +30,7 @@ public class ShootAvatar extends MovingAvatar {
     public int[] itype;
 
     public boolean force_missile_orientation;
+    public boolean missile_on_top;
 
     public ShootAvatar() {
     }
@@ -49,6 +50,7 @@ public class ShootAvatar extends MovingAvatar {
         stypes = new String[MAX_WEAPONS];
         itype = new int[MAX_WEAPONS];
         force_missile_orientation = false;
+        missile_on_top = false;
     }
 
     /**
@@ -78,7 +80,13 @@ public class ShootAvatar extends MovingAvatar {
         Vector2d dir = this.orientation.getVector();
         dir.normalise();
 
-        Vector2d missile_loc = new Vector2d(this.rect.x, this.rect.y);
+        Vector2d missile_loc;
+        if (missile_on_top) {
+            missile_loc = new Vector2d(this.rect.x, this.rect.y);
+        } else {
+            missile_loc = new Vector2d(this.rect.x + dir.x * this.lastrect.width,
+                    this.rect.y + dir.y * this.lastrect.height);
+        }
 
         VGDLSprite added = game.addSprite(itype[idx], missile_loc);
 
@@ -137,6 +145,7 @@ public class ShootAvatar extends MovingAvatar {
         targetSprite.ammoId = this.ammoId.clone();
         targetSprite.ammos = this.ammos.clone();
         targetSprite.force_missile_orientation = this.force_missile_orientation;
+        targetSprite.missile_on_top = this.missile_on_top;
 
         super.copyTo(targetSprite);
     }

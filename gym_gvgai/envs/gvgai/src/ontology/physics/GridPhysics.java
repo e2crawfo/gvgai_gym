@@ -27,7 +27,7 @@ public class GridPhysics implements Physics {
 
     /**
      * Constructor of the physics, specifying the gridsize
-     * 
+     *
      * @param gridsize Size of the grid.
      */
     public GridPhysics(Dimension gridsize) {
@@ -59,14 +59,6 @@ public class GridPhysics implements Physics {
     @Override
     public Types.MOVEMENT activeMovement(VGDLSprite sprite, Direction action, double speed) {
         if (!sprite.stationary) {
-            if (speed == 0) {
-                if (sprite.speed <= 0) {
-                    speed = 1;
-                } else {
-                    speed = sprite.speed;
-                }
-            }
-
             if (speed != 0 && action != null && !action.equals(Types.DNONE)) {
                 // If `rotateInPlace=true`, then an action is required just for rotating.
                 // otherwise, an action is not required for rotating, orientation is updated to
@@ -87,7 +79,7 @@ public class GridPhysics implements Physics {
 
     /**
      * Hamming distance between two rectangles.
-     * 
+     *
      * @param r1 rectangle 1
      * @param r2 rectangle 2
      * @return Hamming distance between the top-left corner of the rectangles.
