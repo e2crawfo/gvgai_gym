@@ -3,8 +3,7 @@ BasicGame square_size=40 obs=wall
     floor > Immovable hidden=True draw_arrow=False shape=square color=WHITE arrow_color=BLACK
     wall > Immovable draw_arrow=False shape=square color=BLACK arrow_color=WHITE
     top_level >
-      red > ShootAvatar healthPoints=3 orientation=DOWN rotateInPlace=False force_missile_orientation=True fixed_orientation=False linear_movement=False speed=1 stype=blue color=RED arrow_color=WHITE shape=triangle missile_on_top=True
-      # red > ShootAvatar healthPoints=3 orientation=DOWN force_missile_orientation=False fixed_orientation=True linear_movement=False speed=1 stype=blue color=RED arrow_color=WHITE shape=triangle missile_on_top=True
+      red > ShootAvatar healthPoints=3 orientation=DOWN rotateInPlace=False force_missile_orientation=True fixed_orientation=False linear_movement=False speed=1 stype=blue color=RED arrow_color=WHITE shape=triangle
       blue > Missile color=BLUE orientation=RIGHT arrow_color=WHITE speed=0.5 healthPoints=1
   LevelMapping
     R > floor red

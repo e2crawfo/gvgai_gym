@@ -8,6 +8,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
@@ -85,7 +89,24 @@ public class VGDLViewer extends JComponent {
         g.fillRect(0, size.height, size.width, size.height);
 
         try {
-            int[] gameSpriteOrder = game.getSpriteOrder();
+            // Shuffle sprite order to maximize sprite visibility, but keep wall and floor
+            // in current position.
+            int wall = VGDLRegistry.GetInstance().getRegisteredSpriteValue("wall");
+            int floor = VGDLRegistry.GetInstance().getRegisteredSpriteValue("floor");
+
+            List<Integer> gameSpriteOrder = Arrays.stream(game.getSpriteOrder()).boxed().collect(Collectors.toList());
+            int wall_idx = gameSpriteOrder.indexOf(wall);
+            int floor_idx = gameSpriteOrder.indexOf(floor);
+
+            Collections.shuffle(gameSpriteOrder, game.getRandomGenerator());
+
+            int new_wall_idx = gameSpriteOrder.indexOf(wall);
+            Collections.swap(gameSpriteOrder, wall_idx, new_wall_idx);
+
+            int new_floor_idx = gameSpriteOrder.indexOf(floor);
+            Collections.swap(gameSpriteOrder, floor_idx, new_floor_idx);
+
+            // Draw sprites in selected order
             if (this.spriteGroups != null) {
                 for (Integer spriteTypeInt : gameSpriteOrder) {
                     if (spriteGroups[spriteTypeInt] != null) {

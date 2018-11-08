@@ -341,6 +341,8 @@ public class VGDLParser {
 
         _parseSprites(elements, null, new HashMap<String, String>(), new ArrayList<String>());
 
+        VGDLRegistry registry = VGDLRegistry.GetInstance();
+
         // Set the order of sprites.
         game.initSprites(spriteOrderTmp, singletonTmp, constructors);
     }
