@@ -1042,14 +1042,13 @@ public abstract class Game {
      * @param frame The frame whose title needs to be set.
      */
     private void setTitle(JEasyFrame frame) {
-        String sb = "";
-        sb += "Java-VGDL: ";
+        String sb = "Tick:" + this.getGameTick() + ", ";
+
         for (int i = 0; i < no_players; i++) {
             if (avatars[i] != null) {
-                sb += "Player" + i + "-Score:" + avatars[i].getScore() + ". ";
+                sb += "P" + i + ": " + avatars[i].getScore() + "," +  avatarLastAction[i];
             }
         }
-        sb += "Tick:" + this.getGameTick();
 
         // sb += " --Counter:";
         // for (int i = 0; i < no_counters; i++) {
@@ -1069,7 +1068,6 @@ public abstract class Game {
         }
 
         frame.setTitle(sb);
-
     }
 
     /**
