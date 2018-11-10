@@ -80,7 +80,7 @@ public class SpawnPointMultiSprite extends SpriteProducer {
                     // We set the orientation given by default it this was passed.
                     if (!spawnorientation.equals(Types.DNONE)) {
                         newSprite.orientation = spawnorientation.copy();
-                    } else if (newSprite.orientation.equals(Types.DNONE)) {
+                    } else {
                         newSprite.orientation = this.orientation.copy();
                     }
                 }

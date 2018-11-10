@@ -39,7 +39,6 @@ public class Flicker extends VGDLSprite {
             game.killSprite(this, false);
         }
         age++;
-
     }
 
     public VGDLSprite copy() {

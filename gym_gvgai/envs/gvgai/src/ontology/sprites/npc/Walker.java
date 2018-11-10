@@ -40,7 +40,7 @@ public class Walker extends VGDLSprite {
     }
 
     public void update(Game game) {
-        super.updatePassive();
+        super.updatePassive(game);
 
         double d;
         if (this.airsteering || this.lastDirection().x == 0) {

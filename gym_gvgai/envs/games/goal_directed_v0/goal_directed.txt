@@ -3,13 +3,15 @@ BasicGame obs=wall square_size=40
     floor > Immovable arrow_color=BLACK color=WHITE draw_arrow=False hidden=True shape=square
     wall > Immovable arrow_color=WHITE color=BLACK draw_arrow=False shape=square
     top_level >
-      orange > MovingAvatar arrow_color=BLACK color=ORANGE fixed_orientation=True linear_movement=True orientation=NONE
+      orange > MovingAvatar arrow_color=BLACK color=ORANGE fixed_orientation=False linear_movement=True orientation=NONE
+      green > Resource arrow_color=BLACK color=GREEN value=1 limit=2
       blue > GoalDirected arrow_color=WHITE chase=orange color=BLUE healthPoints=2 path=True shape=square speed=1
       yellow > GoalDirected arrow_color=BLACK color=YELLOW flee=orange healthPoints=2 path=True shape=triangle speed=1
   LevelMapping
     O > floor orange
     b > floor blue
     y > floor yellow
+    g > floor green
     w > floor wall
     . > floor
   InteractionSet
@@ -21,4 +23,4 @@ BasicGame obs=wall square_size=40
     blue blue > killSprite scoreChange=-1
     orange blue > stepBack
   TerminationSet
-    Timeout limit=20
+    Timeout limit=40

@@ -26,7 +26,6 @@ public class Resource extends Passive {
         loadDefaults();
         resource_name = cnt.identifier;
         this.parseParameters(cnt);
-
     }
 
     public void postProcess() {

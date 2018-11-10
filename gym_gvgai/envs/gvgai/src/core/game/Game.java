@@ -1449,8 +1449,7 @@ public abstract class Game {
         }
 
         // Secondly, we handle single sprite events (EOS). Take each sprite
-        // itype that has
-        // a EOS effect defined.
+        // itype that has a EOS effect defined.
         for (Integer intId : definedEOSEffects) {
             // For each effect that this sprite has assigned.
             for (Effect ef : eosEffects[intId]) {
@@ -1479,12 +1478,10 @@ public abstract class Game {
                     }
                 }
             }
-
         }
 
         // Now, we handle events between pairs of sprites, for each pair of
-        // sprites that
-        // has a paired effect defined:
+        // sprites that has a paired effect defined
         for (Pair<Integer, Integer> p : definedEffects) {
             // We iterate over the (potential) multiple effects that these
             // two sprites could have defined between them.

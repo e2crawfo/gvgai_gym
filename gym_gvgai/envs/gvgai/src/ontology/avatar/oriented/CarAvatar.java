@@ -53,7 +53,7 @@ public class CarAvatar extends OrientedAvatar {
     public void applyMovement(Game game, Direction action) {
         // this.physics.passiveMovement(this);
         if (physicstype != 0) {
-            super.updatePassive();
+            super.updatePassive(game);
         }
     }
 

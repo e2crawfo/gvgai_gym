@@ -463,7 +463,7 @@ public abstract class VGDLSprite {
      * @param game the current game that is being played.
      */
     public void update(Game game) {
-        updatePassive();
+        updatePassive(game);
         if (timeToLive > -1) {
             if (timeToLive > 0) {
                 timeToLive--;
@@ -531,7 +531,11 @@ public abstract class VGDLSprite {
     /**
      * Updates this sprite applying the passive movement.
      */
-    public void updatePassive() {
+    public void updatePassive(Game game) {
+    	if(orientation.equals(Types.DNONE)) {
+    		orientation = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
+    	}
+    	
         if (!is_static && !only_active) {
             physics.passiveMovement(this);
         }

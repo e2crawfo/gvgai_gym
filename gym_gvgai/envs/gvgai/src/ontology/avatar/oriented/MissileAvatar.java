@@ -43,7 +43,7 @@ public class MissileAvatar extends OrientedAvatar {
         }
 
         // MissileAvatar has no actions available. Just update movement.
-        super.updatePassive();
+        super.updatePassive(game);
     }
 
     public VGDLSprite copy() {

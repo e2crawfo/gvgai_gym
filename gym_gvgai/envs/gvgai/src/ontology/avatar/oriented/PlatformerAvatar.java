@@ -88,7 +88,7 @@ public class PlatformerAvatar extends MovingAvatar {
     public void applyMovement(Game game, Direction action) {
         // this.physics.passiveMovement(this);
         if (physicstype != 0) {
-            super.updatePassive();
+            super.updatePassive(game);
         }
         if (action.x() != 0.0 || action.y() != 0.0) {
             Direction new_action = new Direction(action.x() * ground_speedup_factor, action.y());

@@ -61,7 +61,7 @@ public class OngoingShootAvatar extends ShootAvatar {
         }
 
         // Update movement.
-        super.updatePassive();
+        super.updatePassive(game);
 
         if (canShoot || lastMovementType == Types.MOVEMENT.STILL) {
             updateUse(game);

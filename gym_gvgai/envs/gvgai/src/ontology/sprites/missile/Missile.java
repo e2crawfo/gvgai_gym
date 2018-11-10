@@ -29,14 +29,6 @@ public class Missile extends VGDLSprite {
         speed = 1;
     }
 
-    public void update(Game game) {
-        if (orientation.equals(Types.DNONE)) {
-            orientation = (Direction) Utils.choice(Types.DBASEDIRS, game.getRandomGenerator());
-        }
-
-        this.updatePassive();
-    }
-
     public VGDLSprite copy() {
         Missile newSprite = new Missile();
         this.copyTo(newSprite);

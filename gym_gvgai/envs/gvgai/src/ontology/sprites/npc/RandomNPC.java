@@ -54,7 +54,7 @@ public class RandomNPC extends VGDLSprite {
     }
 
     public void update(Game game) {
-        super.updatePassive();
+        super.updatePassive(game);
         Direction act = getRandomMove(game);
         this.physics.activeMovement(this, act, this.speed);
     }

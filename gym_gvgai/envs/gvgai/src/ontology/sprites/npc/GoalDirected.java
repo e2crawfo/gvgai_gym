@@ -76,7 +76,7 @@ public class GoalDirected extends RandomNPC {
 
     public boolean can_see(VGDLSprite s) {
         boolean canSee = false;
-        if (prevAction == Types.DNONE || prevAction == Types.DNIL) {
+        if (prevAction == Types.DNONE) {
             canSee = false;
         } else if (prevAction.equals(Types.DDOWN)) {
             if (s.rect.x == rect.x && s.rect.y >= rect.y) {
@@ -137,7 +137,7 @@ public class GoalDirected extends RandomNPC {
     }
 
     public void update(Game game) {
-        super.updatePassive();
+        super.updatePassive(game);
 
         ArrayList<VGDLSprite> targets = new ArrayList<VGDLSprite>();
         boolean do_random = game.getRandomGenerator().nextDouble() < epsilon;

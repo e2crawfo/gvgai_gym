@@ -47,7 +47,7 @@ public class ShootOnlyAvatar extends ShootAvatar {
 
     public void applyMovement(Game game, Direction action) {
         if (physicstype != 0) {
-            super.updatePassive();
+            super.updatePassive(game);
         }
     }
 

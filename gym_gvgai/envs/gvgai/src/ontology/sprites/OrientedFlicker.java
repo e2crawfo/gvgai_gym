@@ -27,10 +27,6 @@ public class OrientedFlicker extends Flicker {
         speed = 0;
     }
 
-    public void update(Game game) {
-        super.update(game);
-    }
-
     public VGDLSprite copy() {
         OrientedFlicker newSprite = new OrientedFlicker();
         this.copyTo(newSprite);

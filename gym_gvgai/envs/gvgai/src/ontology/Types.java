@@ -31,8 +31,7 @@ public class Types {
     public static final Vector2d UP = new Vector2d(0, -1);
     public static final Vector2d DOWN = new Vector2d(0, 1);
     public static final Vector2d[] BASEDIRS = new Vector2d[] { UP, LEFT, DOWN, RIGHT };
-
-    public static final Direction DNIL = new Direction(-1, -1);
+    
     public static final Direction DNONE = new Direction(0, 0);
     public static final Direction DRIGHT = new Direction(1, 0);
     public static final Direction DLEFT = new Direction(-1, 0);
@@ -84,9 +83,6 @@ public class Types {
     }
 
     private static String _v2DirStr(Vector2d v) {
-        if (v.equals(NIL)) {
-            return "DNIL";
-        }
         if (v.equals(NONE)) {
             return "DNONE";
         }

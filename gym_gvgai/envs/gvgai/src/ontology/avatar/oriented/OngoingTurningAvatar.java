@@ -72,7 +72,7 @@ public class OngoingTurningAvatar extends OrientedAvatar {
         }
 
         // Update movement.
-        super.updatePassive();
+        super.updatePassive(game);
 
         // Spawn behind:
         if (!this.rect.intersects(this.lastrect)) {
